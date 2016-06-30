@@ -1,6 +1,8 @@
 # Fake
 [![Build Status](https://travis-ci.org/cksac/fake-rs.svg?branch=master)](https://travis-ci.org/cksac/fake-rs)
-A library for generating fake data in Rust.
+[![Latest Version](https://img.shields.io/crates/v/fake.svg)](https://crates.io/crates/fake)
+
+A Rust library for generating fake data. Currently only works in Rust nightly.
 
 ##Installation
 Add fake to your Cargo.toml
@@ -57,7 +59,6 @@ println!("{:?}", Faker::user_name());
 println!("{:?}", Faker::free_email());
 println!("{:?}", Faker::safe_email());
 ```
-
 ##Contributing
 1. Fork the repo.
 3. Add a test for your change.
