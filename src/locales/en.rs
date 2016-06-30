@@ -1,4 +1,4 @@
-use ::{Fake};
+use ::Fake;
 
 pub struct Faker;
 

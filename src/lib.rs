@@ -11,20 +11,12 @@ pub mod locales;
 pub use locales::en::Faker;
 mod fake;
 pub use fake::Fake;
-mod lorem;
-pub use lorem::Lorem;
-mod name;
-pub use name::Name;
-mod number;
-pub use number::Number;
-mod boolean;
-pub use boolean::Boolean;
+pub mod faker;
 
 
 #[cfg(test)]
 mod tests {
-    use super::{Fake, Lorem, Name, Number, Boolean};
-    use super::Faker;
+    use super::faker::*;
 
     #[test]
     fn lorem_usage() {
@@ -34,13 +26,6 @@ mod tests {
         println!("{:?}", <Faker as Lorem>::sentences(10));
         println!("{:?}", <Faker as Lorem>::paragraph(7, 3));
         println!("{:?}", <Faker as Lorem>::paragraphs(3));
-
-        println!("{:?}", Faker::lorem_word());
-        println!("{:?}", Faker::lorem_words(10));
-        println!("{:?}", Faker::lorem_sentence(4, 6));
-        println!("{:?}", Faker::lorem_sentences(10));
-        println!("{:?}", Faker::lorem_paragraph(7, 3));
-        println!("{:?}", Faker::lorem_paragraphs(3));
     }
 
     #[test]

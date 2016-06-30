@@ -1,4 +1,5 @@
 use ::helper::*;
+use ::Fake;
 use std::cmp::min;
 
 pub trait Lorem {
@@ -10,7 +11,7 @@ pub trait Lorem {
     fn paragraphs(count: usize) -> Vec<String>;
 }
 
-impl<T: ::Fake> Lorem for T {
+impl<T: Fake> Lorem for T {
     #[inline]
     default fn word() -> &'static str {
         T::LOREM_WORD[gen_range(0, T::LOREM_WORD.len())]

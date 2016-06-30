@@ -9,62 +9,44 @@ fake = "*"
 ```
 ## Usage
 ```rust
-use fake::{Fake, Faker};
-Faker::lorem_word();
+use fake::faker::*;
+Faker::name_with_middle();
 ```
 ## Lorem
 ```rust
-use fake::*;
-
-//use facade function in Fake Trait
-//Convention: Faker::{trait}_{fn}(args)
-println!("{:?}", Faker::lorem_word());
-println!("{:?}", Faker::lorem_words(10));
-println!("{:?}", Faker::lorem_sentence(4, 6));
-println!("{:?}", Faker::lorem_sentences(10));
-println!("{:?}", Faker::lorem_paragraph(7, 3));
-println!("{:?}", Faker::lorem_paragraphs(3));
-
-//use function of Lorem Trait
-println!("{:?}", <Faker as Lorem>::word());
-println!("{:?}", <Faker as Lorem>::words(10));
-println!("{:?}", <Faker as Lorem>::sentence(4, 6));
-println!("{:?}", <Faker as Lorem>::sentences(10));
-println!("{:?}", <Faker as Lorem>::paragraph(7, 3));
-println!("{:?}", <Faker as Lorem>::paragraphs(3));
+println!("{:?}", Faker::word());
+println!("{:?}", Faker::words(10));
+println!("{:?}", Faker::sentence(4, 6));
+println!("{:?}", Faker::sentences(10));
+println!("{:?}", Faker::paragraph(7, 3));
+println!("{:?}", Faker::paragraphs(3));
 ```
 ## Name
 ```rust
-use fake::*;
-
-println!("{:?}", <Faker as Name>::first_name());
-println!("{:?}", <Faker as Name>::last_name());
-println!("{:?}", <Faker as Name>::name());
-println!("{:?}", <Faker as Name>::name_with_middle());
-println!("{:?}", <Faker as Name>::title_descriptor());
-println!("{:?}", <Faker as Name>::title_level());
-println!("{:?}", <Faker as Name>::title_job());
-println!("{:?}", <Faker as Name>::title());
+println!("{:?}", Faker::first_name());
+println!("{:?}", Faker::last_name());
+println!("{:?}", Faker::name());
+println!("{:?}", Faker::name_with_middle());
+println!("{:?}", Faker::title_descriptor());
+println!("{:?}", Faker::title_level());
+println!("{:?}", Faker::title_job());
+println!("{:?}", Faker::title());
 
 use fake::locales::zh_tw;
-println!("{}", <zh_tw::Faker as Name>::first_name());
-println!("{}", <zh_tw::Faker as Name>::last_name());
-println!("{}", <zh_tw::Faker as Name>::name());
+println!("{}", zh_tw::Faker::first_name());
+println!("{}", zh_tw::Faker::last_name());
+println!("{}", zh_tw::Faker::name());
 ```
 ## Number
 ```rust
-use fake::*;
-
-println!("{:?}", <Faker as Number>::digit());
-println!("{:?}", <Faker as Number>::number(10));
-println!("{:?}", <Faker as Number>::between(5, 10));
-println!("{:?}", <Faker as Number>::between(5.0_f32, 10.0_f32));
+println!("{:?}", Faker::digit());
+println!("{:?}", Faker::number(10));
+println!("{:?}", Faker::between(5, 10));
+println!("{:?}", Faker::between(5.0_f32, 10.0_f32));
 ```
 ## Boolean
 ```rust
-use fake::*;
-
-println!("{:?}", <Faker as Boolean>::boolean());
+println!("{:?}", Faker::boolean());
 ```
 
 ##Contributing

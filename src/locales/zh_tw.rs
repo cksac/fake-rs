@@ -1,4 +1,5 @@
-use ::{Fake, Name};
+use ::Fake;
+use ::faker::Name;
 
 pub struct Faker;
 
