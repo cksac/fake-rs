@@ -3,3 +3,5 @@ rust:
   - stable
   - beta
   - nightly
+notifications:
+  email: false
