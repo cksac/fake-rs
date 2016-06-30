@@ -50,11 +50,11 @@ println!("{:?}", Faker::boolean());
 ```
 ## Internet
 ```rust
-println!("{:?}", <Faker as Internet>::free_email_provider());
-println!("{:?}", <Faker as Internet>::domain_suffix());
-println!("{:?}", <Faker as Internet>::user_name());
-println!("{:?}", <Faker as Internet>::free_email());
-println!("{:?}", <Faker as Internet>::safe_email());
+println!("{:?}", Faker::free_email_provider());
+println!("{:?}", Faker::domain_suffix());
+println!("{:?}", Faker::user_name());
+println!("{:?}", Faker::free_email());
+println!("{:?}", Faker::safe_email());
 ```
 
 ##Contributing
