@@ -70,5 +70,5 @@ println!("{:?}", <Faker as Boolean>::boolean());
 ##Contributing
 1. Fork the repo.
 3. Add a test for your change.
-4. Make the test pass. `cargo test`
+4. Make the test and clippy lint pass. `cargo test --features "dev"`
 5. Push to your fork and submit a pull request.
