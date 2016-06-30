@@ -1,4 +1,5 @@
 # Fake
+[![Build Status](https://travis-ci.org/cksac/fake-rs.svg?branch=master)](https://travis-ci.org/cksac/fake-rs)
 A library for generating fake data in Rust.
 
 ##Installation
