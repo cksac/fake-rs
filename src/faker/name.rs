@@ -38,18 +38,49 @@ impl<T: Fake> Name for T {
     #[inline]
     default fn name() -> String {
         match gen_range(0, 6) {
-            0 => format!("{} {} {}", <Self as Name>::prefix(), <Self as Name>::first_name(), <Self as Name>::last_name()),
-            1 => format!("{} {} {}", <Self as Name>::first_name(), <Self as Name>::last_name(), <Self as Name>::suffix()),
-            _ => format!("{} {}", <Self as Name>::first_name(), <Self as Name>::last_name()),
+            0 => {
+                format!("{} {} {}",
+                        <Self as Name>::prefix(),
+                        <Self as Name>::first_name(),
+                        <Self as Name>::last_name())
+            }
+            1 => {
+                format!("{} {} {}",
+                        <Self as Name>::first_name(),
+                        <Self as Name>::last_name(),
+                        <Self as Name>::suffix())
+            }
+            _ => {
+                format!("{} {}",
+                        <Self as Name>::first_name(),
+                        <Self as Name>::last_name())
+            }
         }
     }
 
     #[inline]
     default fn name_with_middle() -> String {
         match gen_range(0, 6) {
-            0 => format!("{} {} {} {}", <Self as Name>::prefix(), <Self as Name>::first_name(), <Self as Name>::first_name(), <Self as Name>::last_name()),
-            1 => format!("{} {} {} {}", <Self as Name>::first_name(), <Self as Name>::first_name(), <Self as Name>::last_name(), <Self as Name>::suffix()),
-            _ => format!("{} {} {}", <Self as Name>::first_name(), <Self as Name>::first_name(), <Self as Name>::last_name()),
+            0 => {
+                format!("{} {} {} {}",
+                        <Self as Name>::prefix(),
+                        <Self as Name>::first_name(),
+                        <Self as Name>::first_name(),
+                        <Self as Name>::last_name())
+            }
+            1 => {
+                format!("{} {} {} {}",
+                        <Self as Name>::first_name(),
+                        <Self as Name>::first_name(),
+                        <Self as Name>::last_name(),
+                        <Self as Name>::suffix())
+            }
+            _ => {
+                format!("{} {} {}",
+                        <Self as Name>::first_name(),
+                        <Self as Name>::first_name(),
+                        <Self as Name>::last_name())
+            }
         }
     }
 
@@ -70,6 +101,9 @@ impl<T: Fake> Name for T {
 
     #[inline]
     default fn title() -> String {
-        format!("{} {} {}", <Self as Name>::title_descriptor(), <Self as Name>::title_level(), <Self as Name>::title_job())
+        format!("{} {} {}",
+                <Self as Name>::title_descriptor(),
+                <Self as Name>::title_level(),
+                <Self as Name>::title_job())
     }
 }

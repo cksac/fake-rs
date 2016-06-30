@@ -38,7 +38,7 @@ impl<T: Fake> Lorem for T {
     }
 
     #[inline]
-    default  fn paragraph(count: usize, max_extra_count: usize) -> String {
+    default fn paragraph(count: usize, max_extra_count: usize) -> String {
         <T as Lorem>::sentences(count + gen_range(0, max_extra_count)).join("\n")
     }
 

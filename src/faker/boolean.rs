@@ -2,7 +2,7 @@ use ::helper::*;
 use ::Fake;
 
 pub trait Boolean {
-    fn boolean() -> bool; 
+    fn boolean() -> bool;
 }
 
 impl<T: Fake> Boolean for T {
