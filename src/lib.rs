@@ -62,4 +62,13 @@ mod tests {
     fn boolean_usage() {
         println!("{:?}", <Faker as Boolean>::boolean());
     }
+
+    #[test]
+    fn internet_usage() {
+        println!("{:?}", <Faker as Internet>::free_email_provider());
+        println!("{:?}", <Faker as Internet>::domain_suffix());
+        println!("{:?}", <Faker as Internet>::user_name());
+        println!("{:?}", <Faker as Internet>::free_email());
+        println!("{:?}", <Faker as Internet>::safe_email());
+    }
 }

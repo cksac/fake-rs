@@ -19,7 +19,7 @@ impl<T: Fake> Lorem for T {
 
     #[inline]
     default fn words(count: usize) -> Vec<&'static str> {
-        let upper = min(T::LOREM_WORD.len(), count);
+        let upper = min(T::LOREM_WORD.len() - 1, count);
         shuffle(T::LOREM_WORD)[0..upper].to_vec()
     }
 

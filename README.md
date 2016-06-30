@@ -48,6 +48,14 @@ println!("{:?}", Faker::between(5.0_f32, 10.0_f32));
 ```rust
 println!("{:?}", Faker::boolean());
 ```
+## Internet
+```rust
+println!("{:?}", <Faker as Internet>::free_email_provider());
+println!("{:?}", <Faker as Internet>::domain_suffix());
+println!("{:?}", <Faker as Internet>::user_name());
+println!("{:?}", <Faker as Internet>::free_email());
+println!("{:?}", <Faker as Internet>::safe_email());
+```
 
 ##Contributing
 1. Fork the repo.
