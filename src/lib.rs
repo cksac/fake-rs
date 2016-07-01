@@ -70,5 +70,17 @@ mod tests {
         println!("{:?}", <Faker as Internet>::user_name());
         println!("{:?}", <Faker as Internet>::free_email());
         println!("{:?}", <Faker as Internet>::safe_email());
+        println!("{:?}", <Faker as Internet>::password(8, 20));
+    }
+
+    #[test]
+    fn company_usage() {
+        println!("{:?}", <Faker as Company>::suffix());
+        println!("{:?}", <Faker as Company>::name());
+        println!("{:?}", <Faker as Company>::buzzword());
+        println!("{:?}", <Faker as Company>::catch_phase());
+        println!("{:?}", <Faker as Company>::bs());
+        println!("{:?}", <Faker as Company>::profession());
+        println!("{:?}", <Faker as Company>::industry());
     }
 }

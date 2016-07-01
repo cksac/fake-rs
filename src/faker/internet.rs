@@ -9,6 +9,7 @@ pub trait Internet {
     fn user_name() -> String;
     fn free_email() -> String;
     fn safe_email() -> String;
+    fn password(min_count: usize, max_count: usize) -> String;
 }
 
 impl<T: Fake> Internet for T {
@@ -54,7 +55,18 @@ impl<T: Fake> Internet for T {
     #[inline]
     default fn safe_email() -> String {
         format!("{}@example.{}",
-                <en::Faker as Name>::first_name().to_lowercase(),
+                <en::Faker as Name>::first_name().replace("'", "").to_lowercase(),
                 ["com", "net", "org"][gen_range(0, 2)])
+    }
+
+    #[inline]
+    default fn password(min_count: usize, max_count: usize) -> String {
+        let length = gen_range(min_count, max_count + 1);
+        let mut v = Vec::from(shuffle(T::INTERNET_PASSWORD_CHARS));
+        while v.len() < length {
+            v.extend(shuffle(T::INTERNET_PASSWORD_CHARS));
+        }
+        v.truncate(length);
+        v.into_iter().collect::<String>()
     }
 }
