@@ -74,7 +74,31 @@ println!("{:?}", <Faker as Company>::bs());
 println!("{:?}", <Faker as Company>::profession());
 println!("{:?}", <Faker as Company>::industry());
 ```
-
+## Address
+```rust
+println!("{:?}", <Faker as Address>::time_zone());
+println!("{:?}", <Faker as Address>::city_prefix());
+println!("{:?}", <Faker as Address>::city_suffix());
+println!("{:?}", <Faker as Address>::street_suffix());
+println!("{:?}", <Faker as Address>::state());
+println!("{:?}", <Faker as Address>::state_abbr());
+println!("{:?}", <Faker as Address>::city());
+println!("{:?}", <Faker as Address>::street_name());
+println!("{:?}", <Faker as Address>::building_number());
+println!("{:?}", <Faker as Address>::street_address());
+println!("{:?}", <Faker as Address>::secondary_address());
+println!("{:?}", <Faker as Address>::zip());
+println!("{:?}", <Faker as Address>::postcode());
+println!("{:?}", <Faker as Address>::latitude());
+println!("{:?}", <Faker as Address>::longitude());
+```
+## Phone Number
+```rust
+println!("{:?}", <Faker as PhoneNumber>::phone_number());
+//N => [1..9], # => [0..9]
+println!("{:?}", <Faker as PhoneNumber>::phone_number_with_format("N#######"));
+println!("{:?}", <Faker as PhoneNumber>::cell_number());
+```
 ## Contributing
 1. Fork the repo.
 3. Add a test for your change.

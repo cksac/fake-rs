@@ -27,3 +27,12 @@ pub fn ascii_string(length: usize) -> String {
 pub fn gen_vec<T: Rand>(length: usize) -> Vec<T> {
     thread_rng().gen_iter::<T>().take(length).collect::<Vec<T>>()
 }
+
+#[inline]
+pub fn numerify_sym<'a>(string: &'a str) -> String {
+        string.chars().map(|x| match x {
+            'N' => gen_range(1_i32, 10_i32).to_string(),
+            '#' => gen_range(0_i32, 10_i32).to_string(),
+            other => other.to_string()
+        }).collect::<Vec<String>>().join("")
+}
