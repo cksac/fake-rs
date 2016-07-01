@@ -1,6 +1,6 @@
 [package]
 name = "fake"
-version = "0.2.0"
+version = "0.3.0"
 authors = ["cksac <cs.cksac@gmail.com>"]
 description = "A library for generating fake data in Rust."
 keywords = ["faker", "data", "generator"]
