@@ -56,7 +56,7 @@ impl<T: Fake> Internet for T {
     default fn safe_email() -> String {
         format!("{}@example.{}",
                 <en::Faker as Name>::first_name().replace("'", "").to_lowercase(),
-                ["com", "net", "org"][gen_range(0, 2)])
+                ["com", "net", "org"][gen_range(0, 3)])
     }
 
     #[inline]
