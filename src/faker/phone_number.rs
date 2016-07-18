@@ -3,7 +3,7 @@ use ::Fake;
 
 pub trait PhoneNumber {
     fn phone_number() -> String;
-    fn phone_number_with_format<S: Into<String>>(format: S) -> String;
+    fn phone_number_with_format<S: AsRef<str>>(format: S) -> String;
     fn cell_number() -> String;
 }
 
@@ -16,8 +16,8 @@ impl<T: Fake> PhoneNumber for T {
     }
 
     #[inline]
-    default fn phone_number_with_format<S: Into<String>>(format: S) -> String {
-        numerify_sym(format.into().as_str())
+    default fn phone_number_with_format<S: AsRef<str>>(format: S) -> String {
+        numerify_sym(format.as_ref())
     }
 
     #[inline]
