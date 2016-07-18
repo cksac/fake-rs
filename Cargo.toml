@@ -11,7 +11,7 @@ homepage = "https://github.com/cksac/fake-rs"
 
 [dependencies]
 rand = "0.3.14"
-clippy = {version = "0.0.77", optional = true}
+clippy = {version = "0.0.79", optional = true}
 
 [features]
 default = []
