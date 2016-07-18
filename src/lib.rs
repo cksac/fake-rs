@@ -17,6 +17,8 @@ pub mod faker;
 macro_rules! fake {
     ($locale:ident; $cat:ident . $m:ident ($($args:expr),+)) => (<$crate::locales::$locale::Faker as $crate::faker::$cat>::$m($($args),+));
     ($locale:ident; $cat:ident . $m:ident) => (<$crate::locales::$locale::Faker as $crate::faker::$cat>::$m());
+    ($cat:ident . $m:ident ($($args:expr),+) in $locale:ident) => (<$crate::locales::$locale::Faker as $crate::faker::$cat>::$m($($args),+));
+    ($cat:ident . $m:ident in $locale:ident) => (<$crate::locales::$locale::Faker as $crate::faker::$cat>::$m());
     ($cat:ident . $m:ident ($($args:expr),+)) => (<$crate::locales::en::Faker as $crate::faker::$cat>::$m($($args),+));
     ($cat:ident . $m:ident) => (<$crate::locales::en::Faker as $crate::faker::$cat>::$m());
 }
@@ -123,5 +125,8 @@ mod tests {
         println!("{:?}", fake!(Number.number(10)));
         println!("{:?}", fake!(Lorem.sentence(4, 6)));
         println!("{:?}", fake!(zh_tw; Name.name));
+
+        println!("{:?}", fake!(Name.name in zh_tw));
+        println!("{:?}", fake!(Lorem.sentence(4, 6) in zh_tw));
     }
 }
