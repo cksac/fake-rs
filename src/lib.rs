@@ -77,6 +77,44 @@ mod tests {
         println!("{:?}", <Faker as Internet>::user_name());
         println!("{:?}", <Faker as Internet>::free_email());
         println!("{:?}", <Faker as Internet>::safe_email());
+        println!("{:?}", <Faker as Internet>::password(8, 20));
+    }
+
+    #[test]
+    fn company_usage() {
+        println!("{:?}", <Faker as Company>::suffix());
+        println!("{:?}", <Faker as Company>::name());
+        println!("{:?}", <Faker as Company>::buzzword());
+        println!("{:?}", <Faker as Company>::catch_phase());
+        println!("{:?}", <Faker as Company>::bs());
+        println!("{:?}", <Faker as Company>::profession());
+        println!("{:?}", <Faker as Company>::industry());
+    }
+
+    #[test]
+    fn address_usage() {
+        println!("{:?}", <Faker as Address>::time_zone());
+        println!("{:?}", <Faker as Address>::city_prefix());
+        println!("{:?}", <Faker as Address>::city_suffix());
+        println!("{:?}", <Faker as Address>::street_suffix());
+        println!("{:?}", <Faker as Address>::state());
+        println!("{:?}", <Faker as Address>::state_abbr());
+        println!("{:?}", <Faker as Address>::city());
+        println!("{:?}", <Faker as Address>::street_name());
+        println!("{:?}", <Faker as Address>::building_number());
+        println!("{:?}", <Faker as Address>::street_address());
+        println!("{:?}", <Faker as Address>::secondary_address());
+        println!("{:?}", <Faker as Address>::zip());
+        println!("{:?}", <Faker as Address>::postcode());
+        println!("{:?}", <Faker as Address>::latitude());
+        println!("{:?}", <Faker as Address>::longitude());
+    }
+
+    #[test]
+    fn phone_number_usage() {
+        println!("{:?}", <Faker as PhoneNumber>::phone_number());
+        println!("{:?}", <Faker as PhoneNumber>::phone_number_with_format("N#######"));
+        println!("{:?}", <Faker as PhoneNumber>::cell_number());
     }
 
     #[test]

@@ -11,7 +11,7 @@ pub trait Number {
 impl<T: Fake> Number for T {
     #[inline]
     default fn digit() -> String {
-        gen_range(0, 9).to_string()
+        gen_range(0_u8, 10_u8).to_string()
     }
 
     #[inline]
