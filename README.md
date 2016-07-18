@@ -12,6 +12,16 @@ fake = "*"
 ```
 ## Usage
 ```rust
+// Use macro style
+#[macro_use]
+extern crate fake;
+
+fake!(Internet.free_email);
+fake!(Company.name);
+fake!(Name.name);
+fake!(zh_tw; Name.name)
+
+// Use function call style
 use fake::faker::*;
 
 Faker::free_email();
@@ -19,85 +29,88 @@ Faker::free_email();
 // In case multiple candidates available
 <Faker as Company>::name();
 <Faker as Name>::name();
+
+// Switch locales
+use fake::locales::zh_tw;
+println!("{}", <zh_tw::Faker as Name>::name());
 ```
 ## Lorem
 ```rust
-println!("{:?}", <Faker as Lorem>::word());
-println!("{:?}", <Faker as Lorem>::words(10));
-println!("{:?}", <Faker as Lorem>::sentence(4, 6));
-println!("{:?}", <Faker as Lorem>::sentences(10));
-println!("{:?}", <Faker as Lorem>::paragraph(7, 3));
-println!("{:?}", <Faker as Lorem>::paragraphs(3));
+println!("{:?}", fake!(Lorem.word));
+println!("{:?}", fake!(Lorem.words(10)));
+println!("{:?}", fake!(Lorem.sentence(4, 6)));
+println!("{:?}", fake!(Lorem.sentences(10)));
+println!("{:?}", fake!(Lorem.paragraph(7, 3)));
+println!("{:?}", fake!(Lorem.paragraphs(3)));
 ```
 ## Name
 ```rust
-println!("{:?}", <Faker as Name>::first_name());
-println!("{:?}", <Faker as Name>::last_name());
-println!("{:?}", <Faker as Name>::name());
-println!("{:?}", <Faker as Name>::name_with_middle());
-println!("{:?}", <Faker as Name>::title_descriptor());
-println!("{:?}", <Faker as Name>::title_level());
-println!("{:?}", <Faker as Name>::title_job());
-println!("{:?}", <Faker as Name>::title());
+println!("{:?}", fake!(Name.first_name));
+println!("{:?}", fake!(Name.last_name));
+println!("{:?}", fake!(Name.name));
+println!("{:?}", fake!(Name.name_with_middle));
+println!("{:?}", fake!(Name.title_descriptor));
+println!("{:?}", fake!(Name.title_level));
+println!("{:?}", fake!(Name.title_job));
+println!("{:?}", fake!(Name.title));
 
-use super::locales::zh_tw;
-println!("{}", <zh_tw::Faker as Name>::first_name());
-println!("{}", <zh_tw::Faker as Name>::last_name());
-println!("{}", <zh_tw::Faker as Name>::name());
+println!("{}", fake!(zh_tw; Name.first_name));
+println!("{}", fake!(zh_tw; Name.last_name));
+println!("{}", fake!(zh_tw; Name.name));
 ```
 ## Number
 ```rust
-println!("{:?}", <Faker as Number>::digit());
-println!("{:?}", <Faker as Number>::number(10));
-println!("{:?}", <Faker as Number>::between(5, 10));
-println!("{:?}", <Faker as Number>::between(5.0_f32, 10.0_f32));
+println!("{:?}", fake!(Number.digit));
+println!("{:?}", fake!(Number.number(10)));
+println!("{:?}", fake!(Number.between(5, 10)));
+println!("{:?}", fake!(Number.between(5.0_f32, 10.0_f32)));
 ```
 ## Boolean
 ```rust
-println!("{:?}", <Faker as Boolean>::boolean());
+println!("{:?}", fake!(Boolean.boolean));
 ```
 ## Internet
 ```rust
-println!("{:?}", <Faker as Internet>::free_email_provider());
-println!("{:?}", <Faker as Internet>::domain_suffix());
-println!("{:?}", <Faker as Internet>::user_name());
-println!("{:?}", <Faker as Internet>::free_email());
-println!("{:?}", <Faker as Internet>::safe_email());
+println!("{:?}", fake!(Internet.free_email_provider));
+println!("{:?}", fake!(Internet.domain_suffix));
+println!("{:?}", fake!(Internet.user_name));
+println!("{:?}", fake!(Internet.free_email));
+println!("{:?}", fake!(Internet.safe_email));
 ```
 ## Company
 ```rust
-println!("{:?}", <Faker as Company>::suffix());
-println!("{:?}", <Faker as Company>::name());
-println!("{:?}", <Faker as Company>::buzzword());
-println!("{:?}", <Faker as Company>::catch_phase());
-println!("{:?}", <Faker as Company>::bs());
-println!("{:?}", <Faker as Company>::profession());
-println!("{:?}", <Faker as Company>::industry());
+println!("{:?}", fake!(Company.suffix));
+println!("{:?}", fake!(Company.name));
+println!("{:?}", fake!(Company.buzzword));
+println!("{:?}", fake!(Company.catch_phase));
+println!("{:?}", fake!(Company.bs));
+println!("{:?}", fake!(Company.profession));
+println!("{:?}", fake!(Company.industry));
 ```
 ## Address
 ```rust
-println!("{:?}", <Faker as Address>::time_zone());
-println!("{:?}", <Faker as Address>::city_prefix());
-println!("{:?}", <Faker as Address>::city_suffix());
-println!("{:?}", <Faker as Address>::street_suffix());
-println!("{:?}", <Faker as Address>::state());
-println!("{:?}", <Faker as Address>::state_abbr());
-println!("{:?}", <Faker as Address>::city());
-println!("{:?}", <Faker as Address>::street_name());
-println!("{:?}", <Faker as Address>::building_number());
-println!("{:?}", <Faker as Address>::street_address());
-println!("{:?}", <Faker as Address>::secondary_address());
-println!("{:?}", <Faker as Address>::zip());
-println!("{:?}", <Faker as Address>::postcode());
-println!("{:?}", <Faker as Address>::latitude());
-println!("{:?}", <Faker as Address>::longitude());
+println!("{:?}", fake!(Address.time_zone));
+println!("{:?}", fake!(Address.city_prefix));
+println!("{:?}", fake!(Address.city_suffix));
+println!("{:?}", fake!(Address.street_suffix));
+println!("{:?}", fake!(Address.state));
+println!("{:?}", fake!(Address.state_abbr));
+println!("{:?}", fake!(Address.city));
+println!("{:?}", fake!(Address.street_name));
+println!("{:?}", fake!(Address.building_number));
+println!("{:?}", fake!(Address.street_address));
+println!("{:?}", fake!(Address.secondary_address));
+println!("{:?}", fake!(Address.zip));
+println!("{:?}", fake!(Address.postcode));
+println!("{:?}", fake!(Address.latitude));
+println!("{:?}", fake!(Address.longitude));
 ```
 ## Phone Number
 ```rust
-println!("{:?}", <Faker as PhoneNumber>::phone_number());
+println!("{:?}", fake!(PhoneNumber.phone_number));
 //N => [1..9], # => [0..9]
-println!("{:?}", <Faker as PhoneNumber>::phone_number_with_format("N#######"));
-println!("{:?}", <Faker as PhoneNumber>::cell_number());
+println!("{:?}", fake!(PhoneNumber.phone_number_with_format("N#######")));
+println!("{:?}", fake!(PhoneNumber.cell_number));
 ```
 ## Contributing
 1. Fork the repo.
