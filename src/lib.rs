@@ -113,7 +113,7 @@ mod tests {
     #[test]
     fn phone_number_usage() {
         println!("{:?}", <Faker as PhoneNumber>::phone_number());
-        println!("{:?}", <Faker as PhoneNumber>::phone_number_with_format("N#######"));
+        println!("{:?}", <Faker as PhoneNumber>::phone_number_with_format("N###-####"));
         println!("{:?}", <Faker as PhoneNumber>::cell_number());
     }
 

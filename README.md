@@ -109,7 +109,7 @@ println!("{:?}", fake!(Address.longitude));
 ```rust
 println!("{:?}", fake!(PhoneNumber.phone_number));
 //N => [1..9], # => [0..9]
-println!("{:?}", fake!(PhoneNumber.phone_number_with_format("N#######")));
+println!("{:?}", fake!(PhoneNumber.phone_number_with_format("N###-####")));
 println!("{:?}", fake!(PhoneNumber.cell_number));
 ```
 ## Contributing
