@@ -113,7 +113,16 @@ println!("{:?}", fake!(PhoneNumber.phone_number_with_format("N###-####")));
 println!("{:?}", fake!(PhoneNumber.cell_number));
 ```
 ## Contributing
+### What can you help
+1. Add locales
+2. Add new faker
+3. Report bugs
+
+### How
 1. Fork the repo.
 3. Add a test for your change.
 4. Make the test and clippy lint pass. `cargo test --features "dev"`
 5. Push to your fork and submit a pull request.
+
+## LICENSE
+The MIT License (MIT)
