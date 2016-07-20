@@ -1,42 +1,29 @@
 use ::helper::*;
 use ::Fake;
 
-pub trait Name {
-    fn first_name() -> &'static str;
-    fn last_name() -> &'static str;
-    fn prefix() -> &'static str;
-    fn suffix() -> &'static str;
-    fn name() -> String;
-    fn name_with_middle() -> String;
-    fn title_descriptor() -> &'static str;
-    fn title_level() -> &'static str;
-    fn title_job() -> &'static str;
-    fn title() -> String;
-}
-
-impl<T: Fake> Name for T {
+pub trait Name: Fake {
     #[inline]
-    default fn first_name() -> &'static str {
-        T::NAME_FIRST_NAME[gen_range(0, T::NAME_FIRST_NAME.len())]
+    fn first_name() -> &'static str {
+        take_one(<Self as Fake>::name_first_name_data())
     }
 
     #[inline]
-    default fn last_name() -> &'static str {
-        T::NAME_LAST_NAME[gen_range(0, T::NAME_LAST_NAME.len())]
+    fn last_name() -> &'static str {
+        take_one(<Self as Fake>::name_last_name_data())
     }
 
     #[inline]
-    default fn prefix() -> &'static str {
-        T::NAME_PREFIX[gen_range(0, T::NAME_PREFIX.len())]
+    fn prefix() -> &'static str {
+        take_one(<Self as Fake>::name_prefix_data())
     }
 
     #[inline]
-    default fn suffix() -> &'static str {
-        T::NAME_SUFFIX[gen_range(0, T::NAME_SUFFIX.len())]
+    fn suffix() -> &'static str {
+        take_one(<Self as Fake>::name_suffix_data())
     }
 
     #[inline]
-    default fn name() -> String {
+    fn name() -> String {
         match gen_range(0, 6) {
             0 => {
                 format!("{} {} {}",
@@ -59,7 +46,7 @@ impl<T: Fake> Name for T {
     }
 
     #[inline]
-    default fn name_with_middle() -> String {
+    fn name_with_middle() -> String {
         match gen_range(0, 6) {
             0 => {
                 format!("{} {} {} {}",
@@ -85,22 +72,22 @@ impl<T: Fake> Name for T {
     }
 
     #[inline]
-    default fn title_descriptor() -> &'static str {
-        T::NAME_TITLE_DESCRIPTOR[gen_range(0, T::NAME_TITLE_DESCRIPTOR.len())]
+    fn title_descriptor() -> &'static str {
+        take_one(<Self as Fake>::name_title_descriptor_data())
     }
 
     #[inline]
-    default fn title_level() -> &'static str {
-        T::NAME_TITLE_LEVEL[gen_range(0, T::NAME_TITLE_LEVEL.len())]
+    fn title_level() -> &'static str {
+        take_one(<Self as Fake>::name_title_level_data())
     }
 
     #[inline]
-    default fn title_job() -> &'static str {
-        T::NAME_TITLE_JOB[gen_range(0, T::NAME_TITLE_JOB.len())]
+    fn title_job() -> &'static str {
+        take_one(<Self as Fake>::name_title_job_data())
     }
 
     #[inline]
-    default fn title() -> String {
+    fn title() -> String {
         format!("{} {} {}",
                 <Self as Name>::title_descriptor(),
                 <Self as Name>::title_level(),

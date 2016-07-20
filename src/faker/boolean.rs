@@ -1,13 +1,9 @@
 use ::helper::*;
 use ::Fake;
 
-pub trait Boolean {
-    fn boolean() -> bool;
-}
-
-impl<T: Fake> Boolean for T {
+pub trait Boolean: Fake {
     #[inline]
-    default fn boolean() -> bool {
+    fn boolean() -> bool {
         random::<bool>()
     }
 }

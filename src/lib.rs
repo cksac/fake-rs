@@ -1,9 +1,3 @@
-#![cfg_attr(feature = "dev", allow(unstable_features))]
-#![cfg_attr(feature = "dev", feature(plugin))]
-#![cfg_attr(feature = "dev", plugin(clippy))]
-#![feature(associated_consts)]
-#![feature(specialization)]
-
 extern crate rand;
 
 pub mod helper;
@@ -15,8 +9,8 @@ pub mod faker;
 
 #[macro_export]
 macro_rules! fake {
-    ($locale:ident; $cat:ident . $m:ident ($($args:expr),+)) => (<$crate::locales::$locale::Faker as $crate::faker::$cat>::$m($($args),+));
-    ($locale:ident; $cat:ident . $m:ident) => (<$crate::locales::$locale::Faker as $crate::faker::$cat>::$m());
+    ($cat:ident . $m:ident ($($args:expr),+) in $locale:ident) => (<$crate::locales::$locale::Faker as $crate::faker::$cat>::$m($($args),+));
+    ($cat:ident . $m:ident in $locale:ident) => (<$crate::locales::$locale::Faker as $crate::faker::$cat>::$m());
     ($cat:ident . $m:ident ($($args:expr),+)) => (<$crate::locales::en::Faker as $crate::faker::$cat>::$m($($args),+));
     ($cat:ident . $m:ident) => (<$crate::locales::en::Faker as $crate::faker::$cat>::$m());
 }
@@ -50,7 +44,7 @@ mod tests {
         println!("{}", <zh_tw::Faker as Name>::first_name());
         println!("{}", <zh_tw::Faker as Name>::last_name());
         println!("{}", <zh_tw::Faker as Name>::name());
-        println!("{:?}", <zh_tw::Faker as Name>::name_with_middle());
+        println!("{}", <zh_tw::Faker as Name>::name_with_middle());
         println!("{:?}", <zh_tw::Faker as Name>::title_descriptor());
         println!("{:?}", <zh_tw::Faker as Name>::title_level());
         println!("{:?}", <zh_tw::Faker as Name>::title_job());
@@ -113,7 +107,8 @@ mod tests {
     #[test]
     fn phone_number_usage() {
         println!("{:?}", <Faker as PhoneNumber>::phone_number());
-        println!("{:?}", <Faker as PhoneNumber>::phone_number_with_format("N#######"));
+        println!("{:?}",
+                 <Faker as PhoneNumber>::phone_number_with_format("N###-####"));
         println!("{:?}", <Faker as PhoneNumber>::cell_number());
     }
 
@@ -122,6 +117,6 @@ mod tests {
         println!("{:?}", fake!(Lorem.word));
         println!("{:?}", fake!(Number.number(10)));
         println!("{:?}", fake!(Lorem.sentence(4, 6)));
-        println!("{:?}", fake!(zh_tw; Name.name));
+        println!("{}", fake!(Name.name in zh_tw));
     }
 }

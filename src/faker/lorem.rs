@@ -2,51 +2,42 @@ use ::helper::*;
 use ::Fake;
 use std::cmp::min;
 
-pub trait Lorem {
-    fn word() -> &'static str;
-    fn words(count: usize) -> Vec<&'static str>;
-    fn sentence(count: usize, max_extra_count: usize) -> String;
-    fn sentences(count: usize) -> Vec<String>;
-    fn paragraph(count: usize, max_extra_count: usize) -> String;
-    fn paragraphs(count: usize) -> Vec<String>;
-}
-
-impl<T: Fake> Lorem for T {
+pub trait Lorem: Fake {
     #[inline]
-    default fn word() -> &'static str {
-        T::LOREM_WORD[gen_range(0, T::LOREM_WORD.len())]
+    fn word() -> &'static str {
+        take_one(<Self as Fake>::lorem_word_data())
     }
 
     #[inline]
-    default fn words(count: usize) -> Vec<&'static str> {
-        let upper = min(T::LOREM_WORD.len() - 1, count);
-        shuffle(T::LOREM_WORD)[0..upper].to_vec()
+    fn words(count: usize) -> Vec<&'static str> {
+        let upper = min(<Self as Fake>::lorem_word_data().len() - 1, count);
+        shuffle(<Self as Fake>::lorem_word_data())[0..upper].to_vec()
     }
 
     #[inline]
-    default fn sentence(count: usize, max_extra_count: usize) -> String {
-        <T as Lorem>::words(count + gen_range(0, max_extra_count + 1)).join(" ") + "."
+    fn sentence(count: usize, max_extra_count: usize) -> String {
+        <Self as Lorem>::words(count + gen_range(0, max_extra_count + 1)).join(" ") + "."
     }
 
     #[inline]
-    default fn sentences(count: usize) -> Vec<String> {
+    fn sentences(count: usize) -> Vec<String> {
         let mut vec = Vec::with_capacity(count);
         for _ in 0..count {
-            vec.push(<T as Lorem>::sentence(7, 3));
+            vec.push(<Self as Lorem>::sentence(7, 3));
         }
         vec
     }
 
     #[inline]
-    default fn paragraph(count: usize, max_extra_count: usize) -> String {
-        <T as Lorem>::sentences(count + gen_range(0, max_extra_count + 1)).join("\n")
+    fn paragraph(count: usize, max_extra_count: usize) -> String {
+        <Self as Lorem>::sentences(count + gen_range(0, max_extra_count + 1)).join("\n")
     }
 
     #[inline]
-    default fn paragraphs(count: usize) -> Vec<String> {
+    fn paragraphs(count: usize) -> Vec<String> {
         let mut vec = Vec::with_capacity(count);
         for _ in 0..count {
-            vec.push(<T as Lorem>::paragraph(7, 3));
+            vec.push(<Self as Lorem>::paragraph(7, 3));
         }
         vec
     }

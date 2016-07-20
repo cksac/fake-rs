@@ -3,28 +3,19 @@ use ::Fake;
 use ::faker::{Name, Number, Lorem};
 use ::locales::en;
 
-pub trait Internet {
-    fn free_email_provider() -> &'static str;
-    fn domain_suffix() -> &'static str;
-    fn user_name() -> String;
-    fn free_email() -> String;
-    fn safe_email() -> String;
-    fn password(min_count: usize, max_count: usize) -> String;
-}
-
-impl<T: Fake> Internet for T {
+pub trait Internet: Fake {
     #[inline]
-    default fn free_email_provider() -> &'static str {
-        T::INTERNET_FREE_EMAIL_PROVIDER[gen_range(0, T::INTERNET_FREE_EMAIL_PROVIDER.len())]
+    fn free_email_provider() -> &'static str {
+        take_one(<Self as Fake>::internet_free_email_provider_data())
     }
 
     #[inline]
-    default fn domain_suffix() -> &'static str {
-        T::INTERNET_DOMAIN_SUFFIX[gen_range(0, T::INTERNET_DOMAIN_SUFFIX.len())]
+    fn domain_suffix() -> &'static str {
+        take_one(<Self as Fake>::internet_domain_suffix_data())
     }
 
     #[inline]
-    default fn user_name() -> String {
+    fn user_name() -> String {
         match gen_range(0, 10) {
             0 => <en::Faker as Name>::first_name().replace("'", "").to_lowercase(),
             1 | 2 => {
@@ -46,25 +37,26 @@ impl<T: Fake> Internet for T {
     }
 
     #[inline]
-    default fn free_email() -> String {
+    fn free_email() -> String {
         format!("{}@{}",
-                <T as Internet>::user_name(),
-                <T as Internet>::free_email_provider())
+                <Self as Internet>::user_name(),
+                <Self as Internet>::free_email_provider())
     }
 
     #[inline]
-    default fn safe_email() -> String {
+    fn safe_email() -> String {
         format!("{}@example.{}",
                 <en::Faker as Name>::first_name().replace("'", "").to_lowercase(),
                 ["com", "net", "org"][gen_range(0, 3)])
     }
 
     #[inline]
-    default fn password(min_count: usize, max_count: usize) -> String {
+    fn password(min_count: usize, max_count: usize) -> String {
         let length = gen_range(min_count, max_count + 1);
-        let mut v = Vec::from(shuffle(T::INTERNET_PASSWORD_CHARS));
+        let mut v =
+            Vec::from(shuffle(<Self as Fake>::internet_password_chars_data()));
         while v.len() < length {
-            v.extend(shuffle(T::INTERNET_PASSWORD_CHARS));
+            v.extend(shuffle(<Self as Fake>::internet_password_chars_data()));
         }
         v.truncate(length);
         v.into_iter().collect::<String>()

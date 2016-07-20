@@ -2,7 +2,7 @@
 [![Build Status](https://travis-ci.org/cksac/fake-rs.svg?branch=master)](https://travis-ci.org/cksac/fake-rs)
 [![Latest Version](https://img.shields.io/crates/v/fake.svg)](https://crates.io/crates/fake)
 
-A Rust library for generating fake data. Currently only works in Rust nightly.
+A Rust library for generating fake data.
 
 ##Installation
 Add fake to your Cargo.toml
@@ -109,11 +109,19 @@ println!("{:?}", fake!(Address.longitude));
 ```rust
 println!("{:?}", fake!(PhoneNumber.phone_number));
 //N => [1..9], # => [0..9]
-println!("{:?}", fake!(PhoneNumber.phone_number_with_format("N#######")));
+println!("{:?}", fake!(PhoneNumber.phone_number_with_format("N###-####")));
 println!("{:?}", fake!(PhoneNumber.cell_number));
 ```
 ## Contributing
+### What can you help
+1. Add locales
+2. Add new faker
+3. Report bugs
+### How
 1. Fork the repo.
 3. Add a test for your change.
-4. Make the test and clippy lint pass. `cargo test --features "dev"`
+4. Make the test. `cargo test`
 5. Push to your fork and submit a pull request.
+
+## LICENSE
+The MIT License (MIT)

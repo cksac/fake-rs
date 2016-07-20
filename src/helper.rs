@@ -30,9 +30,17 @@ pub fn gen_vec<T: Rand>(length: usize) -> Vec<T> {
 
 #[inline]
 pub fn numerify_sym(string: &str) -> String {
-        string.chars().map(|x| match x {
+    string.chars()
+        .map(|x| match x {
             'N' => gen_range(1_i32, 10_i32).to_string(),
             '#' => gen_range(0_i32, 10_i32).to_string(),
-            other => other.to_string()
-        }).collect::<Vec<String>>().join("")
+            other => other.to_string(),
+        })
+        .collect::<Vec<String>>()
+        .join("")
+}
+
+#[inline]
+pub fn take_one<'a>(list: &'a [&'a str]) -> &'a str {
+    list[gen_range(0, list.len())]
 }
