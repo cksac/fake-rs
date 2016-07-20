@@ -54,9 +54,9 @@ println!("{:?}", fake!(Name.title_level));
 println!("{:?}", fake!(Name.title_job));
 println!("{:?}", fake!(Name.title));
 
-println!("{}", fake!(zh_tw; Name.first_name));
-println!("{}", fake!(zh_tw; Name.last_name));
-println!("{}", fake!(zh_tw; Name.name));
+println!("{}", fake!(Name.first_name in zh_tw));
+println!("{}", fake!(Name.last_name in zh_tw));
+println!("{}", fake!(Name.name in zh_tw));
 ```
 ## Number
 ```rust
