@@ -19,7 +19,7 @@ extern crate fake;
 fake!(Internet.free_email);
 fake!(Company.name);
 fake!(Name.name);
-fake!(zh_tw; Name.name)
+fake!(Name.name in zh_tw)
 
 // Use function call style
 use fake::faker::*;
@@ -117,6 +117,7 @@ println!("{:?}", fake!(PhoneNumber.cell_number));
 1. Add locales
 2. Add new faker
 3. Report bugs
+
 ### How
 1. Fork the repo.
 3. Add a test for your change.
