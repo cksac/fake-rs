@@ -5,7 +5,7 @@ use ::faker::Name;
 pub trait Company: Fake + Name {
     #[inline]
     fn suffix() -> &'static str {
-        take_one(<Self as Fake>::company_suffix_data())
+        take_one(Self::company_suffix_data())
     }
 
     #[inline]
@@ -32,32 +32,32 @@ pub trait Company: Fake + Name {
 
     #[inline]
     fn buzzword() -> &'static str {
-        take_one(<Self as Fake>::company_buzzword_head_data())
+        take_one(Self::company_buzzword_head_data())
     }
 
     #[inline]
     fn catch_phase() -> String {
-        let head = take_one(<Self as Fake>::company_buzzword_head_data());
-        let middle = take_one(<Self as Fake>::company_buzzword_middle_data());
-        let tail = take_one(<Self as Fake>::company_buzzword_tail_data());
+        let head = take_one(Self::company_buzzword_head_data());
+        let middle = take_one(Self::company_buzzword_middle_data());
+        let tail = take_one(Self::company_buzzword_tail_data());
         format!("{} {} {}", head, middle, tail)
     }
 
     #[inline]
     fn bs() -> String {
-        let head = take_one(<Self as Fake>::company_bs_verbs_data());
-        let middle = take_one(<Self as Fake>::company_bs_adj_data());
-        let tail = take_one(<Self as Fake>::company_bs_nonus_data());
+        let head = take_one(Self::company_bs_verbs_data());
+        let middle = take_one(Self::company_bs_adj_data());
+        let tail = take_one(Self::company_bs_nonus_data());
         format!("{} {} {}", head, middle, tail)
     }
 
     #[inline]
     fn profession() -> &'static str {
-        take_one(<Self as Fake>::company_profession_data())
+        take_one(Self::company_profession_data())
     }
 
     #[inline]
     fn industry() -> &'static str {
-        take_one(<Self as Fake>::company_industry_data())
+        take_one(Self::company_industry_data())
     }
 }

@@ -6,12 +6,12 @@ use ::locales::en;
 pub trait Internet: Fake {
     #[inline]
     fn free_email_provider() -> &'static str {
-        take_one(<Self as Fake>::internet_free_email_provider_data())
+        take_one(Self::internet_free_email_provider_data())
     }
 
     #[inline]
     fn domain_suffix() -> &'static str {
-        take_one(<Self as Fake>::internet_domain_suffix_data())
+        take_one(Self::internet_domain_suffix_data())
     }
 
     #[inline]
@@ -39,26 +39,25 @@ pub trait Internet: Fake {
     #[inline]
     fn free_email() -> String {
         format!("{}@{}",
-                <Self as Internet>::user_name(),
-                <Self as Internet>::free_email_provider())
+                Self::user_name(),
+                Self::free_email_provider())
     }
 
     #[inline]
     fn safe_email() -> String {
         format!("{}@example.{}",
                 <en::Faker as Name>::first_name().replace("'", "").to_lowercase(),
-                ["com", "net", "org"][gen_range(0, 3)])
+                take_one(&["com", "net", "org"]))
     }
 
     #[inline]
     fn password(min_count: usize, max_count: usize) -> String {
         let length = gen_range(min_count, max_count + 1);
-        let mut v =
-            Vec::from(shuffle(<Self as Fake>::internet_password_chars_data()));
+        let mut v = shuffle(Self::internet_password_chars_data());
         while v.len() < length {
-            v.extend(shuffle(<Self as Fake>::internet_password_chars_data()));
+            v.append(&mut shuffle(Self::internet_password_chars_data()));
         }
         v.truncate(length);
-        v.into_iter().collect::<String>()
+        v.into_iter().collect()
     }
 }

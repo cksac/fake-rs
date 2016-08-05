@@ -4,7 +4,7 @@ use ::Fake;
 pub trait PhoneNumber: Fake {
     #[inline]
     fn phone_number() -> String {
-        let number_format = take_one(<Self as Fake>::phone_number_format_data());
+        let number_format = take_one(Self::phone_number_format_data());
         numerify_sym(number_format)
     }
 
@@ -16,7 +16,7 @@ pub trait PhoneNumber: Fake {
     #[inline]
     fn cell_number() -> String {
         let number_format =
-            take_one(<Self as Fake>::phone_cell_number_format_data());
+            take_one(Self::phone_cell_number_format_data());
         numerify_sym(number_format)
     }
 }
