@@ -37,18 +37,18 @@ pub trait Address: Fake + Name + Number {
     fn city() -> String {
         match gen_range(0, 5) {
             0 => {
-                format!("{} {} {}",
+                format!("{} {}{}",
                         Self::city_prefix(),
                         <Self as Name>::first_name(),
                         Self::city_suffix())
             }
             1 => {
-                format!("{} {}",
+                format!("{}{}",
                         <Self as Name>::first_name(),
                         Self::city_suffix())
             }
             _ => {
-                format!("{} {}",
+                format!("{}{}",
                         <Self as Name>::last_name(),
                         Self::city_suffix())
             }
