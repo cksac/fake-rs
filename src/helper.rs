@@ -14,7 +14,7 @@ pub fn random<T: Rand>() -> T {
 #[inline]
 pub fn shuffle<T: Clone>(arr: &[T]) -> Vec<T> {
     let mut v = arr.to_vec();
-    thread_rng().shuffle(&mut *v);
+    thread_rng().shuffle(&mut v);
     v
 }
 
@@ -41,6 +41,6 @@ pub fn numerify_sym(string: &str) -> String {
 }
 
 #[inline]
-pub fn take_one<'a>(list: &'a [&'a str]) -> &'a str {
-    list[gen_range(0, list.len())]
+pub fn take_one<'a>(list: &[&'a str]) -> &'a str {
+    thread_rng().choose(list).expect("take_one got empty list")
 }

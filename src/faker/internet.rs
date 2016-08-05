@@ -47,7 +47,7 @@ pub trait Internet: Fake {
     fn safe_email() -> String {
         format!("{}@example.{}",
                 <en::Faker as Name>::first_name().replace("'", "").to_lowercase(),
-                ["com", "net", "org"][gen_range(0, 3)])
+                take_one(&["com", "net", "org"]))
     }
 
     #[inline]

@@ -88,7 +88,7 @@ pub trait Address: Fake + Name + Number {
     #[inline]
     fn secondary_address() -> String {
         format!("{} {}",
-                ["Apt.", "Suit."][gen_range(0, 2)],
+                take_one(&["Apt.", "Suit."]),
                 <Self as Number>::number(3))
     }
 
