@@ -1,3 +1,4 @@
+use std::char;
 use rand::{thread_rng, Rng, Rand};
 use rand::distributions::range::SampleRange;
 
@@ -32,12 +33,11 @@ pub fn gen_vec<T: Rand>(length: usize) -> Vec<T> {
 pub fn numerify_sym(string: &str) -> String {
     string.chars()
         .map(|x| match x {
-            'N' => gen_range(1_i32, 10_i32).to_string(),
-            '#' => gen_range(0_i32, 10_i32).to_string(),
-            other => other.to_string(),
+            'N' => char::from_digit(gen_range(1, 10), 10).unwrap(),
+            '#' => char::from_digit(gen_range(0, 10), 10).unwrap(),
+            other => other,
         })
-        .collect::<Vec<String>>()
-        .join("")
+        .collect()
 }
 
 #[inline]

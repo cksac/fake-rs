@@ -53,12 +53,11 @@ pub trait Internet: Fake {
     #[inline]
     fn password(min_count: usize, max_count: usize) -> String {
         let length = gen_range(min_count, max_count + 1);
-        let mut v =
-            Vec::from(shuffle(<Self as Fake>::internet_password_chars_data()));
+        let mut v = shuffle(<Self as Fake>::internet_password_chars_data());
         while v.len() < length {
-            v.extend(shuffle(<Self as Fake>::internet_password_chars_data()));
+            v.append(&mut shuffle(<Self as Fake>::internet_password_chars_data()));
         }
         v.truncate(length);
-        v.into_iter().collect::<String>()
+        v.into_iter().collect()
     }
 }

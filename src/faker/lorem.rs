@@ -11,7 +11,9 @@ pub trait Lorem: Fake {
     #[inline]
     fn words(count: usize) -> Vec<&'static str> {
         let upper = min(<Self as Fake>::lorem_word_data().len() - 1, count);
-        shuffle(<Self as Fake>::lorem_word_data())[0..upper].to_vec()
+        let mut result = shuffle(<Self as Fake>::lorem_word_data());
+        result.truncate(upper);
+        result
     }
 
     #[inline]
@@ -21,11 +23,7 @@ pub trait Lorem: Fake {
 
     #[inline]
     fn sentences(count: usize) -> Vec<String> {
-        let mut vec = Vec::with_capacity(count);
-        for _ in 0..count {
-            vec.push(<Self as Lorem>::sentence(7, 3));
-        }
-        vec
+        (0..count).map(|_| <Self as Lorem>::sentence(7, 3)).collect()
     }
 
     #[inline]
@@ -35,10 +33,6 @@ pub trait Lorem: Fake {
 
     #[inline]
     fn paragraphs(count: usize) -> Vec<String> {
-        let mut vec = Vec::with_capacity(count);
-        for _ in 0..count {
-            vec.push(<Self as Lorem>::paragraph(7, 3));
-        }
-        vec
+        (0..count).map(|_| <Self as Lorem>::paragraph(7, 3)).collect()
     }
 }
