@@ -10,7 +10,7 @@ pub trait Number: Fake {
 
     #[inline]
     fn number(count: usize) -> String {
-        (0..count).map(|_| <Self as Number>::digit()).collect::<Vec<_>>().concat()
+        (0..count).map(|_| Self::digit()).collect::<Vec<_>>().concat()
     }
 
     #[inline]

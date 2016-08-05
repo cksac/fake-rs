@@ -23,15 +23,15 @@ impl Name for Faker {
     #[inline]
     fn name() -> String {
         format!("{}{}",
-                <Self as Name>::last_name(),
-                <Self as Name>::first_name())
+                Self::last_name(),
+                Self::first_name())
     }
 
     #[inline]
     fn name_with_middle() -> String {
         format!("{}{}",
-                <Self as Name>::last_name(),
-                <Self as Name>::first_name())
+                Self::last_name(),
+                Self::first_name())
     }
 }
 impl Number for Faker {}
