@@ -1,4 +1,3 @@
-#![feature(trace_macros)]
 extern crate rand;
 
 pub mod helper;
