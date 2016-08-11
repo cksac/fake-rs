@@ -69,7 +69,7 @@ mod tests {
         let name_locale = fake!("{} - {}", [Name.name], [Name.name in zh_tw]);
         println!("{}", name_locale);
 
-        let response = fake!(r#"{{"name": "{x}", "chinese_name": "{y}}}""#, [y = Name.name in zh_tw], [x = Name.name]);
+        let response = fake!(r#"{{"name": "{x}", "chinese_name": "{y}"}}"#, [y = Name.name in zh_tw], [x = Name.name]);
         println!("{}", response);
 
         let image_url = fake!(r#"http://{domain}.{domain_suffix}/user/{username}.png?size={size}x{size}"#,
