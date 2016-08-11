@@ -28,6 +28,11 @@ fn to_lowercase<S: Into<String>>(s: S) -> String {
 fake!("{} - {}", [Name.name | to_lowercase], [expr fake!(Name.name).to_lowercase()]);
 fake!("{} - {} - {}", [Name.name], [Name.name in zh_tw], [Number.number(10)]);
 fake!(r#"{{"name": "{x}", "chinese_name": "{y}"}}"#, [y = Name.name in zh_tw], [x = Name.name]);
+fake!(r#"http://{domain}.{domain_suffix}/user/{username}.png?size={size}x{size}"#,
+      [domain = Name.last_name | to_lowercase],
+      [domain_suffix = Internet.domain_suffix],
+      [username = Name.first_name | to_lowercase],
+      [size = expr [512, 256, 128][gen_range(0, 3)]]);
 
 // Use function call style
 use fake::faker::*;
