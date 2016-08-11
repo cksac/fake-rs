@@ -1,3 +1,4 @@
+#![feature(trace_macros)]
 extern crate rand;
 
 pub mod helper;
@@ -9,6 +10,42 @@ pub mod faker;
 
 #[macro_export]
 macro_rules! fake {
+    (@inner expr $e:expr) => ($e);
+    (@inner $cat:ident . $m:ident ($($args:expr),+) in $locale:ident | $($func:ident)|+) => (
+        Some(<$crate::locales::$locale::Faker as $crate::faker::$cat>::$m($($args),+))
+        $(
+        .map(|v| $func(v))
+        )+
+        .unwrap()
+    );
+    (@inner $cat:ident . $m:ident in $locale:ident | $($func:ident)|+) => (
+        Some(<$crate::locales::$locale::Faker as $crate::faker::$cat>::$m())
+        $(
+        .map(|v| $func(v))
+        )+
+        .unwrap()
+    );
+    (@inner $cat:ident . $m:ident | $($func:ident)|+) => (
+        Some(<$crate::locales::en::Faker as $crate::faker::$cat>::$m())
+        $(
+        .map(|v| $func(v))
+        )+
+        .unwrap()
+    );
+    (@inner $cat:ident . $m:ident ($($args:expr),+) | $($func:ident)|+) => (
+        Some(<$crate::locales::en::Faker as $crate::faker::$cat>::$m($($args),+))
+        $(
+        .map(|v| $func(v))
+        )+
+        .unwrap()
+    );
+    (@inner $cat:ident . $m:ident ($($args:expr),+) in $locale:ident) => (<$crate::locales::$locale::Faker as $crate::faker::$cat>::$m($($args),+));
+    (@inner $cat:ident . $m:ident in $locale:ident) => (<$crate::locales::$locale::Faker as $crate::faker::$cat>::$m());
+    (@inner $cat:ident . $m:ident) => (<$crate::locales::en::Faker as $crate::faker::$cat>::$m());
+    (@inner $cat:ident . $m:ident ($($args:expr),+)) => (<$crate::locales::en::Faker as $crate::faker::$cat>::$m($($args),+));
+
+    ($fmt:expr, $([$named:ident = $($f:tt)+]),+) => (format!($fmt, $($named = fake!(@inner $($f)+)),+));
+    ($fmt:expr, $([$($f:tt)+]),+) => (format!($fmt, $(fake!(@inner $($f)+)),+));
     ($cat:ident . $m:ident ($($args:expr),+) in $locale:ident) => (<$crate::locales::$locale::Faker as $crate::faker::$cat>::$m($($args),+));
     ($cat:ident . $m:ident in $locale:ident) => (<$crate::locales::$locale::Faker as $crate::faker::$cat>::$m());
     ($cat:ident . $m:ident ($($args:expr),+)) => (<$crate::locales::en::Faker as $crate::faker::$cat>::$m($($args),+));
@@ -18,6 +55,31 @@ macro_rules! fake {
 #[cfg(test)]
 mod tests {
     use super::faker::*;
+    use super::helper::gen_range;
+
+    fn to_lowercase<S: Into<String>>(s: S) -> String {
+        s.into().to_lowercase()
+    }
+
+    #[test]
+    fn test_custom_string() {
+        let data = fake!("{} - {} - {}", [Name.name | to_lowercase], [Number.number(10)], [expr fake!(Name.name).to_lowercase()]);
+        println!("{}", data);
+
+        let name_locale = fake!("{} - {}", [Name.name], [Name.name in zh_tw]);
+        println!("{}", name_locale);
+
+        let response = fake!(r#"{{"name": "{x}", "chiness_name": "{y}}}""#, [y = Name.name in zh_tw], [x = Name.name]);
+        println!("{}", response);
+
+        let image_url = fake!(r#"http://{domain}.{domain_suffix}/user/{username}.png?size={size}x{size}"#,
+            [domain = Name.last_name | to_lowercase],
+            [domain_suffix = Internet.domain_suffix],
+            [username = Name.first_name | to_lowercase],
+            [size = expr [512, 256, 128][gen_range(0, 3)]]
+        );
+        println!("{}", image_url);
+    }
 
     #[test]
     fn lorem_usage() {

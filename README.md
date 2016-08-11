@@ -21,6 +21,14 @@ fake!(Company.name);
 fake!(Name.name);
 fake!(Name.name in zh_tw)
 
+// Custom fake string
+fn to_lowercase<S: Into<String>>(s: S) -> String {
+    s.into().to_lowercase()
+}
+fake!("{} - {} - {}", [Name.name | to_lowercase], [Number.number(10)], [expr fake!(Name.name).to_lowercase()]);
+fake!("{} - {}", [Name.name], [Name.name in zh_tw]);
+fake!(r#"{{"name": "{x}", "chiness_name": "{y}}}""#, [y = Name.name in zh_tw], [x = Name.name]);
+
 // Use function call style
 use fake::faker::*;
 
