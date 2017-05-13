@@ -5,7 +5,6 @@
 A Rust library for generating fake data.
 
 ##Installation
-Add fake to your Cargo.toml
 ```toml
 [dependencies]
 fake = "*"
@@ -121,10 +120,17 @@ println!("{:?}", fake!(Address.longitude));
 ## Phone Number
 ```rust
 println!("{:?}", fake!(PhoneNumber.phone_number));
-//N => [1..9], # => [0..9]
+// N => [1..9], # => [0..9]
 println!("{:?}", fake!(PhoneNumber.phone_number_with_format("N###-####")));
 println!("{:?}", fake!(PhoneNumber.cell_number));
 ```
+## Dummy
+```rust
+// dummy macro take T: Dummy
+println!("{:?}", dummy!(i32));
+println!("{:?}", dummy!(Vec<Vec<i32>>));
+```
+
 ## Contributing
 ### What can you help
 1. Add locales

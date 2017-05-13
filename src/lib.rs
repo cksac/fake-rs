@@ -6,6 +6,8 @@ pub use locales::en::Faker;
 mod fake;
 pub use fake::Fake;
 pub mod faker;
+pub mod dummy;
+pub use dummy::Dummy;
 
 #[macro_export]
 macro_rules! fake {
@@ -51,8 +53,13 @@ macro_rules! fake {
     ($cat:ident . $m:ident) => (<$crate::locales::en::Faker as $crate::faker::$cat>::$m());
 }
 
+macro_rules! dummy {
+    ($($d:tt)+) => (<$($d)+ as $crate::dummy::Dummy>::dummy());
+}
+
 #[cfg(test)]
 mod tests {
+    use super::Dummy;
     use super::faker::*;
     use super::helper::gen_range;
 
@@ -179,5 +186,36 @@ mod tests {
         println!("{:?}", fake!(Number.number(10)));
         println!("{:?}", fake!(Lorem.sentence(4, 6)));
         println!("{}", fake!(Name.name in zh_tw));
+
+        println!("{:?}", dummy!(i32));
+        println!("{:?}", dummy!(Vec<Vec<i32>>));
+    }
+
+    #[test]
+    fn dummy_test() {
+        println!("{:?}", i8::dummy());
+        println!("{:?}", i16::dummy());
+        println!("{:?}", i32::dummy());
+        println!("{:?}", i64::dummy());
+        println!("{:?}", u8::dummy());
+        println!("{:?}", u16::dummy());
+        println!("{:?}", u32::dummy());
+        println!("{:?}", u64::dummy());
+        println!("{:?}", isize::dummy());
+        println!("{:?}", usize::dummy());
+        println!("{:?}", f32::dummy());
+        println!("{:?}", f64::dummy());
+
+        println!("{:?}", bool::dummy());
+        println!("{:?}", String::dummy());
+        println!("{:?}", <&str as Dummy>::dummy());
+
+        println!("{:?}", Vec::<i32>::dummy());
+        println!("{:?}", Option::<i32>::dummy());
+
+        println!("{:?}", Vec::<Vec<i32>>::dummy());
+        println!("{:?}", Vec::<Option<i32>>::dummy());
+
+        println!("{:?}", <Vec<Vec<i32>> as Dummy>::dummy());
     }
 }

@@ -1,6 +1,6 @@
 [package]
 name = "fake"
-version = "1.1.1"
+version = "1.2.0"
 authors = ["cksac <cs.cksac@gmail.com>"]
 description = "An easy to use library for generating fake data like name, number, address, lorem, etc."
 keywords = ["faker", "data", "generator"]
@@ -10,4 +10,4 @@ repository = "https://github.com/cksac/fake-rs"
 homepage = "https://github.com/cksac/fake-rs"
 
 [dependencies]
-rand = "0.3.14"
+rand = "0.3"
