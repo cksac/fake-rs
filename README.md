@@ -4,7 +4,7 @@
 
 A Rust library for generating fake data.
 
-##Installation
+## Installation
 ```toml
 [dependencies]
 fake = "*"
