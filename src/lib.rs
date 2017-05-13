@@ -53,6 +53,7 @@ macro_rules! fake {
     ($cat:ident . $m:ident) => (<$crate::locales::en::Faker as $crate::faker::$cat>::$m());
 }
 
+#[macro_export]
 macro_rules! dummy {
     ($($d:tt)+) => (<$($d)+ as $crate::dummy::Dummy>::dummy());
 }

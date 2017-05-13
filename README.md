@@ -136,6 +136,7 @@ println!("{:?}", dummy!(Vec<Vec<i32>>));
 1. Add locales
 2. Add new faker
 3. Report bugs
+4. Fix Issues
 
 ### How
 1. Fork the repo.
