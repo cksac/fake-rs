@@ -92,4 +92,14 @@ pub trait Internet: Fake {
         )
     }
 
+    #[inline]
+    fn color() -> String {
+        format!(
+            "#{:02X}{:02X}{:02X}",
+            gen_range(1, 256),
+            gen_range(1, 256),
+            gen_range(1, 256)
+        )
+    }
+
 }

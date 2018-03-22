@@ -144,6 +144,7 @@ mod tests {
         println!("{:?}", <Faker as Internet>::ip());
         println!("{:?}", <Faker as Internet>::ipv4());
         println!("{:?}", <Faker as Internet>::ipv6());
+        println!("{:?}", <Faker as Internet>::color());
     }
 
     #[test]
