@@ -60,4 +60,36 @@ pub trait Internet: Fake {
         v.truncate(length);
         v.into_iter().collect()
     }
+
+    #[inline]
+    fn ip() -> String {
+        Self::ipv4()
+    }
+
+    #[inline]
+    fn ipv4() -> String {
+        format!(
+            "{}.{}.{}.{}",
+            gen_range(1, 256),
+            gen_range(1, 256),
+            gen_range(1, 256),
+            gen_range(1, 256)
+        )
+    }
+
+    #[inline]
+    fn ipv6() -> String {
+        format!(
+            "{:X}:{:X}:{:X}:{:X}:{:X}:{:X}:{:X}:{:X}",
+            gen_range(1, 65536),
+            gen_range(1, 65536),
+            gen_range(1, 65536),
+            gen_range(1, 65536),
+            gen_range(1, 65536),
+            gen_range(1, 65536),
+            gen_range(1, 65536),
+            gen_range(1, 65536)
+        )
+    }
+
 }

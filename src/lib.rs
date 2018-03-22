@@ -141,6 +141,9 @@ mod tests {
         println!("{:?}", <Faker as Internet>::free_email());
         println!("{:?}", <Faker as Internet>::safe_email());
         println!("{:?}", <Faker as Internet>::password(8, 20));
+        println!("{:?}", <Faker as Internet>::ip());
+        println!("{:?}", <Faker as Internet>::ipv4());
+        println!("{:?}", <Faker as Internet>::ipv6());
     }
 
     #[test]
