@@ -88,6 +88,10 @@ println!("{:?}", fake!(Internet.domain_suffix));
 println!("{:?}", fake!(Internet.user_name));
 println!("{:?}", fake!(Internet.free_email));
 println!("{:?}", fake!(Internet.safe_email));
+println!("{:?}", fake!(Internet.ip));
+println!("{:?}", fake!(Internet.ipv4));
+println!("{:?}", fake!(Internet.ipv6));
+println!("{:?}", fake!(Internet.color));
 ```
 ## Company
 ```rust
