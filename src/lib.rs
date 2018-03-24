@@ -60,7 +60,7 @@ macro_rules! fake {
     );
     ($cat:ident . $m:ident ($($args:expr),+) in $locale:ident) => (
         <$crate::locales::$locale::Faker as $crate::faker::$cat>::$m($($args),+)
-        );
+    );
     ($cat:ident . $m:ident in $locale:ident) => (
         <$crate::locales::$locale::Faker as $crate::faker::$cat>::$m()
     );
