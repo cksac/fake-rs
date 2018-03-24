@@ -1,5 +1,5 @@
-use ::helper::*;
-use ::Fake;
+use Fake;
+use helper::*;
 
 pub trait Name: Fake {
     #[inline]
@@ -25,49 +25,45 @@ pub trait Name: Fake {
     #[inline]
     fn name() -> String {
         match gen_range(0, 6) {
-            0 => {
-                format!("{} {} {}",
-                        Self::prefix(),
-                        Self::first_name(),
-                        Self::last_name())
-            }
-            1 => {
-                format!("{} {} {}",
-                        Self::first_name(),
-                        Self::last_name(),
-                        Self::suffix())
-            }
-            _ => {
-                format!("{} {}",
-                        Self::first_name(),
-                        Self::last_name())
-            }
+            0 => format!(
+                "{} {} {}",
+                Self::prefix(),
+                Self::first_name(),
+                Self::last_name()
+            ),
+            1 => format!(
+                "{} {} {}",
+                Self::first_name(),
+                Self::last_name(),
+                Self::suffix()
+            ),
+            _ => format!("{} {}", Self::first_name(), Self::last_name()),
         }
     }
 
     #[inline]
     fn name_with_middle() -> String {
         match gen_range(0, 6) {
-            0 => {
-                format!("{} {} {} {}",
-                        Self::prefix(),
-                        Self::first_name(),
-                        Self::first_name(),
-                        Self::last_name())
-            }
-            1 => {
-                format!("{} {} {} {}",
-                        Self::first_name(),
-                        Self::first_name(),
-                        Self::last_name(),
-                        Self::suffix())
-            }
-            _ => {
-                format!("{} {} {}",
-                        Self::first_name(),
-                        Self::first_name(),
-                        Self::last_name())
-            }
+            0 => format!(
+                "{} {} {} {}",
+                Self::prefix(),
+                Self::first_name(),
+                Self::first_name(),
+                Self::last_name()
+            ),
+            1 => format!(
+                "{} {} {} {}",
+                Self::first_name(),
+                Self::first_name(),
+                Self::last_name(),
+                Self::suffix()
+            ),
+            _ => format!(
+                "{} {} {}",
+                Self::first_name(),
+                Self::first_name(),
+                Self::last_name()
+            ),
         }
     }
 
@@ -88,9 +84,11 @@ pub trait Name: Fake {
 
     #[inline]
     fn title() -> String {
-        format!("{} {} {}",
-                Self::title_descriptor(),
-                Self::title_level(),
-                Self::title_job())
+        format!(
+            "{} {} {}",
+            Self::title_descriptor(),
+            Self::title_level(),
+            Self::title_job()
+        )
     }
 }

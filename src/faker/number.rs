@@ -1,5 +1,5 @@
-use ::helper::*;
-use ::Fake;
+use Fake;
+use helper::*;
 use rand::distributions::range::SampleRange;
 
 pub trait Number: Fake {
@@ -10,7 +10,10 @@ pub trait Number: Fake {
 
     #[inline]
     fn number(count: usize) -> String {
-        (0..count).map(|_| Self::digit()).collect::<Vec<_>>().concat()
+        (0..count)
+            .map(|_| Self::digit())
+            .collect::<Vec<_>>()
+            .concat()
     }
 
     #[inline]

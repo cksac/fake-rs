@@ -1,7 +1,7 @@
-use ::helper::*;
-use ::Fake;
-use ::faker::{Name, Number, Lorem};
-use ::locales::en;
+use Fake;
+use faker::{Lorem, Name, Number};
+use helper::*;
+use locales::en;
 
 pub trait Internet: Fake {
     #[inline]
@@ -17,37 +17,47 @@ pub trait Internet: Fake {
     #[inline]
     fn user_name() -> String {
         match gen_range(0, 10) {
-            0 => <en::Faker as Name>::first_name().replace("'", "").to_lowercase(),
-            1 | 2 => {
-                format!("{}.{}",
-                        <en::Faker as Lorem>::word().to_lowercase(),
-                        <en::Faker as Name>::first_name().replace("'", "").to_lowercase())
-            }
-            3 | 4 => {
-                format!("{}{}",
-                        <en::Faker as Name>::first_name().replace("'", "").to_lowercase(),
-                        <en::Faker as Number>::number(4))
-            }
-            _ => {
-                format!("{}_{}",
-                        <en::Faker as Name>::first_name().replace("'", "").to_lowercase(),
-                        <en::Faker as Lorem>::word().to_lowercase())
-            }
+            0 => <en::Faker as Name>::first_name()
+                .replace("'", "")
+                .to_lowercase(),
+            1 | 2 => format!(
+                "{}.{}",
+                <en::Faker as Lorem>::word().to_lowercase(),
+                <en::Faker as Name>::first_name()
+                    .replace("'", "")
+                    .to_lowercase()
+            ),
+            3 | 4 => format!(
+                "{}{}",
+                <en::Faker as Name>::first_name()
+                    .replace("'", "")
+                    .to_lowercase(),
+                <en::Faker as Number>::number(4)
+            ),
+            _ => format!(
+                "{}_{}",
+                <en::Faker as Name>::first_name()
+                    .replace("'", "")
+                    .to_lowercase(),
+                <en::Faker as Lorem>::word().to_lowercase()
+            ),
         }
     }
 
     #[inline]
     fn free_email() -> String {
-        format!("{}@{}",
-                Self::user_name(),
-                Self::free_email_provider())
+        format!("{}@{}", Self::user_name(), Self::free_email_provider())
     }
 
     #[inline]
     fn safe_email() -> String {
-        format!("{}@example.{}",
-                <en::Faker as Name>::first_name().replace("'", "").to_lowercase(),
-                take_one(&["com", "net", "org"]))
+        format!(
+            "{}@example.{}",
+            <en::Faker as Name>::first_name()
+                .replace("'", "")
+                .to_lowercase(),
+            take_one(&["com", "net", "org"])
+        )
     }
 
     #[inline]
@@ -101,5 +111,4 @@ pub trait Internet: Fake {
             gen_range(1, 256)
         )
     }
-
 }

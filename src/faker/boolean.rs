@@ -1,5 +1,5 @@
-use ::helper::*;
-use ::Fake;
+use Fake;
+use helper::*;
 
 pub trait Boolean: Fake {
     #[inline]

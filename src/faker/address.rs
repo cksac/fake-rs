@@ -1,6 +1,6 @@
-use ::helper::*;
-use ::Fake;
-use ::faker::{Name, Number};
+use Fake;
+use faker::{Name, Number};
+use helper::*;
 
 pub trait Address: Fake + Name + Number {
     #[inline]
@@ -36,60 +36,43 @@ pub trait Address: Fake + Name + Number {
     #[inline]
     fn city() -> String {
         match gen_range(0, 5) {
-            0 => {
-                format!("{} {}{}",
-                        Self::city_prefix(),
-                        <Self as Name>::first_name(),
-                        Self::city_suffix())
-            }
-            1 => {
-                format!("{}{}",
-                        <Self as Name>::first_name(),
-                        Self::city_suffix())
-            }
-            _ => {
-                format!("{}{}",
-                        <Self as Name>::last_name(),
-                        Self::city_suffix())
-            }
+            0 => format!(
+                "{} {}{}",
+                Self::city_prefix(),
+                <Self as Name>::first_name(),
+                Self::city_suffix()
+            ),
+            1 => format!("{}{}", <Self as Name>::first_name(), Self::city_suffix()),
+            _ => format!("{}{}", <Self as Name>::last_name(), Self::city_suffix()),
         }
     }
 
     #[inline]
     fn street_name() -> String {
         match gen_range(0, 2) {
-            0 => {
-                format!("{} {}",
-                        <Self as Name>::first_name(),
-                        Self::street_suffix())
-            }
-            _ => {
-                format!("{} {}",
-                        <Self as Name>::last_name(),
-                        Self::street_suffix())
-            }
+            0 => format!("{} {}", <Self as Name>::first_name(), Self::street_suffix()),
+            _ => format!("{} {}", <Self as Name>::last_name(), Self::street_suffix()),
         }
     }
 
     #[inline]
     fn building_number() -> String {
-        let number_format =
-            take_one(Self::address_building_number_format_data());
+        let number_format = take_one(Self::address_building_number_format_data());
         numerify_sym(number_format)
     }
 
     #[inline]
     fn street_address() -> String {
-        format!("{} {}",
-                Self::building_number(),
-                Self::street_name())
+        format!("{} {}", Self::building_number(), Self::street_name())
     }
 
     #[inline]
     fn secondary_address() -> String {
-        format!("{} {}",
-                take_one(&["Apt.", "Suit."]),
-                <Self as Number>::number(3))
+        format!(
+            "{} {}",
+            take_one(&["Apt.", "Suit."]),
+            <Self as Number>::number(3)
+        )
     }
 
     #[inline]
@@ -100,8 +83,7 @@ pub trait Address: Fake + Name + Number {
 
     #[inline]
     fn postcode() -> String {
-        let number_format =
-            take_one(Self::address_postcode_format_data());
+        let number_format = take_one(Self::address_postcode_format_data());
         numerify_sym(number_format)
     }
 

@@ -1,5 +1,5 @@
-use ::helper::*;
-use ::Fake;
+use Fake;
+use helper::*;
 use std::cmp::min;
 
 pub trait Lorem: Fake {

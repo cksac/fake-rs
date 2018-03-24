@@ -1,6 +1,6 @@
-use ::helper::*;
-use ::Fake;
-use ::faker::Name;
+use Fake;
+use faker::Name;
+use helper::*;
 
 pub trait Company: Fake + Name {
     #[inline]
@@ -11,22 +11,22 @@ pub trait Company: Fake + Name {
     #[inline]
     fn name() -> String {
         match gen_range(0, 8) {
-            0 => {
-                format!("{}-{}",
-                        <Self as Name>::last_name(),
-                        <Self as Name>::last_name())
-            }
-            1 | 2 => {
-                format!("{}, {} and {}",
-                        <Self as Name>::last_name(),
-                        <Self as Name>::last_name(),
-                        <Self as Name>::last_name())
-            }
-            _ => {
-                format!("{} {}",
-                        <Self as Name>::last_name(),
-                        <Self as Company>::suffix())
-            }
+            0 => format!(
+                "{}-{}",
+                <Self as Name>::last_name(),
+                <Self as Name>::last_name()
+            ),
+            1 | 2 => format!(
+                "{}, {} and {}",
+                <Self as Name>::last_name(),
+                <Self as Name>::last_name(),
+                <Self as Name>::last_name()
+            ),
+            _ => format!(
+                "{} {}",
+                <Self as Name>::last_name(),
+                <Self as Company>::suffix()
+            ),
         }
     }
 

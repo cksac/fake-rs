@@ -1,7 +1,7 @@
 use Faker;
-use faker::Number;
 use faker::Boolean;
 use faker::Lorem;
+use faker::Number;
 
 use std::rc::Rc;
 use std::sync::Arc;
@@ -11,10 +11,10 @@ pub trait Dummy {
 }
 
 macro_rules! impl_number {
-    ($t:ident) => {
+    ($t: ident) => {
         impl_number!($t, $t);
     };
-    ($t:ident, $m:ident) => {
+    ($t: ident, $m: ident) => {
         impl Dummy for $t {
             fn dummy() -> Self {
                 <Faker as Number>::between($m::min_value() as $t, $m::max_value() as $t)
@@ -55,7 +55,8 @@ impl<'a> Dummy for &'a str {
 }
 
 impl<T> Dummy for Vec<T>
-    where T: Dummy
+where
+    T: Dummy,
 {
     fn dummy() -> Self {
         let size = <Faker as Number>::between(0, 5);
@@ -64,7 +65,8 @@ impl<T> Dummy for Vec<T>
 }
 
 impl<T> Dummy for Option<T>
-    where T: Dummy
+where
+    T: Dummy,
 {
     fn dummy() -> Self {
         match <Faker as Boolean>::boolean() {
@@ -75,7 +77,8 @@ impl<T> Dummy for Option<T>
 }
 
 impl<T> Dummy for Box<T>
-    where T: Dummy
+where
+    T: Dummy,
 {
     fn dummy() -> Self {
         Box::new(T::dummy())
@@ -83,7 +86,8 @@ impl<T> Dummy for Box<T>
 }
 
 impl<T> Dummy for Rc<T>
-    where T: Dummy
+where
+    T: Dummy,
 {
     fn dummy() -> Self {
         Rc::new(T::dummy())
@@ -91,7 +95,8 @@ impl<T> Dummy for Rc<T>
 }
 
 impl<T> Dummy for Arc<T>
-    where T: Dummy
+where
+    T: Dummy,
 {
     fn dummy() -> Self {
         Arc::new(T::dummy())

@@ -1,5 +1,5 @@
-use ::helper::*;
-use ::Fake;
+use Fake;
+use helper::*;
 
 pub trait PhoneNumber: Fake {
     #[inline]
@@ -15,8 +15,7 @@ pub trait PhoneNumber: Fake {
 
     #[inline]
     fn cell_number() -> String {
-        let number_format =
-            take_one(Self::phone_cell_number_format_data());
+        let number_format = take_one(Self::phone_cell_number_format_data());
         numerify_sym(number_format)
     }
 }

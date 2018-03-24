@@ -1,6 +1,6 @@
-use std::char;
-use rand::{thread_rng, Rng, Rand};
 use rand::distributions::range::SampleRange;
+use rand::{thread_rng, Rand, Rng};
+use std::char;
 
 #[inline]
 pub fn gen_range<T: PartialOrd + SampleRange>(start: T, end: T) -> T {
@@ -26,12 +26,16 @@ pub fn ascii_string(length: usize) -> String {
 
 #[inline]
 pub fn gen_vec<T: Rand>(length: usize) -> Vec<T> {
-    thread_rng().gen_iter::<T>().take(length).collect::<Vec<T>>()
+    thread_rng()
+        .gen_iter::<T>()
+        .take(length)
+        .collect::<Vec<T>>()
 }
 
 #[inline]
 pub fn numerify_sym(string: &str) -> String {
-    string.chars()
+    string
+        .chars()
         .map(|x| match x {
             'N' => char::from_digit(gen_range(1, 10), 10).unwrap(),
             '#' => char::from_digit(gen_range(0, 10), 10).unwrap(),

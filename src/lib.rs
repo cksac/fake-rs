@@ -5,8 +5,8 @@ pub mod locales;
 pub use locales::en::Faker;
 mod fake;
 pub use fake::Fake;
-pub mod faker;
 pub mod dummy;
+pub mod faker;
 pub use dummy::Dummy;
 
 #[macro_export]
@@ -40,17 +40,36 @@ macro_rules! fake {
         )+
         .unwrap()
     );
-    (@inner $cat:ident . $m:ident ($($args:expr),+) in $locale:ident) => (<$crate::locales::$locale::Faker as $crate::faker::$cat>::$m($($args),+));
-    (@inner $cat:ident . $m:ident in $locale:ident) => (<$crate::locales::$locale::Faker as $crate::faker::$cat>::$m());
-    (@inner $cat:ident . $m:ident) => (<$crate::locales::en::Faker as $crate::faker::$cat>::$m());
-    (@inner $cat:ident . $m:ident ($($args:expr),+)) => (<$crate::locales::en::Faker as $crate::faker::$cat>::$m($($args),+));
-
-    ($fmt:expr, $([$named:ident = $($f:tt)+]),+) => (format!($fmt, $($named = fake!(@inner $($f)+)),+));
-    ($fmt:expr, $([$($f:tt)+]),+) => (format!($fmt, $(fake!(@inner $($f)+)),+));
-    ($cat:ident . $m:ident ($($args:expr),+) in $locale:ident) => (<$crate::locales::$locale::Faker as $crate::faker::$cat>::$m($($args),+));
-    ($cat:ident . $m:ident in $locale:ident) => (<$crate::locales::$locale::Faker as $crate::faker::$cat>::$m());
-    ($cat:ident . $m:ident ($($args:expr),+)) => (<$crate::locales::en::Faker as $crate::faker::$cat>::$m($($args),+));
-    ($cat:ident . $m:ident) => (<$crate::locales::en::Faker as $crate::faker::$cat>::$m());
+    (@inner $cat:ident . $m:ident ($($args:expr),+) in $locale:ident) => (
+        <$crate::locales::$locale::Faker as $crate::faker::$cat>::$m($($args),+)
+    );
+    (@inner $cat:ident . $m:ident in $locale:ident) => (
+        <$crate::locales::$locale::Faker as $crate::faker::$cat>::$m()
+    );
+    (@inner $cat:ident . $m:ident) => (
+        <$crate::locales::en::Faker as $crate::faker::$cat>::$m()
+    );
+    (@inner $cat:ident . $m:ident ($($args:expr),+)) => (
+        <$crate::locales::en::Faker as $crate::faker::$cat>::$m($($args),+)
+    );
+    ($fmt:expr, $([$named:ident = $($f:tt)+]),+) => (
+        format!($fmt, $($named = fake!(@inner $($f)+)),+)
+    );
+    ($fmt:expr, $([$($f:tt)+]),+) => (
+        format!($fmt, $(fake!(@inner $($f)+)),+)
+    );
+    ($cat:ident . $m:ident ($($args:expr),+) in $locale:ident) => (
+        <$crate::locales::$locale::Faker as $crate::faker::$cat>::$m($($args),+)
+        );
+    ($cat:ident . $m:ident in $locale:ident) => (
+        <$crate::locales::$locale::Faker as $crate::faker::$cat>::$m()
+    );
+    ($cat:ident . $m:ident ($($args:expr),+)) => (
+        <$crate::locales::en::Faker as $crate::faker::$cat>::$m($($args),+)
+    );
+    ($cat:ident . $m:ident) => (
+        <$crate::locales::en::Faker as $crate::faker::$cat>::$m()
+    );
 }
 
 #[macro_export]
@@ -180,8 +199,10 @@ mod tests {
     #[test]
     fn phone_number_usage() {
         println!("{:?}", <Faker as PhoneNumber>::phone_number());
-        println!("{:?}",
-                 <Faker as PhoneNumber>::phone_number_with_format("N###-####"));
+        println!(
+            "{:?}",
+            <Faker as PhoneNumber>::phone_number_with_format("N###-####")
+        );
         println!("{:?}", <Faker as PhoneNumber>::cell_number());
     }
 

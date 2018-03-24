@@ -1,5 +1,5 @@
-use ::Fake;
-use ::faker::*;
+use Fake;
+use faker::*;
 
 pub struct Faker;
 
@@ -22,21 +22,16 @@ impl Lorem for Faker {}
 impl Name for Faker {
     #[inline]
     fn name() -> String {
-        format!("{}{}",
-                Self::last_name(),
-                Self::first_name())
+        format!("{}{}", Self::last_name(), Self::first_name())
     }
 
     #[inline]
     fn name_with_middle() -> String {
-        format!("{}{}",
-                Self::last_name(),
-                Self::first_name())
+        format!("{}{}", Self::last_name(), Self::first_name())
     }
 }
 impl Number for Faker {}
 impl PhoneNumber for Faker {}
-
 
 #[cfg_attr(rustfmt, rustfmt_skip)]
 pub mod data {

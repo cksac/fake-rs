@@ -1,5 +1,5 @@
-use ::Fake;
-use ::faker::*;
+use Fake;
+use faker::*;
 
 pub struct Faker;
 
