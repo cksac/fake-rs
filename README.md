@@ -92,6 +92,7 @@ println!("{:?}", fake!(Internet.ip));
 println!("{:?}", fake!(Internet.ipv4));
 println!("{:?}", fake!(Internet.ipv6));
 println!("{:?}", fake!(Internet.color));
+println!("{:?}", <Faker as Internet>::user_agent());
 ```
 ## Company
 ```rust
