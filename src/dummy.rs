@@ -1,7 +1,7 @@
-use Faker;
 use faker::Boolean;
 use faker::Lorem;
 use faker::Number;
+use Faker;
 
 use std::rc::Rc;
 use std::sync::Arc;
@@ -11,10 +11,10 @@ pub trait Dummy {
 }
 
 macro_rules! impl_number {
-    ($t: ident) => {
+    ($t:ident) => {
         impl_number!($t, $t);
     };
-    ($t: ident, $m: ident) => {
+    ($t:ident, $m:ident) => {
         impl Dummy for $t {
             fn dummy() -> Self {
                 <Faker as Number>::between($m::min_value() as $t, $m::max_value() as $t)

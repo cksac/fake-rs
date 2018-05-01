@@ -79,9 +79,9 @@ macro_rules! dummy {
 
 #[cfg(test)]
 mod tests {
-    use super::Dummy;
     use super::faker::*;
     use super::helper::gen_range;
+    use super::Dummy;
 
     fn to_lowercase<S: Into<String>>(s: S) -> String {
         s.into().to_lowercase()
@@ -164,6 +164,7 @@ mod tests {
         println!("{:?}", <Faker as Internet>::ipv4());
         println!("{:?}", <Faker as Internet>::ipv6());
         println!("{:?}", <Faker as Internet>::color());
+        println!("{:?}", <Faker as Internet>::user_agent());
     }
 
     #[test]

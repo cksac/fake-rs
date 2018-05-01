@@ -1,5 +1,5 @@
-use Fake;
 use helper::*;
+use Fake;
 
 pub trait Name: Fake {
     #[inline]
