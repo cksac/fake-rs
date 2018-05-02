@@ -1,6 +1,6 @@
-use Fake;
 use faker::{Name, Number};
 use helper::*;
+use Fake;
 
 pub trait Address: Fake + Name + Number {
     #[inline]

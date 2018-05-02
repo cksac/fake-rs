@@ -1,6 +1,6 @@
-use Fake;
 use helper::*;
 use std::cmp::min;
+use Fake;
 
 pub trait Lorem: Fake {
     #[inline]

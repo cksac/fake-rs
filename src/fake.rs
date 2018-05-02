@@ -57,6 +57,11 @@ pub trait Fake: Sized {
     }
 
     #[inline(always)]
+    fn internet_user_agent_data() -> &'static [&'static str] {
+        en::data::INTERNET_USER_AGENT
+    }
+
+    #[inline(always)]
     fn company_suffix_data() -> &'static [&'static str] {
         en::data::COMPANY_SUFFIX
     }

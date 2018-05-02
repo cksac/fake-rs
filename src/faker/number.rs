@@ -1,6 +1,6 @@
-use Fake;
 use helper::*;
 use rand::distributions::range::SampleRange;
+use Fake;
 
 pub trait Number: Fake {
     #[inline]

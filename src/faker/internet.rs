@@ -1,7 +1,7 @@
-use Fake;
 use faker::{Lorem, Name, Number};
 use helper::*;
 use locales::en;
+use Fake;
 
 pub trait Internet: Fake {
     #[inline]
@@ -110,5 +110,10 @@ pub trait Internet: Fake {
             gen_range(1, 256),
             gen_range(1, 256)
         )
+    }
+
+    #[inline]
+    fn user_agent() -> &'static str {
+        take_one(Self::internet_user_agent_data())
     }
 }
