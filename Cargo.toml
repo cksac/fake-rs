@@ -2,7 +2,7 @@
 name = "fake"
 version = "1.2.2"
 authors = ["cksac <cs.cksac@gmail.com>"]
-description = "An easy to use library for generating fake data like name, number, address, lorem, etc."
+description = "An easy to use library for generating fake data like name, number, address, lorem, dates, etc."
 keywords = ["faker", "data", "generator"]
 license = "MIT"
 readme = "README.md"
@@ -11,3 +11,4 @@ homepage = "https://github.com/cksac/fake-rs"
 
 [dependencies]
 rand = "0.3"
+chrono = { version = "0.4", optional = true }
