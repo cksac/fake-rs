@@ -5,6 +5,8 @@ pub struct Faker;
 
 impl Fake for Faker {}
 impl Address for Faker {}
+#[cfg(feature = "chrono")]
+impl Chrono for Faker {}
 impl Boolean for Faker {}
 impl Company for Faker {}
 impl Internet for Faker {}

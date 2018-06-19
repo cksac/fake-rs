@@ -1,3 +1,5 @@
+#[cfg(feature = "chrono")]
+extern crate chrono;
 extern crate rand;
 
 pub mod helper;
@@ -205,6 +207,99 @@ mod tests {
             <Faker as PhoneNumber>::phone_number_with_format("N###-####")
         );
         println!("{:?}", <Faker as PhoneNumber>::cell_number());
+    }
+
+    #[cfg(feature = "chrono")]
+    #[test]
+    fn time_usage() {
+        use chrono::prelude::*;
+
+        println!("{:?}", <Faker as Chrono>::time(None));
+        println!("{:?}", <Faker as Chrono>::time(Some("%I.%M.%S %p")));
+        println!("{:?}", <Faker as Chrono>::date(None));
+        println!("{:?}", <Faker as Chrono>::date(Some("%A %Y.%m.%d")));
+        println!("{:?}", <Faker as Chrono>::duration());
+        println!("{:?}", <Faker as Chrono>::datetime(None));
+        println!("{:?}", <Faker as Chrono>::datetime(Some("%c")));
+        println!("{:?}", <Faker as Chrono>::datetime(Some("%s")));
+
+        let now = Utc::now();
+
+        // test after
+        let fmt = "%c";
+        let now_str = now.format(fmt).to_string();
+        println!("after: {:?}", <Faker as Chrono>::after(Some(fmt), &now_str));
+        println!("after: {:?}", <Faker as Chrono>::after(Some(fmt), &now_str));
+
+        // test before
+        let fmt = "%a %b %e %T %Y %:z";
+        let now_str = now.format(fmt).to_string();
+        println!(
+            "before: {:?}",
+            <Faker as Chrono>::before(Some(fmt), &now_str)
+        );
+        println!(
+            "before: {:?}",
+            <Faker as Chrono>::before(Some(fmt), &now_str)
+        );
+
+        // test between
+        let early = Utc.ymd(2010, 4, 20).and_hms(11, 11, 11);
+        let late = Utc.ymd(2020, 6, 5).and_hms(9, 32, 33);
+
+        println!(
+            "between: {:?}",
+            <Faker as Chrono>::between(None, &early.to_rfc3339(), &late.to_rfc3339())
+        );
+
+        let fmt = "%+";
+        let date = <Faker as Chrono>::between(
+            Some(fmt),
+            &early.format(fmt).to_string(),
+            &late.format(fmt).to_string(),
+        );
+
+        println!("between '{}': {:?}", fmt, date);
+
+        let fmt = "%c";
+        let date = <Faker as Chrono>::between(
+            Some(fmt),
+            &early.format(fmt).to_string(),
+            &late.format(fmt).to_string(),
+        );
+
+        println!("between '{}': {:?}", fmt, date);
+    }
+
+    #[cfg(feature = "chrono")]
+    #[test]
+    fn time_macro_test() {
+        use chrono::prelude::*;
+
+        // Copy paste below to README.md for example
+        let early = Utc.ymd(2010, 4, 20).and_hms(11, 11, 11);
+        let late = Utc.ymd(2020, 6, 5).and_hms(9, 32, 33);
+        let now = Utc::now();
+        let fmt = "%a %b %e %T %Y %:z";
+        let now_str = now.format(fmt).to_string();
+
+        println!("{:?}", fake!(Chrono.time(Some("%I.%M.%S %p"))));
+        println!("{:?}", fake!(Chrono.date(Some("%A %Y.%m.%d"))));
+        println!("{:?}", fake!(Chrono.datetime(None)));
+        println!("{:?}", fake!(Chrono.before(Some(fmt), &now_str)));
+        println!("{:?}", fake!(Chrono.after(Some(fmt), &now_str)));
+        println!(
+            "{:?}",
+            fake!(Chrono.between(
+                Some(fmt),
+                &early.format(fmt).to_string(),
+                &late.format(fmt).to_string()
+            ))
+        );
+        println!(
+            "{:?}",
+            fake!(Chrono.between(None, &early.to_rfc3339(), &late.to_rfc3339()))
+        )
     }
 
     #[test]
