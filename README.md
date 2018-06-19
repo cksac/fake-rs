@@ -7,9 +7,16 @@ A Rust library for generating fake data.
 
 ## Installation
 
+Default:
 ```toml
 [dependencies]
 fake = "*"
+```
+If you want the date and time features from chrono:
+```toml
+[dependencies.fake]
+version = "*"
+features = ["chrono"]
 ```
 
 ## Usage
@@ -148,6 +155,42 @@ println!("{:?}", fake!(PhoneNumber.phone_number));
 // N => [1..9], # => [0..9]
 println!("{:?}", fake!(PhoneNumber.phone_number_with_format("N###-####")));
 println!("{:?}", fake!(PhoneNumber.cell_number));
+```
+
+## Date/Time
+
+```rust
+use chrono::prelude::*;
+
+let early = Utc.ymd(2010, 4, 20).and_hms(11, 11, 11);
+let late = Utc.ymd(2020, 6, 5).and_hms(9, 32, 33);
+let now = Utc::now();
+let fmt = "%a %b %e %T %Y %:z";
+let now_str = now.format(fmt).to_string();
+
+println!("{:?}", fake!(Chrono.time(Some("%I.%M.%S %p")));
+println!("{:?}", fake!(Chrono.date(Some("%A %Y.%m.%d")));
+println!("{:?}", fake!(Chrono.datetime(None)));
+println!("{:?}", fake!(Chrono.before(Some(fmt), now_str)));
+println!("{:?}", fake!(Chrono.after(Some(fmt), now_str)));
+println!(
+    "{:?}",
+    fake!(Chrono.between(
+        Some(fmt),
+        &early.format(fmt).to_string(),
+        &late.format(fmt).to_string()
+    ))
+);
+println!(
+    "{:?}",
+    fake!(
+        Chrono.between(
+            None,
+            &early.to_rfc3339(),
+            &late.to_rfc3339()
+        )
+    )
+);
 ```
 
 ## Dummy

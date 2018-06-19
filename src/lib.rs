@@ -271,6 +271,37 @@ mod tests {
         println!("between '{}': {:?}", fmt, date);
     }
 
+    #[cfg(feature = "chrono")]
+    #[test]
+    fn time_macro_test() {
+        use chrono::prelude::*;
+
+        // Copy paste below to README.md for example
+        let early = Utc.ymd(2010, 4, 20).and_hms(11, 11, 11);
+        let late = Utc.ymd(2020, 6, 5).and_hms(9, 32, 33);
+        let now = Utc::now();
+        let fmt = "%a %b %e %T %Y %:z";
+        let now_str = now.format(fmt).to_string();
+
+        println!("{:?}", fake!(Chrono.time(Some("%I.%M.%S %p"))));
+        println!("{:?}", fake!(Chrono.date(Some("%A %Y.%m.%d"))));
+        println!("{:?}", fake!(Chrono.datetime(None)));
+        println!("{:?}", fake!(Chrono.before(Some(fmt), &now_str)));
+        println!("{:?}", fake!(Chrono.after(Some(fmt), &now_str)));
+        println!(
+            "{:?}",
+            fake!(Chrono.between(
+                Some(fmt),
+                &early.format(fmt).to_string(),
+                &late.format(fmt).to_string()
+            ))
+        );
+        println!(
+            "{:?}",
+            fake!(Chrono.between(None, &early.to_rfc3339(), &late.to_rfc3339()))
+        )
+    }
+
     #[test]
     fn macro_test() {
         println!("{:?}", fake!(Lorem.word));
