@@ -10,6 +10,8 @@ impl Chrono for Faker {}
 impl Boolean for Faker {}
 impl Company for Faker {}
 impl Internet for Faker {}
+#[cfg(feature = "http")]
+impl Http for Faker {}
 impl Lorem for Faker {}
 impl Name for Faker {}
 impl Number for Faker {}

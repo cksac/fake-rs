@@ -17,6 +17,12 @@ If you want the date and time features from chrono:
 [dependencies.fake]
 version = "*"
 features = ["chrono"]
+
+If you want Http faker features:
+```toml
+[dependencies.fake]
+version = "*"
+features = ["http"]
 ```
 
 ## Usage
@@ -114,6 +120,23 @@ println!("{:?}", fake!(Internet.ipv4));
 println!("{:?}", fake!(Internet.ipv6));
 println!("{:?}", fake!(Internet.color));
 println!("{:?}", fake!(Internet.user_agent);
+```
+
+## HTTP
+```rust
+// return status code with RFC
+println!("{:?}", fake!(Http.status_code));
+println!("{:?}", fake!(Http.status_code).canonical_reason());
+
+// return status code within (100, 600]
+println!("{:?}", fake!(Http.all_status_code));
+println!("{:?}", fake!(Http.all_status_code).canonical_reason());
+
+// http::StatusCode implement Dummy which return status code with RFC
+use http;
+println!("{:?}", http::StatusCode::dummy());
+println!("{:?}", dummy!(http::StatusCode));
+println!("{:?}", dummy!(Vec<http::StatusCode>));
 ```
 
 ## Company
