@@ -12,3 +12,4 @@ homepage = "https://github.com/cksac/fake-rs"
 [dependencies]
 rand = "0.3"
 chrono = { version = "0.4", optional = true }
+http = { version = "0.1", optional = true }

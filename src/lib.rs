@@ -1,5 +1,9 @@
 #[cfg(feature = "chrono")]
 extern crate chrono;
+
+#[cfg(feature = "http")]
+extern crate http;
+
 extern crate rand;
 
 pub mod helper;
@@ -300,6 +304,22 @@ mod tests {
             "{:?}",
             fake!(Chrono.between(None, &early.to_rfc3339(), &late.to_rfc3339()))
         )
+    }
+
+    #[cfg(feature = "http")]
+    #[test]
+    fn http_test() {
+        use http;
+
+        println!("{:?}", fake!(Http.status_code));
+        println!("{:?}", fake!(Http.status_code).canonical_reason());
+
+        println!("{:?}", fake!(Http.all_status_code));
+        println!("{:?}", fake!(Http.all_status_code).canonical_reason());
+
+        println!("{:?}", http::StatusCode::dummy());
+        println!("{:?}", dummy!(http::StatusCode));
+        println!("{:?}", dummy!(Vec<http::StatusCode>));
     }
 
     #[test]
