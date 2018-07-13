@@ -17,6 +17,7 @@ If you want the date and time features from chrono:
 [dependencies.fake]
 version = "*"
 features = ["chrono"]
+```
 
 If you want Http faker features:
 ```toml
