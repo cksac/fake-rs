@@ -1,5 +1,5 @@
 use helper::*;
-use rand::distributions::range::SampleRange;
+use rand::distributions::uniform::SampleUniform;
 use Fake;
 
 pub trait Number: Fake {
@@ -17,7 +17,7 @@ pub trait Number: Fake {
     }
 
     #[inline]
-    fn between<U: PartialOrd + SampleRange>(start: U, end: U) -> U {
+    fn between<U: SampleUniform>(start: U, end: U) -> U {
         gen_range(start, end)
     }
 }

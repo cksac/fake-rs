@@ -1,35 +1,46 @@
-use rand::distributions::range::SampleRange;
-use rand::{thread_rng, Rand, Rng};
+use rand::distributions::uniform::SampleUniform;
+use rand::distributions::{Alphanumeric, Distribution, Standard};
+use rand::seq::SliceRandom;
+use rand::{thread_rng, Rng};
 use std::char;
+use std::iter;
 
 #[inline]
-pub fn gen_range<T: PartialOrd + SampleRange>(start: T, end: T) -> T {
+pub fn gen_range<T: SampleUniform>(start: T, end: T) -> T {
     thread_rng().gen_range(start, end)
 }
 
 #[inline]
-pub fn random<T: Rand>() -> T {
+pub fn random<T>() -> T
+where
+    Standard: Distribution<T>,
+{
     thread_rng().gen()
 }
 
 #[inline]
 pub fn shuffle<T: Clone>(arr: &[T]) -> Vec<T> {
     let mut v = arr.to_vec();
-    thread_rng().shuffle(&mut v);
+    let mut rng = thread_rng();
+    v.shuffle(&mut rng);
     v
 }
 
 #[inline]
 pub fn ascii_string(length: usize) -> String {
-    thread_rng().gen_ascii_chars().take(length).collect()
+    thread_rng()
+        .sample_iter(&Alphanumeric)
+        .take(length)
+        .collect()
 }
 
 #[inline]
-pub fn gen_vec<T: Rand>(length: usize) -> Vec<T> {
-    thread_rng()
-        .gen_iter::<T>()
-        .take(length)
-        .collect::<Vec<T>>()
+pub fn gen_vec<T>(length: usize) -> Vec<T>
+where
+    Standard: Distribution<T>,
+{
+    let mut rng = thread_rng();
+    iter::repeat(()).map(|()| rng.gen()).take(length).collect()
 }
 
 #[inline]
@@ -46,5 +57,6 @@ pub fn numerify_sym(string: &str) -> String {
 
 #[inline]
 pub fn take_one<'a>(list: &[&'a str]) -> &'a str {
-    thread_rng().choose(list).expect("take_one got empty list")
+    let mut rng = thread_rng();
+    list.choose(&mut rng).expect("take_one got empty list")
 }
