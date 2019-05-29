@@ -56,7 +56,7 @@ pub fn numerify_sym(string: &str) -> String {
 }
 
 #[inline]
-pub fn take_one<'a>(list: &[&'a str]) -> &'a str {
+pub fn take_one<'a, T: ?Sized>(list: &[&'a T]) -> &'a T {
     let mut rng = thread_rng();
     list.choose(&mut rng).expect("take_one got empty list")
 }
