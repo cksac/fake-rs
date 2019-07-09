@@ -11,9 +11,10 @@ pub mod locales;
 pub use crate::locales::en::Faker;
 mod fake;
 pub use crate::fake::Fake;
+#[macro_use]
 pub mod dummy;
 pub mod faker;
-pub use crate::dummy::Dummy;
+pub use dummy::{any, Dummy, DummyAny};
 
 #[macro_export]
 macro_rules! fake {
@@ -78,16 +79,10 @@ macro_rules! fake {
     );
 }
 
-#[macro_export]
-macro_rules! dummy {
-    ($($d:tt)+) => (<$($d)+ as $crate::dummy::Dummy>::dummy());
-}
-
 #[cfg(test)]
 mod tests {
     use super::faker::*;
     use super::helper::gen_range;
-    use super::Dummy;
 
     fn to_lowercase<S: Into<String>>(s: S) -> String {
         s.into().to_lowercase()
@@ -316,10 +311,6 @@ mod tests {
 
         println!("{:?}", fake!(Http.all_status_code));
         println!("{:?}", fake!(Http.all_status_code).canonical_reason());
-
-        println!("{:?}", http::StatusCode::dummy());
-        println!("{:?}", dummy!(http::StatusCode));
-        println!("{:?}", dummy!(Vec<http::StatusCode>));
     }
 
     #[test]
@@ -328,36 +319,5 @@ mod tests {
         println!("{:?}", fake!(Number.number(10)));
         println!("{:?}", fake!(Lorem.sentence(4, 6)));
         println!("{}", fake!(Name.name in zh_tw));
-
-        println!("{:?}", dummy!(i32));
-        println!("{:?}", dummy!(Vec<Vec<i32>>));
-    }
-
-    #[test]
-    fn dummy_test() {
-        println!("{:?}", i8::dummy());
-        println!("{:?}", i16::dummy());
-        println!("{:?}", i32::dummy());
-        println!("{:?}", i64::dummy());
-        println!("{:?}", u8::dummy());
-        println!("{:?}", u16::dummy());
-        println!("{:?}", u32::dummy());
-        println!("{:?}", u64::dummy());
-        println!("{:?}", isize::dummy());
-        println!("{:?}", usize::dummy());
-        println!("{:?}", f32::dummy());
-        println!("{:?}", f64::dummy());
-
-        println!("{:?}", bool::dummy());
-        println!("{:?}", String::dummy());
-        println!("{:?}", <&str as Dummy>::dummy());
-
-        println!("{:?}", Vec::<i32>::dummy());
-        println!("{:?}", Option::<i32>::dummy());
-
-        println!("{:?}", Vec::<Vec<i32>>::dummy());
-        println!("{:?}", Vec::<Option<i32>>::dummy());
-
-        println!("{:?}", <Vec<Vec<i32>> as Dummy>::dummy());
     }
 }

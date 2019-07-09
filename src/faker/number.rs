@@ -1,6 +1,6 @@
 use crate::helper::*;
-use rand::distributions::uniform::SampleUniform;
 use crate::Fake;
+use rand::distributions::uniform::SampleUniform;
 
 pub trait Number: Fake {
     #[inline]

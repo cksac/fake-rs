@@ -1,7 +1,7 @@
-use helper;
-use http;
-use Dummy;
-use Fake;
+use crate::dummy::{any::Any, Dummy, DummyAny};
+use crate::helper;
+use crate::http;
+use crate::Fake;
 
 const RFC_STATUS_CODES: &[u16] = &[
     100, 101, 102, 200, 201, 202, 203, 204, 205, 206, 207, 208, 226, 300, 301, 302, 303, 304, 305,
@@ -14,7 +14,7 @@ pub trait Http: Fake {
     /// return status code with RFC
     #[inline]
     fn status_code() -> http::StatusCode {
-        http::StatusCode::dummy()
+        http::StatusCode::any()
     }
 
     /// return valid status code within (100, 600]
@@ -25,8 +25,8 @@ pub trait Http: Fake {
     }
 }
 
-impl Dummy for http::StatusCode {
-    fn dummy() -> Self {
+impl Dummy<Any> for http::StatusCode {
+    fn dummy_ref(_: &Any) -> Self {
         let i = helper::gen_range(0, RFC_STATUS_CODES.len());
         http::StatusCode::from_u16(RFC_STATUS_CODES[i]).unwrap()
     }

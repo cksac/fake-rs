@@ -2,9 +2,9 @@ use std::u32;
 
 use chrono::{Date, DateTime, Duration, NaiveTime, TimeZone, Utc};
 
-use dummy::Dummy;
-use helper::{self, gen_range};
-use Fake;
+use crate::dummy::{any::Any, Dummy, DummyAny};
+use crate::helper::{self, gen_range};
+use crate::Fake;
 
 const DEFAULT_DATE_FMT: &'static str = "%F";
 const DEFAULT_TIME_FMT: &'static str = "%H:%M:%S%.f";
@@ -46,24 +46,24 @@ pub trait Chrono: Fake {
 
     #[inline]
     fn duration() -> String {
-        format!("{}", Duration::dummy())
+        format!("{}", Duration::any())
     }
 }
 
 fn time(fmt: Option<&str>) -> String {
-    let time = NaiveTime::dummy();
+    let time = NaiveTime::any();
 
     format!("{}", time.format(fmt.unwrap_or(DEFAULT_TIME_FMT)))
 }
 
 fn date(fmt: Option<&str>) -> String {
-    let date = Date::dummy();
+    let date = Date::any();
 
     format!("{}", date.format(fmt.unwrap_or(DEFAULT_DATE_FMT)))
 }
 
 fn datetime(fmt: Option<&str>) -> String {
-    let dt = DateTime::dummy();
+    let dt = DateTime::any();
 
     format!("{}", dt.format(fmt.unwrap_or(DEFAULT_FMT)))
 }
@@ -121,14 +121,14 @@ fn before(fmt: Option<&str>, date: &str) -> String {
     format!("{}", Utc.timestamp(secs, nsecs).format(format))
 }
 
-impl Dummy for Duration {
-    fn dummy() -> Duration {
-        Duration::nanoseconds(i64::dummy())
+impl Dummy<Any> for Duration {
+    fn dummy_ref(_: &Any) -> Duration {
+        Duration::nanoseconds(i64::any())
     }
 }
 
-impl Dummy for Date<Utc> {
-    fn dummy() -> Date<Utc> {
+impl Dummy<Any> for Date<Utc> {
+    fn dummy_ref(_: &Any) -> Date<Utc> {
         let year = gen_range(0, YEAR_MAG);
         let end = if is_leap(year) { 366 } else { 365 };
         let day_ord = helper::gen_range(0, end);
@@ -137,8 +137,8 @@ impl Dummy for Date<Utc> {
     }
 }
 
-impl Dummy for NaiveTime {
-    fn dummy() -> NaiveTime {
+impl Dummy<Any> for NaiveTime {
+    fn dummy_ref(_: &Any) -> NaiveTime {
         let hour = gen_range(0, 24);
         let min = gen_range(0, 60);
         let sec = gen_range(0, 60);
@@ -147,10 +147,10 @@ impl Dummy for NaiveTime {
     }
 }
 
-impl Dummy for DateTime<Utc> {
-    fn dummy() -> DateTime<Utc> {
-        let date = Date::dummy();
-        let time = NaiveTime::dummy();
+impl Dummy<Any> for DateTime<Utc> {
+    fn dummy_ref(_: &Any) -> DateTime<Utc> {
+        let date = Date::any();
+        let time = NaiveTime::any();
 
         date.and_time(time).expect("invalid date")
     }

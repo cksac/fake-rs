@@ -6,7 +6,4 @@ fn main() {
     println!("{:?}", fake!(Number.number(10)));
     println!("{:?}", fake!(Lorem.sentence(4, 6)));
     println!("{}", fake!(Name.name in zh_tw));
-
-    println!("{:?}", dummy!(i32));
-    println!("{:?}", dummy!(Vec<Vec<i32>>));
 }
