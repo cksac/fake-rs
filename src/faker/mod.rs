@@ -23,4 +23,4 @@ pub use self::number::Number;
 pub use self::phone_number::PhoneNumber;
 #[cfg(feature = "chrono")]
 pub use self::time::Chrono;
-pub use Faker;
+pub use crate::Faker;

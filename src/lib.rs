@@ -8,12 +8,12 @@ extern crate rand;
 
 pub mod helper;
 pub mod locales;
-pub use locales::en::Faker;
+pub use crate::locales::en::Faker;
 mod fake;
-pub use fake::Fake;
+pub use crate::fake::Fake;
 pub mod dummy;
 pub mod faker;
-pub use dummy::Dummy;
+pub use crate::dummy::Dummy;
 
 #[macro_export]
 macro_rules! fake {

@@ -1,7 +1,7 @@
-use faker::{Lorem, Name, Number};
-use helper::*;
-use locales::en;
-use Fake;
+use crate::faker::{Lorem, Name, Number};
+use crate::helper::*;
+use crate::locales::en;
+use crate::Fake;
 
 pub trait Internet: Fake {
     #[inline]

@@ -1,5 +1,5 @@
-use helper::*;
-use Fake;
+use crate::helper::*;
+use crate::Fake;
 
 pub trait Boolean: Fake {
     #[inline]

@@ -1,4 +1,4 @@
-use locales::en;
+use crate::locales::en;
 
 pub trait Fake: Sized {
     #[inline(always)]

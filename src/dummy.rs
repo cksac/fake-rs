@@ -1,7 +1,7 @@
-use faker::Boolean;
-use faker::Lorem;
-use faker::Number;
-use Faker;
+use crate::faker::Boolean;
+use crate::faker::Lorem;
+use crate::faker::Number;
+use crate::Faker;
 
 use std::rc::Rc;
 use std::sync::Arc;

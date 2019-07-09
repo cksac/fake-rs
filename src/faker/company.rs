@@ -1,6 +1,6 @@
-use faker::Name;
-use helper::*;
-use Fake;
+use crate::faker::Name;
+use crate::helper::*;
+use crate::Fake;
 
 pub trait Company: Fake + Name {
     #[inline]
