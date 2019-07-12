@@ -32,10 +32,9 @@ pub mod distributions {
     pub use rand::distributions::Uniform;
 }
 
-
-pub mod primitives;
-pub mod collections;
 pub mod array;
+pub mod collections;
 pub mod containers;
+pub mod primitives;
 pub mod string;
 pub mod tuple;

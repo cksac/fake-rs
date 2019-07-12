@@ -311,6 +311,9 @@ mod tests {
 
         println!("{:?}", fake!(Http.all_status_code));
         println!("{:?}", fake!(Http.all_status_code).canonical_reason());
+
+        println!("{:?}", fake!(Http.from_status_codes(&[200, 401, 500])));
+        println!("{:?}", fake!(Http.from_status_codes(&[200, 401, 500])).canonical_reason());
     }
 
     #[test]

@@ -1,5 +1,5 @@
+use fake::dummy::{distributions, ANY};
 use fake::*;
-use fake::dummy::{ANY, distributions};
 use std::collections::*;
 use std::rc::Rc;
 
