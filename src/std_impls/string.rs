@@ -15,7 +15,7 @@ impl Dummy<usize> for String {
 
 impl Dummy<Faker> for String {
     fn dummy_with_rng<R: Rng + ?Sized>(_: &Faker, rng: &mut R) -> Self {
-        let len: usize = DEFAULT_STR_LEN_RANGE.fake();
+        let len: usize = DEFAULT_STR_LEN_RANGE.fake_with_rng(rng);
         len.fake_with_rng(rng)
     }
 }
