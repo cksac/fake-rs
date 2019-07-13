@@ -1,4 +1,5 @@
 pub mod array;
+pub mod collections;
 pub mod container;
 pub mod option;
 pub mod primitives;
