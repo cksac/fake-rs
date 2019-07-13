@@ -108,8 +108,34 @@ fn address_faker() {
     println!("{:?}", val);
 }
 
+fn bool_faker() {
+    use fake::faker::boolean::*;
+
+    //50% true
+    let b = Boolean(50);
+    for _ in 0..5 {
+        let val: bool = b.fake();
+        println!("{:?}", val);
+    }
+
+    // 0% true
+    let b = Boolean(0);
+    for _ in 0..5 {
+        let val: bool = b.fake();
+        println!("{:?}", val);
+    }    
+
+    // 100% true
+    let b = Boolean(100);
+    for _ in 0..5 {
+        let val: bool = b.fake();
+        println!("{:?}", val);
+    }      
+}
+
 fn main() {
     name_faker();
     job_faker();
     address_faker();
+    bool_faker();
 }

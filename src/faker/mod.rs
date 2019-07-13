@@ -1,4 +1,5 @@
 pub mod address;
+pub mod boolean;
 pub mod job;
 pub mod name;
 
