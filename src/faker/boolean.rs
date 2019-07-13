@@ -1,4 +1,3 @@
-use crate::locales::Data;
 use crate::{Dummy, Fake};
 use rand::Rng;
 

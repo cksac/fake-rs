@@ -123,14 +123,54 @@ fn bool_faker() {
     for _ in 0..5 {
         let val: bool = b.fake();
         println!("{:?}", val);
-    }    
+    }
 
     // 100% true
     let b = Boolean(100);
     for _ in 0..5 {
         let val: bool = b.fake();
         println!("{:?}", val);
-    }      
+    }
+}
+
+fn company_faker() {
+    use fake::faker::company::*;
+
+    let val: String = CompanySuffix(EN).fake();
+    println!("{:?}", val);
+
+    let val: String = CompanyName(EN).fake();
+    println!("{:?}", val);
+
+    let val: String = Buzzword(EN).fake();
+    println!("{:?}", val);
+
+    let val: String = BuzzwordMiddle(EN).fake();
+    println!("{:?}", val);
+
+    let val: String = BuzzwordTail(EN).fake();
+    println!("{:?}", val);
+
+    let val: String = CatchPhase(EN).fake();
+    println!("{:?}", val);
+
+    let val: String = BsVerb(EN).fake();
+    println!("{:?}", val);
+
+    let val: String = BsAdj(EN).fake();
+    println!("{:?}", val);
+
+    let val: String = BsNoun(EN).fake();
+    println!("{:?}", val);
+
+    let val: String = Bs(EN).fake();
+    println!("{:?}", val);
+
+    let val: String = Profession(EN).fake();
+    println!("{:?}", val);
+
+    let val: String = Industry(EN).fake();
+    println!("{:?}", val);
 }
 
 fn main() {
@@ -138,4 +178,5 @@ fn main() {
     job_faker();
     address_faker();
     bool_faker();
+    company_faker();
 }
