@@ -1,4 +1,5 @@
-use crate::{any::Any, Dummy, DummyAny};
+use crate::{Dummy, Fake, Faker};
+use rand::Rng;
 
 macro_rules! tuple_impl {
     ($(
@@ -7,17 +8,17 @@ macro_rules! tuple_impl {
         }
     )+) => {
         $(
-            impl<$($T:Dummy<Any>),+> Dummy<Any> for ($($T,)+) {
+            impl<$($T:Dummy<Faker>),+> Dummy<Faker> for ($($T,)+) {
                 #[inline]
-                fn dummy_ref(_: &Any) -> ($($T,)+) {
-                    ($({ let x: $T = DummyAny::any(); x},)+)
+                fn dummy_with_rng<R: Rng + ?Sized>(config: &Faker, rng: &mut R) -> Self {
+                    ($({ let x: $T = config.fake_with_rng(rng); x},)+)
                 }
             }
 
             impl<$($U, $T:Dummy<$U>),+> Dummy<($($U,)+)> for ($($T,)+) {
                 #[inline]
-                fn dummy_ref(config: &($($U,)+)) -> ($($T,)+) {
-                    ($({ let x: $T = Dummy::dummy_ref(&config.$idx); x},)+)
+                fn dummy_with_rng<R: Rng + ?Sized>(config: &($($U,)+), rng: &mut R) -> Self {
+                    ($({ let x: $T = config.$idx.fake_with_rng(rng); x},)+)
                 }
             }
         )+
