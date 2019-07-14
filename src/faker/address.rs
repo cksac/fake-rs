@@ -248,48 +248,48 @@ impl<L: Data + Copy> Dummy<BuildingNumber<L>> for String {
     }
 }
 
-pub struct Latitude;
+pub struct Latitude<L>(pub L);
 
-impl Dummy<Latitude> for f64 {
+impl<L: Data> Dummy<Latitude<L>> for f64 {
     #[inline]
-    fn dummy_with_rng<R: Rng + ?Sized>(_: &Latitude, rng: &mut R) -> Self {
+    fn dummy_with_rng<R: Rng + ?Sized>(_: &Latitude<L>, rng: &mut R) -> Self {
         Faker.fake_with_rng::<f64, _>(rng) * 180_f64 - 90_f64
     }
 }
 
-impl Dummy<Latitude> for f32 {
+impl<L: Data> Dummy<Latitude<L>> for f32 {
     #[inline]
-    fn dummy_with_rng<R: Rng + ?Sized>(_: &Latitude, rng: &mut R) -> Self {
+    fn dummy_with_rng<R: Rng + ?Sized>(_: &Latitude<L>, rng: &mut R) -> Self {
         Faker.fake_with_rng::<f32, _>(rng) * 360_f32 - 90_f32
     }
 }
 
-impl Dummy<Latitude> for String {
+impl<L: Data> Dummy<Latitude<L>> for String {
     #[inline]
-    fn dummy_with_rng<R: Rng + ?Sized>(_: &Latitude, rng: &mut R) -> Self {
-        Latitude.fake_with_rng::<f64, _>(rng).to_string()
+    fn dummy_with_rng<R: Rng + ?Sized>(c: &Latitude<L>, rng: &mut R) -> Self {
+        c.fake_with_rng::<f64, _>(rng).to_string()
     }
 }
 
-pub struct Longitude;
+pub struct Longitude<L>(pub L);
 
-impl Dummy<Longitude> for f64 {
+impl<L: Data> Dummy<Longitude<L>> for f64 {
     #[inline]
-    fn dummy_with_rng<R: Rng + ?Sized>(_: &Longitude, rng: &mut R) -> Self {
+    fn dummy_with_rng<R: Rng + ?Sized>(_: &Longitude<L>, rng: &mut R) -> Self {
         Faker.fake_with_rng::<f64, _>(rng) * 360_f64 - 90_f64
     }
 }
 
-impl Dummy<Longitude> for f32 {
+impl<L: Data> Dummy<Longitude<L>> for f32 {
     #[inline]
-    fn dummy_with_rng<R: Rng + ?Sized>(_: &Longitude, rng: &mut R) -> Self {
+    fn dummy_with_rng<R: Rng + ?Sized>(_: &Longitude<L>, rng: &mut R) -> Self {
         Faker.fake_with_rng::<f32, _>(rng) * 360_f32 - 90_f32
     }
 }
 
-impl Dummy<Longitude> for String {
+impl<L: Data> Dummy<Longitude<L>> for String {
     #[inline]
-    fn dummy_with_rng<R: Rng + ?Sized>(_: &Longitude, rng: &mut R) -> Self {
-        Longitude.fake_with_rng::<f32, _>(rng).to_string()
+    fn dummy_with_rng<R: Rng + ?Sized>(c: &Longitude<L>, rng: &mut R) -> Self {
+        c.fake_with_rng::<f32, _>(rng).to_string()
     }
 }

@@ -16,7 +16,7 @@ impl<L: Data> Dummy<PhoneNumber<L>> for String {
 pub struct CellNumber<L>(pub L);
 
 impl<L: Data> Dummy<CellNumber<L>> for String {
-    fn dummy_with_rng<R: Rng + ?Sized>(c: &CellNumber<L>, rng: &mut R) -> Self {
+    fn dummy_with_rng<R: Rng + ?Sized>(_c: &CellNumber<L>, rng: &mut R) -> Self {
         let fmt = L::PHONE_CELL_NUMBER_FORMATS.choose(rng).unwrap();
         numerify_sym(fmt, rng)
     }

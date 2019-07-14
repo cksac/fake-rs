@@ -112,10 +112,10 @@ impl<L: Data> Dummy<Password<L>> for String {
     }
 }
 
-pub struct IPv4;
+pub struct IPv4<L>(pub L);
 
-impl Dummy<IPv4> for String {
-    fn dummy_with_rng<R: Rng + ?Sized>(_: &IPv4, rng: &mut R) -> Self {
+impl<L: Data> Dummy<IPv4<L>> for String {
+    fn dummy_with_rng<R: Rng + ?Sized>(_: &IPv4<L>, rng: &mut R) -> Self {
         let u = Uniform::new_inclusive(u8::min_value(), u8::max_value());
         format!(
             "{}.{}.{}.{}",
@@ -127,17 +127,17 @@ impl Dummy<IPv4> for String {
     }
 }
 
-impl Dummy<IPv4> for Ipv4Addr {
+impl<L: Data> Dummy<IPv4<L>> for Ipv4Addr {
     #[inline]
-    fn dummy_with_rng<R: Rng + ?Sized>(_: &IPv4, rng: &mut R) -> Self {
+    fn dummy_with_rng<R: Rng + ?Sized>(_: &IPv4<L>, rng: &mut R) -> Self {
         Faker.fake_with_rng::<Ipv4Addr, _>(rng)
     }
 }
 
-pub struct IPv6;
+pub struct IPv6<L>(pub L);
 
-impl Dummy<IPv6> for String {
-    fn dummy_with_rng<R: Rng + ?Sized>(_: &IPv6, rng: &mut R) -> Self {
+impl<L: Data> Dummy<IPv6<L>> for String {
+    fn dummy_with_rng<R: Rng + ?Sized>(_: &IPv6<L>, rng: &mut R) -> Self {
         let u = Uniform::new_inclusive(u16::min_value(), u16::max_value());
         format!(
             "{:X}:{:X}:{:X}:{:X}:{:X}:{:X}:{:X}:{:X}",
@@ -153,26 +153,26 @@ impl Dummy<IPv6> for String {
     }
 }
 
-impl Dummy<IPv6> for Ipv6Addr {
+impl<L: Data> Dummy<IPv6<L>> for Ipv6Addr {
     #[inline]
-    fn dummy_with_rng<R: Rng + ?Sized>(_: &IPv6, rng: &mut R) -> Self {
+    fn dummy_with_rng<R: Rng + ?Sized>(_: &IPv6<L>, rng: &mut R) -> Self {
         Faker.fake_with_rng::<Ipv6Addr, _>(rng)
     }
 }
 
-pub struct IP;
+pub struct IP<L>(pub L);
 
-impl Dummy<IP> for IpAddr {
+impl<L: Data> Dummy<IP<L>> for IpAddr {
     #[inline]
-    fn dummy_with_rng<R: Rng + ?Sized>(_: &IP, rng: &mut R) -> Self {
+    fn dummy_with_rng<R: Rng + ?Sized>(_: &IP<L>, rng: &mut R) -> Self {
         Faker.fake_with_rng::<IpAddr, _>(rng)
     }
 }
 
-pub struct Color;
+pub struct Color<L>(pub L);
 
-impl Dummy<Color> for String {
-    fn dummy_with_rng<R: Rng + ?Sized>(_: &Color, rng: &mut R) -> Self {
+impl<L: Data> Dummy<Color<L>> for String {
+    fn dummy_with_rng<R: Rng + ?Sized>(_: &Color<L>, rng: &mut R) -> Self {
         let u = Uniform::new_inclusive(u8::min_value(), u8::max_value());
         format!(
             "#{:02X}{:02X}{:02X}",

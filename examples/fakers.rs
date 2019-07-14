@@ -1,5 +1,5 @@
 use fake::locales::{EN, ZH_TW};
-use fake::{Fake, Faker};
+use fake::Fake;
 
 fn lorem_faker() {
     use fake::faker::lorem::*;
@@ -117,16 +117,16 @@ fn address_faker() {
     let val: String = TimeZone(EN).fake();
     println!("{:?}", val);
 
-    let val: f32 = Latitude.fake();
+    let val: f32 = Latitude(EN).fake();
     println!("{:?}", val);
 
-    let val: f64 = Latitude.fake();
+    let val: f64 = Latitude(EN).fake();
     println!("{:?}", val);
 
-    let val: f32 = Longitude.fake();
+    let val: f32 = Longitude(EN).fake();
     println!("{:?}", val);
 
-    let val: f64 = Longitude.fake();
+    let val: f64 = Longitude(EN).fake();
     println!("{:?}", val);
 }
 
@@ -134,21 +134,21 @@ fn bool_faker() {
     use fake::faker::boolean::*;
 
     //50% true
-    let b = Boolean(50);
+    let b = Boolean(EN, 50);
     for _ in 0..5 {
         let val: bool = b.fake();
         println!("{:?}", val);
     }
 
     // 0% true
-    let b = Boolean(0);
+    let b = Boolean(EN, 0);
     for _ in 0..5 {
         let val: bool = b.fake();
         println!("{:?}", val);
     }
 
     // 100% true
-    let b = Boolean(100);
+    let b = Boolean(EN, 100);
     for _ in 0..5 {
         let val: bool = b.fake();
         println!("{:?}", val);
@@ -216,13 +216,13 @@ fn internet_faker() {
     let val: String = Password(EN, 8..20).fake();
     println!("{:?}", val);
 
-    let val: String = IPv4.fake();
+    let val: String = IPv4(EN).fake();
     println!("{:?}", val);
 
-    let val: String = IPv6.fake();
+    let val: String = IPv6(EN).fake();
     println!("{:?}", val);
 
-    let val: String = Color.fake();
+    let val: String = Color(EN).fake();
     println!("{:?}", val);
 
     let val: String = UserAgent(EN).fake();
@@ -294,6 +294,7 @@ fn http_faker() {
 fn chrono_faker() {
     use chrono::{TimeZone, Utc};
     use fake::faker::chrono::*;
+    use fake::Faker;
 
     let val: chrono::NaiveTime = Time(EN).fake();
     println!("{:?}", val);
