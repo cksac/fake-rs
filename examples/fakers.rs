@@ -229,6 +229,35 @@ fn internet_faker() {
     println!("{:?}", val);
 }
 
+fn number_faker() {
+    use fake::faker::number::*;
+
+    let val: String = Digit(EN).fake();
+    println!("{:?}", val);
+
+    // ^: 1-9, #: 0-9
+    let val: String = NumberWithFormat(EN, "^###").fake();
+    println!("{:?}", val);
+
+    let val: String = NumberWithFormat(EN, "FLAT 0# ^#/F").fake();
+    println!("{:?}", val);
+}
+
+fn phone_number_faker() {
+    use fake::faker::phone_number::*;
+    use fake::faker::number::NumberWithFormat;
+
+    let val: String = PhoneNumber(EN).fake();
+    println!("{:?}", val);
+
+    let val: String = CellNumber(EN).fake();
+    println!("{:?}", val);
+
+    // custom phone number format
+    let val: String = NumberWithFormat(EN, "(+852) 6### ####").fake();
+    println!("{:?}", val);
+}
+
 fn main() {
     lorem_faker();
     name_faker();
@@ -237,4 +266,6 @@ fn main() {
     bool_faker();
     company_faker();
     internet_faker();
+    number_faker();
+    phone_number_faker();
 }
