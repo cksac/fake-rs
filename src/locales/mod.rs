@@ -52,7 +52,12 @@ pub trait Data {
     const NUMBER_DIGIT: &'static [&'static str] = &["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
 
     const PHONE_NUMBER_FORMATS: &'static [&'static str] = &["(^##) ###-#### x###", "(^##) ###-#### x####", "(^##) ###-#### x#####", "(^##) ###-####", "1-^##-###-#### x###", "1-^##-###-#### x####", "1-^##-###-#### x#####", "1-^##-###-####", "^##-###-#### x###", "^##-###-#### x####", "^##-###-#### x#####", "^##-###-####", "^##.###.#### x###", "^##.###.#### x####", "^##.###.#### x#####", "^##.###.####"];
-    const PHONE_CELL_NUMBER_FORMATS: &'static [&'static str] = &["^##-###-####", "(^##) ###-####", "1-^##-###-####", "^##.###.####"];    
+    const PHONE_CELL_NUMBER_FORMATS: &'static [&'static str] = &["^##-###-####", "(^##) ###-####", "1-^##-###-####", "^##.###.####"];
+
+    // https://docs.rs/chrono/0.4.7/chrono/format/strftime/index.html
+    const CHRONO_DEFAULT_TIME_FORMAT: &'static str = "%H:%M:%S%.f";
+    const CHRONO_DEFAULT_DATE_FORMAT: &'static str = "%F";
+    const CHRONO_DEFAULT_DATETIME_FORMAT: &'static str = "%+";
 }
 
 mod en;

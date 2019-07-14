@@ -32,6 +32,7 @@ mod private {
 }
 
 pub trait Fake: Sized {
+    #[inline]
     fn fake<U>(&self) -> U
     where
         Self: private::FakeBase<U>,
@@ -39,6 +40,7 @@ pub trait Fake: Sized {
         self._fake()
     }
 
+    #[inline]
     fn fake_with_rng<U, R: Rng + ?Sized>(&self, rng: &mut R) -> U
     where
         Self: private::FakeBase<U>,

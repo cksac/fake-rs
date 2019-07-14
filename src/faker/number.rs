@@ -1,6 +1,6 @@
 use super::numerify_sym;
 use crate::locales::Data;
-use crate::{Dummy, Fake, Faker};
+use crate::Dummy;
 use rand::seq::SliceRandom;
 use rand::Rng;
 

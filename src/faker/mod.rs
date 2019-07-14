@@ -1,5 +1,7 @@
 pub mod address;
 pub mod boolean;
+#[cfg(feature = "chrono")]
+pub mod chrono;
 pub mod company;
 #[cfg(feature = "http")]
 pub mod http;

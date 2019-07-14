@@ -290,6 +290,48 @@ fn http_faker() {
     println!("{:?}", val);
 }
 
+#[cfg(feature = "chrono")]
+fn chrono_faker() {
+    use chrono::{TimeZone, Utc};
+    use fake::faker::chrono::*;
+
+    let val: chrono::NaiveTime = Time(EN).fake();
+    println!("{:?}", val);
+
+    let val: String = Time(EN).fake();
+    println!("{:?}", val);
+
+    let val: chrono::NaiveDate = Date(EN).fake();
+    println!("{:?}", val);
+
+    let val: String = Date(EN).fake();
+    println!("{:?}", val);
+
+    let val: chrono::NaiveDateTime = DateTime(EN).fake();
+    println!("{:?}", val);
+
+    let val: chrono::DateTime<Utc> = DateTime(EN).fake();
+    println!("{:?}", val);
+
+    let val: String = DateTime(EN).fake();
+    println!("{:?}", val);
+
+    let val: chrono::Duration = Duration(EN).fake();
+    println!("{}", val);
+
+    let val: chrono::Duration = Faker.fake();
+    println!("{}", val);
+
+    let start_dt: chrono::DateTime<Utc> = DateTimeBefore(EN, Utc::now()).fake();
+    println!("{}", start_dt);
+
+    let end_dt: chrono::DateTime<Utc> = DateTimeAfter(EN, Utc::now()).fake();
+    println!("{}", end_dt);
+
+    let between: chrono::DateTime<Utc> = DateTimeBetween(EN, start_dt, end_dt).fake();
+    println!("{}", between);
+}
+
 fn main() {
     lorem_faker();
     name_faker();
@@ -303,4 +345,7 @@ fn main() {
 
     #[cfg(feature = "http")]
     http_faker();
+
+    #[cfg(feature = "chrono")]
+    chrono_faker();
 }
