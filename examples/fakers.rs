@@ -1,5 +1,5 @@
 use fake::locales::{EN, ZH_TW};
-use fake::Fake;
+use fake::{Fake, Faker};
 
 fn lorem_faker() {
     use fake::faker::lorem::*;
@@ -244,8 +244,8 @@ fn number_faker() {
 }
 
 fn phone_number_faker() {
-    use fake::faker::phone_number::*;
     use fake::faker::number::NumberWithFormat;
+    use fake::faker::phone_number::*;
 
     let val: String = PhoneNumber(EN).fake();
     println!("{:?}", val);
@@ -255,6 +255,38 @@ fn phone_number_faker() {
 
     // custom phone number format
     let val: String = NumberWithFormat(EN, "(+852) 6### ####").fake();
+    println!("{:?}", val);
+}
+
+#[cfg(feature = "http")]
+fn http_faker() {
+    use fake::faker::http::*;
+    use http::status::{InvalidStatusCode, StatusCode};
+
+    let val: String = RfcStatusCode(EN).fake();
+    println!("{:?}", val);
+
+    let val: String = ValidStatusCode(EN).fake();
+    println!("{:?}", val);
+
+    let val: StatusCode = RfcStatusCode(EN).fake();
+    println!("{:?}", val);
+
+    let val: StatusCode = ValidStatusCode(EN).fake();
+    println!("{:?}", val);
+
+    let codes = [200, 401, 404, 500].as_ref();
+    let val: StatusCode = codes.fake();
+    println!("{:?}", val);
+
+    let codes = [200, 401, 404, 500, 611].as_ref();
+    let val: Result<StatusCode, InvalidStatusCode> = codes.fake();
+    println!("{:?}", val);
+
+    let val: StatusCode = Faker.fake();
+    println!("{:?}", val);
+
+    let val: http::Version = Faker.fake();
     println!("{:?}", val);
 }
 
@@ -268,4 +300,7 @@ fn main() {
     internet_faker();
     number_faker();
     phone_number_faker();
+
+    #[cfg(feature = "http")]
+    http_faker();
 }

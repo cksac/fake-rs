@@ -49,9 +49,9 @@ pub trait Fake: Sized {
 impl<T> Fake for T {}
 
 #[macro_use]
-mod std_impls;
-pub use std_impls::result::ResultFaker;
-pub use std_impls::string::StringFaker;
+mod impls;
+pub use impls::std::result::ResultFaker;
+pub use impls::std::string::StringFaker;
 
 pub mod faker;
 pub mod locales;

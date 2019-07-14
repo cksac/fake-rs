@@ -1,6 +1,8 @@
 pub mod address;
 pub mod boolean;
 pub mod company;
+#[cfg(feature = "http")]
+pub mod http;
 pub mod internet;
 pub mod job;
 pub mod lorem;
