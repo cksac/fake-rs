@@ -1,10 +1,9 @@
-use crate::faker::name::LastName;
+use crate::faker::company::raw::*;
+use crate::faker::name::raw::LastName;
 use crate::locales::Data;
 use crate::{Dummy, Fake};
 use rand::seq::SliceRandom;
 use rand::Rng;
-
-pub struct CompanySuffix<L>(pub L);
 
 impl<L: Data> Dummy<CompanySuffix<L>> for String {
     fn dummy_with_rng<R: Rng + ?Sized>(_: &CompanySuffix<L>, rng: &mut R) -> Self {
@@ -20,7 +19,6 @@ impl<L: Data> Dummy<CompanySuffix<L>> for &str {
     }
 }
 
-pub struct CompanyName<L>(pub L);
 impl<L: Data + Copy> Dummy<CompanyName<L>> for String {
     fn dummy_with_rng<R: Rng + ?Sized>(c: &CompanyName<L>, rng: &mut R) -> Self {
         let name_tpl = *L::COMPANY_NAME_TPLS.choose(rng).unwrap();
@@ -31,8 +29,6 @@ impl<L: Data + Copy> Dummy<CompanyName<L>> for String {
             .into()
     }
 }
-
-pub struct Buzzword<L>(pub L);
 
 impl<L: Data> Dummy<Buzzword<L>> for String {
     fn dummy_with_rng<R: Rng + ?Sized>(_: &Buzzword<L>, rng: &mut R) -> Self {
@@ -48,8 +44,6 @@ impl<L: Data> Dummy<Buzzword<L>> for &str {
     }
 }
 
-pub struct BuzzwordMiddle<L>(pub L);
-
 impl<L: Data> Dummy<BuzzwordMiddle<L>> for String {
     fn dummy_with_rng<R: Rng + ?Sized>(_: &BuzzwordMiddle<L>, rng: &mut R) -> Self {
         let s = *L::COMPANY_BUZZWORD_MIDDLE.choose(rng).unwrap();
@@ -63,8 +57,6 @@ impl<L: Data> Dummy<BuzzwordMiddle<L>> for &str {
         s
     }
 }
-
-pub struct BuzzwordTail<L>(pub L);
 
 impl<L: Data> Dummy<BuzzwordTail<L>> for String {
     fn dummy_with_rng<R: Rng + ?Sized>(_: &BuzzwordTail<L>, rng: &mut R) -> Self {
@@ -80,8 +72,6 @@ impl<L: Data> Dummy<BuzzwordTail<L>> for &str {
     }
 }
 
-pub struct CatchPhase<L>(pub L);
-
 impl<L: Data + Copy> Dummy<CatchPhase<L>> for String {
     fn dummy_with_rng<R: Rng + ?Sized>(c: &CatchPhase<L>, rng: &mut R) -> Self {
         L::COMPANY_CATCH_PHASE_TPL
@@ -94,8 +84,6 @@ impl<L: Data + Copy> Dummy<CatchPhase<L>> for String {
             .into()
     }
 }
-
-pub struct BsVerb<L>(pub L);
 
 impl<L: Data> Dummy<BsVerb<L>> for String {
     fn dummy_with_rng<R: Rng + ?Sized>(_: &BsVerb<L>, rng: &mut R) -> Self {
@@ -111,8 +99,6 @@ impl<L: Data> Dummy<BsVerb<L>> for &str {
     }
 }
 
-pub struct BsAdj<L>(pub L);
-
 impl<L: Data> Dummy<BsAdj<L>> for String {
     fn dummy_with_rng<R: Rng + ?Sized>(_: &BsAdj<L>, rng: &mut R) -> Self {
         let s = *L::COMPANY_BS_ADJ.choose(rng).unwrap();
@@ -126,8 +112,6 @@ impl<L: Data> Dummy<BsAdj<L>> for &str {
         s
     }
 }
-
-pub struct BsNoun<L>(pub L);
 
 impl<L: Data> Dummy<BsNoun<L>> for String {
     fn dummy_with_rng<R: Rng + ?Sized>(_: &BsNoun<L>, rng: &mut R) -> Self {
@@ -143,8 +127,6 @@ impl<L: Data> Dummy<BsNoun<L>> for &str {
     }
 }
 
-pub struct Bs<L>(pub L);
-
 impl<L: Data + Copy> Dummy<Bs<L>> for String {
     fn dummy_with_rng<R: Rng + ?Sized>(c: &Bs<L>, rng: &mut R) -> Self {
         L::COMPANY_BS_TPL
@@ -154,8 +136,6 @@ impl<L: Data + Copy> Dummy<Bs<L>> for String {
             .into()
     }
 }
-
-pub struct Profession<L>(pub L);
 
 impl<L: Data> Dummy<Profession<L>> for String {
     fn dummy_with_rng<R: Rng + ?Sized>(_: &Profession<L>, rng: &mut R) -> Self {
@@ -170,8 +150,6 @@ impl<L: Data> Dummy<Profession<L>> for &str {
         s
     }
 }
-
-pub struct Industry<L>(pub L);
 
 impl<L: Data> Dummy<Industry<L>> for String {
     fn dummy_with_rng<R: Rng + ?Sized>(_: &Industry<L>, rng: &mut R) -> Self {

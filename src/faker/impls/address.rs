@@ -1,11 +1,10 @@
-use super::numerify_sym;
-use crate::faker::name::{FirstName, LastName, Name};
+use crate::faker::address::raw::*;
+use crate::faker::name::raw::{FirstName, LastName, Name};
+use crate::faker::numerify_sym;
 use crate::locales::Data;
 use crate::{Dummy, Fake, Faker};
 use rand::seq::SliceRandom;
 use rand::Rng;
-
-pub struct CityPrefix<L>(pub L);
 
 impl<L: Data> Dummy<CityPrefix<L>> for String {
     fn dummy_with_rng<R: Rng + ?Sized>(_: &CityPrefix<L>, rng: &mut R) -> Self {
@@ -21,8 +20,6 @@ impl<L: Data> Dummy<CityPrefix<L>> for &str {
     }
 }
 
-pub struct CitySuffix<L>(pub L);
-
 impl<L: Data> Dummy<CitySuffix<L>> for String {
     fn dummy_with_rng<R: Rng + ?Sized>(_: &CitySuffix<L>, rng: &mut R) -> Self {
         let s = *L::ADDRESS_CITY_SUFFIX.choose(rng).unwrap();
@@ -36,8 +33,6 @@ impl<L: Data> Dummy<CitySuffix<L>> for &str {
         s
     }
 }
-
-pub struct CityName<L>(pub L);
 
 impl<L: Data + Copy> Dummy<CityName<L>> for String {
     fn dummy_with_rng<R: Rng + ?Sized>(c: &CityName<L>, rng: &mut R) -> Self {
@@ -74,8 +69,6 @@ impl<L: Data + Copy> Dummy<CityName<L>> for String {
     }
 }
 
-pub struct CountryName<L>(pub L);
-
 impl<L: Data> Dummy<CountryName<L>> for String {
     fn dummy_with_rng<R: Rng + ?Sized>(_: &CountryName<L>, rng: &mut R) -> Self {
         let s = *L::ADDRESS_COUNTRY.choose(rng).unwrap();
@@ -89,8 +82,6 @@ impl<L: Data> Dummy<CountryName<L>> for &str {
         s
     }
 }
-
-pub struct CountryCode<L>(pub L);
 
 impl<L: Data> Dummy<CountryCode<L>> for String {
     fn dummy_with_rng<R: Rng + ?Sized>(_: &CountryCode<L>, rng: &mut R) -> Self {
@@ -106,8 +97,6 @@ impl<L: Data> Dummy<CountryCode<L>> for &str {
     }
 }
 
-pub struct StreetSuffix<L>(pub L);
-
 impl<L: Data> Dummy<StreetSuffix<L>> for String {
     fn dummy_with_rng<R: Rng + ?Sized>(_: &StreetSuffix<L>, rng: &mut R) -> Self {
         let s = *L::ADDRESS_STREET_SUFFIX.choose(rng).unwrap();
@@ -121,8 +110,6 @@ impl<L: Data> Dummy<StreetSuffix<L>> for &str {
         s
     }
 }
-
-pub struct StreetName<L>(pub L);
 
 impl<L: Data + Copy> Dummy<StreetName<L>> for String {
     fn dummy_with_rng<R: Rng + ?Sized>(c: &StreetName<L>, rng: &mut R) -> Self {
@@ -140,8 +127,6 @@ impl<L: Data + Copy> Dummy<StreetName<L>> for String {
     }
 }
 
-pub struct TimeZone<L>(pub L);
-
 impl<L: Data> Dummy<TimeZone<L>> for String {
     fn dummy_with_rng<R: Rng + ?Sized>(_: &TimeZone<L>, rng: &mut R) -> Self {
         let s = *L::ADDRESS_TIME_ZONE.choose(rng).unwrap();
@@ -155,8 +140,6 @@ impl<L: Data> Dummy<TimeZone<L>> for &str {
         s
     }
 }
-
-pub struct StateName<L>(pub L);
 
 impl<L: Data> Dummy<StateName<L>> for String {
     fn dummy_with_rng<R: Rng + ?Sized>(_: &StateName<L>, rng: &mut R) -> Self {
@@ -172,8 +155,6 @@ impl<L: Data> Dummy<StateName<L>> for &str {
     }
 }
 
-pub struct StateAbbr<L>(pub L);
-
 impl<L: Data> Dummy<StateAbbr<L>> for String {
     fn dummy_with_rng<R: Rng + ?Sized>(_: &StateAbbr<L>, rng: &mut R) -> Self {
         let s = *L::ADDRESS_STATE_ABBR.choose(rng).unwrap();
@@ -188,8 +169,6 @@ impl<L: Data> Dummy<StateAbbr<L>> for &str {
     }
 }
 
-pub struct SecondaryAddressType<L>(pub L);
-
 impl<L: Data> Dummy<SecondaryAddressType<L>> for String {
     fn dummy_with_rng<R: Rng + ?Sized>(_: &SecondaryAddressType<L>, rng: &mut R) -> Self {
         let s = *L::ADDRESS_SECONDARY_ADDR_TYPE.choose(rng).unwrap();
@@ -203,8 +182,6 @@ impl<L: Data> Dummy<SecondaryAddressType<L>> for &str {
         s
     }
 }
-
-pub struct SecondaryAddress<L>(pub L);
 
 impl<L: Data + Copy> Dummy<SecondaryAddress<L>> for String {
     fn dummy_with_rng<R: Rng + ?Sized>(c: &SecondaryAddress<L>, rng: &mut R) -> Self {
@@ -221,16 +198,12 @@ impl<L: Data + Copy> Dummy<SecondaryAddress<L>> for String {
     }
 }
 
-pub struct ZipCode<L>(pub L);
-
 impl<L: Data + Copy> Dummy<ZipCode<L>> for String {
     fn dummy_with_rng<R: Rng + ?Sized>(_: &ZipCode<L>, rng: &mut R) -> Self {
         let fmt = L::ADDRESS_ZIP_FORMATS.choose(rng).unwrap();
         numerify_sym(fmt, rng)
     }
 }
-
-pub struct PostCode<L>(pub L);
 
 impl<L: Data + Copy> Dummy<PostCode<L>> for String {
     fn dummy_with_rng<R: Rng + ?Sized>(_: &PostCode<L>, rng: &mut R) -> Self {
@@ -239,16 +212,12 @@ impl<L: Data + Copy> Dummy<PostCode<L>> for String {
     }
 }
 
-pub struct BuildingNumber<L>(pub L);
-
 impl<L: Data + Copy> Dummy<BuildingNumber<L>> for String {
     fn dummy_with_rng<R: Rng + ?Sized>(_: &BuildingNumber<L>, rng: &mut R) -> Self {
         let fmt = L::ADDRESS_BUILDING_NUMBER_FORMATS.choose(rng).unwrap();
         numerify_sym(fmt, rng)
     }
 }
-
-pub struct Latitude<L>(pub L);
 
 impl<L: Data> Dummy<Latitude<L>> for f64 {
     #[inline]
@@ -270,8 +239,6 @@ impl<L: Data> Dummy<Latitude<L>> for String {
         c.fake_with_rng::<f64, _>(rng).to_string()
     }
 }
-
-pub struct Longitude<L>(pub L);
 
 impl<L: Data> Dummy<Longitude<L>> for f64 {
     #[inline]

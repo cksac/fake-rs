@@ -2,7 +2,7 @@ use fake::locales::{EN, ZH_TW};
 use fake::Fake;
 
 fn lorem_faker() {
-    use fake::faker::lorem::*;
+    use fake::faker::lorem::raw::*;
 
     let val: String = Word(EN).fake();
     println!("{:?}", val);
@@ -24,7 +24,7 @@ fn lorem_faker() {
 }
 
 fn name_faker() {
-    use fake::faker::name::*;
+    use fake::faker::name::raw::*;
 
     let val: String = FirstName(EN).fake();
     println!("{:?}", val);
@@ -52,7 +52,7 @@ fn name_faker() {
 }
 
 fn job_faker() {
-    use fake::faker::job::*;
+    use fake::faker::job::raw::*;
     let val: String = Seniority(EN).fake();
     println!("{:?}", val);
 
@@ -70,7 +70,7 @@ fn job_faker() {
 }
 
 fn address_faker() {
-    use fake::faker::address::*;
+    use fake::faker::address::raw::*;
 
     let val: String = CityPrefix(EN).fake();
     println!("{:?}", val);
@@ -131,7 +131,14 @@ fn address_faker() {
 }
 
 fn bool_faker() {
-    use fake::faker::boolean::*;
+    use fake::faker::boolean::raw::*;
+
+    use fake::faker::boolean::en;
+    let b = en::Boolean(50);
+    for _ in 0..5 {
+        let val: bool = b.fake();
+        println!("{:?}", val);
+    }
 
     //50% true
     let b = Boolean(EN, 50);
@@ -156,7 +163,7 @@ fn bool_faker() {
 }
 
 fn company_faker() {
-    use fake::faker::company::*;
+    use fake::faker::company::raw::*;
 
     let val: String = CompanySuffix(EN).fake();
     println!("{:?}", val);
@@ -196,7 +203,7 @@ fn company_faker() {
 }
 
 fn internet_faker() {
-    use fake::faker::internet::*;
+    use fake::faker::internet::raw::*;
 
     let val: String = FreeEmailProvider(EN).fake();
     println!("{:?}", val);
@@ -230,7 +237,7 @@ fn internet_faker() {
 }
 
 fn number_faker() {
-    use fake::faker::number::*;
+    use fake::faker::number::raw::*;
 
     let val: String = Digit(EN).fake();
     println!("{:?}", val);
@@ -244,8 +251,8 @@ fn number_faker() {
 }
 
 fn phone_number_faker() {
-    use fake::faker::number::NumberWithFormat;
-    use fake::faker::phone_number::*;
+    use fake::faker::number::raw::NumberWithFormat;
+    use fake::faker::phone_number::raw::*;
 
     let val: String = PhoneNumber(EN).fake();
     println!("{:?}", val);
@@ -260,7 +267,8 @@ fn phone_number_faker() {
 
 #[cfg(feature = "http")]
 fn http_faker() {
-    use fake::faker::http::*;
+    use fake::faker::http::raw::*;
+    use fake::Faker;
     use http::status::{InvalidStatusCode, StatusCode};
 
     let val: String = RfcStatusCode(EN).fake();
@@ -292,8 +300,8 @@ fn http_faker() {
 
 #[cfg(feature = "chrono")]
 fn chrono_faker() {
-    use chrono::{TimeZone, Utc};
-    use fake::faker::chrono::*;
+    use chrono::Utc;
+    use fake::faker::chrono::raw::*;
     use fake::Faker;
 
     let val: chrono::NaiveTime = Time(EN).fake();

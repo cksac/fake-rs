@@ -1,13 +1,10 @@
-use super::numerify_sym;
+use crate::faker::chrono::raw::*;
 use crate::locales::Data;
 use crate::{Dummy, Fake, Faker};
 use chrono::Utc;
-use rand::seq::SliceRandom;
 use rand::Rng;
 
 const MINUTES_MAX_BOUND: i64 = 1_000_000;
-
-pub struct Time<L>(pub L);
 
 impl<L: Data> Dummy<Time<L>> for chrono::NaiveTime {
     #[inline]
@@ -24,8 +21,6 @@ impl<L: Data> Dummy<Time<L>> for String {
     }
 }
 
-pub struct Date<L>(pub L);
-
 impl<L: Data> Dummy<Date<L>> for chrono::NaiveDate {
     #[inline]
     fn dummy_with_rng<R: Rng + ?Sized>(_: &Date<L>, rng: &mut R) -> Self {
@@ -40,8 +35,6 @@ impl<L: Data> Dummy<Date<L>> for String {
         date.format(L::CHRONO_DEFAULT_DATE_FORMAT).to_string()
     }
 }
-
-pub struct DateTime<L>(pub L);
 
 impl<L: Data> Dummy<DateTime<L>> for chrono::NaiveDateTime {
     #[inline]
@@ -67,16 +60,12 @@ impl<L: Data> Dummy<DateTime<L>> for String {
     }
 }
 
-pub struct Duration<L>(pub L);
-
 impl<L: Data> Dummy<Duration<L>> for chrono::Duration {
     #[inline]
     fn dummy_with_rng<R: Rng + ?Sized>(_: &Duration<L>, rng: &mut R) -> Self {
         Faker.fake_with_rng(rng)
     }
 }
-
-pub struct DateTimeBefore<L>(pub L, pub chrono::DateTime<Utc>);
 
 impl<L: Data> Dummy<DateTimeBefore<L>> for chrono::DateTime<Utc> {
     fn dummy_with_rng<R: Rng + ?Sized>(c: &DateTimeBefore<L>, rng: &mut R) -> Self {
@@ -95,8 +84,6 @@ impl<L: Data> Dummy<DateTimeBefore<L>> for String {
     }
 }
 
-pub struct DateTimeAfter<L>(pub L, pub chrono::DateTime<Utc>);
-
 impl<L: Data> Dummy<DateTimeAfter<L>> for chrono::DateTime<Utc> {
     fn dummy_with_rng<R: Rng + ?Sized>(c: &DateTimeAfter<L>, rng: &mut R) -> Self {
         let mins: i64 = (1..MINUTES_MAX_BOUND).fake_with_rng(rng);
@@ -114,8 +101,6 @@ impl<L: Data> Dummy<DateTimeAfter<L>> for String {
             .to_string()
     }
 }
-
-pub struct DateTimeBetween<L>(pub L, pub chrono::DateTime<Utc>, pub chrono::DateTime<Utc>);
 
 impl<L: Data> Dummy<DateTimeBetween<L>> for chrono::DateTime<Utc> {
     #[inline]

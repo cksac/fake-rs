@@ -1,10 +1,8 @@
+use crate::faker::lorem::raw::*;
 use crate::locales::Data;
 use crate::{Dummy, Fake};
 use rand::seq::SliceRandom;
 use rand::Rng;
-use std::ops;
-
-pub struct Word<L>(pub L);
 
 impl<L: Data> Dummy<Word<L>> for String {
     fn dummy_with_rng<R: Rng + ?Sized>(_: &Word<L>, rng: &mut R) -> Self {
@@ -20,8 +18,6 @@ impl<L: Data> Dummy<Word<L>> for &str {
     }
 }
 
-pub struct Words<L>(pub L, pub ops::Range<usize>);
-
 impl<L: Data + Copy> Dummy<Words<L>> for Vec<String> {
     fn dummy_with_rng<R: Rng + ?Sized>(c: &Words<L>, rng: &mut R) -> Self {
         let len: usize = c.1.fake_with_rng(rng);
@@ -33,8 +29,6 @@ impl<L: Data + Copy> Dummy<Words<L>> for Vec<String> {
         v
     }
 }
-
-pub struct Sentence<L>(pub L, pub ops::Range<usize>);
 
 impl<L: Data + Copy> Dummy<Sentence<L>> for String {
     fn dummy_with_rng<R: Rng + ?Sized>(c: &Sentence<L>, rng: &mut R) -> Self {
@@ -48,8 +42,6 @@ impl<L: Data + Copy> Dummy<Sentence<L>> for String {
     }
 }
 
-pub struct Sentences<L>(pub L, pub ops::Range<usize>);
-
 impl<L: Data + Copy> Dummy<Sentences<L>> for Vec<String> {
     fn dummy_with_rng<R: Rng + ?Sized>(c: &Sentences<L>, rng: &mut R) -> Self {
         let len: usize = c.1.fake_with_rng(rng);
@@ -62,8 +54,6 @@ impl<L: Data + Copy> Dummy<Sentences<L>> for Vec<String> {
     }
 }
 
-pub struct Paragraph<L>(pub L, pub ops::Range<usize>);
-
 impl<L: Data + Copy> Dummy<Paragraph<L>> for String {
     fn dummy_with_rng<R: Rng + ?Sized>(c: &Paragraph<L>, rng: &mut R) -> Self {
         let len: usize = c.1.fake_with_rng(rng);
@@ -75,8 +65,6 @@ impl<L: Data + Copy> Dummy<Paragraph<L>> for String {
         v.join("\n")
     }
 }
-
-pub struct Paragraphs<L>(pub L, pub ops::Range<usize>);
 
 impl<L: Data + Copy> Dummy<Paragraphs<L>> for Vec<String> {
     fn dummy_with_rng<R: Rng + ?Sized>(c: &Paragraphs<L>, rng: &mut R) -> Self {

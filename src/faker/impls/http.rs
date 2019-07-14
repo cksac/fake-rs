@@ -1,11 +1,8 @@
+use crate::faker::http::raw::*;
 use crate::locales::Data;
 use crate::{Dummy, Fake, Faker};
 use http;
-use rand::seq::SliceRandom;
 use rand::Rng;
-use std::ops;
-
-pub struct RfcStatusCode<L>(pub L);
 
 impl<L: Data> Dummy<RfcStatusCode<L>> for http::StatusCode {
     #[inline]
@@ -21,8 +18,6 @@ impl<L: Data> Dummy<RfcStatusCode<L>> for String {
         format!("{}", code)
     }
 }
-
-pub struct ValidStatusCode<L>(pub L);
 
 impl<L: Data> Dummy<ValidStatusCode<L>> for http::StatusCode {
     #[inline]

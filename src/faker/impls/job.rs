@@ -1,9 +1,8 @@
+use crate::faker::job::raw::*;
 use crate::locales::Data;
 use crate::{Dummy, Fake};
 use rand::seq::SliceRandom;
 use rand::Rng;
-
-pub struct Seniority<L>(pub L);
 
 impl<L: Data> Dummy<Seniority<L>> for String {
     fn dummy_with_rng<R: Rng + ?Sized>(_: &Seniority<L>, rng: &mut R) -> Self {
@@ -19,8 +18,6 @@ impl<L: Data> Dummy<Seniority<L>> for &str {
     }
 }
 
-pub struct Field<L>(pub L);
-
 impl<L: Data> Dummy<Field<L>> for String {
     fn dummy_with_rng<R: Rng + ?Sized>(_: &Field<L>, rng: &mut R) -> Self {
         let s = *L::JOB_FIELD.choose(rng).unwrap();
@@ -35,8 +32,6 @@ impl<L: Data> Dummy<Field<L>> for &str {
     }
 }
 
-pub struct Position<L>(pub L);
-
 impl<L: Data> Dummy<Position<L>> for String {
     fn dummy_with_rng<R: Rng + ?Sized>(_: &Position<L>, rng: &mut R) -> Self {
         let s = *L::JOB_POSITION.choose(rng).unwrap();
@@ -50,8 +45,6 @@ impl<L: Data> Dummy<Position<L>> for &str {
         s
     }
 }
-
-pub struct Title<L>(pub L);
 
 impl<L: Data + Copy> Dummy<Title<L>> for String {
     fn dummy_with_rng<R: Rng + ?Sized>(c: &Title<L>, rng: &mut R) -> Self {

@@ -1,10 +1,9 @@
-use super::numerify_sym;
+use crate::faker::numerify_sym;
+use crate::faker::phone_number::raw::*;
 use crate::locales::Data;
 use crate::Dummy;
 use rand::seq::SliceRandom;
 use rand::Rng;
-
-pub struct PhoneNumber<L>(pub L);
 
 impl<L: Data> Dummy<PhoneNumber<L>> for String {
     fn dummy_with_rng<R: Rng + ?Sized>(_: &PhoneNumber<L>, rng: &mut R) -> Self {
@@ -12,8 +11,6 @@ impl<L: Data> Dummy<PhoneNumber<L>> for String {
         numerify_sym(fmt, rng)
     }
 }
-
-pub struct CellNumber<L>(pub L);
 
 impl<L: Data> Dummy<CellNumber<L>> for String {
     fn dummy_with_rng<R: Rng + ?Sized>(_c: &CellNumber<L>, rng: &mut R) -> Self {

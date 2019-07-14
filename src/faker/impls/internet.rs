@@ -1,14 +1,12 @@
-use crate::faker::lorem::Word;
-use crate::faker::name::FirstName;
+use crate::faker::internet::raw::*;
+use crate::faker::lorem::raw::Word;
+use crate::faker::name::raw::FirstName;
 use crate::locales::{Data, EN};
 use crate::{Dummy, Fake, Faker};
 use rand::distributions::{Distribution, Uniform};
 use rand::seq::SliceRandom;
 use rand::Rng;
 use std::net::{IpAddr, Ipv4Addr, Ipv6Addr};
-use std::ops;
-
-pub struct FreeEmailProvider<L>(pub L);
 
 impl<L: Data> Dummy<FreeEmailProvider<L>> for String {
     fn dummy_with_rng<R: Rng + ?Sized>(_: &FreeEmailProvider<L>, rng: &mut R) -> Self {
@@ -24,8 +22,6 @@ impl<L: Data> Dummy<FreeEmailProvider<L>> for &str {
     }
 }
 
-pub struct DomainSuffix<L>(pub L);
-
 impl<L: Data> Dummy<DomainSuffix<L>> for String {
     fn dummy_with_rng<R: Rng + ?Sized>(_: &DomainSuffix<L>, rng: &mut R) -> Self {
         let s = *L::INTERNET_DOMAIN_SUFFIX.choose(rng).unwrap();
@@ -40,8 +36,6 @@ impl<L: Data> Dummy<DomainSuffix<L>> for &str {
     }
 }
 
-pub struct FreeEmail<L>(pub L);
-
 impl<L: Data + Copy> Dummy<FreeEmail<L>> for String {
     fn dummy_with_rng<R: Rng + ?Sized>(c: &FreeEmail<L>, rng: &mut R) -> Self {
         let username: String = Username(c.0).fake_with_rng(rng);
@@ -49,8 +43,6 @@ impl<L: Data + Copy> Dummy<FreeEmail<L>> for String {
         format!("{}@{}", username, provider)
     }
 }
-
-pub struct SafeEmail<L>(pub L);
 
 impl<L: Data + Copy> Dummy<SafeEmail<L>> for String {
     fn dummy_with_rng<R: Rng + ?Sized>(_: &SafeEmail<L>, rng: &mut R) -> Self {
@@ -62,8 +54,6 @@ impl<L: Data + Copy> Dummy<SafeEmail<L>> for String {
         format!("{}@example.{}", username, domain)
     }
 }
-
-pub struct Username<L>(pub L);
 
 impl<L: Data> Dummy<Username<L>> for String {
     fn dummy_with_rng<R: Rng + ?Sized>(_: &Username<L>, rng: &mut R) -> Self {
@@ -100,8 +90,6 @@ impl<L: Data> Dummy<Username<L>> for String {
     }
 }
 
-pub struct Password<L>(pub L, pub ops::Range<usize>);
-
 impl<L: Data> Dummy<Password<L>> for String {
     fn dummy_with_rng<R: Rng + ?Sized>(c: &Password<L>, rng: &mut R) -> Self {
         let len: usize = c.1.fake_with_rng(rng);
@@ -111,8 +99,6 @@ impl<L: Data> Dummy<Password<L>> for String {
         s.unwrap_or_default()
     }
 }
-
-pub struct IPv4<L>(pub L);
 
 impl<L: Data> Dummy<IPv4<L>> for String {
     fn dummy_with_rng<R: Rng + ?Sized>(_: &IPv4<L>, rng: &mut R) -> Self {
@@ -133,8 +119,6 @@ impl<L: Data> Dummy<IPv4<L>> for Ipv4Addr {
         Faker.fake_with_rng::<Ipv4Addr, _>(rng)
     }
 }
-
-pub struct IPv6<L>(pub L);
 
 impl<L: Data> Dummy<IPv6<L>> for String {
     fn dummy_with_rng<R: Rng + ?Sized>(_: &IPv6<L>, rng: &mut R) -> Self {
@@ -160,16 +144,12 @@ impl<L: Data> Dummy<IPv6<L>> for Ipv6Addr {
     }
 }
 
-pub struct IP<L>(pub L);
-
 impl<L: Data> Dummy<IP<L>> for IpAddr {
     #[inline]
     fn dummy_with_rng<R: Rng + ?Sized>(_: &IP<L>, rng: &mut R) -> Self {
         Faker.fake_with_rng::<IpAddr, _>(rng)
     }
 }
-
-pub struct Color<L>(pub L);
 
 impl<L: Data> Dummy<Color<L>> for String {
     fn dummy_with_rng<R: Rng + ?Sized>(_: &Color<L>, rng: &mut R) -> Self {
@@ -182,8 +162,6 @@ impl<L: Data> Dummy<Color<L>> for String {
         )
     }
 }
-
-pub struct UserAgent<L>(pub L);
 
 impl<L: Data> Dummy<UserAgent<L>> for String {
     fn dummy_with_rng<R: Rng + ?Sized>(_: &UserAgent<L>, rng: &mut R) -> Self {

@@ -1,6 +1,5 @@
 use crate::{Dummy, Fake, Faker};
 use chrono::{Date, DateTime, Duration, NaiveDate, NaiveDateTime, NaiveTime, TimeZone, Utc};
-use rand::seq::SliceRandom;
 use rand::Rng;
 
 const YEAR_MAG: i32 = 3_000i32;
