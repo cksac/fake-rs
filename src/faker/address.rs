@@ -41,7 +41,7 @@ pub struct CityName<L>(pub L);
 
 impl<L: Data + Copy> Dummy<CityName<L>> for String {
     fn dummy_with_rng<R: Rng + ?Sized>(c: &CityName<L>, rng: &mut R) -> Self {
-        match (0..5).fake::<u8>() {
+        match (0..5).fake_with_rng::<u8, _>(rng) {
             0 => L::ADDRESS_CITY_WITH_PREFIX_TPL
                 .replace(
                     "{CityPrefix}",
@@ -126,7 +126,7 @@ pub struct StreetName<L>(pub L);
 
 impl<L: Data + Copy> Dummy<StreetName<L>> for String {
     fn dummy_with_rng<R: Rng + ?Sized>(c: &StreetName<L>, rng: &mut R) -> Self {
-        let name = match Faker.fake::<bool>() {
+        let name = match Faker.fake_with_rng::<bool, _>(rng) {
             true => FirstName(c.0).fake_with_rng::<&str, _>(rng),
             false => LastName(c.0).fake_with_rng::<&str, _>(rng),
         };

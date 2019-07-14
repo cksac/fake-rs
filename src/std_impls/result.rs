@@ -8,7 +8,7 @@ where
     E: Dummy<Faker>,
 {
     fn dummy_with_rng<R: Rng + ?Sized>(config: &Faker, rng: &mut R) -> Self {
-        if Faker.fake::<bool>() {
+        if Faker.fake_with_rng::<bool, _>(rng) {
             Ok(T::dummy_with_rng(config, rng))
         } else {
             Err(E::dummy_with_rng(config, rng))
@@ -55,7 +55,7 @@ where
     E: Dummy<V>,
 {
     fn dummy_with_rng<R: Rng + ?Sized>(config: &ResultFaker<U, V>, rng: &mut R) -> Self {
-        if Faker.fake::<bool>() {
+        if Faker.fake_with_rng::<bool, _>(rng) {
             Ok(T::dummy_with_rng(&config.ok, rng))
         } else {
             Err(E::dummy_with_rng(&config.err, rng))

@@ -1,6 +1,28 @@
 use fake::locales::{EN, ZH_TW};
 use fake::Fake;
 
+fn lorem_faker() {
+    use fake::faker::lorem::*;
+
+    let val: String = Word(EN).fake();
+    println!("{:?}", val);
+
+    let val: Vec<String> = Words(EN, 3..5).fake();
+    println!("{:?}", val);
+
+    let val: String = Sentence(EN, 3..5).fake();
+    println!("{:?}", val);
+
+    let val: Vec<String> = Sentences(EN, 3..5).fake();
+    println!("{:?}", val);
+
+    let val: String = Paragraph(EN, 3..5).fake();
+    println!("{:?}", val);
+
+    let val: Vec<String> = Paragraphs(EN, 3..5).fake();
+    println!("{:?}", val);
+}
+
 fn name_faker() {
     use fake::faker::name::*;
 
@@ -173,10 +195,46 @@ fn company_faker() {
     println!("{:?}", val);
 }
 
+fn internet_faker() {
+    use fake::faker::internet::*;
+
+    let val: String = FreeEmailProvider(EN).fake();
+    println!("{:?}", val);
+
+    let val: String = DomainSuffix(EN).fake();
+    println!("{:?}", val);
+
+    let val: String = FreeEmail(EN).fake();
+    println!("{:?}", val);
+
+    let val: String = SafeEmail(EN).fake();
+    println!("{:?}", val);
+
+    let val: String = Username(EN).fake();
+    println!("{:?}", val);
+
+    let val: String = Password(EN, 8..20).fake();
+    println!("{:?}", val);
+
+    let val: String = IPv4.fake();
+    println!("{:?}", val);
+
+    let val: String = IPv6.fake();
+    println!("{:?}", val);
+
+    let val: String = Color.fake();
+    println!("{:?}", val);
+
+    let val: String = UserAgent(EN).fake();
+    println!("{:?}", val);
+}
+
 fn main() {
+    lorem_faker();
     name_faker();
     job_faker();
     address_faker();
     bool_faker();
     company_faker();
+    internet_faker();
 }

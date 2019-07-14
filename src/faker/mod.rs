@@ -1,7 +1,9 @@
 pub mod address;
 pub mod boolean;
 pub mod company;
+pub mod internet;
 pub mod job;
+pub mod lorem;
 pub mod name;
 
 use crate::Fake;
