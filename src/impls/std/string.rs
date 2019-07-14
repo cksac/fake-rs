@@ -3,7 +3,6 @@ use rand::distributions::Alphanumeric;
 use rand::seq::SliceRandom;
 use rand::Rng;
 use std::ops;
-use typed_builder::TypedBuilder;
 
 const DEFAULT_STR_LEN_RANGE: ops::Range<usize> = 5..20;
 
@@ -62,7 +61,6 @@ impl Dummy<ops::RangeToInclusive<usize>> for String {
     }
 }
 
-#[derive(TypedBuilder)]
 pub struct StringFaker<L> {
     charset: Vec<u8>,
     len: L,

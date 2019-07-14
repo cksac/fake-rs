@@ -29,218 +29,164 @@ features = ["http"]
 ## Usage
 
 ```rust
-// Use macro style
 #[macro_use]
 extern crate fake;
+use fake::{Fake, Faker};
 
-fake!(Internet.free_email);
-fake!(Company.name);
-fake!(Name.name);
-fake!(Name.name in zh_tw);
+fn main() {
+    // using `Faker` to generate default fake value of given type
+    let tuple = Faker.fake::<(u8, u32, f32)>();
+    println!("tuple {:?}", tuple);
+    println!("String {:?}", Faker.fake::<String>());
 
-// Custom fake string
-fn to_lowercase<S: Into<String>>(s: S) -> String {
-    s.into().to_lowercase()
+    // types U can used to generate fake value T, if `T: Dummy<U>`
+    println!("String {:?}", (8..20).fake::<String>());
+    println!("u32 {:?}", (8..20).fake::<u32>());
+
+    // using `faker` module with locales
+    use fake::faker::name::raw::*;
+    use fake::locales::*;
+
+    let name: String = Name(EN).fake();
+    println!("name {:?}", name);
+
+    let name: String = Name(ZH_TW).fake();
+    println!("name {:?}", name);
+
+    // using convenient function without providing locale
+    use fake::faker::lorem::en::*;
+    let words: Vec<String> = Words(3..5).fake();
+    println!("name {:?}", words);
+
+    // using macro to generate nested collection
+    let name_vec = fake::vec![String as Name(EN); 4, 3..5, 2];
+    println!("random nested vec {:?}", name_vec);    
 }
-fake!("{} - {}", [Name.name | to_lowercase], [expr fake!(Name.name).to_lowercase()]);
-fake!("{} - {} - {}", [Name.name], [Name.name in zh_tw], [Number.number(10)]);
-fake!(r#"{{"name": "{x}", "chinese_name": "{y}"}}"#, [y = Name.name in zh_tw], [x = Name.name]);
-fake!(r#"http://{domain}.{domain_suffix}/user/{username}.png?size={size}x{size}"#,
-      [domain = Name.last_name | to_lowercase],
-      [domain_suffix = Internet.domain_suffix],
-      [username = Name.first_name | to_lowercase],
-      [size = expr [512, 256, 128][gen_range(0, 3)]]);
-
-// Use function call style
-use fake::faker::*;
-
-Faker::free_email();
-
-// In case multiple candidates available
-<Faker as Company>::name();
-<Faker as Name>::name();
-
-// Switch locales
-use fake::locales::zh_tw;
-println!("{}", <zh_tw::Faker as Name>::name());
 ```
 
+# Fakers with locale
 ## Lorem
 
 ```rust
-println!("{:?}", fake!(Lorem.word));
-println!("{:?}", fake!(Lorem.words(10)));
-println!("{:?}", fake!(Lorem.sentence(4, 6)));
-println!("{:?}", fake!(Lorem.sentences(10)));
-println!("{:?}", fake!(Lorem.paragraph(7, 3)));
-println!("{:?}", fake!(Lorem.paragraphs(3)));
+Word();
+Words(count: Range<usize>);
+Sentence(count: Range<usize>);
+Sentences(count: Range<usize>);
+Paragraph(count: Range<usize>);
+Paragraphs(count: Range<usize>);
 ```
 
 ## Name
 
 ```rust
-println!("{:?}", fake!(Name.first_name));
-println!("{:?}", fake!(Name.last_name));
-println!("{:?}", fake!(Name.name));
-println!("{:?}", fake!(Name.name_with_middle));
-println!("{:?}", fake!(Name.title_descriptor));
-println!("{:?}", fake!(Name.title_level));
-println!("{:?}", fake!(Name.title_job));
-println!("{:?}", fake!(Name.title));
-
-println!("{}", fake!(Name.first_name in zh_tw));
-println!("{}", fake!(Name.last_name in zh_tw));
-println!("{}", fake!(Name.name in zh_tw));
+FirstName();
+LastName();
+Title();
+Suffix();
+Name();
+NameWithTitle();
 ```
 
 ## Number
 
 ```rust
-println!("{:?}", fake!(Number.digit));
-println!("{:?}", fake!(Number.number(10)));
-println!("{:?}", fake!(Number.between(5, 10)));
-println!("{:?}", fake!(Number.between(5.0_f32, 10.0_f32)));
+Digit();
+NumberWithFormat(fmt: &'static str);
 ```
 
 ## Boolean
 
 ```rust
-println!("{:?}", fake!(Boolean.boolean));
+Boolean(ratio: u8);
 ```
 
 ## Internet
 
 ```rust
-println!("{:?}", fake!(Internet.free_email_provider));
-println!("{:?}", fake!(Internet.domain_suffix));
-println!("{:?}", fake!(Internet.user_name));
-println!("{:?}", fake!(Internet.free_email));
-println!("{:?}", fake!(Internet.safe_email));
-println!("{:?}", fake!(Internet.ip));
-println!("{:?}", fake!(Internet.ipv4));
-println!("{:?}", fake!(Internet.ipv6));
-println!("{:?}", fake!(Internet.color));
-println!("{:?}", fake!(Internet.user_agent);
+FreeEmailProvider();
+DomainSuffix();
+FreeEmail();
+SafeEmail();
+Username();
+Password(len_range: Range<usize>);
+IPv4();
+IPv6();
+IP();
+Color();
+UserAgent();
 ```
 
 ## HTTP
 ```rust
-// return status code with RFC
-println!("{:?}", fake!(Http.status_code));
-println!("{:?}", fake!(Http.status_code).canonical_reason());
-
-// return status code within (100, 600]
-println!("{:?}", fake!(Http.all_status_code));
-println!("{:?}", fake!(Http.all_status_code).canonical_reason());
-
-// http::StatusCode implement Dummy which return status code with RFC
-use http;
-println!("{:?}", http::StatusCode::dummy());
-println!("{:?}", dummy!(http::StatusCode));
-println!("{:?}", dummy!(Vec<http::StatusCode>));
+RfcStatusCode();
+ValidStatusCode();
 ```
 
 ## Company
 
 ```rust
-println!("{:?}", fake!(Company.suffix));
-println!("{:?}", fake!(Company.name));
-println!("{:?}", fake!(Company.buzzword));
-println!("{:?}", fake!(Company.catch_phase));
-println!("{:?}", fake!(Company.bs));
-println!("{:?}", fake!(Company.profession));
-println!("{:?}", fake!(Company.industry));
+CompanySuffix();
+CompanyName();
+Buzzword();
+BuzzwordMiddle();
+BuzzwordTail();
+CatchPhase();
+BsVerb();
+BsAdj();
+BsNoun();
+Bs();
+Profession();
+Industry();
 ```
 
 ## Address
 
 ```rust
-println!("{:?}", fake!(Address.time_zone));
-println!("{:?}", fake!(Address.city_prefix));
-println!("{:?}", fake!(Address.city_suffix));
-println!("{:?}", fake!(Address.street_suffix));
-println!("{:?}", fake!(Address.state));
-println!("{:?}", fake!(Address.state_abbr));
-println!("{:?}", fake!(Address.city));
-println!("{:?}", fake!(Address.street_name));
-println!("{:?}", fake!(Address.building_number));
-println!("{:?}", fake!(Address.street_address));
-println!("{:?}", fake!(Address.secondary_address));
-println!("{:?}", fake!(Address.zip));
-println!("{:?}", fake!(Address.postcode));
-println!("{:?}", fake!(Address.latitude));
-println!("{:?}", fake!(Address.longitude));
+CityPrefix();
+CitySuffix();
+CityName();
+CountryName();
+CountryCode();
+StreetSuffix();
+StreetName();
+TimeZone();
+StateName();
+StateAbbr();
+SecondaryAddressType();
+SecondaryAddress();
+ZipCode();
+PostCode();
+BuildingNumber();
+Latitude();
+Longitude();
 ```
 
 ## Phone Number
 
 ```rust
-println!("{:?}", fake!(PhoneNumber.phone_number));
-// N => [1..9], # => [0..9]
-println!("{:?}", fake!(PhoneNumber.phone_number_with_format("N###-####")));
-println!("{:?}", fake!(PhoneNumber.cell_number));
+PhoneNumber();
+CellNumber();
 ```
 
 ## Date/Time
 
 ```rust
-use chrono::prelude::*;
-
-let early = Utc.ymd(2010, 4, 20).and_hms(11, 11, 11);
-let late = Utc.ymd(2020, 6, 5).and_hms(9, 32, 33);
-let now = Utc::now();
-let fmt = "%a %b %e %T %Y %:z";
-let now_str = now.format(fmt).to_string();
-
-println!("{:?}", fake!(Chrono.time(Some("%I.%M.%S %p")));
-println!("{:?}", fake!(Chrono.date(Some("%A %Y.%m.%d")));
-println!("{:?}", fake!(Chrono.datetime(None)));
-println!("{:?}", fake!(Chrono.before(Some(fmt), now_str)));
-println!("{:?}", fake!(Chrono.after(Some(fmt), now_str)));
-println!(
-    "{:?}",
-    fake!(Chrono.between(
-        Some(fmt),
-        &early.format(fmt).to_string(),
-        &late.format(fmt).to_string()
-    ))
-);
-println!(
-    "{:?}",
-    fake!(
-        Chrono.between(
-            None,
-            &early.to_rfc3339(),
-            &late.to_rfc3339()
-        )
-    )
-);
+Time();
+Date();
+DateTime();
+Duration();
+DateTimeBefore(dt: DateTime<Utc>);
+DateTimeAfter(dt: DateTime<Utc>);
+DateTimeBetween(start: DateTime<Utc>, end: DateTime<Utc>);
 ```
 
-## Dummy
+# LICENSE
 
-```rust
-// dummy macro take T: Dummy
-println!("{:?}", dummy!(i32));
-println!("{:?}", dummy!(Vec<Vec<i32>>));
-```
+This project is licensed under either of
 
-## Contributing
+ * Apache License, Version 2.0, ([LICENSE-APACHE](LICENSE-APACHE) or
+   http://www.apache.org/licenses/LICENSE-2.0)
+ * MIT license ([LICENSE-MIT](LICENSE-MIT) or
+   http://opensource.org/licenses/MIT)
 
-### What can you help
-
-1.  Add locales
-2.  Add new faker
-3.  Report bugs
-4.  Fix Issues
-
-### How
-
-1.  Fork the repo.
-2.  Add a test for your change.
-3.  Make the test. `cargo test`
-4.  Push to your fork and submit a pull request.
-
-## LICENSE
-
-The MIT License (MIT)
+at your option.

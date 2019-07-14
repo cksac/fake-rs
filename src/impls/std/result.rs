@@ -1,6 +1,5 @@
 use crate::{Dummy, Fake, Faker};
 use rand::Rng;
-use typed_builder::TypedBuilder;
 
 impl<T, E> Dummy<Faker> for Result<T, E>
 where
@@ -16,7 +15,6 @@ where
     }
 }
 
-#[derive(TypedBuilder)]
 pub struct ResultFaker<T, E> {
     ok: T,
     err: E,
