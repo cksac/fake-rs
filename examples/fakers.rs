@@ -354,7 +354,7 @@ fn filesystem_faker() {
     let val: String = FileName(EN).fake();
     println!("{:?}", val);
 
-    let val: String = FilePath(EN).fake();
+    let val: String = FileExtension(EN).fake();
     println!("{:?}", val);
 
     let val: String = DirPath(EN).fake();
