@@ -46,4 +46,8 @@ fn main() {
 
     let c: Box<Rc<u8>> = (3..6).fake();
     println!("Box<Rc<u8>> {:?}", c);
+
+    // path
+    let path: std::path::PathBuf = Faker.fake();
+    println!("PathBuf {:?}", path);
 }

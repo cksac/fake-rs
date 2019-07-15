@@ -3,11 +3,12 @@ mod boolean;
 #[cfg(feature = "chrono")]
 mod chrono;
 mod company;
+mod filesystem;
 #[cfg(feature = "http")]
 mod http;
 mod internet;
 mod job;
-pub mod lorem;
-pub mod name;
-pub mod number;
-pub mod phone_number;
+mod lorem;
+mod name;
+mod number;
+mod phone_number;

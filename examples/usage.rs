@@ -1,4 +1,6 @@
 use fake::{Fake, Faker};
+use rand::rngs::StdRng;
+use rand::SeedableRng;
 
 fn main() {
     // using `Faker` to generate default fake value of given type
@@ -23,9 +25,20 @@ fn main() {
     // using convenient function without providing locale
     use fake::faker::lorem::en::*;
     let words: Vec<String> = Words(3..5).fake();
-    println!("name {:?}", words);
+    println!("words {:?}", words);
 
     // using macro to generate nested collection
     let name_vec = fake::vec![String as Name(EN); 4, 3..5, 2];
     println!("random nested vec {:?}", name_vec);
+
+    // fixed seed rng
+    let seed = [
+        1, 0, 0, 0, 23, 0, 0, 0, 200, 1, 0, 0, 210, 30, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0,
+    ];
+    let ref mut r = StdRng::from_seed(seed);
+    for _ in 0..5 {
+        let v: usize = Faker.fake_with_rng(r);
+        println!("value from fixed seed {}", v);
+    }
 }

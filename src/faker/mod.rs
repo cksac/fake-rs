@@ -168,3 +168,12 @@ pub mod phone_number {
         CellNumber();
     }
 }
+
+pub mod filesystem {
+    def_fakers! {
+        FilePath();
+        FileName();
+        FileExtension();
+        DirPath();
+    }
+}

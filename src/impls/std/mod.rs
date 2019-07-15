@@ -3,6 +3,7 @@ pub mod collections;
 pub mod container;
 pub mod net;
 pub mod option;
+pub mod path;
 pub mod primitives;
 pub mod result;
 pub mod string;

@@ -341,6 +341,29 @@ fn chrono_faker() {
     println!("{}", between);
 }
 
+fn filesystem_faker() {
+    use fake::faker::filesystem::raw::*;
+    use std::path::PathBuf;
+
+    let val: String = FilePath(EN).fake();
+    println!("{:?}", val);
+
+    let val: PathBuf = FilePath(EN).fake();
+    println!("{:?}", val);
+
+    let val: String = FileName(EN).fake();
+    println!("{:?}", val);
+
+    let val: String = FilePath(EN).fake();
+    println!("{:?}", val);
+
+    let val: String = DirPath(EN).fake();
+    println!("{:?}", val);
+
+    let val: PathBuf = DirPath(EN).fake();
+    println!("{:?}", val);
+}
+
 fn main() {
     lorem_faker();
     name_faker();
@@ -351,6 +374,7 @@ fn main() {
     internet_faker();
     number_faker();
     phone_number_faker();
+    filesystem_faker();
 
     #[cfg(feature = "http")]
     http_faker();

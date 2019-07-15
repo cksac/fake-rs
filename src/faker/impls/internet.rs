@@ -46,10 +46,7 @@ impl<L: Data + Copy> Dummy<FreeEmail<L>> for String {
 
 impl<L: Data + Copy> Dummy<SafeEmail<L>> for String {
     fn dummy_with_rng<R: Rng + ?Sized>(_: &SafeEmail<L>, rng: &mut R) -> Self {
-        let username: String = FirstName(EN)
-            .fake_with_rng::<&str, _>(rng)
-            .replace("'", "")
-            .to_lowercase();
+        let username: String = FirstName(EN).fake_with_rng::<&str, _>(rng).to_lowercase();
         let domain = ["com", "net", "org"].choose(rng).unwrap();
         format!("{}@example.{}", username, domain)
     }
@@ -58,32 +55,20 @@ impl<L: Data + Copy> Dummy<SafeEmail<L>> for String {
 impl<L: Data> Dummy<Username<L>> for String {
     fn dummy_with_rng<R: Rng + ?Sized>(_: &Username<L>, rng: &mut R) -> Self {
         match Faker.fake_with_rng::<u8, _>(rng) {
-            0 => FirstName(EN)
-                .fake_with_rng::<&str, _>(rng)
-                .replace("'", "")
-                .to_lowercase(),
+            0 => FirstName(EN).fake_with_rng::<&str, _>(rng).to_lowercase(),
             1 | 2 => format!(
                 "{}.{}",
                 Word(EN).fake_with_rng::<&str, _>(rng),
-                FirstName(EN)
-                    .fake_with_rng::<&str, _>(rng)
-                    .replace("'", "")
-                    .to_lowercase()
+                FirstName(EN).fake_with_rng::<&str, _>(rng).to_lowercase()
             ),
             3 | 4 => format!(
                 "{}{}",
-                FirstName(EN)
-                    .fake_with_rng::<&str, _>(rng)
-                    .replace("'", "")
-                    .to_lowercase(),
+                FirstName(EN).fake_with_rng::<&str, _>(rng).to_lowercase(),
                 Faker.fake_with_rng::<u8, _>(rng)
             ),
             _ => format!(
                 "{}_{}",
-                FirstName(EN)
-                    .fake_with_rng::<&str, _>(rng)
-                    .replace("'", "")
-                    .to_lowercase(),
+                FirstName(EN).fake_with_rng::<&str, _>(rng).to_lowercase(),
                 Word(EN).fake_with_rng::<&str, _>(rng),
             ),
         }
