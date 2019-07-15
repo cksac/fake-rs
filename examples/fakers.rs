@@ -364,6 +364,19 @@ fn filesystem_faker() {
     println!("{:?}", val);
 }
 
+fn currency_faker() {
+    use fake::faker::currency::raw::*;
+
+    let val: String = CurrencyCode(EN).fake();
+    println!("{:?}", val);
+
+    let val: String = CurrencyName(EN).fake();
+    println!("{:?}", val);
+
+    let val: String = CurrencySymbol(EN).fake();
+    println!("{:?}", val);
+}
+
 fn main() {
     lorem_faker();
     name_faker();
@@ -375,6 +388,7 @@ fn main() {
     number_faker();
     phone_number_faker();
     filesystem_faker();
+    currency_faker();
 
     #[cfg(feature = "http")]
     http_faker();

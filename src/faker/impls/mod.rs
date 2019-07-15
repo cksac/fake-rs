@@ -3,6 +3,7 @@ mod boolean;
 #[cfg(feature = "chrono")]
 mod chrono;
 mod company;
+mod currency;
 mod filesystem;
 #[cfg(feature = "http")]
 mod http;

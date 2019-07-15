@@ -177,3 +177,11 @@ pub mod filesystem {
         DirPath();
     }
 }
+
+pub mod currency {
+    def_fakers! {
+        CurrencyCode();
+        CurrencyName();
+        CurrencySymbol();
+    }
+}
