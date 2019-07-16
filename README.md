@@ -12,7 +12,7 @@ Default:
 [dependencies]
 fake = "2.0"
 ```
-If you want to use `#[derive(Dummy)]`
+If you want to use `#[derive(Dummy)]`:
 ```toml
 features = ["derive"]
 ```
