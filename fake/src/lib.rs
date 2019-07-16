@@ -57,3 +57,6 @@ pub use impls::std::string::StringFaker;
 
 pub mod faker;
 pub mod locales;
+
+#[cfg(feature = "derive")]
+pub use dummy::Dummy;

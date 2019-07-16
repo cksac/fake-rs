@@ -1,8 +1,23 @@
-use fake::{Fake, Faker, ResultFaker, StringFaker};
+use fake::{Dummy, Fake, Faker, ResultFaker, StringFaker};
 use std::pin::Pin;
 use std::rc::Rc;
 
+#[derive(Debug, Dummy)]
+pub struct Foo {
+    #[dummy(faker = "1000..2000")]
+    order_id: usize,
+    customer: String,
+    paid: bool,
+}
+
+fn dummy_derive() {
+    let f: Foo = Faker.fake();
+    println!("{:?}", f);
+}
+
 fn main() {
+    dummy_derive();
+
     // option
     println!("Option {:?}", Faker.fake::<Option<usize>>());
     println!("Option {:?}", (1..10).fake::<Option<usize>>());
