@@ -1,8 +1,20 @@
-use fake::{Fake, Faker};
+use fake::{Dummy, Fake, Faker};
 use rand::rngs::StdRng;
 use rand::SeedableRng;
 
+#[derive(Debug, Dummy)]
+pub struct Foo {
+    #[dummy(faker = "1000..2000")]
+    order_id: usize,
+    customer: String,
+    paid: bool,
+}
+
 fn main() {
+    // type derived Dummy
+    let f: Foo = Faker.fake();
+    println!("{:?}", f);
+
     // using `Faker` to generate default fake value of given type
     let tuple = Faker.fake::<(u8, u32, f32)>();
     println!("tuple {:?}", tuple);
