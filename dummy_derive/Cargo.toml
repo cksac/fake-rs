@@ -17,7 +17,3 @@ proc-macro = true
 syn = "0.15.26"
 quote = "0.6"
 darling = "0.9.0"
-
-[dev-dependencies]
-fake = { version = "2.0", path = "../fake", features=['derive']}
-rand="0.7"
