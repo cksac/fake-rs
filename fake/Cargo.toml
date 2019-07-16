@@ -10,9 +10,6 @@ repository = "https://github.com/cksac/fake-rs/fake"
 homepage = "https://github.com/cksac/fake-rs/fake"
 edition = "2018"
 
-[dev-dependencies]
-fake = { version = "2.2.0", path = ".", features=["derive"] }
-
 [dependencies]
 dummy = { version = "0.3", optional = true, path = "../dummy_derive" }
 rand = "0.7"
