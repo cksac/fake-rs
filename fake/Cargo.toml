@@ -6,8 +6,8 @@ description = "An easy to use library for generating fake data like name, number
 keywords = ["faker", "data", "generator", "random"]
 license = "MIT/Apache-2.0"
 readme = "README.md"
-repository = "https://github.com/cksac/fake-rs/fake"
-homepage = "https://github.com/cksac/fake-rs/fake"
+repository = "https://github.com/cksac/fake-rs"
+homepage = "https://github.com/cksac/fake-rs"
 edition = "2018"
 
 [dev-dependencies]
