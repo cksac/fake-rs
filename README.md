@@ -14,15 +14,15 @@ fake = "2.0"
 ```
 If you want to use `#[derive(Dummy)]`:
 ```toml
-features = ["derive"]
+fake = { version = "2.0", features=['derive']}
 ```
-If you want the date and time features from chrono:
+If you want the date and time features from `chrono`:
 ```toml
-features = ["chrono"]
+fake = { version = "2.0", features=['chrono']}
 ```
-If you want Http faker features:
+If you want `http` faker features:
 ```toml
-features = ["http"]
+fake = { version = "2.0", features=['http']}
 ```
 
 ## Usage
