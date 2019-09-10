@@ -107,6 +107,7 @@ integer_impl!(u8);
 integer_impl!(u16);
 integer_impl!(u32);
 integer_impl!(u64);
+#[cfg(not(target_os = "emscripten"))]
 integer_impl!(u128);
 integer_impl!(usize);
 
@@ -114,6 +115,7 @@ integer_impl!(i8);
 integer_impl!(i16);
 integer_impl!(i32);
 integer_impl!(i64);
+#[cfg(not(target_os = "emscripten"))]
 integer_impl!(i128);
 integer_impl!(isize);
 
