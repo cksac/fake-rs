@@ -7,6 +7,7 @@ mod currency;
 mod filesystem;
 #[cfg(feature = "http")]
 mod http;
+mod image;
 mod internet;
 mod job;
 mod lorem;

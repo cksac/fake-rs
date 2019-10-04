@@ -211,6 +211,14 @@ FileExtension();
 DirPath();
 ```
 
+## Image
+```rust
+Unsplash();
+UnsplashWithSize(width: u16, height: u16);
+UnsplashGrayscale(width: u16, height: u16);
+UnsplashBlur(width: u16, height: u16, blur: u8);
+```
+
 # LICENSE
 
 This project is licensed under either of
