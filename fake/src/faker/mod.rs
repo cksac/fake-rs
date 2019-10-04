@@ -119,6 +119,7 @@ pub mod internet {
         IPv4();
         IPv6();
         IP();
+        MACAddress();
         Color();
         UserAgent();
     }

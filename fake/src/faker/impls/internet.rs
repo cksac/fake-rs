@@ -136,6 +136,21 @@ impl<L: Data> Dummy<IP<L>> for IpAddr {
     }
 }
 
+impl<L: Data> Dummy<MACAddress<L>> for String {
+    fn dummy_with_rng<R: Rng + ?Sized>(_: &MACAddress<L>, rng: &mut R) -> Self {
+        let u = Uniform::new_inclusive(u8::min_value(), u8::max_value());
+        format!(
+            "{:X}:{:X}:{:X}:{:X}:{:X}:{:X}",
+            u.sample(rng),
+            u.sample(rng),
+            u.sample(rng),
+            u.sample(rng),
+            u.sample(rng),
+            u.sample(rng),
+        )
+    }
+}
+
 impl<L: Data> Dummy<Color<L>> for String {
     fn dummy_with_rng<R: Rng + ?Sized>(_: &Color<L>, rng: &mut R) -> Self {
         let u = Uniform::new_inclusive(u8::min_value(), u8::max_value());

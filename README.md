@@ -135,6 +135,7 @@ Password(len_range: Range<usize>);
 IPv4();
 IPv6();
 IP();
+MACAddress();
 Color();
 UserAgent();
 ```
