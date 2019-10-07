@@ -140,7 +140,7 @@ impl<L: Data> Dummy<MACAddress<L>> for String {
     fn dummy_with_rng<R: Rng + ?Sized>(_: &MACAddress<L>, rng: &mut R) -> Self {
         let u = Uniform::new_inclusive(u8::min_value(), u8::max_value());
         format!(
-            "{:X}:{:X}:{:X}:{:X}:{:X}:{:X}",
+            "{:02X}:{:02X}:{:02X}:{:02X}:{:02X}:{:02X}",
             u.sample(rng),
             u.sample(rng),
             u.sample(rng),
