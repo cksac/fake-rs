@@ -13,8 +13,7 @@ impl<L: Data> Dummy<FirstName<L>> for String {
 
 impl<L: Data> Dummy<FirstName<L>> for &str {
     fn dummy_with_rng<R: Rng + ?Sized>(_: &FirstName<L>, rng: &mut R) -> Self {
-        let s = *L::NAME_FIRST_NAME.choose(rng).unwrap();
-        s
+        *L::NAME_FIRST_NAME.choose(rng).unwrap()
     }
 }
 
@@ -27,8 +26,7 @@ impl<L: Data> Dummy<LastName<L>> for String {
 
 impl<L: Data> Dummy<LastName<L>> for &str {
     fn dummy_with_rng<R: Rng + ?Sized>(_: &LastName<L>, rng: &mut R) -> Self {
-        let s = *L::NAME_LAST_NAME.choose(rng).unwrap();
-        s
+        *L::NAME_LAST_NAME.choose(rng).unwrap()
     }
 }
 
@@ -41,8 +39,7 @@ impl<L: Data> Dummy<Title<L>> for String {
 
 impl<L: Data> Dummy<Title<L>> for &str {
     fn dummy_with_rng<R: Rng + ?Sized>(_: &Title<L>, rng: &mut R) -> Self {
-        let s = *L::NAME_TITLE.choose(rng).unwrap();
-        s
+        *L::NAME_TITLE.choose(rng).unwrap()
     }
 }
 
@@ -55,8 +52,7 @@ impl<L: Data> Dummy<Suffix<L>> for String {
 
 impl<L: Data> Dummy<Suffix<L>> for &str {
     fn dummy_with_rng<R: Rng + ?Sized>(_: &Suffix<L>, rng: &mut R) -> Self {
-        let s = *L::NAME_SUFFIX.choose(rng).unwrap();
-        s
+        *L::NAME_SUFFIX.choose(rng).unwrap()
     }
 }
 

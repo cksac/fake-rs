@@ -17,8 +17,7 @@ impl<L: Data> Dummy<FreeEmailProvider<L>> for String {
 
 impl<L: Data> Dummy<FreeEmailProvider<L>> for &str {
     fn dummy_with_rng<R: Rng + ?Sized>(_: &FreeEmailProvider<L>, rng: &mut R) -> Self {
-        let s = *L::INTERNET_FREE_EMAIL_PROVIDER.choose(rng).unwrap();
-        s
+        *L::INTERNET_FREE_EMAIL_PROVIDER.choose(rng).unwrap()
     }
 }
 
@@ -31,8 +30,7 @@ impl<L: Data> Dummy<DomainSuffix<L>> for String {
 
 impl<L: Data> Dummy<DomainSuffix<L>> for &str {
     fn dummy_with_rng<R: Rng + ?Sized>(_: &DomainSuffix<L>, rng: &mut R) -> Self {
-        let s = *L::INTERNET_DOMAIN_SUFFIX.choose(rng).unwrap();
-        s
+        *L::INTERNET_DOMAIN_SUFFIX.choose(rng).unwrap()
     }
 }
 
@@ -172,7 +170,6 @@ impl<L: Data> Dummy<UserAgent<L>> for String {
 
 impl<L: Data> Dummy<UserAgent<L>> for &str {
     fn dummy_with_rng<R: Rng + ?Sized>(_: &UserAgent<L>, rng: &mut R) -> Self {
-        let s = *L::INTERNET_USER_AGENT.choose(rng).unwrap();
-        s
+        *L::INTERNET_USER_AGENT.choose(rng).unwrap()
     }
 }

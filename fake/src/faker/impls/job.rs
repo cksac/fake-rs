@@ -13,8 +13,7 @@ impl<L: Data> Dummy<Seniority<L>> for String {
 
 impl<L: Data> Dummy<Seniority<L>> for &str {
     fn dummy_with_rng<R: Rng + ?Sized>(_: &Seniority<L>, rng: &mut R) -> Self {
-        let s = *L::JOB_SENIORITY.choose(rng).unwrap();
-        s
+        *L::JOB_SENIORITY.choose(rng).unwrap()
     }
 }
 
@@ -27,8 +26,7 @@ impl<L: Data> Dummy<Field<L>> for String {
 
 impl<L: Data> Dummy<Field<L>> for &str {
     fn dummy_with_rng<R: Rng + ?Sized>(_: &Field<L>, rng: &mut R) -> Self {
-        let s = *L::JOB_FIELD.choose(rng).unwrap();
-        s
+        *L::JOB_FIELD.choose(rng).unwrap()
     }
 }
 
@@ -41,8 +39,7 @@ impl<L: Data> Dummy<Position<L>> for String {
 
 impl<L: Data> Dummy<Position<L>> for &str {
     fn dummy_with_rng<R: Rng + ?Sized>(_: &Position<L>, rng: &mut R) -> Self {
-        let s = *L::JOB_POSITION.choose(rng).unwrap();
-        s
+        *L::JOB_POSITION.choose(rng).unwrap()
     }
 }
 

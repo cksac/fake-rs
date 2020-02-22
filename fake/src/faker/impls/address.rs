@@ -15,8 +15,7 @@ impl<L: Data> Dummy<CityPrefix<L>> for String {
 
 impl<L: Data> Dummy<CityPrefix<L>> for &str {
     fn dummy_with_rng<R: Rng + ?Sized>(_: &CityPrefix<L>, rng: &mut R) -> Self {
-        let s = *L::ADDRESS_CITY_PREFIX.choose(rng).unwrap();
-        s
+        *L::ADDRESS_CITY_PREFIX.choose(rng).unwrap()
     }
 }
 
@@ -29,8 +28,7 @@ impl<L: Data> Dummy<CitySuffix<L>> for String {
 
 impl<L: Data> Dummy<CitySuffix<L>> for &str {
     fn dummy_with_rng<R: Rng + ?Sized>(_: &CitySuffix<L>, rng: &mut R) -> Self {
-        let s = *L::ADDRESS_CITY_SUFFIX.choose(rng).unwrap();
-        s
+        *L::ADDRESS_CITY_SUFFIX.choose(rng).unwrap()
     }
 }
 
@@ -78,8 +76,7 @@ impl<L: Data> Dummy<CountryName<L>> for String {
 
 impl<L: Data> Dummy<CountryName<L>> for &str {
     fn dummy_with_rng<R: Rng + ?Sized>(_: &CountryName<L>, rng: &mut R) -> Self {
-        let s = *L::ADDRESS_COUNTRY.choose(rng).unwrap();
-        s
+        *L::ADDRESS_COUNTRY.choose(rng).unwrap()
     }
 }
 
@@ -92,8 +89,7 @@ impl<L: Data> Dummy<CountryCode<L>> for String {
 
 impl<L: Data> Dummy<CountryCode<L>> for &str {
     fn dummy_with_rng<R: Rng + ?Sized>(_: &CountryCode<L>, rng: &mut R) -> Self {
-        let s = *L::ADDRESS_COUNTRY_CODE.choose(rng).unwrap();
-        s
+        *L::ADDRESS_COUNTRY_CODE.choose(rng).unwrap()
     }
 }
 
@@ -106,8 +102,7 @@ impl<L: Data> Dummy<StreetSuffix<L>> for String {
 
 impl<L: Data> Dummy<StreetSuffix<L>> for &str {
     fn dummy_with_rng<R: Rng + ?Sized>(_: &StreetSuffix<L>, rng: &mut R) -> Self {
-        let s = *L::ADDRESS_STREET_SUFFIX.choose(rng).unwrap();
-        s
+        *L::ADDRESS_STREET_SUFFIX.choose(rng).unwrap()
     }
 }
 
@@ -136,8 +131,7 @@ impl<L: Data> Dummy<TimeZone<L>> for String {
 
 impl<L: Data> Dummy<TimeZone<L>> for &str {
     fn dummy_with_rng<R: Rng + ?Sized>(_: &TimeZone<L>, rng: &mut R) -> Self {
-        let s = *L::ADDRESS_TIME_ZONE.choose(rng).unwrap();
-        s
+        *L::ADDRESS_TIME_ZONE.choose(rng).unwrap()
     }
 }
 
@@ -150,8 +144,7 @@ impl<L: Data> Dummy<StateName<L>> for String {
 
 impl<L: Data> Dummy<StateName<L>> for &str {
     fn dummy_with_rng<R: Rng + ?Sized>(_: &StateName<L>, rng: &mut R) -> Self {
-        let s = *L::ADDRESS_STATE.choose(rng).unwrap();
-        s
+        *L::ADDRESS_STATE.choose(rng).unwrap()
     }
 }
 
@@ -164,8 +157,7 @@ impl<L: Data> Dummy<StateAbbr<L>> for String {
 
 impl<L: Data> Dummy<StateAbbr<L>> for &str {
     fn dummy_with_rng<R: Rng + ?Sized>(_: &StateAbbr<L>, rng: &mut R) -> Self {
-        let s = *L::ADDRESS_STATE_ABBR.choose(rng).unwrap();
-        s
+        *L::ADDRESS_STATE_ABBR.choose(rng).unwrap()
     }
 }
 
@@ -178,8 +170,7 @@ impl<L: Data> Dummy<SecondaryAddressType<L>> for String {
 
 impl<L: Data> Dummy<SecondaryAddressType<L>> for &str {
     fn dummy_with_rng<R: Rng + ?Sized>(_: &SecondaryAddressType<L>, rng: &mut R) -> Self {
-        let s = *L::ADDRESS_SECONDARY_ADDR_TYPE.choose(rng).unwrap();
-        s
+        *L::ADDRESS_SECONDARY_ADDR_TYPE.choose(rng).unwrap()
     }
 }
 

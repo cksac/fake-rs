@@ -14,8 +14,7 @@ impl<L: Data> Dummy<CompanySuffix<L>> for String {
 
 impl<L: Data> Dummy<CompanySuffix<L>> for &str {
     fn dummy_with_rng<R: Rng + ?Sized>(_: &CompanySuffix<L>, rng: &mut R) -> Self {
-        let s = *L::COMPANY_SUFFIX.choose(rng).unwrap();
-        s
+        *L::COMPANY_SUFFIX.choose(rng).unwrap()
     }
 }
 
@@ -39,8 +38,7 @@ impl<L: Data> Dummy<Buzzword<L>> for String {
 
 impl<L: Data> Dummy<Buzzword<L>> for &str {
     fn dummy_with_rng<R: Rng + ?Sized>(_: &Buzzword<L>, rng: &mut R) -> Self {
-        let s = *L::COMPANY_BUZZWORD_HEAD.choose(rng).unwrap();
-        s
+        *L::COMPANY_BUZZWORD_HEAD.choose(rng).unwrap()
     }
 }
 
@@ -53,8 +51,7 @@ impl<L: Data> Dummy<BuzzwordMiddle<L>> for String {
 
 impl<L: Data> Dummy<BuzzwordMiddle<L>> for &str {
     fn dummy_with_rng<R: Rng + ?Sized>(_: &BuzzwordMiddle<L>, rng: &mut R) -> Self {
-        let s = *L::COMPANY_BUZZWORD_MIDDLE.choose(rng).unwrap();
-        s
+        *L::COMPANY_BUZZWORD_MIDDLE.choose(rng).unwrap()
     }
 }
 
@@ -67,8 +64,7 @@ impl<L: Data> Dummy<BuzzwordTail<L>> for String {
 
 impl<L: Data> Dummy<BuzzwordTail<L>> for &str {
     fn dummy_with_rng<R: Rng + ?Sized>(_: &BuzzwordTail<L>, rng: &mut R) -> Self {
-        let s = *L::COMPANY_BUZZWORD_TAIL.choose(rng).unwrap();
-        s
+        *L::COMPANY_BUZZWORD_TAIL.choose(rng).unwrap()
     }
 }
 
@@ -94,8 +90,7 @@ impl<L: Data> Dummy<BsVerb<L>> for String {
 
 impl<L: Data> Dummy<BsVerb<L>> for &str {
     fn dummy_with_rng<R: Rng + ?Sized>(_: &BsVerb<L>, rng: &mut R) -> Self {
-        let s = *L::COMPANY_BS_VERBS.choose(rng).unwrap();
-        s
+        *L::COMPANY_BS_VERBS.choose(rng).unwrap()
     }
 }
 
@@ -108,8 +103,7 @@ impl<L: Data> Dummy<BsAdj<L>> for String {
 
 impl<L: Data> Dummy<BsAdj<L>> for &str {
     fn dummy_with_rng<R: Rng + ?Sized>(_: &BsAdj<L>, rng: &mut R) -> Self {
-        let s = *L::COMPANY_BS_ADJ.choose(rng).unwrap();
-        s
+        *L::COMPANY_BS_ADJ.choose(rng).unwrap()
     }
 }
 
@@ -122,8 +116,7 @@ impl<L: Data> Dummy<BsNoun<L>> for String {
 
 impl<L: Data> Dummy<BsNoun<L>> for &str {
     fn dummy_with_rng<R: Rng + ?Sized>(_: &BsNoun<L>, rng: &mut R) -> Self {
-        let s = *L::COMPANY_BS_NOUNS.choose(rng).unwrap();
-        s
+        *L::COMPANY_BS_NOUNS.choose(rng).unwrap()
     }
 }
 
@@ -146,8 +139,7 @@ impl<L: Data> Dummy<Profession<L>> for String {
 
 impl<L: Data> Dummy<Profession<L>> for &str {
     fn dummy_with_rng<R: Rng + ?Sized>(_: &Profession<L>, rng: &mut R) -> Self {
-        let s = *L::COMPANY_PROFESSION.choose(rng).unwrap();
-        s
+        *L::COMPANY_PROFESSION.choose(rng).unwrap()
     }
 }
 
@@ -160,7 +152,6 @@ impl<L: Data> Dummy<Industry<L>> for String {
 
 impl<L: Data> Dummy<Industry<L>> for &str {
     fn dummy_with_rng<R: Rng + ?Sized>(_: &Industry<L>, rng: &mut R) -> Self {
-        let s = *L::COMPANY_INDUSTRY.choose(rng).unwrap();
-        s
+        *L::COMPANY_INDUSTRY.choose(rng).unwrap()
     }
 }

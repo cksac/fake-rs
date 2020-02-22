@@ -31,8 +31,7 @@ impl<L: Data> Dummy<FileName<L>> for String {
 
 impl<L: Data> Dummy<FileExtension<L>> for &str {
     fn dummy_with_rng<R: Rng + ?Sized>(_: &FileExtension<L>, rng: &mut R) -> Self {
-        let ext = L::PATH_EXTENSIONS.choose(rng).unwrap();
-        ext
+        L::PATH_EXTENSIONS.choose(rng).unwrap()
     }
 }
 
