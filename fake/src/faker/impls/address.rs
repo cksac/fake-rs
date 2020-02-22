@@ -47,22 +47,19 @@ impl<L: Data + Copy> Dummy<CityName<L>> for String {
                 .replace(
                     "{CitySuffix}",
                     CitySuffix(c.0).fake_with_rng::<&str, _>(rng),
-                )
-                .into(),
+                ),
             1 => L::ADDRESS_CITY_TPL
                 .replace("{CityName}", FirstName(c.0).fake_with_rng::<&str, _>(rng))
                 .replace(
                     "{CitySuffix}",
                     CitySuffix(c.0).fake_with_rng::<&str, _>(rng),
-                )
-                .into(),
+                ),
             _ => L::ADDRESS_CITY_TPL
                 .replace("{CityName}", LastName(c.0).fake_with_rng::<&str, _>(rng))
                 .replace(
                     "{CitySuffix}",
                     CitySuffix(c.0).fake_with_rng::<&str, _>(rng),
-                )
-                .into(),
+                ),
         }
     }
 }
@@ -112,13 +109,10 @@ impl<L: Data + Copy> Dummy<StreetName<L>> for String {
             true => FirstName(c.0).fake_with_rng::<&str, _>(rng),
             false => LastName(c.0).fake_with_rng::<&str, _>(rng),
         };
-        L::ADDRESS_STREET_TPL
-            .replace("{StreetName}", name)
-            .replace(
-                "{StreetSuffix}",
-                StreetSuffix(c.0).fake_with_rng::<&str, _>(rng),
-            )
-            .into()
+        L::ADDRESS_STREET_TPL.replace("{StreetName}", name).replace(
+            "{StreetSuffix}",
+            StreetSuffix(c.0).fake_with_rng::<&str, _>(rng),
+        )
     }
 }
 
@@ -185,7 +179,6 @@ impl<L: Data + Copy> Dummy<SecondaryAddress<L>> for String {
                 "{Number}",
                 (1..99).fake_with_rng::<u8, _>(rng).to_string().as_ref(),
             )
-            .into()
     }
 }
 

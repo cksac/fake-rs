@@ -49,6 +49,5 @@ impl<L: Data + Copy> Dummy<Title<L>> for String {
             .replace("{Seniority}", Seniority(c.0).fake_with_rng::<&str, _>(rng))
             .replace("{Field}", Field(c.0).fake_with_rng::<&str, _>(rng))
             .replace("{Position}", Position(c.0).fake_with_rng::<&str, _>(rng))
-            .into()
     }
 }

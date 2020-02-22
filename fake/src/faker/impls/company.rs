@@ -25,7 +25,6 @@ impl<L: Data + Copy> Dummy<CompanyName<L>> for String {
             .replace("{Name_1}", LastName(c.0).fake_with_rng::<&str, _>(rng))
             .replace("{Name_2}", LastName(c.0).fake_with_rng::<&str, _>(rng))
             .replace("{Suffix}", CompanySuffix(c.0).fake_with_rng::<&str, _>(rng))
-            .into()
     }
 }
 
@@ -77,7 +76,6 @@ impl<L: Data + Copy> Dummy<CatchPhase<L>> for String {
                 BuzzwordMiddle(c.0).fake_with_rng::<&str, _>(rng),
             )
             .replace("{Tail}", BuzzwordTail(c.0).fake_with_rng::<&str, _>(rng))
-            .into()
     }
 }
 
@@ -126,7 +124,6 @@ impl<L: Data + Copy> Dummy<Bs<L>> for String {
             .replace("{Verb}", BsVerb(c.0).fake_with_rng::<&str, _>(rng))
             .replace("{Adj}", BsAdj(c.0).fake_with_rng::<&str, _>(rng))
             .replace("{Noun}", BsNoun(c.0).fake_with_rng::<&str, _>(rng))
-            .into()
     }
 }
 

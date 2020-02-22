@@ -61,7 +61,6 @@ impl<L: Data + Copy> Dummy<Name<L>> for String {
         L::NAME_TPL
             .replace("{FirstName}", FirstName(c.0).fake_with_rng::<&str, _>(rng))
             .replace("{LastName}", LastName(c.0).fake_with_rng::<&str, _>(rng))
-            .into()
     }
 }
 
@@ -71,6 +70,5 @@ impl<L: Data + Copy> Dummy<NameWithTitle<L>> for String {
             .replace("{Title}", Title(c.0).fake_with_rng::<&str, _>(rng))
             .replace("{FirstName}", FirstName(c.0).fake_with_rng::<&str, _>(rng))
             .replace("{LastName}", LastName(c.0).fake_with_rng::<&str, _>(rng))
-            .into()
     }
 }
