@@ -105,9 +105,10 @@ impl<L: Data> Dummy<StreetSuffix<L>> for &str {
 
 impl<L: Data + Copy> Dummy<StreetName<L>> for String {
     fn dummy_with_rng<R: Rng + ?Sized>(c: &StreetName<L>, rng: &mut R) -> Self {
-        let name = match Faker.fake_with_rng::<bool, _>(rng) {
-            true => FirstName(c.0).fake_with_rng::<&str, _>(rng),
-            false => LastName(c.0).fake_with_rng::<&str, _>(rng),
+        let name = if Faker.fake_with_rng::<bool, _>(rng) {
+            FirstName(c.0).fake_with_rng::<&str, _>(rng)
+        } else {
+            LastName(c.0).fake_with_rng::<&str, _>(rng)
         };
         L::ADDRESS_STREET_TPL.replace("{StreetName}", name).replace(
             "{StreetSuffix}",
