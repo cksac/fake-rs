@@ -33,7 +33,7 @@ pub fn hello_world(input: TokenStream) -> TokenStream {
     let struct_name = &receiver.ident;
     let expanded = match receiver.data {
         darling::ast::Data::Struct(darling::ast::Fields { ref fields, .. }) => {
-            let struct_fields: Vec<_> = fields.iter().map(|f| f.ident.as_ref().unwrap()).collect();;
+            let struct_fields: Vec<_> = fields.iter().map(|f| f.ident.as_ref().unwrap()).collect();
 
             let let_statements: Vec<_> = fields
                 .iter()
@@ -49,7 +49,7 @@ pub fn hello_world(input: TokenStream) -> TokenStream {
                         let #field_name: #field_ty = (#faker).fake_with_rng(rng);
                     }
                 })
-                .collect();;
+                .collect();
 
             let impl_dummy = quote! {
                 impl fake::Dummy<fake::Faker> for #struct_name {

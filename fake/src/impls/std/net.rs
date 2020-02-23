@@ -28,9 +28,10 @@ impl Dummy<Faker> for Ipv6Addr {
 
 impl Dummy<Faker> for IpAddr {
     fn dummy_with_rng<R: Rng + ?Sized>(_: &Faker, rng: &mut R) -> Self {
-        match Faker.fake_with_rng::<bool, _>(rng) {
-            true => IpAddr::V4(Faker.fake_with_rng::<Ipv4Addr, _>(rng)),
-            false => IpAddr::V6(Faker.fake_with_rng::<Ipv6Addr, _>(rng)),
+        if Faker.fake_with_rng::<bool, _>(rng) {
+            IpAddr::V4(Faker.fake_with_rng::<Ipv4Addr, _>(rng))
+        } else {
+            IpAddr::V6(Faker.fake_with_rng::<Ipv6Addr, _>(rng))
         }
     }
 }
