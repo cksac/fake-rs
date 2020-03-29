@@ -10,19 +10,19 @@ A Rust library for generating fake data.
 Default:
 ```toml
 [dependencies]
-fake = "2.0"
+fake = "2.2"
 ```
 If you want to use `#[derive(Dummy)]`:
 ```toml
-features = ["derive"]
+fake = { version = "2.2", features=['derive']}
 ```
-If you want the date and time features from chrono:
+If you want the date and time features from `chrono`:
 ```toml
-features = ["chrono"]
+fake = { version = "2.2", features=['chrono']}
 ```
-If you want Http faker features:
+If you want `http` faker features:
 ```toml
-features = ["http"]
+fake = { version = "2.2", features=['http']}
 ```
 
 ## Usage
