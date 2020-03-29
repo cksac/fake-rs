@@ -15,8 +15,7 @@ impl<L: Data> Dummy<CityPrefix<L>> for String {
 
 impl<L: Data> Dummy<CityPrefix<L>> for &str {
     fn dummy_with_rng<R: Rng + ?Sized>(_: &CityPrefix<L>, rng: &mut R) -> Self {
-        let s = *L::ADDRESS_CITY_PREFIX.choose(rng).unwrap();
-        s
+        *L::ADDRESS_CITY_PREFIX.choose(rng).unwrap()
     }
 }
 
@@ -29,8 +28,7 @@ impl<L: Data> Dummy<CitySuffix<L>> for String {
 
 impl<L: Data> Dummy<CitySuffix<L>> for &str {
     fn dummy_with_rng<R: Rng + ?Sized>(_: &CitySuffix<L>, rng: &mut R) -> Self {
-        let s = *L::ADDRESS_CITY_SUFFIX.choose(rng).unwrap();
-        s
+        *L::ADDRESS_CITY_SUFFIX.choose(rng).unwrap()
     }
 }
 
@@ -49,22 +47,19 @@ impl<L: Data + Copy> Dummy<CityName<L>> for String {
                 .replace(
                     "{CitySuffix}",
                     CitySuffix(c.0).fake_with_rng::<&str, _>(rng),
-                )
-                .into(),
+                ),
             1 => L::ADDRESS_CITY_TPL
                 .replace("{CityName}", FirstName(c.0).fake_with_rng::<&str, _>(rng))
                 .replace(
                     "{CitySuffix}",
                     CitySuffix(c.0).fake_with_rng::<&str, _>(rng),
-                )
-                .into(),
+                ),
             _ => L::ADDRESS_CITY_TPL
                 .replace("{CityName}", LastName(c.0).fake_with_rng::<&str, _>(rng))
                 .replace(
                     "{CitySuffix}",
                     CitySuffix(c.0).fake_with_rng::<&str, _>(rng),
-                )
-                .into(),
+                ),
         }
     }
 }
@@ -78,8 +73,7 @@ impl<L: Data> Dummy<CountryName<L>> for String {
 
 impl<L: Data> Dummy<CountryName<L>> for &str {
     fn dummy_with_rng<R: Rng + ?Sized>(_: &CountryName<L>, rng: &mut R) -> Self {
-        let s = *L::ADDRESS_COUNTRY.choose(rng).unwrap();
-        s
+        *L::ADDRESS_COUNTRY.choose(rng).unwrap()
     }
 }
 
@@ -92,8 +86,7 @@ impl<L: Data> Dummy<CountryCode<L>> for String {
 
 impl<L: Data> Dummy<CountryCode<L>> for &str {
     fn dummy_with_rng<R: Rng + ?Sized>(_: &CountryCode<L>, rng: &mut R) -> Self {
-        let s = *L::ADDRESS_COUNTRY_CODE.choose(rng).unwrap();
-        s
+        *L::ADDRESS_COUNTRY_CODE.choose(rng).unwrap()
     }
 }
 
@@ -106,24 +99,21 @@ impl<L: Data> Dummy<StreetSuffix<L>> for String {
 
 impl<L: Data> Dummy<StreetSuffix<L>> for &str {
     fn dummy_with_rng<R: Rng + ?Sized>(_: &StreetSuffix<L>, rng: &mut R) -> Self {
-        let s = *L::ADDRESS_STREET_SUFFIX.choose(rng).unwrap();
-        s
+        *L::ADDRESS_STREET_SUFFIX.choose(rng).unwrap()
     }
 }
 
 impl<L: Data + Copy> Dummy<StreetName<L>> for String {
     fn dummy_with_rng<R: Rng + ?Sized>(c: &StreetName<L>, rng: &mut R) -> Self {
-        let name = match Faker.fake_with_rng::<bool, _>(rng) {
-            true => FirstName(c.0).fake_with_rng::<&str, _>(rng),
-            false => LastName(c.0).fake_with_rng::<&str, _>(rng),
+        let name = if Faker.fake_with_rng::<bool, _>(rng) {
+            FirstName(c.0).fake_with_rng::<&str, _>(rng)
+        } else {
+            LastName(c.0).fake_with_rng::<&str, _>(rng)
         };
-        L::ADDRESS_STREET_TPL
-            .replace("{StreetName}", name)
-            .replace(
-                "{StreetSuffix}",
-                StreetSuffix(c.0).fake_with_rng::<&str, _>(rng),
-            )
-            .into()
+        L::ADDRESS_STREET_TPL.replace("{StreetName}", name).replace(
+            "{StreetSuffix}",
+            StreetSuffix(c.0).fake_with_rng::<&str, _>(rng),
+        )
     }
 }
 
@@ -136,8 +126,7 @@ impl<L: Data> Dummy<TimeZone<L>> for String {
 
 impl<L: Data> Dummy<TimeZone<L>> for &str {
     fn dummy_with_rng<R: Rng + ?Sized>(_: &TimeZone<L>, rng: &mut R) -> Self {
-        let s = *L::ADDRESS_TIME_ZONE.choose(rng).unwrap();
-        s
+        *L::ADDRESS_TIME_ZONE.choose(rng).unwrap()
     }
 }
 
@@ -150,8 +139,7 @@ impl<L: Data> Dummy<StateName<L>> for String {
 
 impl<L: Data> Dummy<StateName<L>> for &str {
     fn dummy_with_rng<R: Rng + ?Sized>(_: &StateName<L>, rng: &mut R) -> Self {
-        let s = *L::ADDRESS_STATE.choose(rng).unwrap();
-        s
+        *L::ADDRESS_STATE.choose(rng).unwrap()
     }
 }
 
@@ -164,8 +152,7 @@ impl<L: Data> Dummy<StateAbbr<L>> for String {
 
 impl<L: Data> Dummy<StateAbbr<L>> for &str {
     fn dummy_with_rng<R: Rng + ?Sized>(_: &StateAbbr<L>, rng: &mut R) -> Self {
-        let s = *L::ADDRESS_STATE_ABBR.choose(rng).unwrap();
-        s
+        *L::ADDRESS_STATE_ABBR.choose(rng).unwrap()
     }
 }
 
@@ -178,8 +165,7 @@ impl<L: Data> Dummy<SecondaryAddressType<L>> for String {
 
 impl<L: Data> Dummy<SecondaryAddressType<L>> for &str {
     fn dummy_with_rng<R: Rng + ?Sized>(_: &SecondaryAddressType<L>, rng: &mut R) -> Self {
-        let s = *L::ADDRESS_SECONDARY_ADDR_TYPE.choose(rng).unwrap();
-        s
+        *L::ADDRESS_SECONDARY_ADDR_TYPE.choose(rng).unwrap()
     }
 }
 
@@ -194,7 +180,6 @@ impl<L: Data + Copy> Dummy<SecondaryAddress<L>> for String {
                 "{Number}",
                 (1..99).fake_with_rng::<u8, _>(rng).to_string().as_ref(),
             )
-            .into()
     }
 }
 

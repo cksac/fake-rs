@@ -14,8 +14,7 @@ impl<L: Data> Dummy<Digit<L>> for String {
 
 impl<L: Data> Dummy<Digit<L>> for &str {
     fn dummy_with_rng<R: Rng + ?Sized>(_: &Digit<L>, rng: &mut R) -> Self {
-        let s = *L::NUMBER_DIGIT.choose(rng).unwrap();
-        s
+        *L::NUMBER_DIGIT.choose(rng).unwrap()
     }
 }
 

@@ -9,10 +9,8 @@ fn is_leap(year: i32) -> bool {
         true
     } else if year % 100 == 0 {
         false
-    } else if year % 4 == 0 {
-        true
     } else {
-        false
+        year % 4 == 0
     }
 }
 

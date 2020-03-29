@@ -229,6 +229,9 @@ fn internet_faker() {
     let val: String = IPv6(EN).fake();
     println!("{:?}", val);
 
+    let val: String = MACAddress(EN).fake();
+    println!("{:?}", val);
+
     let val: String = Color(EN).fake();
     println!("{:?}", val);
 
