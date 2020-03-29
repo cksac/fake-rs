@@ -1,6 +1,6 @@
 [package]
 name = "dummy"
-version = "0.3.1"
+version = "0.3.2"
 authors = ["cksac <cs.cksac@gmail.com>"]
 description = "Macros implementation of #[derive(Dummy)]"
 keywords = ["faker", "data", "random"]
