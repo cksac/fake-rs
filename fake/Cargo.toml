@@ -1,6 +1,6 @@
 [package]
 name = "fake"
-version = "2.2.0"
+version = "2.2.1"
 authors = ["cksac <cs.cksac@gmail.com>"]
 description = "An easy to use library for generating fake data like name, number, address, lorem, dates, etc."
 keywords = ["faker", "data", "generator", "random"]
@@ -17,7 +17,7 @@ fake = { version = "2.2", path = ".", features=["derive", "http", "chrono"] }
 dummy = { version = "0.3", optional = true, path = "../dummy_derive" }
 rand = "0.7"
 chrono = { version = "0.4", optional = true }
-http = { version = "0.1", optional = true }
+http = { version = "0.2", optional = true }
 
 [features]
 wasm-bindgen = ["rand/wasm-bindgen"]
