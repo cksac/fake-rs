@@ -6,8 +6,8 @@ description = "Macros implementation of #[derive(Dummy)]"
 keywords = ["faker", "data", "random"]
 license = "MIT/Apache-2.0"
 readme = "README.md"
-repository = "https://github.com/cksac/faker-rs"
-homepage = "https://github.com/cksac/faker-rs"
+repository = "https://github.com/cksac/fake-rs"
+homepage = "https://github.com/cksac/fake-rs"
 edition = "2018"
 
 [lib]
