@@ -10,9 +10,6 @@ repository = "https://github.com/cksac/fake-rs"
 homepage = "https://github.com/cksac/fake-rs"
 edition = "2018"
 
-[dev-dependencies]
-fake = { version = "2.2", path = ".", features=["derive", "http", "chrono"] }
-
 [dependencies]
 dummy = { version = "0.3", optional = true, path = "../dummy_derive" }
 rand = "0.7"
@@ -24,3 +21,18 @@ wasm-bindgen = ["rand/wasm-bindgen"]
 
 # Provide derive(Dummy) macros.
 derive = ["dummy"]
+
+[[example]]
+name = "basic"
+path = "examples/basic.rs"
+required-features = ["derive"]
+
+[[example]]
+name = "derive"
+path = "examples/derive.rs"
+required-features = ["derive", "http", "chrono"]
+
+[[example]]
+name = "usage"
+path = "examples/usage.rs"
+required-features = ["derive"]
