@@ -1,7 +1,6 @@
 use crate::faker::http::raw::*;
 use crate::locales::Data;
 use crate::{Dummy, Fake, Faker};
-use http;
 use rand::Rng;
 
 impl<L: Data> Dummy<RfcStatusCode<L>> for http::StatusCode {
