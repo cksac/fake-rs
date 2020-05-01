@@ -1,6 +1,6 @@
 # Fake
 
-[![Build Status](https://travis-ci.org/cksac/fake-rs.svg?branch=master)](https://travis-ci.org/cksac/fake-rs)
+![Rust](https://github.com/cksac/fake-rs/workflows/Rust/badge.svg)
 [![Docs Status](https://docs.rs/fake/badge.svg)](https://docs.rs/fake)
 [![Latest Version](https://img.shields.io/crates/v/fake.svg)](https://crates.io/crates/fake)
 
