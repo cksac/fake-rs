@@ -52,9 +52,9 @@ impl<T> Fake for T {}
 
 #[macro_use]
 mod impls;
+pub use impls::std::path::PathFaker;
 pub use impls::std::result::ResultFaker;
 pub use impls::std::string::StringFaker;
-pub use impls::std::path::PathFaker;
 
 pub mod faker;
 pub mod locales;
