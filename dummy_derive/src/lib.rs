@@ -213,7 +213,7 @@ pub fn hello_world(input: TokenStream) -> TokenStream {
                 let impl_dummy = quote! {
                     impl fake::Dummy<fake::Faker> for #receiver_name {
                         fn dummy_with_rng<R: rand::Rng + ?Sized>(_: &fake::Faker, rng: &mut R) -> Self {
-                            panic!("can not create and empty enum")
+                            panic!("can not create an empty enum")
                         }
                     }
                 };
