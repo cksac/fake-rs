@@ -186,3 +186,12 @@ pub mod currency {
         CurrencySymbol();
     }
 }
+
+pub mod image {
+    def_fakers! {
+        Unsplash();
+        UnsplashWithSize(width: u16, height: u16);
+        UnsplashGrayscale(width: u16, height: u16);
+        UnsplashBlur(width: u16, height: u16, blur: u8);
+    }
+}

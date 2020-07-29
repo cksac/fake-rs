@@ -380,6 +380,24 @@ fn currency_faker() {
     println!("{:?}", val);
 }
 
+fn image_faker() {
+    use fake::faker::image::raw::*;
+
+    let val: String = Unsplash(EN).fake();
+    println!("{:?}", val);
+
+    // width: pixels, height: pixels
+    let val: String = UnsplashWithSize(EN, 600, 800).fake();
+    println!("{:?}", val);
+
+    let val: String = UnsplashGrayscale(EN, 600, 800).fake();
+    println!("{:?}", val);
+
+    // blur: [1-10]
+    let val: String = UnsplashBlur(EN, 600, 800, 5).fake();
+    println!("{:?}", val);
+}
+
 fn main() {
     lorem_faker();
     name_faker();
@@ -392,6 +410,7 @@ fn main() {
     phone_number_faker();
     filesystem_faker();
     currency_faker();
+    image_faker();
 
     #[cfg(feature = "http")]
     http_faker();
