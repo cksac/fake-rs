@@ -212,6 +212,11 @@ FileExtension();
 DirPath();
 ```
 
+### Finance
+```rust
+Bic();
+```
+
 # LICENSE
 
 This project is licensed under either of
