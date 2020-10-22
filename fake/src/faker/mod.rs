@@ -186,3 +186,9 @@ pub mod currency {
         CurrencySymbol();
     }
 }
+
+pub mod finance {
+    def_fakers! {
+        Bic();
+    }
+}
