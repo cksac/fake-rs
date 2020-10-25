@@ -1,6 +1,7 @@
 use crate::faker::filesystem::raw::*;
+use crate::faker::boolean::raw::Boolean;
 use crate::impls::std::path::PathFaker;
-use crate::locales::Data;
+use crate::locales::{Data, EN};
 use crate::{Dummy, Fake};
 use rand::seq::SliceRandom;
 use rand::Rng;
@@ -1917,6 +1918,30 @@ impl<L: Data> Dummy<DirPath<L>> for String {
         let faker = PathFaker::new(L::PATH_ROOT_DIRS, L::PATH_SEGMENTS, &[], 4);
         let p: PathBuf = faker.fake_with_rng(rng);
         p.to_string_lossy().into()
+    }
+}
+
+
+const UNSTABLE_SEMVER: &'static [&'static str] = &[
+    "alpha", "beta", "rc"
+];
+
+impl<L: Data> Dummy<Semver<L>> for String {
+    fn dummy_with_rng<R: Rng + ?Sized>(_: &Semver<L>, rng: &mut R) -> Self {
+        let patch = &mut(0..20).fake_with_rng::<u8, _>(rng).to_string();
+        if Boolean(EN, 10).fake_with_rng(rng) {
+            patch.push_str(&format!(
+                "-{}.{}",
+                *UNSTABLE_SEMVER.choose(rng).unwrap(),
+                &(0..9).fake_with_rng::<u8, _>(rng).to_string()
+            ));
+        }
+        format!(
+            "{}.{}.{}",
+            &(0..9).fake_with_rng::<u8, _>(rng).to_string(),
+            &(0..20).fake_with_rng::<u8, _>(rng).to_string(),
+            patch
+        )
     }
 }
 

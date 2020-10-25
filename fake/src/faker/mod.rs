@@ -176,6 +176,7 @@ pub mod filesystem {
         FileName();
         FileExtension();
         DirPath();
+        Semver();
         MimeType();
     }
 }
