@@ -194,3 +194,9 @@ pub mod finance {
         Bic();
     }
 }
+
+pub mod administrative {
+    def_fakers! {
+        HealthInsuranceCode();
+    }
+}
