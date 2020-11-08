@@ -42,14 +42,6 @@ macro_rules! def_fakers {
 
 mod impls;
 
-pub struct Semver();
-
-pub enum SemverFaker {
-    Default,
-    Stable,
-    Unstable
-}
-
 pub mod address {
     def_fakers! {
         CityPrefix();
@@ -185,6 +177,9 @@ pub mod filesystem {
         FileExtension();
         DirPath();
         MimeType();
+        Semver();
+        SemverStable();
+        SemverUnstable();
     }
 }
 
@@ -199,5 +194,11 @@ pub mod currency {
 pub mod finance {
     def_fakers! {
         Bic();
+    }
+}
+
+pub mod administrative {
+    def_fakers! {
+        HealthInsuranceCode();
     }
 }

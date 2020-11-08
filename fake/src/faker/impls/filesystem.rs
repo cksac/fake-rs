@@ -1,6 +1,7 @@
 use crate::faker::filesystem::raw::*;
 use crate::faker::boolean::raw::Boolean;
 use crate::impls::std::path::PathFaker;
+use crate::impls::semver::UNSTABLE_SEMVER;
 use crate::locales::{Data, EN};
 use crate::{Dummy, Fake};
 use rand::seq::SliceRandom;
@@ -1921,29 +1922,10 @@ impl<L: Data> Dummy<DirPath<L>> for String {
     }
 }
 
-
-const UNSTABLE_SEMVER: &'static [&'static str] = &[
-    "alpha", "beta", "rc"
-];
-
-use crate::faker::{Semver, SemverFaker};
-
-
-impl Dummy<SemverFaker> for String {
-    fn dummy_with_rng<R: Rng + ?Sized>(c: &SemverFaker, rng: &mut R) -> Self {
+impl<L: Data> Dummy<Semver<L>> for String {
+    fn dummy_with_rng<R: Rng + ?Sized>(_: &Semver<L>, rng: &mut R) -> Self {
         let patch = &mut(0..20).fake_with_rng::<u8, _>(rng).to_string();
-        let probability;
-        match c {
-            SemverFaker::Stable => {
-                probability = 0;
-            },
-            SemverFaker::Unstable => {
-                probability = 100;
-            },
-            _ => {
-                probability = 10;
-            }
-        }
+        let probability = 10;
         if Boolean(EN, probability).fake_with_rng(rng) {
             patch.push_str(&format!(
                 "-{}.{}",
@@ -1960,17 +1942,26 @@ impl Dummy<SemverFaker> for String {
     }
 }
 
-impl Dummy<Semver> for String {
-    fn dummy_with_rng<R: Rng + ?Sized>(_: &Semver, rng: &mut R) -> Self {
+impl<L: Data> Dummy<SemverStable<L>> for String {
+    fn dummy_with_rng<R: Rng + ?Sized>(_: &SemverStable<L>, rng: &mut R) -> Self {
         let patch = &mut(0..20).fake_with_rng::<u8, _>(rng).to_string();
-        let probability = 10;
-        if Boolean(EN, probability).fake_with_rng(rng) {
-            patch.push_str(&format!(
-                "-{}.{}",
-                *UNSTABLE_SEMVER.choose(rng).unwrap(),
-                &(0..9).fake_with_rng::<u8, _>(rng).to_string()
-            ));
-        }
+        format!(
+            "{}.{}.{}",
+            &(0..9).fake_with_rng::<u8, _>(rng).to_string(),
+            &(0..20).fake_with_rng::<u8, _>(rng).to_string(),
+            patch
+        )
+    }
+}
+
+impl<L: Data> Dummy<SemverUnstable<L>> for String {
+    fn dummy_with_rng<R: Rng + ?Sized>(_: &SemverUnstable<L>, rng: &mut R) -> Self {
+        let patch = &mut(0..20).fake_with_rng::<u8, _>(rng).to_string();
+        patch.push_str(&format!(
+            "-{}.{}",
+            *UNSTABLE_SEMVER.choose(rng).unwrap(),
+            &(0..9).fake_with_rng::<u8, _>(rng).to_string()
+        ));
         format!(
             "{}.{}.{}",
             &(0..9).fake_with_rng::<u8, _>(rng).to_string(),
