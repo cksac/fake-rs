@@ -42,6 +42,14 @@ macro_rules! def_fakers {
 
 mod impls;
 
+pub struct Semver();
+
+pub enum SemverFaker {
+    Default,
+    Stable,
+    Unstable
+}
+
 pub mod address {
     def_fakers! {
         CityPrefix();
@@ -176,7 +184,7 @@ pub mod filesystem {
         FileName();
         FileExtension();
         DirPath();
-        Semver();
+        MimeType();
     }
 }
 
