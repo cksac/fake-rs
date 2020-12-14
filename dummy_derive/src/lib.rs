@@ -51,6 +51,7 @@ pub fn hello_world(input: TokenStream) -> TokenStream {
         darling::ast::Data::Struct(darling::ast::Fields {
             ref fields,
             ref style,
+            ..
         }) => match style {
             ast::Style::Unit => {
                 let impl_dummy = quote! {

@@ -1,4 +1,4 @@
-use fake::locales::{EN, ZH_TW};
+use fake::locales::{EN, ZH_TW, ZH_CN};
 use fake::Fake;
 
 fn lorem_faker() {
@@ -48,6 +48,12 @@ fn name_faker() {
     println!("{:?}", val);
 
     let val: String = NameWithTitle(ZH_TW).fake();
+    println!("{:?}", val);
+
+    let val: String = Name(ZH_CN).fake();
+    println!("{:?}", val);
+
+    let val: String = NameWithTitle(ZH_CN).fake();
     println!("{:?}", val);
 }
 
