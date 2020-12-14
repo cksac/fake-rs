@@ -8,6 +8,7 @@ use syn::{Ident, Type};
 
 use darling::{ast, FromDeriveInput};
 use proc_macro::TokenStream;
+use darling::export::Option;
 
 #[derive(Debug, FromVariant)]
 #[darling(from_ident, attributes(dummy))]
@@ -51,6 +52,7 @@ pub fn hello_world(input: TokenStream) -> TokenStream {
         darling::ast::Data::Struct(darling::ast::Fields {
             ref fields,
             ref style,
+            ..
         }) => match style {
             ast::Style::Unit => {
                 let impl_dummy = quote! {

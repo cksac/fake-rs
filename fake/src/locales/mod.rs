@@ -76,3 +76,6 @@ pub use self::fr_fr::FR_FR;
 
 mod zh_tw;
 pub use self::zh_tw::ZH_TW;
+
+mod zh_cn;
+pub use self::zh_cn::ZH_CN;
