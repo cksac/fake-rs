@@ -12,6 +12,7 @@ Default:
 ```toml
 [dependencies]
 fake = "2.2"
+rand = "0.7"
 ```
 If you want to use `#[derive(Dummy)]`:
 ```toml
