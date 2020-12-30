@@ -199,7 +199,7 @@ pub fn hello_world(input: TokenStream) -> TokenStream {
                 let impl_dummy = quote! {
                     impl fake::Dummy<fake::Faker> for #receiver_name {
                         fn dummy_with_rng<R: rand::Rng + ?Sized>(_: &fake::Faker, rng: &mut R) -> Self {
-                            match rng.gen_range(0, #variant_count) {
+                            match rng.gen_range(0..#variant_count) {
                                 #(#match_statements)*
                                 _ => {
                                     unreachable!()
