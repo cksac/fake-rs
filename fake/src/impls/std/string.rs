@@ -8,7 +8,10 @@ const DEFAULT_STR_LEN_RANGE: ops::Range<usize> = 5..20;
 
 impl Dummy<usize> for String {
     fn dummy_with_rng<R: Rng + ?Sized>(len: &usize, rng: &mut R) -> Self {
-        rng.sample_iter(&Alphanumeric).take(*len).map(char::from).collect()
+        rng.sample_iter(&Alphanumeric)
+            .take(*len)
+            .map(char::from)
+            .collect()
     }
 }
 

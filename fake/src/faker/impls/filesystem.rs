@@ -1,5 +1,5 @@
-use crate::faker::filesystem::raw::*;
 use crate::faker::boolean::raw::Boolean;
+use crate::faker::filesystem::raw::*;
 use crate::impls::std::path::PathFaker;
 use crate::locales::{Data, EN};
 use crate::{Dummy, Fake};
@@ -7,7 +7,7 @@ use rand::seq::SliceRandom;
 use rand::Rng;
 use std::path::PathBuf;
 
-const MIME_TYPES: &'static [&'static str] = &[
+const MIME_TYPES: &[&str] = &[
     "application/1d-interleaved-parityfec",
     "application/3gpdash-qoe-report+xml",
     "application/3gpp-ims+xml",
@@ -1867,7 +1867,7 @@ const MIME_TYPES: &'static [&'static str] = &[
     "video/x-smv",
     "x-conference/x-cooltalk",
     "x-shader/x-fragment",
-    "x-shader/x-vertex"
+    "x-shader/x-vertex",
 ];
 
 impl<L: Data> Dummy<FilePath<L>> for PathBuf {
@@ -1921,14 +1921,11 @@ impl<L: Data> Dummy<DirPath<L>> for String {
     }
 }
 
-
-const UNSTABLE_SEMVER: &'static [&'static str] = &[
-    "alpha", "beta", "rc"
-];
+const UNSTABLE_SEMVER: &[&str] = &["alpha", "beta", "rc"];
 
 impl<L: Data> Dummy<Semver<L>> for String {
     fn dummy_with_rng<R: Rng + ?Sized>(_: &Semver<L>, rng: &mut R) -> Self {
-        let patch = &mut(0..20).fake_with_rng::<u8, _>(rng).to_string();
+        let patch = &mut (0..20).fake_with_rng::<u8, _>(rng).to_string();
         if Boolean(EN, 10).fake_with_rng(rng) {
             patch.push_str(&format!(
                 "-{}.{}",
