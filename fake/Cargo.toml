@@ -11,7 +11,7 @@ homepage = "https://github.com/cksac/fake-rs"
 edition = "2018"
 
 [dependencies]
-dummy = { path = "../dummy_derive", optional = true }
+dummy = { version = "0.4", path = "../dummy_derive", optional = true }
 rand = "0.8"
 chrono = { version = "0.4", optional = true }
 http = { version = "0.2", optional = true }
