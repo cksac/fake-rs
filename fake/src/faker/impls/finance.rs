@@ -34,31 +34,40 @@ const VOWELS: &[char; 5] = &['A', 'E', 'I', 'O', 'U'];
 impl<L: Data> Dummy<Bic<L>> for String {
     fn dummy_with_rng<R: Rng + ?Sized>(_: &Bic<L>, rng: &mut R) -> Self {
         let prob: i8 = (0..100).fake_with_rng(rng);
-        let sufix;
-        if prob < 10 {
-            sufix = format!(
-                "{}{}{}",
+        let suffix = if prob < 50 {
+            return format!(
+                "{}{}{}{}{}{}1",
+                *ALPHABET.choose(rng).unwrap(),
+                *ALPHABET.choose(rng).unwrap(),
                 *ALPHABET.choose(rng).unwrap(),
                 *VOWELS.choose(rng).unwrap(),
-                *ALPHABET.choose(rng).unwrap()
+                *ISO3166.choose(rng).unwrap(),
+                *ALPHABET.choose(rng).unwrap(),
             );
-        } else if prob < 40 {
-            let first: String = (0..9).fake_with_rng(rng);
-            let second: String = (0..9).fake_with_rng(rng);
-            let third: String = (0..9).fake_with_rng(rng);
-            sufix = format!("{}{}{}", first, second, third);
+        } else if prob < 90 {
+            (
+                rng.gen_range('0'..'9'),
+                rng.gen_range('0'..'9'),
+                rng.gen_range('0'..'9'),
+            )
         } else {
-            sufix = "".to_string();
-        }
+            (
+                *ALPHABET.choose(rng).unwrap(),
+                *VOWELS.choose(rng).unwrap(),
+                *ALPHABET.choose(rng).unwrap(),
+            )
+        };
         format!(
-            "{}{}{}{}{}{}1{}",
+            "{}{}{}{}{}{}1{}{}{}",
             *ALPHABET.choose(rng).unwrap(),
             *ALPHABET.choose(rng).unwrap(),
             *ALPHABET.choose(rng).unwrap(),
             *VOWELS.choose(rng).unwrap(),
             *ISO3166.choose(rng).unwrap(),
             *ALPHABET.choose(rng).unwrap(),
-            sufix
+            suffix.0,
+            suffix.1,
+            suffix.2,
         )
     }
 }
