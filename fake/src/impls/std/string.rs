@@ -64,6 +64,19 @@ impl Dummy<ops::RangeToInclusive<usize>> for String {
     }
 }
 
+/// Custom fake [`String`] generator.
+///
+/// # Examples
+///
+/// ```
+/// use fake::{Fake, StringFaker};
+/// use fake::faker::name::en::Name;
+///
+/// // weak password generator
+/// const ASCII: &str = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!\"#$%&\'()*+,-./:;<=>?@";
+/// let f = StringFaker::with(Vec::from(ASCII), 8..12);
+/// let a: String = f.fake();
+/// ```
 pub struct StringFaker<L> {
     charset: Vec<u8>,
     len: L,
