@@ -16,6 +16,9 @@ rand = "0.8"
 chrono = { version = "0.4", optional = true }
 http = { version = "0.2", optional = true }
 
+[dev-dependencies]
+fake = { path = ".", features = ["derive"] }
+
 [features]
 # Provide derive(Dummy) macros.
 derive = ["dummy"]

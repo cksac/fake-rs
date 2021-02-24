@@ -31,6 +31,17 @@ where
     }
 }
 
+/// Creates a vec with fake values.
+///
+/// Requires `T: Dummy<Faker>` implementation for given type.
+///
+/// # Examples
+///
+/// ```
+/// let a = fake::vec![u8; 4]; // random u8 of length 4
+/// let b = fake::vec![u8; 4..8]; // random u8 of length 4 to 8
+/// // let c = fake::vec![u8; 4..]; // this won't work
+/// ```
 #[macro_export]
 macro_rules! vec {
     // @ty resolve type
