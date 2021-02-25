@@ -8,7 +8,7 @@ A Rust library for generating fake data.
 
 ## Installation
 
-Default:
+Default (`rand` is required):
 ```toml
 [dependencies]
 fake = "2.4"
