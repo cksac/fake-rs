@@ -18,6 +18,10 @@ impl Dummy<Faker> for PathBuf {
     }
 }
 
+/// Custom fake path generator given an array of root directories, segments and
+/// extension, and max_level to generate a fake path.
+///
+/// It generates by `root_dirs / max_level * segments . extensions`.
 pub struct PathFaker<'a> {
     root_dirs: &'a [&'a str],
     segments: &'a [&'a str],

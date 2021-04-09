@@ -15,6 +15,24 @@ where
     }
 }
 
+/// Custom fake [`Result`] generator.
+///
+/// # Examples
+///
+/// ```
+/// use fake::{Fake, ResultFaker};
+/// use fake::faker::name::en::Name;
+///
+/// // generate name on success but some error code on failure
+/// let f = ResultFaker::ok(Name());
+/// for _ in 0..2 {
+///     let a = f.fake::<Result<String, u8>>();
+/// }
+/// let f = ResultFaker::with(3.., 1..10);
+/// for _ in 0..5 {
+///     let a = f.fake::<Result<u32, usize>>();
+/// }
+/// ```
 pub struct ResultFaker<T, E> {
     ok: T,
     err: E,

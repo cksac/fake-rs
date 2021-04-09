@@ -8,7 +8,10 @@ const DEFAULT_STR_LEN_RANGE: ops::Range<usize> = 5..20;
 
 impl Dummy<usize> for String {
     fn dummy_with_rng<R: Rng + ?Sized>(len: &usize, rng: &mut R) -> Self {
-        rng.sample_iter(&Alphanumeric).take(*len).collect()
+        rng.sample_iter(&Alphanumeric)
+            .take(*len)
+            .map(char::from)
+            .collect()
     }
 }
 
@@ -61,6 +64,19 @@ impl Dummy<ops::RangeToInclusive<usize>> for String {
     }
 }
 
+/// Custom fake [`String`] generator.
+///
+/// # Examples
+///
+/// ```
+/// use fake::{Fake, StringFaker};
+/// use fake::faker::name::en::Name;
+///
+/// // weak password generator
+/// const ASCII: &str = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!\"#$%&\'()*+,-./:;<=>?@";
+/// let f = StringFaker::with(Vec::from(ASCII), 8..12);
+/// let a: String = f.fake();
+/// ```
 pub struct StringFaker<L> {
     charset: Vec<u8>,
     len: L,

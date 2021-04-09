@@ -31,7 +31,7 @@ impl Data for FR_FR {
         "William",
         "Xavier",
         "Yann",
-        "Zoé"
+        "Zoé",
     ];
     const NAME_LAST_NAME: &'static [&'static str] = &[
         "Aubry",
@@ -59,7 +59,7 @@ impl Data for FR_FR {
         "Walliand",
         "Xharde",
         "Yvars",
-        "Zola"
+        "Zola",
     ];
 
     const INTERNET_FREE_EMAIL_PROVIDER: &'static [&'static str] = &[
@@ -68,6 +68,6 @@ impl Data for FR_FR {
         "laposte.fr",
         "outlook.fr",
         "hotmail.fr",
-        "orange.fr"
+        "orange.fr",
     ];
 }

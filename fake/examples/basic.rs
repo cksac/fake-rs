@@ -40,7 +40,7 @@ fn main() {
     // array
     let array: [u8; 0] = Faker.fake();
     println!("array {:?}", array);
-    let array: [u8; 3] = Faker.fake();
+    let array: [u8; 3] = (..10).fake();
     println!("array {:?}", array);
     let array: [[u8; 2]; 3] = (1..10).fake();
     println!("nested array {:?}", array);

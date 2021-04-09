@@ -34,6 +34,9 @@ fn main() {
     let name: String = Name(ZH_TW).fake();
     println!("name {:?}", name);
 
+    let name: String = Name(ZH_CN).fake();
+    println!("name {:?}", name);
+
     // using convenient function without providing locale
     use fake::faker::lorem::en::*;
     let words: Vec<String> = Words(3..5).fake();

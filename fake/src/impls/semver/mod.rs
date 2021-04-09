@@ -4,7 +4,7 @@ use crate::locales::{EN};
 use rand::seq::SliceRandom;
 use rand::Rng;
 
-pub const UNSTABLE_SEMVER: &'static [&'static str] = &[
+const UNSTABLE_SEMVER: &'static [&'static str] = &[
     "alpha", "beta", "rc"
 ];
 

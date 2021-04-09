@@ -37,6 +37,7 @@ macro_rules! def_fakers {
 
         def_fakers!(@m en=>EN {$($name($($arg:$typ),*);)+});
         def_fakers!(@m zh_tw=>ZH_TW {$($name($($arg:$typ),*);)+});
+        def_fakers!(@m zh_cn=>ZH_CN {$($name($($arg:$typ),*);)+});
     };
 }
 

@@ -27,7 +27,7 @@ macro_rules! range_impl {
     ($typ:ident) => {
         impl Dummy<ops::Range<Self>> for $typ {
             fn dummy_with_rng<R: Rng + ?Sized>(range: &ops::Range<Self>, rng: &mut R) -> Self {
-                rng.gen_range(range.start, range.end)
+                rng.gen_range(range.start..range.end)
             }
         }
 
@@ -57,7 +57,7 @@ macro_rules! range_impl {
 
         impl Dummy<ops::RangeTo<Self>> for $typ {
             fn dummy_with_rng<R: Rng + ?Sized>(range: &ops::RangeTo<Self>, rng: &mut R) -> Self {
-                rng.gen_range(std::$typ::MIN, range.end)
+                rng.gen_range(std::$typ::MIN..range.end)
             }
         }
 
