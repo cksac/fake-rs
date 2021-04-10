@@ -1,13 +1,15 @@
-use crate::{Dummy, Fake, Faker};
+use crate::Dummy;
+use crate::faker::boolean::en::*;
+use crate::faker::option::raw::Opt;
 use rand::Rng;
 
-impl<T, U> Dummy<U> for Option<T>
+impl<T, U> Dummy<Opt<U>> for Option<T>
 where
     T: Dummy<U>,
 {
-    fn dummy_with_rng<R: Rng + ?Sized>(config: &U, rng: &mut R) -> Self {
-        if Faker.fake_with_rng::<bool, _>(rng) {
-            Some(T::dummy_with_rng(config, rng))
+    fn dummy_with_rng<R: Rng + ?Sized>(config: &Opt<U>, rng: &mut R) -> Self {
+        if bool::dummy_with_rng(&Boolean(config.1), rng) {
+            Some(T::dummy_with_rng(&config.0, rng))
         } else {
             None
         }

@@ -71,6 +71,12 @@ pub mod boolean {
     }
 }
 
+pub mod option {
+    def_fakers! {
+        Opt(ratio: u8);
+    }
+}
+
 #[cfg(feature = "chrono")]
 pub mod chrono {
     def_fakers! {
