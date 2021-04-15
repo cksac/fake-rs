@@ -177,8 +177,10 @@ pub mod filesystem {
         FileName();
         FileExtension();
         DirPath();
-        Semver();
         MimeType();
+        Semver();
+        SemverStable();
+        SemverUnstable();
     }
 }
 
