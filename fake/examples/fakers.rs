@@ -386,6 +386,13 @@ fn currency_faker() {
     println!("{:?}", val);
 }
 
+fn creditcard_faker() {
+    use fake::faker::creditcard::raw::*;
+
+    let val: String = CreditCardNumber(EN).fake();
+    println!("{:?}", val);
+}
+
 fn main() {
     lorem_faker();
     name_faker();
@@ -398,6 +405,7 @@ fn main() {
     phone_number_faker();
     filesystem_faker();
     currency_faker();
+    creditcard_faker();
 
     #[cfg(feature = "http")]
     http_faker();
