@@ -186,6 +186,11 @@ Latitude();
 Longitude();
 ```
 
+### Automotive
+```rust
+LicencePlate();
+```
+
 ## Phone Number
 
 ```rust

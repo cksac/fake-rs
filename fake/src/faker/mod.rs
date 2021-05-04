@@ -203,3 +203,10 @@ pub mod administrative {
         HealthInsuranceCode();
     }
 }
+
+pub mod automotive {
+    def_fakers! {
+        LicencePlate();
+    }
+}
+

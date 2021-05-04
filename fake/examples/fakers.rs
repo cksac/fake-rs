@@ -1,4 +1,4 @@
-use fake::locales::{EN, ZH_CN, ZH_TW};
+use fake::locales::{EN, FR_FR, ZH_CN, ZH_TW};
 use fake::Fake;
 
 fn lorem_faker() {
@@ -133,6 +133,13 @@ fn address_faker() {
     println!("{:?}", val);
 
     let val: f64 = Longitude(EN).fake();
+    println!("{:?}", val);
+}
+
+fn automotive_faker() {
+    use fake::faker::automotive::raw::*;
+
+    let val: String = LicencePlate(FR_FR).fake();
     println!("{:?}", val);
 }
 
@@ -391,6 +398,7 @@ fn main() {
     name_faker();
     job_faker();
     address_faker();
+    automotive_faker();
     bool_faker();
     company_faker();
     internet_faker();
