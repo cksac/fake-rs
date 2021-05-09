@@ -127,6 +127,12 @@ impl<L: Data> Dummy<IPv6<L>> for Ipv6Addr {
     }
 }
 
+impl<L: Data + Copy> Dummy<IP<L>> for String {
+    fn dummy_with_rng<R: Rng + ?Sized>(c: &IP<L>, _rng: &mut R) -> Self {
+        IPv4(c.0).fake()
+    }
+}
+
 impl<L: Data> Dummy<IP<L>> for IpAddr {
     #[inline]
     fn dummy_with_rng<R: Rng + ?Sized>(_: &IP<L>, rng: &mut R) -> Self {
