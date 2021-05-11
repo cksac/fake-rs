@@ -186,6 +186,11 @@ Latitude();
 Longitude();
 ```
 
+### Automotive
+```rust
+LicencePlate();
+```
+
 ### BareCode
 ```rust
 Isbn();
