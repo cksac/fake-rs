@@ -93,6 +93,12 @@ pub mod chrono {
     }
 }
 
+pub mod creditcard {
+    def_fakers! {
+        CreditCardNumber();
+    }
+}
+
 pub mod company {
     def_fakers! {
         CompanySuffix();

@@ -5,6 +5,7 @@ mod barecode;
 mod boolean;
 #[cfg(feature = "chrono")]
 mod chrono;
+mod creditcard;
 mod company;
 mod currency;
 mod filesystem;
