@@ -1,4 +1,4 @@
-use fake::locales::{EN, ZH_CN, ZH_TW};
+use fake::locales::{EN, FR_FR, ZH_CN, ZH_TW};
 use fake::Fake;
 
 fn lorem_faker() {
@@ -133,6 +133,13 @@ fn address_faker() {
     println!("{:?}", val);
 
     let val: f64 = Longitude(EN).fake();
+    println!("{:?}", val);
+}
+
+fn automotive_faker() {
+    use fake::faker::automotive::raw::*;
+
+    let val: String = LicencePlate(FR_FR).fake();
     println!("{:?}", val);
 }
 
@@ -393,11 +400,26 @@ fn creditcard_faker() {
     println!("{:?}", val);
 }
 
+fn barecode_faker() {
+    use fake::faker::barecode::raw::*;
+
+    let val: String = Isbn13(EN).fake();
+    println!("{}", val);
+
+    let val: String = Isbn10(EN).fake();
+    println!("{}", val);
+
+    let val: String = Isbn(EN).fake();
+    println!("{}", val);
+}
+
+
 fn main() {
     lorem_faker();
     name_faker();
     job_faker();
     address_faker();
+    automotive_faker();
     bool_faker();
     company_faker();
     internet_faker();
@@ -406,6 +428,7 @@ fn main() {
     filesystem_faker();
     currency_faker();
     creditcard_faker();
+    barecode_faker();
 
     #[cfg(feature = "http")]
     http_faker();
