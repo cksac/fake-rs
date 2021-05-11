@@ -1,6 +1,7 @@
 mod address;
 mod administrative;
 mod automotive;
+mod barecode;
 mod boolean;
 #[cfg(feature = "chrono")]
 mod chrono;

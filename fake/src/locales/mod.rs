@@ -1,3 +1,12 @@
+use std::collections::HashMap;
+
+#[derive(Debug)]
+pub struct RegistrantRule {
+    pub min: &'static str,
+    pub max: &'static str,
+    pub registrant_len: i8
+}
+
 #[cfg_attr(tool_attributes, rustfmt_skip)]
 pub trait Data {
     const LOREM_WORD: &'static [&'static str] =  &["alias", "consequatur", "aut", "perferendis", "sit", "voluptatem", "accusantium", "doloremque", "aperiam", "eaque", "ipsa", "quae", "ab", "illo", "inventore", "veritatis", "et", "quasi", "architecto", "beatae", "vitae", "dicta", "sunt", "explicabo", "aspernatur", "aut", "odit", "aut", "fugit", "sed", "quia", "consequuntur", "magni", "dolores", "eos", "qui", "ratione", "voluptatem", "sequi", "nesciunt", "neque", "dolorem", "ipsum", "quia", "dolor", "sit", "amet", "consectetur", "adipisci", "velit", "sed", "quia", "non", "numquam", "eius", "modi", "tempora", "incidunt", "ut", "labore", "et", "dolore", "magnam", "aliquam", "quaerat", "voluptatem", "ut", "enim", "ad", "minima", "veniam", "quis", "nostrum", "exercitationem", "ullam", "corporis", "nemo", "enim", "ipsam", "voluptatem", "quia", "voluptas", "sit", "suscipit", "laboriosam", "nisi", "ut", "aliquid", "ex", "ea", "commodi", "consequatur", "quis", "autem", "vel", "eum", "iure", "reprehenderit", "qui", "in", "ea", "voluptate", "velit", "esse", "quam", "nihil", "molestiae", "et", "iusto", "odio", "dignissimos", "ducimus", "qui", "blanditiis", "praesentium", "laudantium", "totam", "rem", "voluptatum", "deleniti", "atque", "corrupti", "quos", "dolores", "et", "quas", "molestias", "excepturi", "sint", "occaecati", "cupiditate", "non", "provident", "sed", "ut", "perspiciatis", "unde", "omnis", "iste", "natus", "error", "similique", "sunt", "in", "culpa", "qui", "officia", "deserunt", "mollitia", "animi", "id", "est", "laborum", "et", "dolorum", "fuga", "et", "harum", "quidem", "rerum", "facilis", "est", "et", "expedita", "distinctio", "nam", "libero", "tempore", "cum", "soluta", "nobis", "est", "eligendi", "optio", "cumque", "nihil", "impedit", "quo", "porro", "quisquam", "est", "qui", "minus", "id", "quod", "maxime", "placeat", "facere", "possimus", "omnis", "voluptas", "assumenda", "est", "omnis", "dolor", "repellendus", "temporibus", "autem", "quibusdam", "et", "aut", "consequatur", "vel", "illum", "qui", "dolorem", "eum", "fugiat", "quo", "voluptas", "nulla", "pariatur", "at", "vero", "eos", "et", "accusamus", "officiis", "debitis", "aut", "rerum", "necessitatibus", "saepe", "eveniet", "ut", "et", "voluptates", "repudiandae", "sint", "et", "molestiae", "non", "recusandae", "itaque", "earum", "rerum", "hic", "tenetur", "a", "sapiente", "delectus", "ut", "aut", "reiciendis", "voluptatibus", "maiores", "doloribus", "asperiores", "repellat"];
@@ -66,6 +75,124 @@ pub trait Data {
     const CURRENCY_CODE: &'static [&'static str] = &["AED", "AFN", "ALL", "AMD", "ANG", "AOA", "ARS", "AUD", "AWG", "AZN", "BAM", "BBD", "BDT", "BGN", "BHD", "BIF", "BMD", "BND", "BOB", "BRL", "BSD", "BWP", "BYR", "BZD", "CAD", "CDF", "CHF", "CLP", "CNY", "COP", "CRC", "CUP", "CVE", "CZK", "DJF", "DKK", "DOP", "DZD", "EEK", "EGP", "ERN", "ETB", "EUR", "FJD", "FKP", "GBP", "GEL", "GHS", "GIP", "GMD", "GNF", "GTQ", "GYD", "HKD", "HNL", "HRK", "HTG", "HUF", "IDR", "ILS", "INR", "INR", "IQD", "IRR", "ISK", "JMD", "JOD", "JPY", "KES", "KGS", "KHR", "KMF", "KPW", "KRW", "KWD", "KYD", "KZT", "LAK", "LBP", "LKR", "LRD", "LTL", "LVL", "LYD", "MAD", "MDL", "MGA", "MKD", "MMK", "MNT", "MOP", "MRO", "MUR", "MVR", "MWK", "MXN", "MYR", "MZN", "NGN", "NIO", "NOK", "NPR", "NZD", "OMR", "PAB", "PEN", "PGK", "PHP", "PKR", "PLN", "PYG", "QAR", "RON", "RSD", "RUB", "RWF", "SAR", "SBD", "SCR", "SDG", "SEK", "SGD", "SHP", "SLL", "SOS", "SRD", "STD", "SVC", "SYP", "SZL", "THB", "TJS", "TMT", "TND", "TOP", "TRY", "TTD", "TWD", "TZS", "UAH", "UGX", "USD", "UYU", "UZS", "VEF", "VND", "VUV", "WST", "XAF", "XAG", "XAU", "XBA", "XBB", "XBC", "XBD", "XCD", "XDR", "XFU", "XOF", "XPD", "XPF", "XPT", "XTS", "YER", "ZAR", "ZAR", "ZAR", "ZMK", "ZWL"];
     const CURRENCY_NAME: &'static [&'static str] = &["UAE Dirham", "Afghani", "Lek", "Armenian Dram", "Netherlands Antillian Guilder", "Kwanza", "Argentine Peso", "Australian Dollar", "Aruban Guilder", "Azerbaijanian Manat", "Convertible Marks", "Barbados Dollar", "Taka", "Bulgarian Lev", "Bahraini Dinar", "Burundi Franc", "Bermudian Dollar (customarily known as Bermuda Dollar)", "Brunei Dollar", "Boliviano Mvdol", "Brazilian Real", "Bahamian Dollar", "Pula", "Belarussian Ruble", "Belize Dollar", "Canadian Dollar", "Congolese Franc", "Swiss Franc", "Chilean Peso Unidades de fomento", "Yuan Renminbi", "Colombian Peso Unidad de Valor Real", "Costa Rican Colon", "Cuban Peso Peso Convertible", "Cape Verde Escudo", "Czech Koruna", "Djibouti Franc", "Danish Krone", "Dominican Peso", "Algerian Dinar", "Kroon", "Egyptian Pound", "Nakfa", "Ethiopian Birr", "Euro", "Fiji Dollar", "Falkland Islands Pound", "Pound Sterling", "Lari", "Cedi", "Gibraltar Pound", "Dalasi", "Guinea Franc", "Quetzal", "Guyana Dollar", "Hong Kong Dollar", "Lempira", "Croatian Kuna", "Gourde US Dollar", "Forint", "Rupiah", "New Israeli Sheqel", "Indian Rupee", "Indian Rupee Ngultrum", "Iraqi Dinar", "Iranian Rial", "Iceland Krona", "Jamaican Dollar", "Jordanian Dinar", "Yen", "Kenyan Shilling", "Som", "Riel", "Comoro Franc", "North Korean Won", "Won", "Kuwaiti Dinar", "Cayman Islands Dollar", "Tenge", "Kip", "Lebanese Pound", "Sri Lanka Rupee", "Liberian Dollar", "Lithuanian Litas", "Latvian Lats", "Libyan Dinar", "Moroccan Dirham", "Moldovan Leu", "Malagasy Ariary", "Denar", "Kyat", "Tugrik", "Pataca", "Ouguiya", "Mauritius Rupee", "Rufiyaa", "Kwacha", "Mexican Peso Mexican Unidad de Inversion (UDI)", "Malaysian Ringgit", "Metical", "Naira", "Cordoba Oro", "Norwegian Krone", "Nepalese Rupee", "New Zealand Dollar", "Rial Omani", "Balboa US Dollar", "Nuevo Sol", "Kina", "Philippine Peso", "Pakistan Rupee", "Zloty", "Guarani", "Qatari Rial", "New Leu", "Serbian Dinar", "Russian Ruble", "Rwanda Franc", "Saudi Riyal", "Solomon Islands Dollar", "Seychelles Rupee", "Sudanese Pound", "Swedish Krona", "Singapore Dollar", "Saint Helena Pound", "Leone", "Somali Shilling", "Surinam Dollar", "Dobra", "El Salvador Colon US Dollar", "Syrian Pound", "Lilangeni", "Baht", "Somoni", "Manat", "Tunisian Dinar", "Pa'anga", "Turkish Lira", "Trinidad and Tobago Dollar", "New Taiwan Dollar", "Tanzanian Shilling", "Hryvnia", "Uganda Shilling", "US Dollar", "Peso Uruguayo Uruguay Peso en Unidades Indexadas", "Uzbekistan Sum", "Bolivar Fuerte", "Dong", "Vatu", "Tala", "CFA Franc BEAC", "Silver", "Gold", "Bond Markets Units European Composite Unit (EURCO)", "European Monetary Unit (E.M.U.-6)", "European Unit of Account 9(E.U.A.-9)", "European Unit of Account 17(E.U.A.-17)", "East Caribbean Dollar", "SDR", "UIC-Franc", "CFA Franc BCEAO", "Palladium", "CFP Franc", "Platinum", "Codes specifically reserved for testing purposes", "Yemeni Rial", "Rand", "Rand Loti", "Rand Namibia Dollar", "Zambian Kwacha", "Zimbabwe Dollar"];
     const CURRENCY_SYMBOL: &'static [&'static str] = &["HK$", "Ft", "₪", "¥", "$", "kr", "PhP", "zł", "CHF", "NT$", "฿", "£", "¢", "Rp", "ƒ", "€","रू"];
+
+    const ISBN_EAN: &'static str = "978";
+    
+    fn isbn_rules() -> Box<HashMap<&'static str, Vec<RegistrantRule>>> {
+        let mut map = HashMap::new();
+        map.insert(
+            "0",
+            vec![
+                RegistrantRule {
+                    min: "0000000",
+                    max: "1999999",
+                    registrant_len: 2
+                },
+                RegistrantRule {
+                    min: "2000000",
+                    max: "2279999",
+                    registrant_len: 3
+                },
+                RegistrantRule {
+                    min: "2280000",
+                    max: "2289999",
+                    registrant_len: 4
+                },
+                RegistrantRule {
+                    min: "2290000",
+                    max: "6479999",
+                    registrant_len: 3
+                },
+                RegistrantRule {
+                    min: "6480000",
+                    max: "6489999",
+                    registrant_len: 7
+                },
+                RegistrantRule {
+                    min: "6490000",
+                    max: "6999999",
+                    registrant_len: 3
+                },
+                RegistrantRule {
+                    min: "7000000",
+                    max: "8499999",
+                    registrant_len: 4
+                },
+                RegistrantRule {
+                    min: "8500000",
+                    max: "8999999",
+                    registrant_len: 5
+                },
+                RegistrantRule {
+                    min: "9000000",
+                    max: "9499999",
+                    registrant_len: 6
+                },
+                RegistrantRule {
+                    min: "9500000",
+                    max: "9999999",
+                    registrant_len: 7
+                }
+            ]
+        );
+        map.insert(
+            "1",
+            vec![
+                RegistrantRule {
+                    min: "0000000",
+                    max: "0999999",
+                    registrant_len: 2
+                },
+                RegistrantRule {
+                    min: "20100000000000",
+                    max: "3999999",
+                    registrant_len: 3
+                },
+                RegistrantRule {
+                    min: "4000000",
+                    max: "5499999",
+                    registrant_len: 4
+                },
+                RegistrantRule {
+                    min: "5500000",
+                    max: "7319999",
+                    registrant_len: 5
+                },
+                RegistrantRule {
+                    min: "7320000",
+                    max: "7399999",
+                    registrant_len: 7
+                },
+                RegistrantRule {
+                    min: "7400000",
+                    max: "8697999",
+                    registrant_len: 5
+                },
+                
+                RegistrantRule {
+                    min: "8698000",
+                    max: "9729999",
+                    registrant_len: 6
+                },
+                RegistrantRule {
+                    min: "9730000",
+                    max: "9877999",
+                    registrant_len: 4
+                },
+                RegistrantRule {
+                    min: "9878000",
+                    max: "9989999",
+                    registrant_len: 6
+                },
+                RegistrantRule {
+                    min: "9990000",
+                    max: "9999999",
+                    registrant_len: 7
+                }
+            ]
+        );
+        Box::new(map)
+    }
 }
 
 mod en;

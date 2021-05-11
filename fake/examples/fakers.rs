@@ -393,6 +393,20 @@ fn currency_faker() {
     println!("{:?}", val);
 }
 
+fn barecode_faker() {
+    use fake::faker::barecode::raw::*;
+
+    let val: String = Isbn13(EN).fake();
+    println!("{}", val);
+
+    let val: String = Isbn10(EN).fake();
+    println!("{}", val);
+
+    let val: String = Isbn(EN).fake();
+    println!("{}", val);
+}
+
+
 fn main() {
     lorem_faker();
     name_faker();
@@ -406,6 +420,7 @@ fn main() {
     phone_number_faker();
     filesystem_faker();
     currency_faker();
+    barecode_faker();
 
     #[cfg(feature = "http")]
     http_faker();
