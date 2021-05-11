@@ -186,6 +186,13 @@ Latitude();
 Longitude();
 ```
 
+### BareCode
+```rust
+Isbn();
+Isbn13();
+Isbn10();
+```
+
 ## Phone Number
 
 ```rust
