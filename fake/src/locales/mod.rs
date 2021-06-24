@@ -1,4 +1,4 @@
-use std::collections::HashMap;
+use std::collections::BTreeMap;
 
 #[derive(Debug)]
 pub struct RegistrantRule {
@@ -78,8 +78,8 @@ pub trait Data {
 
     const ISBN_EAN: &'static str = "978";
     
-    fn isbn_rules() -> Box<HashMap<&'static str, Vec<RegistrantRule>>> {
-        let mut map = HashMap::new();
+    fn isbn_rules() -> Box<BTreeMap<&'static str, Vec<RegistrantRule>>> {
+        let mut map = BTreeMap::new();
         map.insert(
             "0",
             vec![

@@ -19,6 +19,8 @@ semver = { version = "0.11", optional = true }
 
 [dev-dependencies]
 fake = { path = ".", features = ["derive"] }
+proptest = "1.0.0"
+rand_chacha = "0.3.1"
 
 [features]
 # Provide derive(Dummy) macros.
