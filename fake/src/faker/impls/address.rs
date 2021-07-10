@@ -245,3 +245,13 @@ impl<L: Data> Dummy<Longitude<L>> for String {
         c.fake_with_rng::<f32, _>(rng).to_string()
     }
 }
+
+impl<L: Data> Dummy<Geohash<L>> for String {
+    #[inline]
+    fn dummy_with_rng<R: Rng + ?Sized>(g: &Geohash<L>, rng: &mut R) -> Self {
+        L::ADDRESS_GEOHASH_CHARS
+            .choose_multiple(rng, g.1 as usize)
+            .cloned()
+            .collect()
+    }
+}

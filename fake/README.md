@@ -182,6 +182,7 @@ PostCode();
 BuildingNumber();
 Latitude();
 Longitude();
+Geohash(precision: u8);
 ```
 
 ## Phone Number
