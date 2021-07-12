@@ -51,6 +51,7 @@ check_determinism! { l10d CityPrefix; String, fake_cityprefix_en, fake_cityprefi
 check_determinism! { l10d CitySuffix; String, fake_citysuffix_en, fake_citysuffix_fr, fake_citysuffix_cn, fake_citysuffix_tw }
 check_determinism! { l10d CountryCode; String, fake_countrycode_en, fake_countrycode_fr, fake_countrycode_cn, fake_countrycode_tw }
 check_determinism! { l10d CountryName; String, fake_countryname_en, fake_countryname_fr, fake_countryname_cn, fake_countryname_tw }
+check_determinism! { l10d Geohash; String, fake_geohash_en, fake_geohash_fr, fake_geohash_cn, fake_geohash_tw, 11 }
 check_determinism! { l10d Latitude; String, fake_latitude_en, fake_latitude_fr, fake_latitude_cn, fake_latitude_tw }
 check_determinism! { l10d Longitude; String, fake_longitude_en, fake_longitude_fr, fake_longitude_cn, fake_longitude_tw }
 check_determinism! { l10d PostCode; String, fake_postcode_en, fake_postcode_fr, fake_postcode_cn, fake_postcode_tw }

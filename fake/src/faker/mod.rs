@@ -63,6 +63,7 @@ pub mod address {
         BuildingNumber();
         Latitude();
         Longitude();
+        Geohash(precision: u8);
     }
 }
 

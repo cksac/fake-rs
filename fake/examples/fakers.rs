@@ -134,6 +134,9 @@ fn address_faker() {
 
     let val: f64 = Longitude(EN).fake();
     println!("{:?}", val);
+
+    let val: String = Geohash(EN, 11).fake();
+    println!("{:?}", val);
 }
 
 fn automotive_faker() {

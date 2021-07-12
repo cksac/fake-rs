@@ -184,6 +184,7 @@ PostCode();
 BuildingNumber();
 Latitude();
 Longitude();
+Geohash(precision: u8);
 ```
 
 ### Automotive
