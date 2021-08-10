@@ -2,8 +2,8 @@ use crate::Dummy;
 
 #[derive(Debug)]
 pub struct UuidV3Faker<'a> {
-  namespace: &'a uuid::Uuid,
-  name: &'a [u8],
+    namespace: &'a uuid::Uuid,
+    name: &'a [u8],
 }
 
 impl<'a> Dummy<UuidV3Faker<'a>> for uuid::Uuid {

@@ -2,7 +2,7 @@ use crate::Dummy;
 
 #[derive(Debug)]
 pub struct UuidSeedFaker<'a> {
-  slice: &'a u128,
+    slice: &'a u128,
 }
 
 impl<'a> Dummy<UuidSeedFaker<'a>> for uuid::Uuid {

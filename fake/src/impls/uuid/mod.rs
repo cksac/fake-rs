@@ -2,11 +2,11 @@ use rand::Rng;
 
 use crate::{Dummy, Faker};
 
+mod seed;
 mod v1;
 mod v3;
 mod v4;
 mod v5;
-mod seed;
 
 impl Dummy<Faker> for uuid::Uuid {
     fn dummy_with_rng<R: Rng + ?Sized>(_: &Faker, _: &mut R) -> Self {
