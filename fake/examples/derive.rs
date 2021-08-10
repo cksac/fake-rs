@@ -1,11 +1,10 @@
 use fake::faker::boolean::en::*;
 use fake::faker::company::en::*;
 use fake::faker::name::en::*;
-use fake::faker::internet::en::*;
 use fake::Dummy;
 use fake::{Fake, Faker};
 
-use fake::faker::internet::UuidConfig;
+use fake::faker::internet::raw::Uuid;
 
 #[derive(Debug, Dummy)]
 enum OrderStatus {

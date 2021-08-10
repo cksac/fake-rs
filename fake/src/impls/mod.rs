@@ -7,3 +7,5 @@ pub mod http;
 pub mod std;
 #[cfg(feature = "semver")]
 pub mod semver;
+#[cfg(feature = "uuid")]
+pub mod uuid;

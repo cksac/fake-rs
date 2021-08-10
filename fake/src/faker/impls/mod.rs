@@ -19,4 +19,4 @@ mod name;
 mod number;
 mod phone_number;
 #[cfg(feature = "uuid")]
-mod uuid;
+pub(crate) mod uuid;

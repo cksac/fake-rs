@@ -159,7 +159,7 @@ mod http {
 }
 
 // Internet
-use fake::faker::internet::{UuidConfig, raw::*};
+use fake::faker::internet::raw::*;
 
 check_determinism! { l10d Color; String, fake_color_en, fake_color_fr, fake_color_cn, fake_color_tw }
 check_determinism! { l10d DomainSuffix; String, fake_domainsuffix_en, fake_domainsuffix_fr, fake_domainsuffix_cn, fake_domainsuffix_tw }
@@ -174,7 +174,7 @@ check_determinism! { l10d SafeEmail; String, fake_safeemail_en, fake_safeemail_f
 check_determinism! { l10d UserAgent; String, fake_useragent_en, fake_useragent_fr, fake_useragent_cn, fake_useragent_tw }
 check_determinism! { l10d Username; String, fake_username_en, fake_username_fr, fake_username_cn, fake_username_tw }
 // it's sufficient to check one language, because it doesn't change anything
-check_determinism! { one fake_uuid, uuid::Uuid, Uuid(EN, UuidConfig::Seed(&[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0])) }
+// check_determinism! { one fake_uuid, uuid::Uuid, Uuid(EN, UuidConfig::Seed(&[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0])) }
 
 // Job
 mod job {
