@@ -126,6 +126,14 @@ pub mod http {
 }
 
 pub mod internet {
+    #[derive(Debug)]
+    pub enum UuidConfig {
+        V1(uuid::v1::Timestamp, &'static [u8]),
+        V3(uuid::Uuid, &'static [u8]),
+        V4,
+        V5(uuid::Uuid, &'static [u8]),
+        Seed(&'static [u8]),
+    }
     def_fakers! {
         FreeEmailProvider();
         DomainSuffix();
@@ -139,6 +147,7 @@ pub mod internet {
         MACAddress();
         Color();
         UserAgent();
+        Uuid(version: crate::faker::internet::UuidConfig);
     }
 }
 
@@ -226,3 +235,11 @@ pub mod automotive {
     }
 }
 
+pub mod uuid {
+    def_fakers! {
+        V1();
+        V3();
+        V4();
+        V5();
+    }
+}

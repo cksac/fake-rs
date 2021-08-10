@@ -16,6 +16,7 @@ rand = "0.8"
 chrono = { version = "0.4", optional = true }
 http = { version = "0.2", optional = true }
 semver = { version = "0.11", optional = true }
+uuid = { version = "0.8.2", features = ["v1", "v3", "v4", "v5"], optional = true }
 
 [dev-dependencies]
 fake = { path = ".", features = ["derive"] }
@@ -34,7 +35,7 @@ required-features = ["derive"]
 [[example]]
 name = "derive"
 path = "examples/derive.rs"
-required-features = ["derive", "http", "chrono"]
+required-features = ["derive", "http", "chrono", "uuid"]
 
 [[example]]
 name = "usage"
