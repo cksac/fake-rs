@@ -139,8 +139,7 @@ pub mod internet {
         MACAddress();
         Color();
         UserAgent();
-        Uuid(version: crate::UuidConfig);
-    }
+      }
 }
 
 pub mod job {
@@ -224,5 +223,13 @@ pub mod administrative {
 pub mod automotive {
     def_fakers! {
         LicencePlate();
+    }
+}
+
+
+#[cfg(feature = "uuid")]
+pub mod uuid {
+    def_fakers! {
+        Uuid(version: crate::UuidConfig);
     }
 }

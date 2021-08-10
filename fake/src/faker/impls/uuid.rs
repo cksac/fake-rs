@@ -1,6 +1,6 @@
 use rand::Rng;
 
-use crate::{faker::internet::raw::Uuid, impls::uuid::UuidConfig, locales::Data, Dummy};
+use crate::{faker::uuid::raw::Uuid, impls::uuid::UuidConfig, locales::Data, Dummy};
 
 impl<L: Data> Dummy<Uuid<L>> for uuid::Uuid {
     fn dummy_with_rng<R: Rng + ?Sized>(config: &Uuid<L>, _: &mut R) -> Self {

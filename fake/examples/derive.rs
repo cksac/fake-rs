@@ -1,7 +1,7 @@
 use fake::faker::boolean::en::*;
 use fake::faker::company::en::*;
 use fake::faker::name::en::*;
-use fake::faker::internet::en::*;
+use fake::faker::uuid::en::*;
 use fake::UuidConfig;
 use fake::Dummy;
 use fake::{Fake, Faker};
