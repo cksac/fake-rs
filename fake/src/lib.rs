@@ -253,3 +253,6 @@ pub mod locales;
 /// [`Fake`].
 #[cfg(feature = "derive")]
 pub use dummy::Dummy;
+
+#[cfg(feature = "uuid")]
+pub use impls::uuid::UuidConfig;
