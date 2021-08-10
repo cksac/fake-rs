@@ -1,10 +1,11 @@
 use fake::faker::boolean::en::*;
 use fake::faker::company::en::*;
 use fake::faker::name::en::*;
+// use fake::faker::internet::en::*;
+// use fake::UuidConfig;
 use fake::Dummy;
 use fake::{Fake, Faker};
 
-use fake::faker::internet::raw::Uuid;
 
 #[derive(Debug, Dummy)]
 enum OrderStatus {
@@ -28,8 +29,8 @@ pub struct Order {
     
     status: OrderStatus,
 
-    #[dummy(faker = "Uuid(UuidConfig::V4)")]
-    uuid: uuid::Uuid,
+    // #[dummy(faker = "Uuid(UuidConfig::V4())")]
+    // uuid: uuid::Uuid,
 }
 
 #[derive(Debug, Dummy)]
