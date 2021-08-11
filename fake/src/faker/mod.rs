@@ -226,7 +226,6 @@ pub mod automotive {
     }
 }
 
-
 #[cfg(feature = "uuid")]
 pub mod uuid {
     def_fakers! {
