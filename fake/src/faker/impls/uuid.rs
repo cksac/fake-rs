@@ -97,12 +97,10 @@ impl<L: Data> Dummy<UuidV5<L>> for String {
 
 #[allow(unused_variables)]
 impl<L: Data> Dummy<UuidSeed<L>> for Uuid {
-    fn dummy_with_rng<R: rand::Rng + ?Sized>(config: &UuidSeed<L>, rng: &mut R) -> Self {
+    fn dummy_with_rng<R: rand::Rng + ?Sized>(_: &UuidSeed<L>, rng: &mut R) -> Self {
         todo!()
-    }
-
-    fn dummy(UuidSeed(_, seed): &UuidSeed<L>) -> Self {
-        Self::from_slice(&seed).expect("generate uuid::Uuid::from_slice")
+        // let slice: &[u8; 128] = rng.gen();
+        // Self::from_slice(slice).expect("generate uuid::Uuid::from_slice")
     }
 }
 
