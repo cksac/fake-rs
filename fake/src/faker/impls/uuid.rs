@@ -58,8 +58,11 @@ impl<L: Data> Dummy<UuidV3<L>> for String {
 }
 
 impl<L: Data> Dummy<UuidV4<L>> for Uuid {
-    fn dummy_with_rng<R: rand::Rng + ?Sized>(_: &UuidV4<L>, _: &mut R) -> Self {
-        unimplemented!()
+    fn dummy_with_rng<R: rand::Rng + ?Sized>(_: &UuidV4<L>, rng: &mut R) -> Self {
+        Builder::from_bytes(rng.gen())
+            .set_variant(Variant::RFC4122)
+            .set_version(Version::Random)
+            .build()
     }
 
     fn dummy(_: &UuidV4<L>) -> Self {
@@ -68,8 +71,8 @@ impl<L: Data> Dummy<UuidV4<L>> for Uuid {
 }
 
 impl<L: Data> Dummy<UuidV4<L>> for String {
-    fn dummy_with_rng<R: rand::Rng + ?Sized>(_: &UuidV4<L>, _: &mut R) -> Self {
-        unimplemented!()
+    fn dummy_with_rng<R: rand::Rng + ?Sized>(config: &UuidV4<L>, rng: &mut R) -> Self {
+        Uuid::dummy_with_rng(config, rng).to_hyphenated().to_string()
     }
 
     fn dummy(config: &UuidV4<L>) -> Self {
