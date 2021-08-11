@@ -180,7 +180,8 @@ mod uuid {
   use fake::locales::EN;
   use fake::Fake;
   use rand::SeedableRng as _;
-  check_determinism! { one fake_uuid, uuid::Uuid, UuidV1(EN, uuid::v1::Timestamp::from_rfc4122(0u64, 0u16), &[0u8; 6]) }
+  check_determinism! { one fake_uuid_v1, uuid::Uuid, UuidV1(EN, uuid::v1::Timestamp::from_rfc4122(0u64, 0u16), &[0u8; 6]) }
+  check_determinism! { one fake_uuid_v3, uuid::Uuid, UuidV3(EN, uuid::Uuid::nil(), &[0u8; 16]) }
 }
 
 // Job

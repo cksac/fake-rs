@@ -1,4 +1,4 @@
-use uuid::Uuid;
+use uuid::{Builder, Uuid, Variant, Version};
 
 use crate::{Dummy, Faker};
 use crate::faker::uuid::raw::*;
@@ -29,14 +29,26 @@ impl<L: Data> Dummy<UuidV1<L>> for String {
     }
 }
 
-#[allow(unused_variables)]
-impl<L: Data> Dummy<UuidV3<L>> for uuid::Uuid {
+impl<L: Data> Dummy<UuidV3<L>> for Uuid {
     fn dummy_with_rng<R: rand::Rng + ?Sized>(config: &UuidV3<L>, rng: &mut R) -> Self {
-        todo!()
+        Builder::from_bytes(rng.gen())
+        .set_variant(Variant::RFC4122)
+        .set_version(Version::Md5)
+        .build()
     }
 
     fn dummy(UuidV3(_, namespace, name): &UuidV3<L>) -> Self {
         Self::new_v3(namespace, name)
+    }
+}
+
+impl<L: Data> Dummy<UuidV3<L>> for String {
+    fn dummy_with_rng<R: rand::Rng + ?Sized>(config: &UuidV3<L>, rng: &mut R) -> Self {
+        Uuid::dummy_with_rng(config, rng).to_hyphenated().to_string()
+    }
+
+    fn dummy(config: &UuidV3<L>) -> Self {
+        Uuid::dummy(config).to_hyphenated().to_string()
     }
 }
 
