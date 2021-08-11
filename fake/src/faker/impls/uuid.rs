@@ -52,10 +52,9 @@ impl<L: Data> Dummy<UuidV3<L>> for String {
     }
 }
 
-#[allow(unused_variables)]
 impl<L: Data> Dummy<UuidV4<L>> for Uuid {
-    fn dummy_with_rng<R: rand::Rng + ?Sized>(config: &UuidV4<L>, rng: &mut R) -> Self {
-        todo!()
+    fn dummy_with_rng<R: rand::Rng + ?Sized>(_: &UuidV4<L>, _: &mut R) -> Self {
+        unimplemented!()
     }
 
     fn dummy(_: &UuidV4<L>) -> Self {
