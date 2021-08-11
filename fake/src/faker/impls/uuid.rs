@@ -4,10 +4,14 @@ use crate::{Dummy, Faker};
 use crate::faker::uuid::raw::*;
 use crate::locales::Data;
 
-#[allow(unused_variables)]
 impl<L: Data> Dummy<UuidV1<L>> for uuid::Uuid {
     fn dummy_with_rng<R: rand::Rng + ?Sized>(config: &UuidV1<L>, rng: &mut R) -> Self {
-        todo!()
+      let bytes: [u8;8] = rng.gen();
+      let (ticks, _) = config.1.to_rfc4122();
+      let time_low = (ticks & 0xFFFF_FFFF) as u32;
+      let time_mid = ((ticks >> 32) & 0xFFFF) as u16;
+      let time_high_and_version = (((ticks >> 48) & 0x0FFF) as u16) | (1 << 12);
+      Uuid::from_fields(time_low, time_mid, time_high_and_version, &bytes).expect("generate uuid::Uuid::from_fields")
     }
 
     fn dummy(UuidV1(_, timestamp, node_id): &UuidV1<L>) -> Self {
@@ -15,10 +19,9 @@ impl<L: Data> Dummy<UuidV1<L>> for uuid::Uuid {
     }
 }
 
-#[allow(unused_variables)]
 impl<L: Data> Dummy<UuidV1<L>> for String {
     fn dummy_with_rng<R: rand::Rng + ?Sized>(config: &UuidV1<L>, rng: &mut R) -> Self {
-        todo!()
+        Uuid::dummy_with_rng(config, rng).to_hyphenated().to_string()
     }
 
     fn dummy(config: &UuidV1<L>) -> Self {
