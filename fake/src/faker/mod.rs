@@ -229,10 +229,9 @@ pub mod automotive {
 #[cfg(feature = "uuid")]
 pub mod uuid {
     def_fakers! {
-        UuidV1(timestamp: uuid::v1::Timestamp, node_id: &'static [u8]);
-        UuidV3(namespace: uuid::Uuid, name: &'static [u8]);
+        UuidV1();
+        UuidV3();
         UuidV4();
-        UuidV5(namespace: uuid::Uuid, name: &'static [u8]);
-        UuidSeed(seed: &'static [u8]);
+        UuidV5();
     }
 }
