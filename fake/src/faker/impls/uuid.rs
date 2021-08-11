@@ -62,7 +62,16 @@ impl<L: Data> Dummy<UuidV4<L>> for Uuid {
     }
 }
 
-#[allow(unused_variables)]
+impl<L: Data> Dummy<UuidV4<L>> for String {
+    fn dummy_with_rng<R: rand::Rng + ?Sized>(_: &UuidV4<L>, _: &mut R) -> Self {
+        unimplemented!()
+    }
+
+    fn dummy(config: &UuidV4<L>) -> Self {
+        Uuid::dummy(config).to_hyphenated().to_string()
+    }
+}
+
 impl<L: Data> Dummy<UuidV5<L>> for Uuid {
     fn dummy_with_rng<R: rand::Rng + ?Sized>(_: &UuidV5<L>, rng: &mut R) -> Self {
       Builder::from_bytes(rng.gen())
