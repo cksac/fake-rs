@@ -419,6 +419,7 @@ fn barecode_faker() {
     println!("{}", val);
 }
 
+#[cfg(feature = "uuid")]
 fn uuid_faker() {
     use fake::faker::uuid::raw::*;
     use uuid::Uuid;
