@@ -117,7 +117,7 @@ impl<L: Data> Dummy<UuidSeed<L>> for Uuid {
 #[allow(unused_variables)]
 impl Dummy<Faker> for Uuid {
     fn dummy_with_rng<R: rand::Rng + ?Sized>(config: &Faker, rng: &mut R) -> Self {
-        todo!()
+        Self::from_u128(rng.gen())
     }
 
     fn dummy(config: &Faker) -> Self {
