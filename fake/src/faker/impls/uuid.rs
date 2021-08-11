@@ -30,7 +30,7 @@ impl<L: Data> Dummy<UuidV1<L>> for String {
 }
 
 impl<L: Data> Dummy<UuidV3<L>> for Uuid {
-    fn dummy_with_rng<R: rand::Rng + ?Sized>(config: &UuidV3<L>, rng: &mut R) -> Self {
+    fn dummy_with_rng<R: rand::Rng + ?Sized>(_: &UuidV3<L>, rng: &mut R) -> Self {
         Builder::from_bytes(rng.gen())
         .set_variant(Variant::RFC4122)
         .set_version(Version::Md5)
@@ -64,12 +64,25 @@ impl<L: Data> Dummy<UuidV4<L>> for Uuid {
 
 #[allow(unused_variables)]
 impl<L: Data> Dummy<UuidV5<L>> for Uuid {
-    fn dummy_with_rng<R: rand::Rng + ?Sized>(config: &UuidV5<L>, rng: &mut R) -> Self {
-        todo!()
+    fn dummy_with_rng<R: rand::Rng + ?Sized>(_: &UuidV5<L>, rng: &mut R) -> Self {
+      Builder::from_bytes(rng.gen())
+      .set_variant(Variant::RFC4122)
+      .set_version(Version::Sha1)
+      .build()
     }
 
     fn dummy(UuidV5(_, namespace, name): &UuidV5<L>) -> Self {
         Self::new_v5(namespace, name)
+    }
+}
+
+impl<L: Data> Dummy<UuidV5<L>> for String {
+    fn dummy_with_rng<R: rand::Rng + ?Sized>(config: &UuidV5<L>, rng: &mut R) -> Self {
+        Uuid::dummy_with_rng(config, rng).to_hyphenated().to_string()
+    }
+
+    fn dummy(config: &UuidV5<L>) -> Self {
+        Uuid::dummy(config).to_hyphenated().to_string()
     }
 }
 
