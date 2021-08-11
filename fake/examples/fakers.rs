@@ -419,6 +419,23 @@ fn barecode_faker() {
     println!("{}", val);
 }
 
+fn uuid_faker() {
+    use fake::faker::uuid::raw::*;
+    use uuid::Uuid;
+
+    let val: Uuid = UuidV1(EN).fake();
+    println!("{} (v1)", val);
+    
+    let val: Uuid = UuidV3(EN).fake();
+    println!("{} (v3)", val);
+
+    let val: Uuid = UuidV4(EN).fake();
+    println!("{} (v4)", val);
+
+    let val: Uuid = UuidV5(EN).fake();
+    println!("{} (v5)", val);
+}
+
 
 fn main() {
     lorem_faker();
@@ -441,4 +458,7 @@ fn main() {
 
     #[cfg(feature = "chrono")]
     chrono_faker();
+
+    #[cfg(feature = "uuid")]
+    uuid_faker();
 }
