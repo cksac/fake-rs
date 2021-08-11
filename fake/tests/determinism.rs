@@ -176,14 +176,13 @@ check_determinism! { l10d Username; String, fake_username_en, fake_username_fr, 
 // it's sufficient to check one language, because it doesn't change anything
 #[cfg(feature = "uuid")]
 mod uuid {
-    use fake::faker::uuid::raw::*;
-    use fake::locales::EN;
     use fake::Fake;
+    use fake::uuid::*;
     use rand::SeedableRng as _;
-    check_determinism! { one fake_uuid_v1, uuid::Uuid, UuidV1(EN) }
-    check_determinism! { one fake_uuid_v3, uuid::Uuid, UuidV3(EN) }
-    check_determinism! { one fake_uuid_v4, uuid::Uuid, UuidV4(EN) }
-    check_determinism! { one fake_uuid_v5, uuid::Uuid, UuidV5(EN) }
+    check_determinism! { one fake_uuid_v1, uuid::Uuid, V1 }
+    check_determinism! { one fake_uuid_v3, uuid::Uuid, V3 }
+    check_determinism! { one fake_uuid_v4, uuid::Uuid, V4 }
+    check_determinism! { one fake_uuid_v5, uuid::Uuid, V5 }
 }
 
 // Job

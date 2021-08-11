@@ -225,13 +225,3 @@ pub mod automotive {
         LicencePlate();
     }
 }
-
-#[cfg(feature = "uuid")]
-pub mod uuid {
-    def_fakers! {
-        UuidV1();
-        UuidV3();
-        UuidV4();
-        UuidV5();
-    }
-}

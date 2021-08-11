@@ -1,11 +1,14 @@
 use uuid::{Builder, Uuid, Variant, Version};
 
-use crate::faker::uuid::raw::*;
-use crate::locales::Data;
 use crate::{Dummy, Fake, Faker};
 
-impl<L: Data> Dummy<UuidV1<L>> for Uuid {
-    fn dummy_with_rng<R: rand::Rng + ?Sized>(_: &UuidV1<L>, rng: &mut R) -> Self {
+pub struct V1;
+pub struct V3;
+pub struct V4;
+pub struct V5;
+
+impl Dummy<V1> for Uuid {
+    fn dummy_with_rng<R: rand::Rng + ?Sized>(_: &V1, rng: &mut R) -> Self {
         let ticks = Faker.fake_with_rng(rng);
         let counter = Faker.fake_with_rng(rng);
         let ts = uuid::v1::Timestamp::from_rfc4122(ticks, counter);
@@ -14,16 +17,16 @@ impl<L: Data> Dummy<UuidV1<L>> for Uuid {
     }
 }
 
-impl<L: Data> Dummy<UuidV1<L>> for String {
-    fn dummy_with_rng<R: rand::Rng + ?Sized>(config: &UuidV1<L>, rng: &mut R) -> Self {
+impl Dummy<V1> for String {
+    fn dummy_with_rng<R: rand::Rng + ?Sized>(config: &V1, rng: &mut R) -> Self {
         Uuid::dummy_with_rng(config, rng)
             .to_hyphenated()
             .to_string()
     }
 }
 
-impl<L: Data> Dummy<UuidV3<L>> for Uuid {
-    fn dummy_with_rng<R: rand::Rng + ?Sized>(_: &UuidV3<L>, rng: &mut R) -> Self {
+impl Dummy<V3> for Uuid {
+    fn dummy_with_rng<R: rand::Rng + ?Sized>(_: &V3, rng: &mut R) -> Self {
         Builder::from_bytes(rng.gen())
             .set_variant(Variant::RFC4122)
             .set_version(Version::Md5)
@@ -31,16 +34,16 @@ impl<L: Data> Dummy<UuidV3<L>> for Uuid {
     }
 }
 
-impl<L: Data> Dummy<UuidV3<L>> for String {
-    fn dummy_with_rng<R: rand::Rng + ?Sized>(config: &UuidV3<L>, rng: &mut R) -> Self {
+impl Dummy<V3> for String {
+    fn dummy_with_rng<R: rand::Rng + ?Sized>(config: &V3, rng: &mut R) -> Self {
         Uuid::dummy_with_rng(config, rng)
             .to_hyphenated()
             .to_string()
     }
 }
 
-impl<L: Data> Dummy<UuidV4<L>> for Uuid {
-    fn dummy_with_rng<R: rand::Rng + ?Sized>(_: &UuidV4<L>, rng: &mut R) -> Self {
+impl Dummy<V4> for Uuid {
+    fn dummy_with_rng<R: rand::Rng + ?Sized>(_: &V4, rng: &mut R) -> Self {
         Builder::from_bytes(rng.gen())
             .set_variant(Variant::RFC4122)
             .set_version(Version::Random)
@@ -48,14 +51,14 @@ impl<L: Data> Dummy<UuidV4<L>> for Uuid {
     }
 }
 
-impl<L: Data> Dummy<UuidV4<L>> for String {
-    fn dummy_with_rng<R: rand::Rng + ?Sized>(config: &UuidV4<L>, rng: &mut R) -> Self {
+impl Dummy<V4> for String {
+    fn dummy_with_rng<R: rand::Rng + ?Sized>(config: &V4, rng: &mut R) -> Self {
         Uuid::dummy_with_rng(config, rng).to_hyphenated().to_string()
     }
 }
 
-impl<L: Data> Dummy<UuidV5<L>> for Uuid {
-    fn dummy_with_rng<R: rand::Rng + ?Sized>(_: &UuidV5<L>, rng: &mut R) -> Self {
+impl Dummy<V5> for Uuid {
+    fn dummy_with_rng<R: rand::Rng + ?Sized>(_: &V5, rng: &mut R) -> Self {
         Builder::from_bytes(rng.gen())
             .set_variant(Variant::RFC4122)
             .set_version(Version::Sha1)
@@ -63,8 +66,8 @@ impl<L: Data> Dummy<UuidV5<L>> for Uuid {
     }
 }
 
-impl<L: Data> Dummy<UuidV5<L>> for String {
-    fn dummy_with_rng<R: rand::Rng + ?Sized>(config: &UuidV5<L>, rng: &mut R) -> Self {
+impl Dummy<V5> for String {
+    fn dummy_with_rng<R: rand::Rng + ?Sized>(config: &V5, rng: &mut R) -> Self {
         Uuid::dummy_with_rng(config, rng)
             .to_hyphenated()
             .to_string()

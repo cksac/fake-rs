@@ -18,5 +18,3 @@ mod lorem;
 mod name;
 mod number;
 mod phone_number;
-#[cfg(feature = "uuid")]
-mod uuid;

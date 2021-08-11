@@ -421,19 +421,19 @@ fn barecode_faker() {
 
 #[cfg(feature = "uuid")]
 fn uuid_faker() {
-    use fake::faker::uuid::raw::*;
+    use fake::uuid::*;
     use uuid::Uuid;
 
-    let val: Uuid = UuidV1(EN).fake();
+    let val: Uuid = V1.fake();
     println!("{} (v1)", val);
     
-    let val: Uuid = UuidV3(EN).fake();
+    let val: Uuid = V3.fake();
     println!("{} (v3)", val);
 
-    let val: Uuid = UuidV4(EN).fake();
+    let val: Uuid = V4.fake();
     println!("{} (v4)", val);
 
-    let val: Uuid = UuidV5(EN).fake();
+    let val: Uuid = V5.fake();
     println!("{} (v5)", val);
 }
 
