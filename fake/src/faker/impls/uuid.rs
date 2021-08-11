@@ -4,7 +4,7 @@ use crate::{Dummy, Faker};
 use crate::faker::uuid::raw::*;
 use crate::locales::Data;
 
-impl<L: Data> Dummy<UuidV1<L>> for uuid::Uuid {
+impl<L: Data> Dummy<UuidV1<L>> for Uuid {
     fn dummy_with_rng<R: rand::Rng + ?Sized>(config: &UuidV1<L>, rng: &mut R) -> Self {
       let bytes: [u8;8] = rng.gen();
       let (ticks, _) = config.1.to_rfc4122();
@@ -53,7 +53,7 @@ impl<L: Data> Dummy<UuidV3<L>> for String {
 }
 
 #[allow(unused_variables)]
-impl<L: Data> Dummy<UuidV4<L>> for uuid::Uuid {
+impl<L: Data> Dummy<UuidV4<L>> for Uuid {
     fn dummy_with_rng<R: rand::Rng + ?Sized>(config: &UuidV4<L>, rng: &mut R) -> Self {
         todo!()
     }
@@ -64,7 +64,7 @@ impl<L: Data> Dummy<UuidV4<L>> for uuid::Uuid {
 }
 
 #[allow(unused_variables)]
-impl<L: Data> Dummy<UuidV5<L>> for uuid::Uuid {
+impl<L: Data> Dummy<UuidV5<L>> for Uuid {
     fn dummy_with_rng<R: rand::Rng + ?Sized>(config: &UuidV5<L>, rng: &mut R) -> Self {
         todo!()
     }
@@ -75,7 +75,7 @@ impl<L: Data> Dummy<UuidV5<L>> for uuid::Uuid {
 }
 
 #[allow(unused_variables)]
-impl<L: Data> Dummy<UuidSeed<L>> for uuid::Uuid {
+impl<L: Data> Dummy<UuidSeed<L>> for Uuid {
     fn dummy_with_rng<R: rand::Rng + ?Sized>(config: &UuidSeed<L>, rng: &mut R) -> Self {
         todo!()
     }
@@ -86,7 +86,7 @@ impl<L: Data> Dummy<UuidSeed<L>> for uuid::Uuid {
 }
 
 #[allow(unused_variables)]
-impl Dummy<Faker> for uuid::Uuid {
+impl Dummy<Faker> for Uuid {
     fn dummy_with_rng<R: rand::Rng + ?Sized>(config: &Faker, rng: &mut R) -> Self {
         todo!()
     }
