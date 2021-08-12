@@ -424,16 +424,16 @@ fn uuid_faker() {
     use fake::uuid::*;
     use uuid::Uuid;
 
-    let val: Uuid = V1.fake();
+    let val: Uuid = UUIDv1.fake();
     println!("{} (v1)", val);
     
-    let val: Uuid = V3.fake();
+    let val: Uuid = UUIDv3.fake();
     println!("{} (v3)", val);
 
-    let val: Uuid = V4.fake();
+    let val: Uuid = UUIDv4.fake();
     println!("{} (v4)", val);
 
-    let val: Uuid = V5.fake();
+    let val: Uuid = UUIDv5.fake();
     println!("{} (v5)", val);
 }
 

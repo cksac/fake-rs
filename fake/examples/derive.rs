@@ -3,7 +3,7 @@ use fake::faker::company::en::*;
 use fake::faker::name::en::*;
 use fake::Dummy;
 use fake::{Fake, Faker};
-use fake::uuid::V4;
+use fake::uuid::UUIDv4;
 
 
 #[derive(Debug, Dummy)]
@@ -28,7 +28,7 @@ pub struct Order {
     
     status: OrderStatus,
 
-    #[dummy(faker = "V4")]
+    #[dummy(faker = "UUIDv4")]
     uuid: uuid::Uuid,
 }
 

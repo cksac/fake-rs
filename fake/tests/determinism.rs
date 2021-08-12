@@ -179,10 +179,10 @@ mod uuid {
     use fake::Fake;
     use fake::uuid::*;
     use rand::SeedableRng as _;
-    check_determinism! { one fake_uuid_v1, uuid::Uuid, V1 }
-    check_determinism! { one fake_uuid_v3, uuid::Uuid, V3 }
-    check_determinism! { one fake_uuid_v4, uuid::Uuid, V4 }
-    check_determinism! { one fake_uuid_v5, uuid::Uuid, V5 }
+    check_determinism! { one fake_uuid_v1, uuid::Uuid, UUIDv1 }
+    check_determinism! { one fake_uuid_v3, uuid::Uuid, UUIDv3 }
+    check_determinism! { one fake_uuid_v4, uuid::Uuid, UUIDv4 }
+    check_determinism! { one fake_uuid_v5, uuid::Uuid, UUIDv5 }
 }
 
 // Job
