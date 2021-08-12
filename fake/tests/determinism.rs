@@ -173,6 +173,17 @@ check_determinism! { l10d Password; String, fake_password_en, fake_password_fr, 
 check_determinism! { l10d SafeEmail; String, fake_safeemail_en, fake_safeemail_fr, fake_safeemail_cn, fake_safeemail_tw }
 check_determinism! { l10d UserAgent; String, fake_useragent_en, fake_useragent_fr, fake_useragent_cn, fake_useragent_tw }
 check_determinism! { l10d Username; String, fake_username_en, fake_username_fr, fake_username_cn, fake_username_tw }
+// it's sufficient to check one language, because it doesn't change anything
+#[cfg(feature = "uuid")]
+mod uuid {
+    use fake::Fake;
+    use fake::uuid::*;
+    use rand::SeedableRng as _;
+    check_determinism! { one fake_uuid_v1, uuid::Uuid, UUIDv1 }
+    check_determinism! { one fake_uuid_v3, uuid::Uuid, UUIDv3 }
+    check_determinism! { one fake_uuid_v4, uuid::Uuid, UUIDv4 }
+    check_determinism! { one fake_uuid_v5, uuid::Uuid, UUIDv5 }
+}
 
 // Job
 mod job {

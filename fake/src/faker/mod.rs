@@ -139,7 +139,7 @@ pub mod internet {
         MACAddress();
         Color();
         UserAgent();
-    }
+      }
 }
 
 pub mod job {
@@ -225,4 +225,3 @@ pub mod automotive {
         LicencePlate();
     }
 }
-

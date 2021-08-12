@@ -3,6 +3,8 @@ use fake::faker::company::en::*;
 use fake::faker::name::en::*;
 use fake::Dummy;
 use fake::{Fake, Faker};
+use fake::uuid::UUIDv4;
+
 
 #[derive(Debug, Dummy)]
 enum OrderStatus {
@@ -23,8 +25,11 @@ pub struct Order {
 
     #[dummy(faker = "Boolean(70)")]
     paid: bool,
-
+    
     status: OrderStatus,
+
+    #[dummy(faker = "UUIDv4")]
+    uuid: uuid::Uuid,
 }
 
 #[derive(Debug, Dummy)]
@@ -85,5 +90,8 @@ fn main() {
     // println!("{:#?}", v);
 
     let v: NewType = Faker.fake();
+    println!("{:#?}", v);
+
+    let v: uuid::Uuid = Faker.fake();
     println!("{:#?}", v);
 }
