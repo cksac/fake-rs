@@ -26,6 +26,10 @@ If you want `http` faker features:
 ```toml
 fake = { version = "2.4", features=['http']}
 ```
+If you want `uuid` faker features:
+```toml
+fake = { version = "2.4", features=['uuid']}
+```
 
 ## Usage
 
@@ -229,6 +233,14 @@ DirPath();
 ### Finance
 ```rust
 Bic();
+```
+
+### UUID
+```rust
+UUIDv1();
+UUIDv3();
+UUIDv4();
+UUIDv5();
 ```
 
 # LICENSE

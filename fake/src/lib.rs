@@ -5,6 +5,7 @@
 //! - `derive` provides `#[derive(Dummy)]`
 //! - `chrono` [chrono](https://docs.rs/chrono) integration
 //! - `http` [http](https://docs.rs/http) integration
+//! - `uuid` [uuid](https://docs.rs/uuid) integration
 //!
 //! # Usage
 //!

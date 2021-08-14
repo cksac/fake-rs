@@ -1,10 +1,20 @@
+//! uuid
+//!
+//! please note that :
+//! *  all [`Dummy`] implementations for [`String`] use [to_hyphenated](https://docs.rs/uuid/latest/uuid/struct.Uuid.html#method.to_hyphenated).
+//! *  [`Dummy<Faker>`] implementation uses [from_u128](https://docs.rs/uuid/latest/uuid/struct.Uuid.html#method.from_u128)
+
 use uuid::{Builder, Uuid, Variant, Version};
 
 use crate::{Dummy, Fake, Faker};
 
+/// as per [new_v1](https://docs.rs/uuid/latest/uuid/struct.Uuid.html#method.new_v1)
 pub struct UUIDv1;
+/// as per [new_v3](https://docs.rs/uuid/latest/uuid/struct.Uuid.html#method.new_v3)
 pub struct UUIDv3;
+/// as per [new_v4](https://docs.rs/uuid/latest/uuid/struct.Uuid.html#method.new_v4)
 pub struct UUIDv4;
+/// as per [new_v5](https://docs.rs/uuid/latest/uuid/struct.Uuid.html#method.new_v5)
 pub struct UUIDv5;
 
 impl Dummy<UUIDv1> for Uuid {
