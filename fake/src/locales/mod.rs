@@ -4,7 +4,7 @@ use std::collections::BTreeMap;
 pub struct RegistrantRule {
     pub min: &'static str,
     pub max: &'static str,
-    pub registrant_len: i8
+    pub registrant_len: i8,
 }
 
 #[cfg_attr(tool_attributes, rustfmt_skip)]
@@ -207,3 +207,6 @@ pub use self::zh_tw::ZH_TW;
 
 mod zh_cn;
 pub use self::zh_cn::ZH_CN;
+
+mod ja_jp;
+pub use self::ja_jp::JA_JP;
