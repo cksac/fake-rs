@@ -386,4 +386,7 @@ impl Data for JA_JP {
         "ストラテジスト",
     ];
     const JOB_TITLE_TPL: &'static str = &"{Seniority}{Field}{Position}";
+
+    const COMPANY_SUFFIX: &'static [&'static str] = &["株式会社", "(株)", "有限会社", "(有)"];
+    const COMPANY_NAME_TPLS: &'static [&'static str] = &["{Name_1} {Suffix}", "{Suffix} {Name_1}"];
 }
