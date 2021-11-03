@@ -5,9 +5,9 @@ use std::rc::Rc;
 #[derive(Debug, Dummy)]
 pub struct Foo {
     #[dummy(faker = "1000..2000")]
-    order_id: usize,
-    customer: String,
-    paid: bool,
+    pub order_id: usize,
+    pub customer: String,
+    pub paid: bool,
 }
 
 fn dummy_derive() {

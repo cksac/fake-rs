@@ -1,6 +1,6 @@
 [package]
 name = "fake"
-version = "2.4.1"
+version = "2.4.2"
 authors = ["cksac <cs.cksac@gmail.com>"]
 description = "An easy to use library for generating fake data like name, number, address, lorem, dates, etc."
 keywords = ["faker", "data", "generator", "random"]
@@ -8,20 +8,20 @@ license = "MIT/Apache-2.0"
 readme = "README.md"
 repository = "https://github.com/cksac/fake-rs"
 homepage = "https://github.com/cksac/fake-rs"
-edition = "2018"
+edition = "2021"
 
 [dependencies]
 dummy = { version = "0.4", path = "../dummy_derive", optional = true }
 rand = "0.8"
 chrono = { version = "0.4", optional = true }
 http = { version = "0.2", optional = true }
-semver = { version = "0.11", optional = true }
-uuid = { version = "0.8.2", features = ["v1", "v3", "v4", "v5"], optional = true }
+semver = { version = "1", optional = true }
+uuid = { version = "0.8", features = ["v1", "v3", "v4", "v5"], optional = true }
 
 [dev-dependencies]
 fake = { path = ".", features = ["derive"] }
 proptest = "1.0.0"
-rand_chacha = "0.3.1"
+rand_chacha = "0.3"
 
 [features]
 # Provide derive(Dummy) macros.
