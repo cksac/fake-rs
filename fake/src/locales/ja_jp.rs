@@ -318,8 +318,8 @@ impl Data for JA_JP {
         "新井",
     ];
     const NAME_TITLE: &'static [&'static str] = &["様"];
-    const NAME_TPL: &'static str = &"{LastName} {FirstName}";
-    const NAME_WITH_TITLE_TPL: &'static str = &"{LastName}{FirstName}{Title}";
+    const NAME_TPL: &'static str = "{LastName} {FirstName}";
+    const NAME_WITH_TITLE_TPL: &'static str = "{LastName}{FirstName}{Title}";
 
     const JOB_SENIORITY: &'static [&'static str] = &[
         "リード",
@@ -385,7 +385,7 @@ impl Data for JA_JP {
         "代表",
         "ストラテジスト",
     ];
-    const JOB_TITLE_TPL: &'static str = &"{Seniority}{Field}{Position}";
+    const JOB_TITLE_TPL: &'static str = "{Seniority}{Field}{Position}";
 
     const COMPANY_SUFFIX: &'static [&'static str] = &["株式会社", "(株)", "有限会社", "(有)"];
     const COMPANY_NAME_TPLS: &'static [&'static str] = &["{Name_1} {Suffix}", "{Suffix} {Name_1}"];

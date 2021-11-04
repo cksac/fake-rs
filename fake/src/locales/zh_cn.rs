@@ -46,8 +46,8 @@ impl Data for ZH_CN {
         "万", "钱", "严", "覃", "武", "戴", "莫", "孔", "向", "汤", "欧阳",
     ];
     const NAME_TITLE: &'static [&'static str] = &["先生", "小姐", "男士", "女士"];
-    const NAME_TPL: &'static str = &"{LastName}{FirstName}";
-    const NAME_WITH_TITLE_TPL: &'static str = &"{LastName}{FirstName}{Title}";
+    const NAME_TPL: &'static str = "{LastName}{FirstName}";
+    const NAME_WITH_TITLE_TPL: &'static str = "{LastName}{FirstName}{Title}";
 
     const JOB_SENIORITY: &'static [&'static str] =
         &["领导级", "高级", "初级", "首席级", "负责人级"];
@@ -101,5 +101,5 @@ impl Data for ZH_CN {
         "代表",
         "战略家",
     ];
-    const JOB_TITLE_TPL: &'static str = &"{Seniority} {Field} {Position}";
+    const JOB_TITLE_TPL: &'static str = "{Seniority} {Field} {Position}";
 }

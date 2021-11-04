@@ -49,6 +49,6 @@ impl Data for ZH_TW {
         "仲孫", "軒轅", "令狐", "徐離", "宇文", "長孫", "慕容", "司徒", "司空",
     ];
     const NAME_TITLE: &'static [&'static str] = &["先生", "夫人", "女士", "小姐", "博士"];
-    const NAME_TPL: &'static str = &"{LastName}{FirstName}";
-    const NAME_WITH_TITLE_TPL: &'static str = &"{LastName}{FirstName}{Title}";
+    const NAME_TPL: &'static str = "{LastName}{FirstName}";
+    const NAME_WITH_TITLE_TPL: &'static str = "{LastName}{FirstName}{Title}";
 }

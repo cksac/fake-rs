@@ -71,7 +71,7 @@ pub fn hello_world(input: TokenStream) -> TokenStream {
                         let faker = if let Some(ref expr) = f.faker {
                             syn::parse_str::<syn::Expr>(expr).unwrap()
                         } else {
-                            syn::parse_str::<syn::Expr>(&"fake::Faker").unwrap()
+                            syn::parse_str::<syn::Expr>("fake::Faker").unwrap()
                         };
                         quote! {
                             (#faker).fake_with_rng::<#field_ty, _>(rng)
@@ -100,7 +100,7 @@ pub fn hello_world(input: TokenStream) -> TokenStream {
                         let faker = if let Some(ref expr) = f.faker {
                             syn::parse_str::<syn::Expr>(expr).unwrap()
                         } else {
-                            syn::parse_str::<syn::Expr>(&"fake::Faker").unwrap()
+                            syn::parse_str::<syn::Expr>("fake::Faker").unwrap()
                         };
                         quote! {
                             let #field_name: #field_ty = (#faker).fake_with_rng(rng);
@@ -145,7 +145,7 @@ pub fn hello_world(input: TokenStream) -> TokenStream {
                                         let faker = if let Some(ref expr) = f.faker {
                                             syn::parse_str::<syn::Expr>(expr).unwrap()
                                         } else {
-                                            syn::parse_str::<syn::Expr>(&"fake::Faker").unwrap()
+                                            syn::parse_str::<syn::Expr>("fake::Faker").unwrap()
                                         };
                                         quote! {
                                             (#faker).fake_with_rng::<#field_ty, _>(rng)
@@ -175,7 +175,7 @@ pub fn hello_world(input: TokenStream) -> TokenStream {
                             let faker = if let Some(ref expr) = f.faker {
                                 syn::parse_str::<syn::Expr>(expr).unwrap()
                             } else {
-                                syn::parse_str::<syn::Expr>(&"fake::Faker").unwrap()
+                                syn::parse_str::<syn::Expr>("fake::Faker").unwrap()
                             };
                             quote! {
                                 let #field_name: #field_ty = (#faker).fake_with_rng(rng);
