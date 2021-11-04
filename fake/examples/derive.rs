@@ -7,7 +7,7 @@ use fake::uuid::UUIDv4;
 
 
 #[derive(Debug, Dummy)]
-enum OrderStatus {
+pub enum OrderStatus {
     Completed,
     Cancelled,
 }
@@ -15,34 +15,35 @@ enum OrderStatus {
 #[derive(Debug, Dummy)]
 pub struct Order {
     #[dummy(faker = "1000..")]
-    order_id: usize,
+    pub order_id: usize,
 
     #[dummy(faker = "Name()")]
-    customer: String,
+    pub customer: String,
 
     #[dummy(faker = "(Faker, 3..5)")]
-    items: Vec<Item>,
+    pub items: Vec<Item>,
 
     #[dummy(faker = "Boolean(70)")]
-    paid: bool,
+    pub paid: bool,
     
-    status: OrderStatus,
+    pub status: OrderStatus,
 
     #[dummy(faker = "UUIDv4")]
-    uuid: uuid::Uuid,
+    pub uuid: uuid::Uuid,
 }
 
 #[derive(Debug, Dummy)]
 pub struct Item {
     #[dummy(faker = "1..100")]
-    product_id: usize,
+    pub product_id: usize,
 
-    qty: u8,
+    pub qty: u8,
 
     #[dummy(faker = "CompanyName()")]
-    company: String,
+    pub company: String,
 }
 
+#[allow(dead_code)]
 #[derive(Debug, Dummy)]
 enum Message {
     Quit,
