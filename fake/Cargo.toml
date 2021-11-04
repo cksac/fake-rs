@@ -1,6 +1,6 @@
 [package]
 name = "fake"
-version = "2.4.2"
+version = "2.4.3"
 authors = ["cksac <cs.cksac@gmail.com>"]
 description = "An easy to use library for generating fake data like name, number, address, lorem, dates, etc."
 keywords = ["faker", "data", "generator", "random"]
