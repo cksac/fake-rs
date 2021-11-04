@@ -79,7 +79,7 @@ fn get_properties<L: Data, R: Rng + ?Sized>(_c: L, rng: &mut R) -> IsbnPropertie
     let group = keys.choose(rng).unwrap();
     
     let reg_pub_len = ISBN_MAX_LENGTH - ean.chars().count() - group.chars().count() - 1;
-    let reg_pub = numerify_sym(&std::iter::repeat("#").take(reg_pub_len).collect::<String>(), rng);
+    let reg_pub = numerify_sym(&"#".repeat(reg_pub_len), rng);
     
     let mut reg_len = 0;
     let sufix_reg_pub = &reg_pub[..reg_pub_len as usize - 1];
@@ -91,8 +91,8 @@ fn get_properties<L: Data, R: Rng + ?Sized>(_c: L, rng: &mut R) -> IsbnPropertie
         }
     }
     IsbnProperties {
-        ean: ean,
-        group: group,
+        ean,
+        group,
         registrant:  reg_pub[..reg_len as usize].to_string(),
         publication: reg_pub[reg_len as usize..reg_pub_len as usize].to_string()
     }

@@ -1921,9 +1921,7 @@ impl<L: Data> Dummy<DirPath<L>> for String {
     }
 }
 
-const UNSTABLE_SEMVER: &'static [&'static str] = &[
-    "alpha", "beta", "rc"
-];
+const UNSTABLE_SEMVER: &[&str] = &["alpha", "beta", "rc"];
 
 impl<L: Data> Dummy<Semver<L>> for String {
     fn dummy_with_rng<R: Rng + ?Sized>(_: &Semver<L>, rng: &mut R) -> Self {

@@ -26,7 +26,7 @@ fn numerify_licence_plate<R: Rng + ?Sized>(string: &str, rng: &mut R) -> String 
         .collect()
 }
 
-const LICENSE_PLATE: &'static [&'static str] = &["$$-###-$$"];
+const LICENSE_PLATE: &[&str] = &["$$-###-$$"];
 
 impl Dummy<LicencePlate<FR_FR>> for String {
     fn dummy_with_rng<R: Rng + ?Sized>(_: &LicencePlate<FR_FR>, rng: &mut R) -> Self {
