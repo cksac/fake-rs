@@ -39,6 +39,7 @@ macro_rules! def_fakers {
         def_fakers!(@m fr_fr=>FR_FR {$($name($($arg:$typ),*);)+});
         def_fakers!(@m zh_tw=>ZH_TW {$($name($($arg:$typ),*);)+});
         def_fakers!(@m zh_cn=>ZH_CN {$($name($($arg:$typ),*);)+});
+        def_fakers!(@m de_de=>DE_DE {$($name($($arg:$typ),*);)+});
     };
 }
 
@@ -127,19 +128,19 @@ pub mod http {
 
 pub mod internet {
     def_fakers! {
-        FreeEmailProvider();
-        DomainSuffix();
-        FreeEmail();
-        SafeEmail();
-        Username();
-        Password(len_range: std::ops::Range<usize>);
-        IPv4();
-        IPv6();
-        IP();
-        MACAddress();
-        Color();
-        UserAgent();
-      }
+      FreeEmailProvider();
+      DomainSuffix();
+      FreeEmail();
+      SafeEmail();
+      Username();
+      Password(len_range: std::ops::Range<usize>);
+      IPv4();
+      IPv6();
+      IP();
+      MACAddress();
+      Color();
+      UserAgent();
+    }
 }
 
 pub mod job {

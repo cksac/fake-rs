@@ -210,3 +210,6 @@ pub use self::zh_cn::ZH_CN;
 
 mod ja_jp;
 pub use self::ja_jp::JA_JP;
+
+mod de_de;
+pub use self::de_de::DE_DE;
