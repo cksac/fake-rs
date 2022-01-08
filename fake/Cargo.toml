@@ -13,12 +13,13 @@ edition = "2021"
 [dependencies]
 dummy = { version = "0.4", path = "../dummy_derive", optional = true }
 rand = "0.8"
-chrono = { version = "0.4", optional = true }
+chrono = { version = "0.4", features = ["std"], optional = true, default-features = false }
 http = { version = "0.2", optional = true }
 semver = { version = "1", optional = true }
 uuid = { version = "0.8", features = ["v1", "v3", "v4", "v5"], optional = true }
 
 [dev-dependencies]
+chrono = { version = "0.4", features = ["clock"], default-features = false }
 fake = { path = ".", features = ["derive"] }
 proptest = "1.0.0"
 rand_chacha = "0.3"
