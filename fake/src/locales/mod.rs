@@ -69,6 +69,12 @@ pub trait Data {
     const CHRONO_DEFAULT_DATE_FORMAT: &'static str = "%F";
     const CHRONO_DEFAULT_DATETIME_FORMAT: &'static str = "%+";
 
+    // see https://time-rs.github.io/book/api/format-description.html
+    // for a complete description of each format
+    const TIME_DEFAULT_TIME_FORMAT: &'static str = "[hour]:[minute]:[second][subsecond]";
+    const TIME_DEFAULT_DATE_FORMAT: &'static str = "[year]-[month]-[day]";
+    const TIME_DEFAULT_DATETIME_FORMAT: &'static str = "[year]-[month]-[day]T[hour]:[minute]:[second][offset_hour sign:mandatory][offset_minute]";
+
     const PATH_ROOT_DIRS: &'static [&'static str] = &[ "/", "/etc", "/home", "/bin", "/sbin", "/usr", "/tmp", "/var"];
     const PATH_SEGMENTS:  &'static [&'static str] = &["time", "person", "year", "way", "day", "thing", "man", "world", "life", "hand", "part", "child", "eye", "woman", "place", "work", "week", "case", "point", "government", "company", "number", "group", "problem", "fact", "good", "new", "first", "last", "long", "great", "little", "own", "other", "old", "right", "big", "high", "different", "small", "large", "next", "early", "young", "important", "few", "public", "bad", "same", "able", "olivia", "liam", "emma", "noah", "ava", "elijah", "sophia", "oliver", "isabella", "lucas", "amelia", "mason", "mia", "logan", "charlotte", "ethan", "harper", "james", "aria", "jackson"];
     const PATH_EXTENSIONS: &'static [&'static str] = &["so", "mp3", "mp4", "flv", "jpg", "png", "txt", "csv", "doc", "xls", "ppt", "zip", "rar", "7z", "tar"];

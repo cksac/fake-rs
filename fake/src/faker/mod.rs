@@ -94,6 +94,19 @@ pub mod chrono {
     }
 }
 
+#[cfg(feature = "time")]
+pub mod time {
+    def_fakers! {
+        Time();
+        Date();
+        DateTime();
+        Duration();
+        DateTimeBefore(dt: time::OffsetDateTime);
+        DateTimeAfter(dt: time::OffsetDateTime);
+        DateTimeBetween(start: time::OffsetDateTime, end: time::OffsetDateTime);
+    }
+}
+
 pub mod creditcard {
     def_fakers! {
         CreditCardNumber();
@@ -127,19 +140,19 @@ pub mod http {
 
 pub mod internet {
     def_fakers! {
-        FreeEmailProvider();
-        DomainSuffix();
-        FreeEmail();
-        SafeEmail();
-        Username();
-        Password(len_range: std::ops::Range<usize>);
-        IPv4();
-        IPv6();
-        IP();
-        MACAddress();
-        Color();
-        UserAgent();
-      }
+      FreeEmailProvider();
+      DomainSuffix();
+      FreeEmail();
+      SafeEmail();
+      Username();
+      Password(len_range: std::ops::Range<usize>);
+      IPv4();
+      IPv6();
+      IP();
+      MACAddress();
+      Color();
+      UserAgent();
+    }
 }
 
 pub mod job {
