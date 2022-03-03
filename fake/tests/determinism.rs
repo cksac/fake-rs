@@ -108,6 +108,29 @@ mod chrono {
     check_determinism! { l10d Time; String, fake_time_en, fake_time_fr, fake_time_cn, fake_time_tw, fake_time_jp }
 }
 
+// time
+#[cfg(feature = "time")]
+mod time {
+    use fake::{faker::time::raw::*, locales::*, Fake};
+    use rand::SeedableRng as _;
+
+    fn lo() -> time::OffsetDateTime {
+        time::OffsetDateTime::from_unix_timestamp(53469346924).unwrap()
+    }
+
+    fn hi() -> time::OffsetDateTime {
+        lo() + time::Duration::days(365)
+    }
+
+    check_determinism! { l10d Date; String, fake_date_en, fake_date_fr, fake_date_cn, fake_date_tw, fake_date_jp }
+    check_determinism! { l10d DateTime; String, fake_date_time_en, fake_date_time_fr, fake_date_time_cn, fake_date_time_tw, fake_date_time_jp }
+    check_determinism! { l10d DateTimeAfter; String, fake_date_time_after_en, fake_date_time_after_fr, fake_date_time_after_cn, fake_date_time_after_tw, fake_date_time_after_jp, lo() }
+    check_determinism! { l10d DateTimeBefore; String, fake_date_time_before_en, fake_date_time_before_fr, fake_date_time_before_cn, fake_date_time_before_tw, fake_date_time_before_jp, hi() }
+    check_determinism! { l10d DateTimeBetween; String, fake_date_time_between_en, fake_date_time_between_fr, fake_date_time_between_cn, fake_date_time_between_tw, fake_date_time_between_jp, lo(), hi() }
+    check_determinism! { l10d Duration; ::time::Duration, fake_duration_en, fake_duration_fr, fake_duration_cn, fake_duration_tw, fake_duration_jp }
+    check_determinism! { l10d Time; String, fake_time_en, fake_time_fr, fake_time_cn, fake_time_tw, fake_time_jp }
+}
+
 // Company
 use fake::faker::company::raw::*;
 

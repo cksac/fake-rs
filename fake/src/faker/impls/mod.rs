@@ -5,8 +5,8 @@ mod barecode;
 mod boolean;
 #[cfg(feature = "chrono")]
 mod chrono;
-mod creditcard;
 mod company;
+mod creditcard;
 mod currency;
 mod filesystem;
 mod finance;
@@ -18,3 +18,5 @@ mod lorem;
 mod name;
 mod number;
 mod phone_number;
+#[cfg(feature = "time")]
+mod time;

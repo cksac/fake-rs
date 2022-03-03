@@ -4,9 +4,10 @@
 pub mod chrono;
 #[cfg(feature = "http")]
 pub mod http;
-pub mod std;
 #[cfg(feature = "semver")]
 pub mod semver;
+pub mod std;
+#[cfg(feature = "time")]
+pub mod time;
 #[cfg(feature = "uuid")]
 pub mod uuid;
-
