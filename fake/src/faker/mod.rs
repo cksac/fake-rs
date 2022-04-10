@@ -81,6 +81,18 @@ pub mod boolean {
     }
 }
 
+#[cfg(feature = "random_color")]
+pub mod color {
+    def_fakers! {
+        HexColor();
+        RgbColor();
+        RgbaColor();
+        HslColor();
+        HslaColor();
+        Color();
+    }
+}
+
 #[cfg(feature = "chrono")]
 pub mod chrono {
     def_fakers! {
@@ -140,18 +152,17 @@ pub mod http {
 
 pub mod internet {
     def_fakers! {
-      FreeEmailProvider();
-      DomainSuffix();
-      FreeEmail();
-      SafeEmail();
-      Username();
-      Password(len_range: std::ops::Range<usize>);
-      IPv4();
-      IPv6();
-      IP();
-      MACAddress();
-      Color();
-      UserAgent();
+        FreeEmailProvider();
+        DomainSuffix();
+        FreeEmail();
+        SafeEmail();
+        Username();
+        Password(len_range: std::ops::Range<usize>);
+        IPv4();
+        IPv6();
+        IP();
+        MACAddress();
+        UserAgent();
     }
 }
 

@@ -13,6 +13,7 @@ edition = "2021"
 [dependencies]
 dummy = { version = "0.4", path = "../dummy_derive", optional = true }
 rand = "0.8"
+random_color = { version="0.5.1", optional = true }
 chrono = { version = "0.4", features = ["std"], optional = true, default-features = false }
 http = { version = "0.2", optional = true }
 semver = { version = "1", optional = true }
@@ -37,7 +38,7 @@ required-features = ["derive"]
 [[example]]
 name = "derive"
 path = "examples/derive.rs"
-required-features = ["derive", "http", "chrono", "uuid"]
+required-features = ["derive", "http", "chrono", "uuid", "random_color"]
 
 [[example]]
 name = "usage"
