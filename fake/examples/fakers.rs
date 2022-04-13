@@ -446,7 +446,7 @@ fn uuid_faker() {
 
     let val: Uuid = UUIDv1.fake();
     println!("{} (v1)", val);
-    
+
     let val: Uuid = UUIDv3.fake();
     println!("{} (v3)", val);
 
@@ -457,6 +457,27 @@ fn uuid_faker() {
     println!("{} (v5)", val);
 }
 
+#[cfg(feature = "rust_decimal")]
+fn decimal_faker() {
+    use fake::decimal::Decimal;
+    use fake::Faker;
+    use rust_decimal as rd;
+
+    let val: rd::Decimal = Faker.fake();
+    println!("{:?}", val);
+
+    let val: rd::Decimal = Decimal::Decimal.fake();
+    println!("{:?}", val);
+
+    let val: rd::Decimal = Decimal::PositiveDecimal.fake();
+    println!("{:?}", val);
+
+    let val: rd::Decimal = Decimal::NegativeDecimal.fake();
+    println!("{:?}", val);
+
+    let val: rd::Decimal = Decimal::NoDecimalPoints.fake();
+    println!("{:?}", val);
+}
 
 fn main() {
     lorem_faker();
@@ -485,4 +506,7 @@ fn main() {
 
     #[cfg(feature = "uuid")]
     uuid_faker();
+
+    #[cfg(feature = "rust_decimal")]
+    decimal_faker();
 }

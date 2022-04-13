@@ -19,6 +19,7 @@ http = { version = "0.2", optional = true }
 semver = { version = "1", optional = true }
 uuid = { version = "0.8", features = ["v1", "v3", "v4", "v5"], optional = true }
 time = { version = "0.3", features = ["formatting"], optional = true }
+rust_decimal = { version = "1.23", optional = true }
 
 [dev-dependencies]
 chrono = { version = "0.4", features = ["clock"], default-features = false }
@@ -38,7 +39,7 @@ required-features = ["derive"]
 [[example]]
 name = "derive"
 path = "examples/derive.rs"
-required-features = ["derive", "http", "chrono", "uuid", "random_color"]
+required-features = ["derive", "http", "chrono", "uuid", "random_color", "rust_decimal"]
 
 [[example]]
 name = "usage"

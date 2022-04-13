@@ -1,3 +1,4 @@
+use fake::decimal::Decimal::*;
 use fake::faker::boolean::en::*;
 use fake::faker::company::en::*;
 use fake::faker::name::en::*;
@@ -25,11 +26,14 @@ pub struct Order {
 
     #[dummy(faker = "Boolean(70)")]
     pub paid: bool,
-    
+
     pub status: OrderStatus,
 
     #[dummy(faker = "UUIDv4")]
     pub uuid: uuid::Uuid,
+
+    #[dummy(faker = "PositiveDecimal")]
+    pub total: rust_decimal::Decimal,
 }
 
 #[derive(Debug, Dummy)]
@@ -41,6 +45,9 @@ pub struct Item {
 
     #[dummy(faker = "CompanyName()")]
     pub company: String,
+
+    #[dummy(faker = "PositiveDecimal")]
+    pub price: rust_decimal::Decimal,
 }
 
 #[allow(dead_code)]

@@ -30,6 +30,10 @@ If you want `uuid` faker features:
 ```toml
 fake = { version = "2.4", features=['uuid']}
 ```
+If you want `rust_decimal` faker features:
+```toml
+fake = { version = "2.4", features=['rust_decimal']}
+```
 
 ## Usage
 

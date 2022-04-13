@@ -209,6 +209,9 @@ pub use impls::std::string::StringFaker;
 #[cfg(feature = "uuid")]
 pub use impls::uuid;
 
+#[cfg(feature = "rust_decimal")]
+pub use impls::decimal;
+
 /// Fake value generation for specific formats.
 ///
 /// It is structured in a way such that the modules here describes the custom
