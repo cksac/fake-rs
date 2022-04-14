@@ -459,23 +459,23 @@ fn uuid_faker() {
 
 #[cfg(feature = "rust_decimal")]
 fn decimal_faker() {
-    use fake::decimal::Decimal;
+    use fake::decimal::*;
     use fake::Faker;
     use rust_decimal as rd;
 
     let val: rd::Decimal = Faker.fake();
     println!("{:?}", val);
 
-    let val: rd::Decimal = Decimal::Decimal.fake();
+    let val: rd::Decimal = Decimal.fake();
     println!("{:?}", val);
 
-    let val: rd::Decimal = Decimal::PositiveDecimal.fake();
+    let val: rd::Decimal = PositiveDecimal.fake();
     println!("{:?}", val);
 
-    let val: rd::Decimal = Decimal::NegativeDecimal.fake();
+    let val: rd::Decimal = NegativeDecimal.fake();
     println!("{:?}", val);
 
-    let val: rd::Decimal = Decimal::NoDecimalPoints.fake();
+    let val: rd::Decimal = NoDecimalPoints.fake();
     println!("{:?}", val);
 }
 

@@ -1,4 +1,4 @@
-use fake::decimal::Decimal::*;
+use fake::decimal::*;
 use fake::faker::boolean::en::*;
 use fake::faker::company::en::*;
 use fake::faker::name::en::*;
