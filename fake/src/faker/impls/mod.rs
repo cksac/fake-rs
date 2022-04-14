@@ -3,6 +3,8 @@ mod administrative;
 mod automotive;
 mod barecode;
 mod boolean;
+#[cfg(feature = "random_color")]
+mod color;
 #[cfg(feature = "chrono")]
 mod chrono;
 mod company;

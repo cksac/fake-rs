@@ -251,9 +251,6 @@ fn internet_faker() {
     let val: String = MACAddress(EN).fake();
     println!("{:?}", val);
 
-    let val: String = Color(EN).fake();
-    println!("{:?}", val);
-
     let val: String = UserAgent(EN).fake();
     println!("{:?}", val);
 }
@@ -399,6 +396,29 @@ fn currency_faker() {
     println!("{:?}", val);
 }
 
+#[cfg(feature = "random_color")]
+fn color_faker() {
+    use fake::faker::color::raw::*;
+
+    let val: String = HexColor(EN).fake();
+    println!("{:?}", val);
+
+    let val: String = RgbColor(EN).fake();
+    println!("{:?}", val);
+
+    let val: String = RgbaColor(EN).fake();
+    println!("{:?}", val);
+
+    let val: String = HslColor(EN).fake();
+    println!("{:?}", val);
+
+    let val: String = HslaColor(EN).fake();
+    println!("{:?}", val);
+
+    let val: String = Color(EN).fake();
+    println!("{:?}", val);
+}
+
 fn creditcard_faker() {
     use fake::faker::creditcard::raw::*;
 
@@ -453,6 +473,9 @@ fn main() {
     currency_faker();
     creditcard_faker();
     barecode_faker();
+
+    #[cfg(feature = "random_color")]
+    color_faker();
 
     #[cfg(feature = "http")]
     http_faker();

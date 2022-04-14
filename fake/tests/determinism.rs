@@ -82,6 +82,20 @@ check_determinism! { l10d Isbn; String, fake_isbn_en, fake_isbn_fr, fake_isbn_cn
 check_determinism! { l10d Isbn10; String, fake_isbn10_en, fake_isbn10_fr, fake_isbn10_cn, fake_isbn10_tw, fake_isbn10_jp }
 check_determinism! { l10d Isbn13; String, fake_isbn13_en, fake_isbn13_fr, fake_isbn13_cn, fake_isbn13_tw, fake_isbn13_jp }
 
+// Color
+#[cfg(feature = "random_color")]
+mod color {
+    use fake::{faker::color::raw::*, locales::*, Fake};
+    use rand::SeedableRng as _;
+
+    check_determinism! { l10d HexColor; String, fake_hexcolor_en, fake_hexcolor_fr, fake_hexcolor_cn, fake_hexcolor_tw, fake_hexcolor_jp }
+    check_determinism! { l10d RgbColor; String, fake_rgbcolor_en, fake_rgbcolor_fr, fake_rgbcolor_cn, fake_rgbcolor_tw, fake_rgbcolor_jp }
+    check_determinism! { l10d RgbaColor; String, fake_rgbacolor_en, fake_rgbacolor_fr, fake_rgbacolor_cn, fake_rgbacolor_tw, fake_rgbacolor_jp }
+    check_determinism! { l10d HslColor; String, fake_hslcolor_en, fake_hslcolor_fr, fake_hslcolor_cn, fake_hslcolor_tw, fake_hslcolor_jp }
+    check_determinism! { l10d HslaColor; String, fake_hslacolor_en, fake_hslacolor_fr, fake_hslacolor_cn, fake_hslacolor_tw, fake_hslacolor_jp }
+    check_determinism! { l10d Color; String, fake_color_en, fake_color_fr, fake_color_cn, fake_color_tw, fake_color_jp }
+}
+
 // Chrono
 #[cfg(feature = "chrono")]
 mod chrono {
@@ -188,7 +202,6 @@ mod http {
 // Internet
 use fake::faker::internet::raw::*;
 
-check_determinism! { l10d Color; String, fake_color_en, fake_color_fr, fake_color_cn, fake_color_tw, fake_color_jp }
 check_determinism! { l10d DomainSuffix; String, fake_domainsuffix_en, fake_domainsuffix_fr, fake_domainsuffix_cn, fake_domainsuffix_tw, fake_domainsuffix_jp }
 check_determinism! { l10d FreeEmailProvider; String, fake_freeemailprovider_en, fake_freeemailprovider_fr, fake_freeemailprovider_cn, fake_freeemailprovider_tw, fake_freeemailprovider_jp }
 check_determinism! { l10d FreeEmail; String, fake_freeemail_en, fake_freeemail_fr, fake_freeemail_cn, fake_freeemail_tw, fake_freeemail_jp }
