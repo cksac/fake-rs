@@ -270,3 +270,17 @@ use fake::faker::phone_number::raw::*;
 
 check_determinism! { l10d CellNumber; String, fake_cell_number_en, fake_cell_number_fr, fake_cell_number_cn, fake_cell_number_tw, fake_cell_number_jp }
 check_determinism! { l10d PhoneNumber; String, fake_phone_number_en, fake_phone_number_fr, fake_phone_number_cn, fake_phone_number_tw, fake_phone_number_jp }
+
+// Decimal
+#[cfg(feature = "rust_decimal")]
+mod decimal {
+    use fake::decimal::*;
+    use rust_decimal as rs;
+    use fake::Fake;
+    use rand::SeedableRng as _;
+
+    check_determinism! { Decimal; default, rs::Decimal }
+    check_determinism! { NegativeDecimal; negative_decimal, rs::Decimal }
+    check_determinism! { PositiveDecimal; positive_decimal, rs::Decimal }
+    check_determinism! { NoDecimalPoints; no_decimal_points, rs::Decimal }
+}

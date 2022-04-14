@@ -19,8 +19,8 @@ impl Dummy<Faker> for rust_decimal::Decimal {
 }
 
 impl Dummy<Decimal> for rust_decimal::Decimal {
-    fn dummy_with_rng<R: Rng + ?Sized>(_: &Decimal, _: &mut R) -> Self {
-            Faker.fake()
+    fn dummy_with_rng<R: Rng + ?Sized>(_: &Decimal, rng: &mut R) -> Self {
+            Faker.fake_with_rng(rng)
     }
 }
 
@@ -49,7 +49,7 @@ impl Dummy<PositiveDecimal> for rust_decimal::Decimal {
 }
 
 impl Dummy<NoDecimalPoints> for rust_decimal::Decimal {
-    fn dummy_with_rng<R: Rng + ?Sized>(_: &NoDecimalPoints, _: &mut R) -> Self {
-        Faker.fake::<rust_decimal::Decimal>().round_dp(0)
+    fn dummy_with_rng<R: Rng + ?Sized>(_: &NoDecimalPoints, rng: &mut R) -> Self {
+        Faker.fake_with_rng::<rust_decimal::Decimal, R>(rng).round_dp(0)
     }
 }
