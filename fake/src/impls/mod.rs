@@ -4,6 +4,8 @@
 pub mod color;
 #[cfg(feature = "chrono")]
 pub mod chrono;
+#[cfg(feature = "rust_decimal")]
+pub mod decimal;
 #[cfg(feature = "http")]
 pub mod http;
 #[cfg(feature = "semver")]
