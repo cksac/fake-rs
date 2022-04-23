@@ -34,6 +34,10 @@ If you want `rust_decimal` faker features:
 ```toml
 fake = { version = "2.4", features=['rust_decimal']}
 ```
+If you want `random_color` faker features:
+```toml
+fake = { version = "2.4", features=['random_color']}
+```
 
 ## Usage
 
@@ -145,7 +149,6 @@ IPv4();
 IPv6();
 IP();
 MACAddress();
-Color();
 UserAgent();
 ```
 
@@ -153,6 +156,18 @@ UserAgent();
 ```rust
 RfcStatusCode();
 ValidStatusCode();
+```
+
+
+## Color
+
+```rust
+HexColor();
+RgbColor();
+RgbaColor();
+HslColor();
+HslaColor();
+Color();
 ```
 
 ## Company
