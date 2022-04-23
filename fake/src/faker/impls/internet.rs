@@ -3,6 +3,7 @@ use crate::faker::lorem::raw::Word;
 use crate::faker::name::raw::FirstName;
 use crate::locales::{Data, EN};
 use crate::{Dummy, Fake, Faker};
+use unidecode::unidecode;
 use rand::distributions::{Distribution, Uniform};
 use rand::seq::SliceRandom;
 use rand::Rng;
@@ -38,7 +39,7 @@ impl<L: Data + Copy> Dummy<FreeEmail<L>> for String {
     fn dummy_with_rng<R: Rng + ?Sized>(c: &FreeEmail<L>, rng: &mut R) -> Self {
         let username: String = Username(c.0).fake_with_rng(rng);
         let provider: String = FreeEmailProvider(c.0).fake_with_rng(rng);
-        format!("{}@{}", username, provider)
+        format!("{}@{}", unidecode(&username), provider)
     }
 }
 
