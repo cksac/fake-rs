@@ -3,7 +3,9 @@ use crate::locales::Data;
 use crate::Dummy;
 use rand::{prelude::IteratorRandom, seq::SliceRandom, Rng};
 
-static PREFIX_LENGTHS: &[(u8, Option<&[u8]>, &[usize])] = &[
+type PrefixCreditcard<'a> = (u8, Option<&'a [u8]>, &'a [usize]);
+
+static PREFIX_LENGTHS: &[PrefixCreditcard] = &[
     (b'3', Some(b"47"), &[13]),    // American Express
     (b'4', None, &[12, 15]),       // Visa
     (b'5', Some(b"12345"), &[14]), // MasterCard
@@ -11,8 +13,7 @@ static PREFIX_LENGTHS: &[(u8, Option<&[u8]>, &[usize])] = &[
 
 impl<L: Data> Dummy<CreditCardNumber<L>> for String {
     fn dummy_with_rng<R: Rng + ?Sized>(_: &CreditCardNumber<L>, rng: &mut R) -> String {
-        let (prefix, opt_prefix, lens): (u8, Option<&[u8]>, &[usize]) =
-            *PREFIX_LENGTHS.choose(rng).unwrap();
+        let (prefix, opt_prefix, lens): PrefixCreditcard = *PREFIX_LENGTHS.choose(rng).unwrap();
         let len = *lens.choose(rng).unwrap();
         let mut bytes = vec![prefix];
         if let Some(opts) = opt_prefix {
