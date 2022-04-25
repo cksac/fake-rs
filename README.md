@@ -215,7 +215,7 @@ Geohash(precision: u8);
 LicencePlate();
 ```
 
-### BareCode
+### Barcode
 ```rust
 Isbn();
 Isbn13();
