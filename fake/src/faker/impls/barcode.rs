@@ -1,18 +1,18 @@
-use crate::faker::barecode::raw::*;
+use crate::faker::barcode::raw::*;
 use crate::faker::boolean::raw::Boolean;
 use crate::faker::numerify_sym;
 use crate::locales::Data;
 use crate::{Dummy, Fake};
-use rand::Rng;
 use rand::prelude::SliceRandom;
+use rand::Rng;
 
-const ISBN_MAX_LENGTH:usize = 13;
+const ISBN_MAX_LENGTH: usize = 13;
 
 struct IsbnProperties {
     ean: &'static str,
     group: &'static str,
     registrant: String,
-    publication: String
+    publication: String,
 }
 
 impl IsbnProperties {
@@ -23,10 +23,7 @@ impl IsbnProperties {
         }
         format!(
             "{}{}{}{}",
-            ean,
-            self.group,
-            self.registrant,
-            self.publication
+            ean, self.group, self.registrant, self.publication
         )
     }
 }
@@ -75,12 +72,12 @@ fn checksum13(properties: &IsbnProperties) -> i32 {
 fn get_properties<L: Data, R: Rng + ?Sized>(_c: L, rng: &mut R) -> IsbnProperties {
     let ean = L::ISBN_EAN;
     let rules = *L::isbn_rules();
-    let keys:Vec<&'static str> = rules.keys().cloned().collect();
+    let keys: Vec<&'static str> = rules.keys().cloned().collect();
     let group = keys.choose(rng).unwrap();
-    
+
     let reg_pub_len = ISBN_MAX_LENGTH - ean.chars().count() - group.chars().count() - 1;
     let reg_pub = numerify_sym(&"#".repeat(reg_pub_len), rng);
-    
+
     let mut reg_len = 0;
     let sufix_reg_pub = &reg_pub[..reg_pub_len as usize - 1];
 
@@ -93,8 +90,8 @@ fn get_properties<L: Data, R: Rng + ?Sized>(_c: L, rng: &mut R) -> IsbnPropertie
     IsbnProperties {
         ean,
         group,
-        registrant:  reg_pub[..reg_len as usize].to_string(),
-        publication: reg_pub[reg_len as usize..reg_pub_len as usize].to_string()
+        registrant: reg_pub[..reg_len as usize].to_string(),
+        publication: reg_pub[reg_len as usize..reg_pub_len as usize].to_string(),
     }
 }
 

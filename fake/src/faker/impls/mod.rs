@@ -1,12 +1,12 @@
 mod address;
 mod administrative;
 mod automotive;
-mod barecode;
+mod barcode;
 mod boolean;
-#[cfg(feature = "random_color")]
-mod color;
 #[cfg(feature = "chrono")]
 mod chrono;
+#[cfg(feature = "random_color")]
+mod color;
 mod company;
 mod creditcard;
 mod currency;

@@ -67,7 +67,7 @@ pub mod address {
     }
 }
 
-pub mod barecode {
+pub mod barcode {
     def_fakers! {
         Isbn();
         Isbn10();

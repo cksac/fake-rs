@@ -426,8 +426,8 @@ fn creditcard_faker() {
     println!("{:?}", val);
 }
 
-fn barecode_faker() {
-    use fake::faker::barecode::raw::*;
+fn barcode_faker() {
+    use fake::faker::barcode::raw::*;
 
     let val: String = Isbn13(EN).fake();
     println!("{}", val);
@@ -493,7 +493,7 @@ fn main() {
     filesystem_faker();
     currency_faker();
     creditcard_faker();
-    barecode_faker();
+    barcode_faker();
 
     #[cfg(feature = "random_color")]
     color_faker();
