@@ -76,7 +76,7 @@ use fake::faker::automotive::raw::*;
 check_determinism! { one fake_license_plate_fr, String, LicencePlate(FR_FR) }
 
 // Barcode
-use fake::faker::barecode::raw::*;
+use fake::faker::barcode::raw::*;
 
 check_determinism! { l10d Isbn; String, fake_isbn_en, fake_isbn_fr, fake_isbn_cn, fake_isbn_tw, fake_isbn_jp }
 check_determinism! { l10d Isbn10; String, fake_isbn10_en, fake_isbn10_fr, fake_isbn10_cn, fake_isbn10_tw, fake_isbn10_jp }
@@ -275,9 +275,9 @@ check_determinism! { l10d PhoneNumber; String, fake_phone_number_en, fake_phone_
 #[cfg(feature = "rust_decimal")]
 mod decimal {
     use fake::decimal::*;
-    use rust_decimal as rs;
     use fake::Fake;
     use rand::SeedableRng as _;
+    use rust_decimal as rs;
 
     check_determinism! { Decimal; default, rs::Decimal }
     check_determinism! { NegativeDecimal; negative_decimal, rs::Decimal }
