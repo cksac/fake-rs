@@ -216,3 +216,6 @@ pub use self::zh_cn::ZH_CN;
 
 mod ja_jp;
 pub use self::ja_jp::JA_JP;
+
+mod ar_sa;
+pub use self::ar_sa::AR_SA;
