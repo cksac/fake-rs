@@ -20,6 +20,7 @@ semver = { version = "1", optional = true }
 uuid = { version = "0.8", features = ["v1", "v3", "v4", "v5"], optional = true }
 time = { version = "0.3", features = ["formatting"], optional = true }
 rust_decimal = { version = "1.23", optional = true }
+bigdecimal_rs = { version = "0.3.0", package = "bigdecimal", optional = true }
 
 [dev-dependencies]
 chrono = { version = "0.4", features = ["clock"], default-features = false }
@@ -30,6 +31,7 @@ rand_chacha = "0.3"
 [features]
 # Provide derive(Dummy) macros.
 derive = ["dummy"]
+bigdecimal = ["bigdecimal_rs", "rust_decimal"]
 
 [[example]]
 name = "basic"

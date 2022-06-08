@@ -210,6 +210,9 @@ pub use impls::uuid;
 #[cfg(feature = "rust_decimal")]
 pub use impls::decimal;
 
+#[cfg(feature = "bigdecimal")]
+pub use impls::bigdecimal;
+
 /// Fake value generation for specific formats.
 ///
 /// It is structured in a way such that the modules here describes the custom
