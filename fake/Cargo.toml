@@ -1,6 +1,6 @@
 [package]
 name = "fake"
-version = "2.4.3"
+version = "2.5.0"
 authors = ["cksac <cs.cksac@gmail.com>"]
 description = "An easy to use library for generating fake data like name, number, address, lorem, dates, etc."
 keywords = ["faker", "data", "generator", "random"]
@@ -20,7 +20,7 @@ semver = { version = "1", optional = true }
 uuid = { version = "1", features = ["v1", "v3", "v4", "v5"], optional = true }
 time = { version = "0.3", features = ["formatting"], optional = true }
 rust_decimal = { version = "1.25", optional = true }
-bigdecimal_rs = { version = "0.3.0", package = "bigdecimal", optional = true }
+bigdecimal_rs = { version = "0.3", package = "bigdecimal", optional = true }
 
 
 [dev-dependencies]
