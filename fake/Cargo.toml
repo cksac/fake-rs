@@ -10,6 +10,9 @@ repository = "https://github.com/cksac/fake-rs"
 homepage = "https://github.com/cksac/fake-rs"
 edition = "2021"
 
+[package.metadata.docs.rs]
+all-features = true
+
 [dependencies]
 dummy = { version = "0.4", path = "../dummy_derive", optional = true }
 rand = "0.8"
