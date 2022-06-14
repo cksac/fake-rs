@@ -13,13 +13,13 @@ edition = "2021"
 [dependencies]
 dummy = { version = "0.4", path = "../dummy_derive", optional = true }
 rand = "0.8"
-random_color = { version="0.5.1", optional = true }
+random_color = { version="0.6", optional = true }
 chrono = { version = "0.4", features = ["std"], optional = true, default-features = false }
 http = { version = "0.2", optional = true }
 semver = { version = "1", optional = true }
-uuid = { version = "0.8", features = ["v1", "v3", "v4", "v5"], optional = true }
+uuid = { version = "1", features = ["v1", "v3", "v4", "v5"], optional = true }
 time = { version = "0.3", features = ["formatting"], optional = true }
-rust_decimal = { version = "1.23", optional = true }
+rust_decimal = { version = "1.25", optional = true }
 
 [dev-dependencies]
 chrono = { version = "0.4", features = ["clock"], default-features = false }
