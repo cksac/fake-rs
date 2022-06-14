@@ -34,6 +34,10 @@ If you want `rust_decimal` faker features:
 ```toml
 fake = { version = "2.4", features=['rust_decimal']}
 ```
+If you want `bigdecimal` faker features:
+```toml
+fake = { version = "2.4", features=['bigdecimal']}
+```
 If you want `random_color` faker features:
 ```toml
 fake = { version = "2.4", features=['random_color']}

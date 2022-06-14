@@ -479,6 +479,28 @@ fn decimal_faker() {
     println!("{:?}", val);
 }
 
+#[cfg(feature = "bigdecimal")]
+fn bigdecimal_faker() {
+    use bigdecimal_rs as bd;
+    use fake::bigdecimal::*;
+    use fake::Faker;
+
+    let val: bd::BigDecimal = Faker.fake();
+    println!("{:?}", val);
+
+    let val: bd::BigDecimal = BigDecimal.fake();
+    println!("{:?}", val);
+
+    let val: bd::BigDecimal = PositiveBigDecimal.fake();
+    println!("{:?}", val);
+
+    let val: bd::BigDecimal = NegativeBigDecimal.fake();
+    println!("{:?}", val);
+
+    let val: bd::BigDecimal = NoBigDecimalPoints.fake();
+    println!("{:?}", val);
+}
+
 fn main() {
     lorem_faker();
     name_faker();
@@ -509,4 +531,7 @@ fn main() {
 
     #[cfg(feature = "rust_decimal")]
     decimal_faker();
+
+    #[cfg(feature = "bigdecimal")]
+    bigdecimal_faker();
 }

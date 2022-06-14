@@ -284,3 +284,17 @@ mod decimal {
     check_determinism! { PositiveDecimal; positive_decimal, rs::Decimal }
     check_determinism! { NoDecimalPoints; no_decimal_points, rs::Decimal }
 }
+
+// BigDecimal
+#[cfg(feature = "bigdecimal")]
+mod bigdecimal {
+    use bigdecimal_rs as bd;
+    use fake::bigdecimal::*;
+    use fake::Fake;
+    use rand::SeedableRng as _;
+
+    check_determinism! { BigDecimal; default, bd::BigDecimal }
+    check_determinism! { NegativeBigDecimal; negative_decimal, bd::BigDecimal }
+    check_determinism! { PositiveBigDecimal; positive_decimal, bd::BigDecimal }
+    check_determinism! { NoBigDecimalPoints; no_decimal_points, bd::BigDecimal }
+}
