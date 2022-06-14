@@ -7,24 +7,41 @@ A Rust library for generating fake data.
 
 ## Installation
 
-Default:
+Default (`rand` is required):
 ```toml
 [dependencies]
-fake = "2.4"
+fake = "2.5"
 rand = "0.8"
 ```
 If you want to use `#[derive(Dummy)]`:
 ```toml
-fake = { version = "2.4", features=['derive']}
+fake = { version = "2.5", features=['derive']}
 ```
 If you want the date and time features from `chrono`:
 ```toml
-fake = { version = "2.4", features=['chrono']}
+fake = { version = "2.5", features=['chrono']}
 ```
 If you want `http` faker features:
 ```toml
-fake = { version = "2.4", features=['http']}
+fake = { version = "2.5", features=['http']}
 ```
+If you want `uuid` faker features:
+```toml
+fake = { version = "2.5", features=['uuid']}
+```
+If you want `rust_decimal` faker features:
+```toml
+fake = { version = "2.5", features=['rust_decimal']}
+```
+If you want `bigdecimal` faker features:
+```toml
+fake = { version = "2.5", features=['bigdecimal']}
+```
+If you want `random_color` faker features:
+```toml
+fake = { version = "2.5", features=['random_color']}
+```
+
 
 ## Usage
 
@@ -135,7 +152,7 @@ Password(len_range: Range<usize>);
 IPv4();
 IPv6();
 IP();
-Color();
+MACAddress();
 UserAgent();
 ```
 
@@ -143,6 +160,18 @@ UserAgent();
 ```rust
 RfcStatusCode();
 ValidStatusCode();
+```
+
+
+## Color
+
+```rust
+HexColor();
+RgbColor();
+RgbaColor();
+HslColor();
+HslaColor();
+Color();
 ```
 
 ## Company
@@ -185,6 +214,18 @@ Longitude();
 Geohash(precision: u8);
 ```
 
+### Automotive
+```rust
+LicencePlate();
+```
+
+### Barcode
+```rust
+Isbn();
+Isbn13();
+Isbn10();
+```
+
 ## Phone Number
 
 ```rust
@@ -210,6 +251,19 @@ FilePath();
 FileName();
 FileExtension();
 DirPath();
+```
+
+### Finance
+```rust
+Bic();
+```
+
+### UUID
+```rust
+UUIDv1();
+UUIDv3();
+UUIDv4();
+UUIDv5();
 ```
 
 # LICENSE
