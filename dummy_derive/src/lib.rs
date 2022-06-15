@@ -32,6 +32,8 @@ struct DummyField {
     ty: Type,
     #[darling(default)]
     faker: Option<String>,
+    #[darling(default)]
+    fixed: Option<String>,
 }
 
 #[derive(Debug, FromDeriveInput)]
@@ -67,15 +69,7 @@ pub fn hello_world(input: TokenStream) -> TokenStream {
                 let tuple_fields: Vec<_> = fields
                     .iter()
                     .map(|f| {
-                        let field_ty = &f.ty;
-                        let faker = if let Some(ref expr) = f.faker {
-                            syn::parse_str::<syn::Expr>(expr).unwrap()
-                        } else {
-                            syn::parse_str::<syn::Expr>("fake::Faker").unwrap()
-                        };
-                        quote! {
-                            (#faker).fake_with_rng::<#field_ty, _>(rng)
-                        }
+                        expose_field(f)
                     })
                     .collect();
 
@@ -97,13 +91,9 @@ pub fn hello_world(input: TokenStream) -> TokenStream {
                     .map(|f| {
                         let field_name = f.ident.as_ref().unwrap();
                         let field_ty = &f.ty;
-                        let faker = if let Some(ref expr) = f.faker {
-                            syn::parse_str::<syn::Expr>(expr).unwrap()
-                        } else {
-                            syn::parse_str::<syn::Expr>("fake::Faker").unwrap()
-                        };
+                        let stream = expose_field(&f);
                         quote! {
-                            let #field_name: #field_ty = (#faker).fake_with_rng(rng);
+                            let #field_name: #field_ty = #stream;
                         }
                     })
                     .collect();
@@ -141,15 +131,7 @@ pub fn hello_world(input: TokenStream) -> TokenStream {
                                     .fields
                                     .iter()
                                     .map(|f| {
-                                        let field_ty = &f.ty;
-                                        let faker = if let Some(ref expr) = f.faker {
-                                            syn::parse_str::<syn::Expr>(expr).unwrap()
-                                        } else {
-                                            syn::parse_str::<syn::Expr>("fake::Faker").unwrap()
-                                        };
-                                        quote! {
-                                            (#faker).fake_with_rng::<#field_ty, _>(rng)
-                                        }
+                                        expose_field(&f)
                                     })
                                     .collect();
 
@@ -172,13 +154,9 @@ pub fn hello_world(input: TokenStream) -> TokenStream {
                         .map(|f| {
                             let field_name = f.ident.as_ref().unwrap();
                             let field_ty = &f.ty;
-                            let faker = if let Some(ref expr) = f.faker {
-                                syn::parse_str::<syn::Expr>(expr).unwrap()
-                            } else {
-                                syn::parse_str::<syn::Expr>("fake::Faker").unwrap()
-                            };
+                            let stream = expose_field(&f);
                             quote! {
-                                let #field_name: #field_ty = (#faker).fake_with_rng(rng);
+                                let #field_name: #field_ty = #stream;
                             }
                         })
                         .collect();
@@ -224,4 +202,23 @@ pub fn hello_world(input: TokenStream) -> TokenStream {
         }
     };
     expanded.into()
+}
+
+fn expose_field(f: &DummyField) -> proc_macro2::TokenStream {
+    if let Some(ref expr) = f.fixed {
+        let fixed = syn::parse_str::<syn::Expr>(expr).unwrap();
+        quote!{
+            #fixed
+        }
+    } else {
+        let faker = if let Some(ref expr) = f.faker {
+            syn::parse_str::<syn::Expr>(expr).unwrap()
+        } else {
+            syn::parse_str::<syn::Expr>("fake::Faker").unwrap()
+        };
+        let field_ty = &f.ty;
+        quote! {
+            (#faker).fake_with_rng::<#field_ty, _>(rng)
+        }
+    }
 }
