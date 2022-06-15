@@ -70,6 +70,22 @@ enum Message {
 }
 
 #[derive(Debug, Dummy)]
+struct FixedStruct {
+    #[dummy(faker = "1..100")]
+    pub product_id: usize,
+    #[dummy(fixed = "\"Base\".into()")]
+    pub fixed_value: String,
+}
+
+#[derive(Debug, Dummy)]
+struct DefaultStruct {
+    #[dummy(faker = "1..100")]
+    pub product_id: usize,
+    #[dummy(default)]
+    pub fixed_value: String,
+}
+
+#[derive(Debug, Dummy)]
 struct UnitStruct;
 
 #[derive(Debug, Dummy)]
@@ -101,5 +117,11 @@ fn main() {
     println!("{:#?}", v);
 
     let v: uuid::Uuid = Faker.fake();
+    println!("{:#?}", v);
+
+    let v: FixedStruct = Faker.fake();
+    println!("{:#?}", v);
+
+    let v: DefaultStruct = Faker.fake();
     println!("{:#?}", v);
 }
