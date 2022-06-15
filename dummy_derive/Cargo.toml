@@ -15,5 +15,6 @@ proc-macro = true
 
 [dependencies]
 syn = "1.0"
+proc-macro2 = { version = "1.0.36", default-features = false }
 quote = "1.0"
 darling = "0.14"
