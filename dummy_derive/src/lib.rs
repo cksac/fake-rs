@@ -34,6 +34,8 @@ struct DummyField {
     faker: Option<String>,
     #[darling(default)]
     fixed: Option<String>,
+    #[darling(default)]
+    default: bool,
 }
 
 #[derive(Debug, FromDeriveInput)]
@@ -205,7 +207,11 @@ pub fn hello_world(input: TokenStream) -> TokenStream {
 }
 
 fn expose_field(f: &DummyField) -> proc_macro2::TokenStream {
-    if let Some(ref expr) = f.fixed {
+    if f.default {
+        quote!{
+            Default::default()
+        }
+    } else if let Some(ref expr) = f.fixed {
         let fixed = syn::parse_str::<syn::Expr>(expr).unwrap();
         quote!{
             #fixed
