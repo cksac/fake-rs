@@ -10,6 +10,8 @@ pub mod color;
 pub mod decimal;
 #[cfg(feature = "http")]
 pub mod http;
+#[cfg(feature = "sea-orm")]
+pub mod sea_orm;
 #[cfg(feature = "semver")]
 pub mod semver;
 pub mod std;
