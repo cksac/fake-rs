@@ -2,10 +2,9 @@ use fake::decimal::*;
 use fake::faker::boolean::en::*;
 use fake::faker::company::en::*;
 use fake::faker::name::en::*;
+use fake::uuid::UUIDv4;
 use fake::Dummy;
 use fake::{Fake, Faker};
-use fake::uuid::UUIDv4;
-
 
 #[derive(Debug, Dummy)]
 pub enum OrderStatus {

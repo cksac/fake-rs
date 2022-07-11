@@ -24,6 +24,7 @@ uuid = { version = "1", features = ["v1", "v3", "v4", "v5"], optional = true }
 time = { version = "0.3", features = ["formatting"], optional = true }
 rust_decimal = { version = "1.25", optional = true }
 bigdecimal_rs = { version = "0.3", package = "bigdecimal", optional = true }
+sea-orm = { version = "0.8", optional = true }
 
 
 [dev-dependencies]
@@ -45,7 +46,7 @@ required-features = ["derive"]
 [[example]]
 name = "derive"
 path = "examples/derive.rs"
-required-features = ["derive", "http", "chrono", "uuid", "random_color", "rust_decimal"]
+required-features = ["derive", "http", "chrono", "uuid", "random_color", "rust_decimal", "sea-orm"]
 
 [[example]]
 name = "usage"
