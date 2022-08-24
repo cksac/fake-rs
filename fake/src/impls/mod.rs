@@ -19,5 +19,5 @@ pub mod std;
 pub mod time;
 #[cfg(feature = "uuid")]
 pub mod uuid;
-#[cfg(feature = "zerocopy_byteorder")]
+#[cfg(feature = "zerocopy")]
 pub mod zerocopy_byteorder;
