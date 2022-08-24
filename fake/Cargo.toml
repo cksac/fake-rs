@@ -25,7 +25,7 @@ time = { version = "0.3", features = ["formatting"], optional = true }
 rust_decimal = { version = "1.25", optional = true }
 bigdecimal_rs = { version = "0.3", package = "bigdecimal", optional = true }
 sea-orm = { version = "0.8", optional = true }
-
+zerocopy = { version = "0.6", optional = true }
 
 [dev-dependencies]
 chrono = { version = "0.4", features = ["clock"], default-features = false }
