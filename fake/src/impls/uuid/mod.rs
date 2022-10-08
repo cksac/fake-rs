@@ -21,7 +21,7 @@ impl Dummy<UUIDv1> for Uuid {
     fn dummy_with_rng<R: rand::Rng + ?Sized>(_: &UUIDv1, rng: &mut R) -> Self {
         let ticks = Faker.fake_with_rng(rng);
         let counter = Faker.fake_with_rng(rng);
-        let ts = uuid::v1::Timestamp::from_rfc4122(ticks, counter);
+        let ts = uuid::timestamp::Timestamp::from_rfc4122(ticks, counter);
         let node_id: [u8; 6] = Faker.fake_with_rng(rng);
         Uuid::new_v1(ts, &node_id)
     }
