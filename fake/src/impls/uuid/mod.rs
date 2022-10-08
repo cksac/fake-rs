@@ -19,7 +19,7 @@ pub struct UUIDv5;
 
 impl Dummy<UUIDv1> for Uuid {
     fn dummy_with_rng<R: rand::Rng + ?Sized>(_: &UUIDv1, rng: &mut R) -> Self {
-        let ticks = Faker.fake_with_rng(rng);
+        let ticks = rng.gen_range(uuid::timestamp::UUID_TICKS_BETWEEN_EPOCHS..u64::MAX);
         let counter = Faker.fake_with_rng(rng);
         let ts = uuid::timestamp::Timestamp::from_rfc4122(ticks, counter);
         let node_id: [u8; 6] = Faker.fake_with_rng(rng);
@@ -29,9 +29,7 @@ impl Dummy<UUIDv1> for Uuid {
 
 impl Dummy<UUIDv1> for String {
     fn dummy_with_rng<R: rand::Rng + ?Sized>(config: &UUIDv1, rng: &mut R) -> Self {
-        Uuid::dummy_with_rng(config, rng)
-            .hyphenated()
-            .to_string()
+        Uuid::dummy_with_rng(config, rng).hyphenated().to_string()
     }
 }
 
@@ -46,9 +44,7 @@ impl Dummy<UUIDv3> for Uuid {
 
 impl Dummy<UUIDv3> for String {
     fn dummy_with_rng<R: rand::Rng + ?Sized>(config: &UUIDv3, rng: &mut R) -> Self {
-        Uuid::dummy_with_rng(config, rng)
-            .hyphenated()
-            .to_string()
+        Uuid::dummy_with_rng(config, rng).hyphenated().to_string()
     }
 }
 
@@ -78,9 +74,7 @@ impl Dummy<UUIDv5> for Uuid {
 
 impl Dummy<UUIDv5> for String {
     fn dummy_with_rng<R: rand::Rng + ?Sized>(config: &UUIDv5, rng: &mut R) -> Self {
-        Uuid::dummy_with_rng(config, rng)
-            .hyphenated()
-            .to_string()
+        Uuid::dummy_with_rng(config, rng).hyphenated().to_string()
     }
 }
 
