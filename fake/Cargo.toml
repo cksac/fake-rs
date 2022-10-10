@@ -20,7 +20,7 @@ random_color = { version="0.6", optional = true }
 chrono = { version = "0.4", features = ["std"], optional = true, default-features = false }
 http = { version = "0.2", optional = true }
 semver = { version = "1", optional = true }
-uuid = { version = "1", features = ["v1", "v3", "v4", "v5"], optional = true }
+uuid = { version = "1.2", features = ["v1", "v3", "v4", "v5"], optional = true }
 time = { version = "0.3", features = ["formatting"], optional = true }
 rust_decimal = { version = "1.25", optional = true }
 bigdecimal_rs = { version = "0.3", package = "bigdecimal", optional = true }
