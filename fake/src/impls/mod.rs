@@ -4,6 +4,8 @@
 pub mod bigdecimal;
 #[cfg(feature = "chrono")]
 pub mod chrono;
+#[cfg(feature = "chrono-tz")]
+pub mod chrono_tz;
 #[cfg(feature = "random_color")]
 pub mod color;
 #[cfg(feature = "rust_decimal")]

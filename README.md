@@ -22,6 +22,10 @@ If you want the date and time features from `chrono`:
 ```toml
 fake = { version = "2.5", features=['chrono']}
 ```
+If you want the timezone features from `chrono-tz`:
+```toml
+fake = { version = "2.5", features=['chrono-tz']}
+```
 If you want `http` faker features:
 ```toml
 fake = { version = "2.5", features=['http']}
