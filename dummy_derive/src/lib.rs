@@ -68,7 +68,7 @@ pub fn hello_world(input: TokenStream) -> TokenStream {
                 impl_dummy
             }
             ast::Style::Tuple => {
-                let tuple_fields: Vec<_> = fields.iter().map(|f| expose_field(f)).collect();
+                let tuple_fields: Vec<_> = fields.iter().map(expose_field).collect();
 
                 let impl_dummy = quote! {
                     impl fake::Dummy<fake::Faker> for #receiver_name {
@@ -88,7 +88,7 @@ pub fn hello_world(input: TokenStream) -> TokenStream {
                     .map(|f| {
                         let field_name = f.ident.as_ref().unwrap();
                         let field_ty = &f.ty;
-                        let stream = expose_field(&f);
+                        let stream = expose_field(f);
                         quote! {
                             let #field_name: #field_ty = #stream;
                         }
@@ -124,7 +124,7 @@ pub fn hello_world(input: TokenStream) -> TokenStream {
                             }
                             ast::Style::Tuple => {
                                 let tuple_fields: Vec<_> =
-                                    f.fields.fields.iter().map(|f| expose_field(&f)).collect();
+                                    f.fields.fields.iter().map(expose_field).collect();
 
                                 quote! {
                                     #i => {
@@ -147,7 +147,7 @@ pub fn hello_world(input: TokenStream) -> TokenStream {
                                     .map(|f| {
                                         let field_name = f.ident.as_ref().unwrap();
                                         let field_ty = &f.ty;
-                                        let stream = expose_field(&f);
+                                        let stream = expose_field(f);
                                         quote! {
                                             let #field_name: #field_ty = #stream;
                                         }
