@@ -26,15 +26,9 @@ impl Dummy<HealthInsuranceCode<FR_FR>> for String {
         let town_code: u16 = (0..999).fake_with_rng::<u16, _>(rng);
         let order_code: u16 = (0..999).fake_with_rng::<u16, _>(rng);
         let department_code: u16 = match department {
-            "2A" => {
-                19
-            }
-            "2B" => {
-                18
-            }
-            _ => {
-                department.parse::<u16>().unwrap()
-            }
+            "2A" => 19,
+            "2B" => 18,
+            _ => department.parse::<u16>().unwrap(),
         };
         let number = format!(
             "{}{:02}{:02}{}{:03}{:03}",

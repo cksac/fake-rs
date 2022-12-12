@@ -1,12 +1,10 @@
-use crate::{Dummy, Fake, Faker};
 use crate::faker::boolean::raw::Boolean;
-use crate::locales::{EN};
+use crate::locales::EN;
+use crate::{Dummy, Fake, Faker};
 use rand::seq::SliceRandom;
 use rand::Rng;
 
-const UNSTABLE_SEMVER: &'static [&'static str] = &[
-    "alpha", "beta", "rc"
-];
+const UNSTABLE_SEMVER: &'static [&'static str] = &["alpha", "beta", "rc"];
 
 impl Dummy<Faker> for semver::Version {
     fn dummy_with_rng<R: Rng + ?Sized>(_: &Faker, rng: &mut R) -> Self {
@@ -16,7 +14,8 @@ impl Dummy<Faker> for semver::Version {
                 "{}.{}",
                 *UNSTABLE_SEMVER.choose(rng).unwrap(),
                 &(0..9).fake_with_rng::<u8, _>(rng).to_string()
-            )).unwrap()
+            ))
+            .unwrap()
         } else {
             semver::Prerelease::EMPTY
         };

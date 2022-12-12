@@ -23,4 +23,3 @@ byteorder_faker_impl!(I32);
 byteorder_faker_impl!(I64);
 #[cfg(not(target_os = "emscripten"))]
 byteorder_faker_impl!(I128);
-

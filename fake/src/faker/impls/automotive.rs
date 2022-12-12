@@ -9,10 +9,13 @@ use std::char;
 As with the SIV system, The letters I and O were never used because they could be confused with other characters, like 1 and 0.
 ref https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_France
 
-The letter U where also not used because it could be confused with V letter. 
+The letter U where also not used because it could be confused with V letter.
 ref on french wikipedia article https://fr.wikipedia.org/wiki/Plaque_d%27immatriculation_fran%C3%A7aise
 */
-const LICENSE_CHARS: [char; 23] = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'J', 'K', 'L', 'M', 'N', 'P', 'Q', 'R', 'S', 'T', 'V', 'W', 'X', 'Y', 'Z'];
+const LICENSE_CHARS: [char; 23] = [
+    'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'J', 'K', 'L', 'M', 'N', 'P', 'Q', 'R', 'S', 'T', 'V',
+    'W', 'X', 'Y', 'Z',
+];
 
 #[inline]
 fn numerify_licence_plate<R: Rng + ?Sized>(string: &str, rng: &mut R) -> String {

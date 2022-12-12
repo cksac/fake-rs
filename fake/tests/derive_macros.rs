@@ -107,10 +107,7 @@ mod field_options {
         #[test]
         fn override_range() {
             #[derive(Dummy)]
-            struct Obj(
-                #[dummy(faker = "100..200")]
-                i32
-            );
+            struct Obj(#[dummy(faker = "100..200")] i32);
 
             let o: Obj = Faker.fake_with_rng(&mut rng());
 
@@ -125,9 +122,7 @@ mod field_options {
                 Two,
             }
             #[derive(Dummy)]
-            struct Obj(
-                MyEnum,
-            );
+            struct Obj(MyEnum);
 
             let o: Obj = Faker.fake_with_rng(&mut rng());
 
@@ -137,10 +132,7 @@ mod field_options {
         #[test]
         fn with_default() {
             #[derive(Dummy)]
-            struct Obj(
-                #[dummy(default)]
-                String,
-            );
+            struct Obj(#[dummy(default)] String);
 
             let o: Obj = Faker.fake_with_rng(&mut rng());
 
@@ -150,10 +142,7 @@ mod field_options {
         #[test]
         fn with_override_faker() {
             #[derive(Dummy)]
-            struct Obj(
-                #[dummy(faker = "fake::faker::name::en::Name()")]
-                String,
-            );
+            struct Obj(#[dummy(faker = "fake::faker::name::en::Name()")] String);
 
             let o: Obj = Faker.fake_with_rng(&mut rng());
 
@@ -163,10 +152,7 @@ mod field_options {
         #[test]
         fn with_override_fixed_i32() {
             #[derive(Dummy)]
-            struct Obj(
-                #[dummy(fixed = "42")]
-                i32,
-            );
+            struct Obj(#[dummy(fixed = "42")] i32);
 
             let o: Obj = Faker.fake_with_rng(&mut rng());
 
