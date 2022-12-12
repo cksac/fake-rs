@@ -306,3 +306,16 @@ mod field_options {
         }
     }
 }
+
+mod test_trait_scope {
+    #[test]
+    #[allow(dead_code)]
+    fn it_generates_without_fake_in_scope() {
+        mod outer {
+            #[derive(fake::Dummy)]
+            pub struct Outer {
+                pub message: String,
+            }
+        }
+    }
+}
