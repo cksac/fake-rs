@@ -107,10 +107,7 @@ mod field_options {
         #[test]
         fn override_range() {
             #[derive(Dummy)]
-            struct Obj(
-                #[dummy(faker = "100..200")]
-                i32
-            );
+            struct Obj(#[dummy(faker = "100..200")] i32);
 
             let o: Obj = Faker.fake_with_rng(&mut rng());
 
@@ -125,9 +122,7 @@ mod field_options {
                 Two,
             }
             #[derive(Dummy)]
-            struct Obj(
-                MyEnum,
-            );
+            struct Obj(MyEnum);
 
             let o: Obj = Faker.fake_with_rng(&mut rng());
 
@@ -137,10 +132,7 @@ mod field_options {
         #[test]
         fn with_default() {
             #[derive(Dummy)]
-            struct Obj(
-                #[dummy(default)]
-                String,
-            );
+            struct Obj(#[dummy(default)] String);
 
             let o: Obj = Faker.fake_with_rng(&mut rng());
 
@@ -150,10 +142,7 @@ mod field_options {
         #[test]
         fn with_override_faker() {
             #[derive(Dummy)]
-            struct Obj(
-                #[dummy(faker = "fake::faker::name::en::Name()")]
-                String,
-            );
+            struct Obj(#[dummy(faker = "fake::faker::name::en::Name()")] String);
 
             let o: Obj = Faker.fake_with_rng(&mut rng());
 
@@ -163,10 +152,7 @@ mod field_options {
         #[test]
         fn with_override_fixed_i32() {
             #[derive(Dummy)]
-            struct Obj(
-                #[dummy(fixed = "42")]
-                i32,
-            );
+            struct Obj(#[dummy(fixed = "42")] i32);
 
             let o: Obj = Faker.fake_with_rng(&mut rng());
 
@@ -317,6 +303,25 @@ mod field_options {
             let o: Obj = Faker.fake_with_rng(&mut rng());
 
             assert_eq!(o.value, MyEnum::One);
+        }
+    }
+}
+
+mod test_trait_scope {
+    #[test]
+    #[allow(dead_code)]
+    fn it_generates_without_fake_in_scope() {
+        mod outer {
+            #[derive(fake::Dummy)]
+            pub struct Outer {
+                pub message: String,
+            }
+
+            #[derive(fake::Dummy)]
+            pub struct Outer2 {
+                #[dummy(faker = "1000..2000")]
+                pub id: usize,
+            }
         }
     }
 }
