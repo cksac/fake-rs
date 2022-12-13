@@ -209,16 +209,16 @@ fn expose_field(f: &DummyField) -> proc_macro2::TokenStream {
         }
     } else {
         let field_ty = &f.ty;
+        let fake = syn::parse_str::<syn::Expr>("fake::Fake").unwrap();
 
         if let Some(ref expr) = f.faker {
             let faker = syn::parse_str::<syn::Expr>(expr).unwrap();
 
             quote! {
-                (#faker).fake_with_rng::<#field_ty, _>(rng)
+                #fake::fake_with_rng::<#field_ty, _>(&(#faker), rng)
             }
         } else {
             let faker = syn::parse_str::<syn::Expr>("fake::Faker").unwrap();
-            let fake = syn::parse_str::<syn::Expr>("fake::Fake").unwrap();
 
             quote! {
                 <#faker as #fake>::fake_with_rng::<#field_ty, _>(&#faker, rng)

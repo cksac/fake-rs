@@ -316,6 +316,12 @@ mod test_trait_scope {
             pub struct Outer {
                 pub message: String,
             }
+
+            #[derive(fake::Dummy)]
+            pub struct Outer2 {
+                #[dummy(faker = "1000..2000")]
+                pub id: usize,
+            }
         }
     }
 }
