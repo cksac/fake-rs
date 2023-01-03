@@ -1,3 +1,4 @@
+use fake::faker::address::en::StreetName;
 use fake::locales::{EN, FR_FR, ZH_CN, ZH_TW};
 use fake::Fake;
 
@@ -266,6 +267,11 @@ fn number_faker() {
     println!("{:?}", val);
 
     let val: String = NumberWithFormat(EN, "FLAT 0# ^#/F").fake();
+    println!("{:?}", val);
+
+    // non-'static string
+    let fmt = String::from("FLAT 0# ^#/F");
+    let val: String = NumberWithFormat(EN, &fmt).fake();
     println!("{:?}", val);
 }
 

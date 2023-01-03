@@ -15,30 +15,30 @@ fn numerify_sym<R: Rng + ?Sized>(string: &str, rng: &mut R) -> String {
 }
 
 macro_rules! def_fakers {
-    (@m $locale_m:ident=>$locale_s:ident { $($name:ident($($arg:ident : $typ:ty),*);)+}) => {
+    (@m $locale_m:ident=>$locale_s:ident { $($name:ident$(< $($lts:lifetime),* >)?($($arg:ident : $typ:ty),*);)+}) => {
         pub mod $locale_m {
             use super::raw;
             use crate::locales::$locale_s;
         $(
             #[inline]
             #[allow(non_snake_case)]
-            pub fn $name($($arg:$typ),*) -> raw::$name<$locale_s> {
+            pub fn $name$(< $($lts),* >)?($($arg:$typ),*) -> raw::$name<$locale_s> {
                 raw::$name($locale_s, $($arg),*)
             }
         )+
         }
     };
-    ($($name:ident($($arg:ident : $typ:ty),*);)+) => {
+    ($($name:ident$(< $($lts:lifetime),* >)?($($arg:ident : $typ:ty),*);)+) => {
         pub mod raw {
         $(
-            pub struct $name<L>(pub L, $(pub $typ),*);
+            pub struct $name<$( $($lts),* , )?L>(pub L, $(pub $typ),*);
         )+
         }
 
-        def_fakers!(@m en=>EN {$($name($($arg:$typ),*);)+});
-        def_fakers!(@m fr_fr=>FR_FR {$($name($($arg:$typ),*);)+});
-        def_fakers!(@m zh_tw=>ZH_TW {$($name($($arg:$typ),*);)+});
-        def_fakers!(@m zh_cn=>ZH_CN {$($name($($arg:$typ),*);)+});
+        def_fakers!(@m en=>EN {$($name$(< $($lts),* >)?($($arg:$typ),*);)+});
+        def_fakers!(@m fr_fr=>FR_FR {$($name$(< $($lts),* >)?($($arg:$typ),*);)+});
+        def_fakers!(@m zh_tw=>ZH_TW {$($name$(< $($lts),* >)?($($arg:$typ),*);)+});
+        def_fakers!(@m zh_cn=>ZH_CN {$($name$(< $($lts),* >)?($($arg:$typ),*);)+});
     };
 }
 
@@ -200,7 +200,7 @@ pub mod name {
 pub mod number {
     def_fakers! {
         Digit();
-        NumberWithFormat(fmt: &'static str);
+        NumberWithFormat<'a>(fmt: &'a str);
     }
 }
 

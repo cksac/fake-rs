@@ -18,7 +18,7 @@ impl<L: Data> Dummy<Digit<L>> for &str {
     }
 }
 
-impl<L: Data> Dummy<NumberWithFormat<L>> for String {
+impl<L: Data> Dummy<NumberWithFormat<'_, L>> for String {
     fn dummy_with_rng<R: Rng + ?Sized>(c: &NumberWithFormat<L>, rng: &mut R) -> Self {
         numerify_sym(c.1, rng)
     }
