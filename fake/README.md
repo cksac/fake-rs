@@ -135,7 +135,7 @@ NameWithTitle();
 
 ```rust
 Digit();
-NumberWithFormat(fmt: &'static str);
+NumberWithFormat<'a>(fmt: &'a str);
 ```
 
 ## Boolean
