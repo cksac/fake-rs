@@ -109,6 +109,7 @@ fn main() {
 ```
 
 # Fakers with locale
+
 ## Lorem
 
 ```rust
@@ -161,6 +162,7 @@ UserAgent();
 ```
 
 ## HTTP
+
 ```rust
 RfcStatusCode();
 ValidStatusCode();
@@ -195,6 +197,20 @@ Profession();
 Industry();
 ```
 
+## Currency
+
+```rust
+CurrencyCode();
+CurrencyName();
+CurrencySymbol();
+```
+
+## Creditcard
+
+```rust
+CreditCardNumber();
+```
+
 ## Address
 
 ```rust
@@ -218,12 +234,20 @@ Longitude();
 Geohash(precision: u8);
 ```
 
-### Automotive
+## Administrative
+
+```rust
+HealthInsuranceCode();
+```
+
+## Automotive
+
 ```rust
 LicencePlate();
 ```
 
-### Barcode
+## Barcode
+
 ```rust
 Isbn();
 Isbn13();
@@ -250,6 +274,7 @@ DateTimeBetween(start: DateTime<Utc>, end: DateTime<Utc>);
 ```
 
 ## Filesystem
+
 ```rust
 FilePath();
 FileName();
@@ -258,16 +283,36 @@ DirPath();
 ```
 
 ### Finance
+
 ```rust
 Bic();
 ```
 
 ### UUID
+
 ```rust
 UUIDv1();
 UUIDv3();
 UUIDv4();
 UUIDv5();
+```
+
+### Decimal
+
+```rust
+Decimal();
+PositiveDecimal();
+NegativeDecimal();
+NoDecimalPoints();
+```
+
+### Bigdecimal
+
+```rust
+BigDecimal();
+PositiveBigDecimal();
+NegativeBigDecimal();
+NoBigDecimalPoints();
 ```
 
 # LICENSE
