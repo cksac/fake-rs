@@ -1,4 +1,3 @@
-use fake::faker::address::en::StreetName;
 use fake::locales::{EN, FR_FR, ZH_CN, ZH_TW};
 use fake::Fake;
 
@@ -369,8 +368,8 @@ fn chrono_faker() {
 #[cfg(feature = "semver")]
 fn filesystem_faker() {
     use fake::faker::filesystem::raw::*;
-    use std::path::PathBuf;
     use fake::Faker;
+    use std::path::PathBuf;
 
     let val: String = FilePath(EN).fake();
     println!("{:?}", val);

@@ -51,7 +51,7 @@ fn main() {
         1, 0, 0, 0, 23, 0, 0, 0, 200, 1, 0, 0, 210, 30, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0,
     ];
-    let ref mut r = StdRng::from_seed(seed);
+    let r = &mut StdRng::from_seed(seed);
     for _ in 0..5 {
         let v: usize = Faker.fake_with_rng(r);
         println!("value from fixed seed {}", v);
