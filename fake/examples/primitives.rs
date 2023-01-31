@@ -27,7 +27,7 @@ fn main() {
         1, 0, 0, 0, 23, 0, 0, 0, 200, 1, 0, 0, 210, 30, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0,
     ];
-    let ref mut rng = StdRng::from_seed(seed);
+    let rng = &mut StdRng::from_seed(seed);
     println!("{:?}", Faker.fake_with_rng::<u8, _>(rng));
     println!("{:?}", (1..8).fake_with_rng::<u8, _>(rng));
     for _ in 0..5 {
