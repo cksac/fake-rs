@@ -19,7 +19,7 @@ rand = "0.8"
 random_color = { version="0.6", optional = true }
 unidecode = "0.3"
 chrono = { version = "0.4", features = ["std"], optional = true, default-features = false }
-chrono-tz = { version = "0.6", optional = true }
+chrono-tz = { version = "0.8", optional = true }
 http = { version = "0.2", optional = true }
 semver = { version = "1", optional = true }
 uuid = { version = "1.2", features = ["v1", "v3", "v4", "v5"], optional = true }
