@@ -18,4 +18,11 @@ mod tests {
         let tz: Tz = Faker.fake();
         assert!(TZ_VARIANTS.contains(&tz));
     }
+
+    #[cfg(feature = "chrono")]
+    #[test]
+    fn dummy_tz_through_datetime() {
+        let datetime: chrono::DateTime<Tz> = Faker.fake();
+        assert!(TZ_VARIANTS.contains(&datetime.timezone()));
+    }
 }

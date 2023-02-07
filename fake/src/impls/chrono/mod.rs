@@ -20,9 +20,20 @@ impl Dummy<Faker> for Duration {
     }
 }
 
-impl Dummy<Faker> for DateTime<Utc> {
+impl Dummy<Faker> for Utc {
+    fn dummy_with_rng<R: Rng + ?Sized>(_: &Faker, _: &mut R) -> Self {
+        Utc
+    }
+}
+
+impl<Tz> Dummy<Faker> for DateTime<Tz>
+where
+    Tz: TimeZone + Dummy<Faker>,
+{
     fn dummy_with_rng<R: Rng + ?Sized>(_: &Faker, rng: &mut R) -> Self {
-        Utc.timestamp_nanos(Faker.fake_with_rng(rng))
+        let utc: DateTime<Utc> = Utc.timestamp_nanos(Faker.fake_with_rng(rng));
+        let tz: Tz = Faker.fake_with_rng(rng);
+        utc.with_timezone(&tz)
     }
 }
 
