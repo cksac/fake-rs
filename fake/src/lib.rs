@@ -216,7 +216,7 @@ pub use impls::bigdecimal;
 /// Fake value generation for specific formats.
 ///
 /// It is structured in a way such that the modules here describes the custom
-/// group for structs implemting [`Dummy`] to generate custom fake formats.
+/// group for structs implementing [`Dummy`] to generate custom fake formats.
 ///
 /// Within the module, there is multiple modules. With `raw` module providing
 /// a generic faker requiring a locale ([`faker::lorem::raw::Paragraph<L>`])
