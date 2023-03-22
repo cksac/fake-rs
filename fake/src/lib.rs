@@ -198,11 +198,41 @@ pub trait Fake: Sized {
 }
 impl<T> Fake for T {}
 
+#[cfg(feature = "geo")]
+fn unique<U: Dummy<Faker> + PartialEq, R: Rng + ?Sized>(rng: &mut R, len: usize) -> Vec<U> {
+    let mut set = Vec::<U>::new();
+    unique_append(&mut set, rng, len);
+    set
+}
+
+#[cfg(feature = "geo")]
+fn unique_append<U: Dummy<Faker> + PartialEq, R: Rng + ?Sized>(
+    set: &mut Vec<U>,
+    rng: &mut R,
+    len: usize,
+) {
+    while set.len() != len {
+        let new_item: U = Faker.fake_with_rng(rng);
+        let mut found = false;
+        for item in &mut *set {
+            if *item == new_item {
+                found = true;
+                break;
+            }
+        }
+        if !found {
+            set.push(new_item);
+        }
+    }
+}
 #[macro_use]
 mod impls;
 pub use impls::std::path::PathFaker;
 pub use impls::std::result::ResultFaker;
 pub use impls::std::string::StringFaker;
+
+#[cfg(feature = "geo")]
+pub use impls::geo;
 
 #[cfg(feature = "uuid")]
 pub use impls::uuid;
