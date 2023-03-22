@@ -46,7 +46,7 @@ struct Dummy {
 }
 
 #[proc_macro_derive(Dummy, attributes(dummy))]
-pub fn hello_world(input: TokenStream) -> TokenStream {
+pub fn derive_dummy(input: TokenStream) -> TokenStream {
     let parsed = syn::parse(input).expect("syn::parse ok");
     let receiver = Dummy::from_derive_input(&parsed).expect("Dummy::from_derive_input ok");
 
