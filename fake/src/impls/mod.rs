@@ -16,6 +16,8 @@ pub mod http;
 pub mod sea_orm;
 #[cfg(feature = "semver")]
 pub mod semver;
+#[cfg(feature = "serde_json")]
+pub mod serde_json;
 pub mod std;
 #[cfg(feature = "time")]
 pub mod time;

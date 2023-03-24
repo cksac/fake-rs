@@ -213,6 +213,9 @@ pub use impls::decimal;
 #[cfg(feature = "bigdecimal")]
 pub use impls::bigdecimal;
 
+#[cfg(feature = "serde_json")]
+pub use impls::serde_json;
+
 /// Fake value generation for specific formats.
 ///
 /// It is structured in a way such that the modules here describes the custom

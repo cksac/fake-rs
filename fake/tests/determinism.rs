@@ -299,3 +299,11 @@ mod bigdecimal {
     check_determinism! { PositiveBigDecimal; positive_decimal, bd::BigDecimal }
     check_determinism! { NoBigDecimalPoints; no_decimal_points, bd::BigDecimal }
 }
+
+#[cfg(feature = "serde_json")]
+mod serde_json {
+    use fake::serde_json::*;
+    use fake::{Fake, Faker};
+    use rand::SeedableRng as _;
+    check_determinism! { one fake_serde_json, serde_json::Value, Faker }
+}
