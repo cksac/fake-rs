@@ -272,6 +272,48 @@ use fake::faker::phone_number::raw::*;
 check_determinism! { l10d CellNumber; String, fake_cell_number_en, fake_cell_number_fr, fake_cell_number_cn, fake_cell_number_tw, fake_cell_number_jp }
 check_determinism! { l10d PhoneNumber; String, fake_phone_number_en, fake_phone_number_fr, fake_phone_number_cn, fake_phone_number_tw, fake_phone_number_jp }
 
+#[cfg(feature = "geo-types")]
+mod geo {
+    use fake::{Fake, Faker};
+    use rand::SeedableRng as _;
+
+    check_determinism! { one fake_geo_coord_f64, geo_types::Coord<f64>, Faker }
+    check_determinism! { one fake_geo_coord_u64, geo_types::Coord<u64>, Faker }
+
+    check_determinism! { one fake_geo_line_f64, geo_types::Line<f64>, Faker }
+    check_determinism! { one fake_geo_line_u64, geo_types::Line<u64>, Faker }
+
+    check_determinism! { one fake_geo_linestring_f64, geo_types::LineString<f64>, Faker }
+    check_determinism! { one fake_geo_linestring_u64, geo_types::LineString<u64>, Faker }
+
+    check_determinism! { one fake_geo_multilinestring_f64, geo_types::MultiLineString<f64>, Faker }
+    check_determinism! { one fake_geo_multilinestring_u64, geo_types::MultiLineString<u64>, Faker }
+
+    check_determinism! { one fake_geo_point_f64, geo_types::Point<f64>, Faker }
+    check_determinism! { one fake_geo_point_u64, geo_types::Point<u64>, Faker }
+
+    check_determinism! { one fake_geo_multipoint_f64, geo_types::MultiPoint<f64>, Faker }
+    check_determinism! { one fake_geo_multipoint_u64, geo_types::MultiPoint<u64>, Faker }
+
+    check_determinism! { one fake_geo_multipolygon_f64, geo_types::MultiPolygon<f64>, Faker }
+    check_determinism! { one fake_geo_multipolygon_u64, geo_types::MultiPolygon<u64>, Faker }
+
+    check_determinism! { one fake_geo_polygon_f64, geo_types::Polygon<f64>, Faker }
+    check_determinism! { one fake_geo_polygon_u64, geo_types::Polygon<u64>, Faker }
+
+    check_determinism! { one fake_geo_rect_f64, geo_types::Rect<f64>, Faker }
+    check_determinism! { one fake_geo_rect_u64, geo_types::Rect<u64>, Faker }
+
+    check_determinism! { one fake_geo_triangle_f64, geo_types::Triangle<f64>, Faker }
+    check_determinism! { one fake_geo_triangle_u64, geo_types::Triangle<u64>, Faker }
+
+    check_determinism! { one fake_geo_geometry_f64, geo_types::Geometry<f64>, Faker }
+    check_determinism! { one fake_geo_geometry_u64, geo_types::Geometry<u64>, Faker }
+
+    check_determinism! { one fake_geo_geometry_collection_f64, geo_types::GeometryCollection<f64>, Faker }
+    check_determinism! { one fake_geo_geometry_collection_u64, geo_types::GeometryCollection<u64>, Faker }
+}
+
 // Decimal
 #[cfg(feature = "rust_decimal")]
 mod decimal {

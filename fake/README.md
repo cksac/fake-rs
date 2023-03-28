@@ -25,6 +25,10 @@ If you want the timezone features from `chrono-tz`:
 ```toml
 fake = { version = "2.5", features=['chrono-tz']}
 ```
+If you want `geo` faker features:
+```toml
+fake = { version = "2.5", features=['geo']}
+```
 If you want `http` faker features:
 ```toml
 fake = { version = "2.5", features=['http']}

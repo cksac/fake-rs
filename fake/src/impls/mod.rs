@@ -10,6 +10,8 @@ pub mod chrono_tz;
 pub mod color;
 #[cfg(feature = "rust_decimal")]
 pub mod decimal;
+#[cfg(feature = "geo-types")]
+pub mod geo;
 #[cfg(feature = "http")]
 pub mod http;
 #[cfg(feature = "sea-orm")]
