@@ -1,4 +1,4 @@
-use crate::{Dummy, Fake, Faker};
+use crate::{Dummy, Faker};
 use sea_orm::prelude::Uuid;
 
 impl Dummy<Faker> for Uuid {
