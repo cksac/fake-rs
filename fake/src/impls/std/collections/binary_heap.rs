@@ -1,4 +1,3 @@
-use super::DEFAULT_LEN_RANGE;
 use crate::{Dummy, Fake, Faker};
 use rand::Rng;
 use std::collections::BinaryHeap;
@@ -8,7 +7,7 @@ where
     T: Dummy<Faker> + Ord,
 {
     fn dummy_with_rng<R: Rng + ?Sized>(config: &Faker, rng: &mut R) -> Self {
-        let len: usize = DEFAULT_LEN_RANGE.fake_with_rng(rng);
+        let len = super::get_len(config, rng);
         let mut v = BinaryHeap::with_capacity(len);
         for _ in 0..len {
             v.push(config.fake_with_rng(rng));

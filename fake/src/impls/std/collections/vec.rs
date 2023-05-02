@@ -1,4 +1,3 @@
-use super::DEFAULT_LEN_RANGE;
 use crate::{Dummy, Fake, Faker};
 use rand::Rng;
 
@@ -7,7 +6,7 @@ where
     T: Dummy<Faker>,
 {
     fn dummy_with_rng<R: Rng + ?Sized>(config: &Faker, rng: &mut R) -> Self {
-        let len: usize = DEFAULT_LEN_RANGE.fake_with_rng(rng);
+        let len = super::get_len(config, rng);
         let mut v = Vec::with_capacity(len);
         for _ in 0..len {
             v.push(config.fake_with_rng(rng));
