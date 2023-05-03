@@ -9,13 +9,13 @@ pub struct Order {
     pub always_some: Option<u64>,
 
     #[dummy(expr = "Some((0..200).fake())")]
-    pub always_some_v2: Option<u64>,    
+    pub always_some_v2: Option<u64>,
 
     #[dummy(faker = "Opt(0..200, 0)", from = "Optional<u64>")]
     pub always_none: Option<u64>,
 
     #[dummy(expr="None")]
-    pub always_none_v2: Option<u64>,    
+    pub always_none_v2: Option<u64>,
 
     #[dummy(faker = "0..200")]
     pub c: Option<Option<u64>>,
