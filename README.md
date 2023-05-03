@@ -25,6 +25,12 @@ features:
     - rust_decimal
     - bigdecimal
     - random_color
+    - geo-types
+    - semver
+    - serde_json
+    - time
+    - num-traits
+    - zerocopy
 
 ## Usage
 
