@@ -227,6 +227,7 @@ fn unique_append<U: Dummy<Faker> + PartialEq, R: Rng + ?Sized>(
 }
 #[macro_use]
 mod impls;
+pub use impls::std::option::{Opt, Optional};
 pub use impls::std::path::PathFaker;
 pub use impls::std::result::ResultFaker;
 pub use impls::std::string::StringFaker;

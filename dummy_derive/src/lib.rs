@@ -35,7 +35,11 @@ struct DummyField {
     #[darling(default)]
     fixed: Option<String>,
     #[darling(default)]
+    expr: Option<String>,
+    #[darling(default)]
     default: bool,
+    #[darling(default)]
+    from: Option<String>,
 }
 
 #[derive(Debug, FromDeriveInput)]
@@ -207,6 +211,11 @@ fn expose_field(f: &DummyField) -> proc_macro2::TokenStream {
         quote! {
             #fixed
         }
+    } else if let Some(ref expr) = f.expr {
+        let fixed = syn::parse_str::<syn::Expr>(expr).unwrap();
+        quote! {
+            #fixed
+        }
     } else {
         let field_ty = &f.ty;
         let fake = syn::parse_str::<syn::Expr>("fake::Fake").unwrap();
@@ -214,12 +223,18 @@ fn expose_field(f: &DummyField) -> proc_macro2::TokenStream {
         if let Some(ref expr) = f.faker {
             let faker = syn::parse_str::<syn::Expr>(expr).unwrap();
 
-            quote! {
-                #fake::fake_with_rng::<#field_ty, _>(&(#faker), rng)
+            if let Some(ref from) = f.from {
+                let from_ty = syn::parse_str::<syn::Type>(from).unwrap();
+                quote! {
+                    std::convert::Into::<#field_ty>::into(#fake::fake_with_rng::<#from_ty, _>(&(#faker), rng))
+                }
+            } else {
+                quote! {
+                    #fake::fake_with_rng::<#field_ty, _>(&(#faker), rng)
+                }
             }
         } else {
             let faker = syn::parse_str::<syn::Expr>("fake::Faker").unwrap();
-
             quote! {
                 <#faker as #fake>::fake_with_rng::<#field_ty, _>(&#faker, rng)
             }
