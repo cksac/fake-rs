@@ -14,7 +14,7 @@ edition = "2021"
 all-features = true
 
 [dependencies]
-dummy = { version = "0.4", path = "../dummy_derive", optional = true }
+dummy = { version = "0.5", path = "../dummy_derive", optional = true }
 rand = "0.8"
 random_color = { version="0.6", optional = true }
 unidecode = "0.3"
