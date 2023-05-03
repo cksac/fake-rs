@@ -1,3 +1,5 @@
+#![allow(deprecated)]
+
 use crate::{Dummy, Fake, Faker};
 use chrono::{Date, DateTime, Duration, NaiveDate, NaiveDateTime, NaiveTime, TimeZone, Utc};
 use rand::Rng;
