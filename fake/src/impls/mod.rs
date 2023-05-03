@@ -14,8 +14,6 @@ pub mod decimal;
 pub mod geo;
 #[cfg(feature = "http")]
 pub mod http;
-#[cfg(feature = "sea-orm")]
-pub mod sea_orm;
 #[cfg(feature = "semver")]
 pub mod semver;
 #[cfg(feature = "serde_json")]

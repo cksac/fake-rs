@@ -104,7 +104,7 @@ mod chrono {
 
     fn lo() -> chrono::DateTime<chrono::Utc> {
         chrono::DateTime::from_utc(
-            chrono::NaiveDateTime::from_timestamp(53469346924, 124241),
+            chrono::NaiveDateTime::from_timestamp_opt(53469346924, 124241).expect("datetime"),
             chrono::Utc,
         )
     }
@@ -344,7 +344,6 @@ mod bigdecimal {
 
 #[cfg(feature = "serde_json")]
 mod serde_json {
-    use fake::serde_json::*;
     use fake::{Fake, Faker};
     use rand::SeedableRng as _;
     check_determinism! { one fake_serde_json, serde_json::Value, Faker }

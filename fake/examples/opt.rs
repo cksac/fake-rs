@@ -3,19 +3,19 @@ use fake::{Dummy, Fake, Faker, Opt, Optional};
 #[derive(Debug, Dummy)]
 pub struct Order {
     #[dummy(faker = "0..200")]
-    a: Option<u64>,
+    pub a: Option<u64>,
 
     #[dummy(faker = "Opt(0..200, 100)", from = "Optional<u64>")]
-    always_some: Option<u64>,
+    pub always_some: Option<u64>,
 
     #[dummy(faker = "Opt(0..200, 0)", from = "Optional<u64>")]
-    always_none: Option<u64>,
+    pub always_none: Option<u64>,
 
     #[dummy(faker = "0..200")]
-    c: Option<Option<u64>>,
+    pub c: Option<Option<u64>>,
 
     #[dummy(expr = "Opt(Opt(0..200, 50), 50).fake::<Optional<Optional<u64>>>().0.map(|v| v.0)")]
-    d: Option<Option<u64>>,
+    pub d: Option<Option<u64>>,
 }
 
 fn main() {
