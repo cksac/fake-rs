@@ -11,41 +11,20 @@ A Rust library for generating fake data.
 Default (`rand` is required):
 ```toml
 [dependencies]
-fake = "2.5"
+fake = { version = "2.6", features=['derive']}
 rand = "0.8"
 ```
-If you want to use `#[derive(Dummy)]`:
-```toml
-fake = { version = "2.5", features=['derive']}
-```
-If you want the date and time features from `chrono`:
-```toml
-fake = { version = "2.5", features=['chrono']}
-```
-If you want the timezone features from `chrono-tz`:
-```toml
-fake = { version = "2.5", features=['chrono-tz']}
-```
-If you want `http` faker features:
-```toml
-fake = { version = "2.5", features=['http']}
-```
-If you want `uuid` faker features:
-```toml
-fake = { version = "2.5", features=['uuid']}
-```
-If you want `rust_decimal` faker features:
-```toml
-fake = { version = "2.5", features=['rust_decimal']}
-```
-If you want `bigdecimal` faker features:
-```toml
-fake = { version = "2.5", features=['bigdecimal']}
-```
-If you want `random_color` faker features:
-```toml
-fake = { version = "2.5", features=['random_color']}
-```
+
+features:
+- derive: if you want to use `#[derive(Dummy)]
+- crate implementations:
+    - chrono
+    - chrono-tz
+    - http
+    - uuid
+    - rust_decimal
+    - bigdecimal
+    - random_color
 
 ## Usage
 
