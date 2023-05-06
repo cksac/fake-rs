@@ -39,8 +39,8 @@ pub struct ResultFaker<T, E, R> {
     err_rate: R,
 }
 
-impl ResultFaker<Faker, Faker, u8> {
-    pub fn default() -> ResultFaker<Faker, Faker, u8> {
+impl Default for ResultFaker<Faker, Faker, u8> {
+    fn default() -> ResultFaker<Faker, Faker, u8> {
         ResultFaker {
             ok: Faker,
             err: Faker,

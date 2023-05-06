@@ -13,7 +13,7 @@ impl<L: Data> Dummy<Word<L>> for String {
 
 impl<L: Data> Dummy<Word<L>> for &str {
     fn dummy_with_rng<R: Rng + ?Sized>(_: &Word<L>, rng: &mut R) -> Self {
-        *L::LOREM_WORD.choose(rng).unwrap()
+        L::LOREM_WORD.choose(rng).unwrap()
     }
 }
 

@@ -46,9 +46,9 @@ impl<L: Data> Dummy<Bic<L>> for String {
             );
         } else if prob < 90 {
             (
-                rng.gen_range('0'..'9'),
-                rng.gen_range('0'..'9'),
-                rng.gen_range('0'..'9'),
+                rng.gen_range('0'..='9'),
+                rng.gen_range('0'..='9'),
+                rng.gen_range('0'..='9'),
             )
         } else {
             (
