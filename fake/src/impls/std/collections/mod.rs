@@ -18,8 +18,9 @@ pub mod vec_deque;
 #[allow(unused_mut, unused_variables)]
 pub fn get_len<R: Rng + ?Sized>(config: &Faker, rng: &mut R) -> usize {
     let mut range = DEFAULT_LEN_RANGE;
-    #[cfg(feature = "always-true-rng")]
+    #[cfg(feature = "maybe-non-empty-collections")]
     if config.fake_with_rng(rng) {
+        // allow to use AlwaysTrueRng to generate non-empty collections
         range.start = 1;
     }
     range.fake_with_rng(rng)

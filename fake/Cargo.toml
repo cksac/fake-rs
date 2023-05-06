@@ -1,6 +1,6 @@
 [package]
 name = "fake"
-version = "2.6.0"
+version = "2.6.1"
 authors = ["cksac <cs.cksac@gmail.com>"]
 description = "An easy to use library for generating fake data like name, number, address, lorem, dates, etc."
 keywords = ["faker", "data", "generator", "random"]
@@ -30,20 +30,22 @@ num-traits = { version = "0.2", optional = true }
 rust_decimal = { version = "1.29", optional = true }
 bigdecimal_rs = { version = "0.3", package = "bigdecimal", optional = true }
 zerocopy = { version = "0.6", optional = true }
+rand_core = { version = "0.6", optional = true }
 
 [dev-dependencies]
 chrono = { version = "0.4", features = ["clock"], default-features = false }
 fake = { path = ".", features = ["derive"] }
 proptest = "1.0.0"
 rand_chacha = "0.3"
-rand_core = "0.6"
 
 [features]
 # Provide derive(Dummy) macros.
 derive = ["dummy"]
 # Support "always true" RNGs; see https://github.com/cksac/fake-rs/issues/128
 # and always-true tests
-always-true-rng = []
+always-true-rng = ["rand_core"]
+# allow to use AlwaysTrueRng to generate non-empty collections
+maybe-non-empty-collections = ['always-true-rng']
 bigdecimal = ["bigdecimal_rs", "rust_decimal"]
 geo = ["geo-types", "num-traits"]
 

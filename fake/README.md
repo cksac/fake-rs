@@ -21,15 +21,15 @@ features:
     - chrono-tz
     - http
     - uuid
-    - rust_decimal
     - bigdecimal
     - random_color
-    - geo-types
+    - geo
     - semver
     - serde_json
     - time
-    - num-traits
-    - zerocopy
+    - zerocopy    
+- always-true-rng: expose AlwaysTrueRng
+- maybe-non-empty-collections: allow to use AlwaysTrueRng to generate non-empty collections
 
 ## Usage
 

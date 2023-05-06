@@ -14,7 +14,7 @@ pub struct Order {
     #[dummy(faker = "Opt(0..200, 0)", from = "Optional<u64>")]
     pub always_none: Option<u64>,
 
-    #[dummy(expr="None")]
+    #[dummy(expr = "None")]
     pub always_none_v2: Option<u64>,
 
     #[dummy(faker = "0..200")]
