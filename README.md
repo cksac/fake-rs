@@ -29,6 +29,7 @@ features:
     - serde_json
     - time
     - zerocopy    
+    - glam
 - always-true-rng: expose AlwaysTrueRng
 - maybe-non-empty-collections: allow to use AlwaysTrueRng to generate non-empty collections
 

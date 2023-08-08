@@ -25,3 +25,5 @@ pub mod time;
 pub mod uuid;
 #[cfg(feature = "zerocopy")]
 pub mod zerocopy_byteorder;
+#[cfg(feature = "glam")]
+pub mod glam;
