@@ -1,7 +1,8 @@
 use crate::{Dummy, Fake, Faker};
+use http::uri;
 use rand::seq::SliceRandom;
 use rand::Rng;
-use http::uri;
+use std::net::Ipv4Addr;
 use std::str::FromStr;
 
 const RFC_STATUS_CODES: &[u16] = &[
@@ -11,7 +12,12 @@ const RFC_STATUS_CODES: &[u16] = &[
     508, 510, 511,
 ];
 
-const VALID_SCHEME_CHARACTERS: &[char] = &['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '.', '-', '+'];
+const VALID_SCHEME_CHARACTERS: &[char] = &[
+    'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's',
+    't', 'u', 'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L',
+    'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '0', '1', '2', '3', '4',
+    '5', '6', '7', '8', '9', '.', '-', '+',
+];
 
 impl Dummy<Faker> for http::StatusCode {
     fn dummy_with_rng<R: Rng + ?Sized>(_: &Faker, rng: &mut R) -> Self {
@@ -47,7 +53,6 @@ impl Dummy<Faker> for http::Version {
 }
 
 impl Dummy<Faker> for http::Uri {
-
     fn dummy_with_rng<R: Rng + ?Sized>(config: &Faker, rng: &mut R) -> Self {
         // Some common schemes or a random valid scheme
         let scheme = match (0..7).fake_with_rng(rng) {
@@ -68,33 +73,79 @@ impl Dummy<Faker> for http::Uri {
                 if rng.gen_bool(0.5) {
                     scheme.make_ascii_uppercase();
                 }
-                for _ in 1..len {
-                    scheme.push(*VALID_SCHEME_CHARACTERS.choose(rng).unwrap());
-                }
+                scheme.extend((1..len).map(|_| *VALID_SCHEME_CHARACTERS.choose(rng).unwrap()));
 
                 scheme
             }
         };
 
-        let authority = {
-            "tokio.rs".to_string()
-        };
+        let mut authority = String::new();
 
-        let mut path = url_escape::encode_path(&config.fake_with_rng::<String, _>(rng)).to_string();
+        if rng.gen_bool(0.5) {
+            // Include password
+            let user = config.fake_with_rng::<String, _>(rng);
+            let username = url_escape::encode_userinfo(&user);
+            authority.push_str(&username);
+            if rng.gen_bool(0.5) {
+                authority.push(':');
+                let pass = config.fake_with_rng::<String, _>(rng);
+                let password = url_escape::encode_userinfo(&pass);
+                authority.push_str(&password);
+            }
+            authority.push('@');
+        }
+
+        let host_type = (0..3).fake_with_rng(rng);
+        match host_type {
+            0 => {
+                authority.push_str("localhost");
+                // Include port number
+                if rng.gen_bool(0.5) {
+                    let port_num = config.fake_with_rng::<u16, _>(rng);
+                    authority.push(':');
+                    authority.push_str(&port_num.to_string());
+                }
+            }
+            1 => {
+                // ip
+                let ip: Ipv4Addr = config.fake_with_rng(rng);
+                authority.push_str(&ip.to_string());
+            }
+            _ => {
+                if rng.gen_bool(0.5) {
+                    authority.push_str("www.");
+                }
+                let host_len = (1..100).fake_with_rng(rng);
+                authority
+                    .extend((0..host_len).map(|_| *VALID_SCHEME_CHARACTERS.choose(rng).unwrap()));
+
+                // Include port number
+                if rng.gen_bool(0.5) {
+                    let port_num = config.fake_with_rng::<u16, _>(rng);
+                    authority.push(':');
+                    authority.push_str(&port_num.to_string());
+                }
+            }
+        }
+
+        let mut path = format!(
+            "/{}",
+            url_escape::encode_path(&config.fake_with_rng::<String, _>(rng)).to_string()
+        );
 
         if rng.gen_bool(0.5) {
             path.push('?');
             let mut query_parts = vec![];
             let query_len = (2..5).fake_with_rng(rng);
-            for _ in 1..query_len  {
-                let key =  url_escape::encode_component(&config.fake_with_rng::<String, _>(rng)).to_string();
-                let value = url_escape::encode_component(&config.fake_with_rng::<String, _>(rng)).to_string();
+            for _ in 1..query_len {
+                let key = url_escape::encode_component(&config.fake_with_rng::<String, _>(rng))
+                    .to_string();
+                let value = url_escape::encode_component(&config.fake_with_rng::<String, _>(rng))
+                    .to_string();
                 query_parts.push(format!("{}={}", key, value));
             }
             path.push_str(&query_parts.join("&"));
         }
-
-
 
         uri::Builder::new()
             .scheme(uri::Scheme::from_str(&scheme).unwrap())
@@ -111,8 +162,9 @@ mod tests {
 
     #[test]
     fn valid_urls_generated() {
-        for _ in 0..100 {
+        for _ in 0..1000 {
             let _url = Faker.fake::<http::Uri>();
+            println!("{}", _url);
         }
     }
 }
