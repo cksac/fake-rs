@@ -32,6 +32,7 @@ bigdecimal_rs = { version = "0.3", package = "bigdecimal", optional = true }
 zerocopy = { version = "0.6", optional = true }
 rand_core = { version = "0.6", optional = true }
 glam = {version = "0.24.1", optional = true }
+url-escape = { version = "0.1.1", optional = true }
 
 [dev-dependencies]
 chrono = { version = "0.4", features = ["clock"], default-features = false }
@@ -49,6 +50,7 @@ always-true-rng = ["rand_core"]
 maybe-non-empty-collections = ['always-true-rng']
 bigdecimal = ["bigdecimal_rs", "rust_decimal"]
 geo = ["geo-types", "num-traits"]
+http = ["dep:http", "url-escape"]
 
 [[example]]
 name = "basic"
