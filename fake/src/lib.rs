@@ -271,9 +271,14 @@ pub mod faker;
 /// Locales used for custom [`Dummy`] implementations within [`faker`] module.
 pub mod locales;
 
-/// Derive macro generating an impl of the trait [`Dummy`].
+/// Derive macro generating an impl of the trait [`Dummy`]. This works for both structs and enums.
+///
+/// For any fields in the type the `faker` key in `dummy` attribute could be used provided the field
+/// implements [`Fake`].
 ///
 /// # Examples
+///
+/// A simple example for deriving [`Dummy`] on a struct:
 ///
 /// ```
 /// use fake::{Dummy, Fake, Faker};
@@ -291,8 +296,26 @@ pub mod locales;
 /// let f: Foo = Faker.fake();
 /// ```
 ///
-/// `faker` key in `dummy` attribute could be used on any type that implements
-/// [`Fake`].
+/// A simple example for deriving [`Dummy`] on an enum. Unfortunately, the `faker` key cannot yet
+/// be used on tuple enum variants. However, it can be used on fields within struct enum variants.
+///
+/// ```
+/// use fake::{Dummy, Fake, Faker};
+/// use fake::faker::name::en::Name;
+///
+/// #[derive(Dummy)]
+/// pub struct Bar {
+///     Simple,
+///     Tuple(i32),
+///     Structure {
+///         #[dummy(faker = "1000..2000")]
+///         i: usize,
+///         j: String,
+///     }
+/// }
+///
+/// let f: Foo = Faker.fake();
+/// ```
 #[cfg(feature = "derive")]
 pub use dummy::Dummy;
 
