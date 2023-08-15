@@ -50,6 +50,12 @@
 //! let words: Vec<String> = Words(3..5).fake();
 //! println!("words {:?}", words);
 //!
+//! // Using a tuple config list to generate a vector with a length range and a specific faker for the element
+//! let name_vec: Vec<String> = (Name(EN), 3..5).fake();
+//!
+//! // Using a macro as an alternative method for the tuple config list
+//! let name_vec = fake::vec![String as Name(EN); 3..5];
+//!
 //! // using macro to generate nested collection
 //! let name_vec = fake::vec![String as Name(EN); 4, 3..5, 2];
 //! println!("random nested vec {:?}", name_vec);
@@ -65,7 +71,8 @@
 //!     println!("value from fixed seed {}", v);
 //! }
 //!
-//! // Use an always true RNG so that optional types are always `Some` values.
+//! // Use an always true RNG so that optional types are always `Some` values. (Requires
+//! // always-true-rng feature).
 //! use fake::utils::AlwaysTrueRng;
 //! let mut rng = AlwaysTrueRng::default();
 //! let result: Option<i64> = Faker.fake_with_rng(&mut rng);
