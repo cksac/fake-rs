@@ -296,17 +296,18 @@ pub mod locales;
 /// let f: Foo = Faker.fake();
 /// ```
 ///
-/// A simple example for deriving [`Dummy`] on an enum. Unfortunately, the `faker` key cannot yet
-/// be used on tuple enum variants. However, it can be used on fields within struct enum variants.
+/// A simple example for deriving [`Dummy`] on an enum. For enum tuple variants the faker attribute
+/// is applied directly to the types in the tuple, for struct variants it is applied on each struct
+/// field.
 ///
 /// ```
 /// use fake::{Dummy, Fake, Faker};
 /// use fake::faker::name::en::Name;
 ///
 /// #[derive(Dummy)]
-/// pub struct Bar {
+/// pub enum Bar {
 ///     Simple,
-///     Tuple(i32),
+///     Tuple(#[dummy(faker="0..5")] i32),
 ///     Structure {
 ///         #[dummy(faker = "1000..2000")]
 ///         i: usize,
@@ -314,7 +315,7 @@ pub mod locales;
 ///     }
 /// }
 ///
-/// let f: Foo = Faker.fake();
+/// let b: Bar = Faker.fake();
 /// ```
 #[cfg(feature = "derive")]
 pub use dummy::Dummy;
