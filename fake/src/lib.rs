@@ -78,7 +78,8 @@
 //! let result: Option<i64> = Faker.fake_with_rng(&mut rng);
 //! println!("Always Some: {}", result.unwrap());
 //! ```
-use rand::Rng;
+#[doc(hidden)]
+pub use rand::Rng;
 
 /// Generate default fake value for given type using [`Fake`].
 ///
@@ -286,7 +287,7 @@ pub mod locales;
 
 /// Derive macro generating an impl of the trait [`Dummy`]. This works for both structs and enums.
 ///
-/// # Attributes 
+/// # Attributes
 ///
 /// For any fields in the type there are a number of keys that can be used to control the code generation.
 /// All of these go within the dummy attribute.
