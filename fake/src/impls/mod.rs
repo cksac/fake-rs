@@ -12,6 +12,8 @@ pub mod color;
 pub mod decimal;
 #[cfg(feature = "geo-types")]
 pub mod geo;
+#[cfg(feature = "glam")]
+pub mod glam;
 #[cfg(feature = "http")]
 pub mod http;
 #[cfg(feature = "semver")]
@@ -25,5 +27,3 @@ pub mod time;
 pub mod uuid;
 #[cfg(feature = "zerocopy")]
 pub mod zerocopy_byteorder;
-#[cfg(feature = "glam")]
-pub mod glam;

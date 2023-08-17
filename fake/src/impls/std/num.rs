@@ -1,13 +1,14 @@
 use crate::{Dummy, Faker};
 use rand::distributions::{Distribution, Uniform};
 use rand::Rng;
-use std::num::{NonZeroI8, NonZeroI16, NonZeroI32, NonZeroI64, NonZeroI128, NonZeroIsize,
-NonZeroU8, NonZeroU16, NonZeroU32, NonZeroU64, NonZeroU128, NonZeroUsize};
+use std::num::{
+    NonZeroI128, NonZeroI16, NonZeroI32, NonZeroI64, NonZeroI8, NonZeroIsize, NonZeroU128,
+    NonZeroU16, NonZeroU32, NonZeroU64, NonZeroU8, NonZeroUsize,
+};
 
 macro_rules! signed_faker_impl {
     ($nz_typ: ty, $typ:ty) => {
-        
-        impl Dummy<Faker> for $nz_typ  {
+        impl Dummy<Faker> for $nz_typ {
             fn dummy_with_rng<R: Rng + ?Sized>(_: &Faker, rng: &mut R) -> Self {
                 if rng.gen_bool(0.5) {
                     let u = Uniform::new_inclusive(<$typ>::MIN, -1);
@@ -18,21 +19,19 @@ macro_rules! signed_faker_impl {
                 }
             }
         }
-    }
+    };
 }
 
 macro_rules! unsigned_faker_impl {
     ($nz_typ: ty, $typ:ty) => {
-        
-        impl Dummy<Faker> for $nz_typ  {
+        impl Dummy<Faker> for $nz_typ {
             fn dummy_with_rng<R: Rng + ?Sized>(_: &Faker, rng: &mut R) -> Self {
                 let u = Uniform::new_inclusive(1, <$typ>::MAX);
                 <$nz_typ>::new(u.sample(rng)).unwrap()
             }
         }
-    }
+    };
 }
-
 
 signed_faker_impl!(NonZeroI8, i8);
 signed_faker_impl!(NonZeroI16, i16);
