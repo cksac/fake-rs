@@ -8,30 +8,32 @@ A Rust library for generating fake data.
 
 ## Installation
 
-Default (`rand` is required):
+Default:
+
 ```toml
 [dependencies]
-fake = { version = "2.6", features=['derive']}
-rand = "0.8"
+fake = { version = "2.8", features = ["derive"] }
 ```
 
-features:
-- derive: if you want to use `#[derive(Dummy)]
-- crate implementations:
-    - chrono
-    - chrono-tz
-    - http
-    - uuid
-    - bigdecimal
-    - random_color
-    - geo
-    - semver
-    - serde_json
-    - time
-    - zerocopy    
-    - glam
-- always-true-rng: expose AlwaysTrueRng
-- maybe-non-empty-collections: allow to use AlwaysTrueRng to generate non-empty collections
+Available features:
+
+- `derive`: if you want to use `#[derive(Dummy)]`
+- supported crates feature flags:
+  - `chrono`
+  - `chrono-tz`
+  - `http`
+  - `uuid`
+  - `bigdecimal` (via `bigdecimal-rs`)
+  - `rust_decimal`
+  - `random_color`
+  - `geo`
+  - `semver`
+  - `serde_json`
+  - `time`
+  - `zerocopy`
+  - `glam`
+- `always-true-rng`: expose AlwaysTrueRng
+- `maybe-non-empty-collections`: allow to use AlwaysTrueRng to generate non-empty collections
 
 ## Usage
 
@@ -153,7 +155,6 @@ UserAgent();
 RfcStatusCode();
 ValidStatusCode();
 ```
-
 
 ## Color
 
@@ -305,9 +306,9 @@ NoBigDecimalPoints();
 
 This project is licensed under either of
 
- * Apache License, Version 2.0, ([LICENSE-APACHE](LICENSE-APACHE) or
-   http://www.apache.org/licenses/LICENSE-2.0)
- * MIT license ([LICENSE-MIT](LICENSE-MIT) or
-   http://opensource.org/licenses/MIT)
+- Apache License, Version 2.0, ([LICENSE-APACHE](LICENSE-APACHE) or
+  http://www.apache.org/licenses/LICENSE-2.0)
+- MIT license ([LICENSE-MIT](LICENSE-MIT) or
+  http://opensource.org/licenses/MIT)
 
 at your option.

@@ -4,7 +4,7 @@ use crate::{Dummy, Fake, Faker};
 use rand::seq::SliceRandom;
 use rand::Rng;
 
-const UNSTABLE_SEMVER: &'static [&'static str] = &["alpha", "beta", "rc"];
+const UNSTABLE_SEMVER: &[&str] = &["alpha", "beta", "rc"];
 
 impl Dummy<Faker> for semver::Version {
     fn dummy_with_rng<R: Rng + ?Sized>(_: &Faker, rng: &mut R) -> Self {
@@ -23,7 +23,7 @@ impl Dummy<Faker> for semver::Version {
             major: (0..9).fake_with_rng::<u64, _>(rng),
             minor: (0..20).fake_with_rng::<u64, _>(rng),
             patch: (0..20).fake_with_rng::<u64, _>(rng),
-            pre: pre,
+            pre,
             build: semver::BuildMetadata::EMPTY,
         }
     }
