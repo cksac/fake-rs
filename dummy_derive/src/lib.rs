@@ -62,7 +62,7 @@ pub fn derive_dummy(input: TokenStream) -> TokenStream {
             ast::Style::Unit => {
                 let impl_dummy = quote! {
                     impl ::fake::Dummy<::fake::Faker> for #receiver_name {
-                        fn dummy_with_rng<R: ::rand::Rng + ?Sized>(_: &::fake::Faker, rng: &mut R) -> Self {
+                        fn dummy_with_rng<R: ::fake::Rng + ?Sized>(_: &::fake::Faker, rng: &mut R) -> Self {
                             #receiver_name
                         }
                     }
@@ -74,7 +74,7 @@ pub fn derive_dummy(input: TokenStream) -> TokenStream {
 
                 let impl_dummy = quote! {
                     impl ::fake::Dummy<::fake::Faker> for #receiver_name {
-                        fn dummy_with_rng<R: ::rand::Rng + ?Sized>(_: &::fake::Faker, rng: &mut R) -> Self {
+                        fn dummy_with_rng<R: ::fake::Rng + ?Sized>(_: &::fake::Faker, rng: &mut R) -> Self {
                             #receiver_name(#(#tuple_fields),*)
                         }
                     }
@@ -99,7 +99,7 @@ pub fn derive_dummy(input: TokenStream) -> TokenStream {
 
                 let impl_dummy = quote! {
                     impl ::fake::Dummy<::fake::Faker> for #receiver_name {
-                        fn dummy_with_rng<R: ::rand::Rng + ?Sized>(_: &::fake::Faker, rng: &mut R) -> Self {
+                        fn dummy_with_rng<R: ::fake::Rng + ?Sized>(_: &::fake::Faker, rng: &mut R) -> Self {
                             #(#let_statements)*
                             #receiver_name {
                                 #(#struct_fields),*
@@ -171,7 +171,7 @@ pub fn derive_dummy(input: TokenStream) -> TokenStream {
 
                 let impl_dummy = quote! {
                     impl ::fake::Dummy<::fake::Faker> for #receiver_name {
-                        fn dummy_with_rng<R: ::rand::Rng + ?Sized>(_: &::fake::Faker, rng: &mut R) -> Self {
+                        fn dummy_with_rng<R: ::fake::Rng + ?Sized>(_: &::fake::Faker, rng: &mut R) -> Self {
                             match rng.gen_range(0..#variant_count) {
                                 #(#match_statements)*
                                 _ => {
@@ -186,7 +186,7 @@ pub fn derive_dummy(input: TokenStream) -> TokenStream {
             } else {
                 let impl_dummy = quote! {
                     impl ::fake::Dummy<::fake::Faker> for #receiver_name {
-                        fn dummy_with_rng<R: ::rand::Rng + ?Sized>(_: &::fake::Faker, rng: &mut R) -> Self {
+                        fn dummy_with_rng<R: ::fake::Rng + ?Sized>(_: &::fake::Faker, rng: &mut R) -> Self {
                             panic!("can not create an empty enum")
                         }
                     }
