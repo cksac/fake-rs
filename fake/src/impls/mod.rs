@@ -1,6 +1,6 @@
 //! This module contains implementations of `Dummy` trait
 
-#[cfg(feature = "bigdecimal")]
+#[cfg(feature = "bigdecimal-rs")]
 pub mod bigdecimal;
 #[cfg(feature = "chrono")]
 pub mod chrono;

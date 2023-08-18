@@ -69,7 +69,7 @@ impl Dummy<Faker> for http::Uri {
 
                 let len = rng.gen_range(1..29);
                 let mut scheme = String::with_capacity(len);
-                scheme.push(rng.gen_range(b'a'..b'z') as char);
+                scheme.push(rng.gen_range(b'a'..=b'z') as char);
                 if rng.gen_bool(0.5) {
                     scheme.make_ascii_uppercase();
                 }
@@ -130,7 +130,7 @@ impl Dummy<Faker> for http::Uri {
 
         let mut path = format!(
             "/{}",
-            url_escape::encode_path(&config.fake_with_rng::<String, _>(rng)).to_string()
+            url_escape::encode_path(&config.fake_with_rng::<String, _>(rng))
         );
 
         if rng.gen_bool(0.5) {
