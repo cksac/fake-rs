@@ -50,8 +50,8 @@ impl Dummy<PositiveDecimal> for rust_decimal::Decimal {
 
 impl Dummy<NoDecimalPoints> for rust_decimal::Decimal {
     fn dummy_with_rng<R: Rng + ?Sized>(_: &NoDecimalPoints, rng: &mut R) -> Self {
-        Faker
-            .fake_with_rng::<rust_decimal::Decimal, R>(rng)
-            .round_dp(0)
+        let mut decimal: rust_decimal::Decimal = Faker.fake_with_rng(rng);
+        decimal.set_scale(0).expect("failed to set scale");
+        decimal
     }
 }

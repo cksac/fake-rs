@@ -9,6 +9,7 @@ readme = "README.md"
 repository = "https://github.com/cksac/fake-rs"
 homepage = "https://github.com/cksac/fake-rs"
 edition = "2021"
+rust-version = "1.56"
 
 [package.metadata.docs.rs]
 all-features = true
