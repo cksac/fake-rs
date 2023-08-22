@@ -54,3 +54,61 @@ impl Dummy<Faker> for PrimitiveDateTime {
         PrimitiveDateTime::new(date, time)
     }
 }
+
+pub struct Precision<const N: usize>;
+
+trait AllowedPrecision {
+    const SCALE: i128;
+
+    fn to_scale(nanos: i128) -> i128 {
+        if nanos != 0 {
+            nanos / Self::SCALE * Self::SCALE
+        } else {
+            nanos
+        }
+    }
+}
+macro_rules! allow_precision {
+    ($($precision:expr),*) => {
+        $(impl AllowedPrecision for Precision<$precision> {
+            const SCALE: i128 = 10i128.pow(9 - $precision);
+        })*
+    };
+}
+allow_precision!(0, 1, 2, 3, 4, 5, 6, 7, 8, 9);
+
+impl<const N: usize> Dummy<Precision<N>> for Time
+where
+    Precision<N>: AllowedPrecision,
+{
+    fn dummy_with_rng<R: Rng + ?Sized>(_: &Precision<N>, rng: &mut R) -> Self {
+        let hour = (0..24).fake_with_rng(rng);
+        let min = (0..60).fake_with_rng(rng);
+        let sec = (0..60).fake_with_rng(rng);
+        let nanos: i128 = (0..1_000_000_000).fake_with_rng(rng);
+        let nanos = Precision::<N>::to_scale(nanos) as u32;
+        Time::from_hms_nano(hour, min, sec, nanos).expect("failed to create time")
+    }
+}
+
+impl<const N: usize> Dummy<Precision<N>> for PrimitiveDateTime
+where
+    Precision<N>: AllowedPrecision,
+{
+    fn dummy_with_rng<R: Rng + ?Sized>(_: &Precision<N>, rng: &mut R) -> Self {
+        let date = Faker.fake_with_rng(rng);
+        let time = Precision::<N>.fake_with_rng(rng);
+        PrimitiveDateTime::new(date, time)
+    }
+}
+
+impl<const N: usize> Dummy<Precision<N>> for OffsetDateTime
+where
+    Precision<N>: AllowedPrecision,
+{
+    fn dummy_with_rng<R: Rng + ?Sized>(_: &Precision<N>, rng: &mut R) -> Self {
+        let nanos = (MIN_NANOS..MAX_NANOS).fake_with_rng(rng);
+        let nanos = Precision::<N>::to_scale(nanos);
+        OffsetDateTime::from_unix_timestamp_nanos(nanos).unwrap()
+    }
+}
