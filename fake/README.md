@@ -11,7 +11,7 @@ Default:
 
 ```toml
 [dependencies]
-fake = { version = "2.8", features = ["derive"] }
+fake = { version = "2.9", features = ["derive"] }
 ```
 
 Available features:

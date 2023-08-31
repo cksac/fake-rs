@@ -1,6 +1,6 @@
 [package]
 name = "fake"
-version = "2.8.0"
+version = "2.9.0"
 authors = ["cksac <cs.cksac@gmail.com>"]
 description = "An easy to use library for generating fake data like name, number, address, lorem, dates, etc."
 keywords = ["faker", "data", "generator", "random"]
@@ -9,6 +9,7 @@ readme = "README.md"
 repository = "https://github.com/cksac/fake-rs"
 homepage = "https://github.com/cksac/fake-rs"
 edition = "2021"
+rust-version = "1.56"
 
 [package.metadata.docs.rs]
 all-features = true
