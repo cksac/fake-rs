@@ -70,4 +70,16 @@ impl Data for FR_FR {
         "hotmail.fr",
         "orange.fr",
     ];
+
+    const PHONE_NUMBER_FORMATS: &'static [&'static str] = &[
+        "01 ## ## ## ##",
+        "02 ## ## ## ##",
+        "03 ## ## ## ##",
+        "04 ## ## ## ##",
+        "05 ## ## ## ##",
+        "08 ## ## ## ##",
+        "09 ## ## ## ##",
+    ];
+    const PHONE_CELL_NUMBER_FORMATS: &'static [&'static str] =
+        &["06 ## ## ## ##", "07 ## ## ## ##"];
 }

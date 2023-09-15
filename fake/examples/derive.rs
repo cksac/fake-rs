@@ -68,14 +68,16 @@ enum Message {
     Order(Order),
 }
 
+#[allow(dead_code)]
 #[derive(Debug, Dummy)]
-struct FixedStruct {
+struct ExprStruct {
     #[dummy(faker = "1..100")]
     pub product_id: usize,
-    #[dummy(fixed = "\"Base\".into()")]
+    #[dummy(expr = "\"Base\".into()")]
     pub fixed_value: String,
 }
 
+#[allow(dead_code)]
 #[derive(Debug, Dummy)]
 struct DefaultStruct {
     #[dummy(faker = "1..100")]
@@ -118,7 +120,7 @@ fn main() {
     let v: uuid::Uuid = Faker.fake();
     println!("{:#?}", v);
 
-    let v: FixedStruct = Faker.fake();
+    let v: ExprStruct = Faker.fake();
     println!("{:#?}", v);
 
     let v: DefaultStruct = Faker.fake();

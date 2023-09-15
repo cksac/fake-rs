@@ -7,45 +7,32 @@ A Rust library for generating fake data.
 
 ## Installation
 
-Default (`rand` is required):
+Default:
+
 ```toml
 [dependencies]
-fake = "2.5"
-rand = "0.8"
-```
-If you want to use `#[derive(Dummy)]`:
-```toml
-fake = { version = "2.5", features=['derive']}
-```
-If you want the date and time features from `chrono`:
-```toml
-fake = { version = "2.5", features=['chrono']}
-```
-If you want the timezone features from `chrono-tz`:
-```toml
-fake = { version = "2.5", features=['chrono-tz']}
-```
-If you want `http` faker features:
-```toml
-fake = { version = "2.5", features=['http']}
-```
-If you want `uuid` faker features:
-```toml
-fake = { version = "2.5", features=['uuid']}
-```
-If you want `rust_decimal` faker features:
-```toml
-fake = { version = "2.5", features=['rust_decimal']}
-```
-If you want `bigdecimal` faker features:
-```toml
-fake = { version = "2.5", features=['bigdecimal']}
-```
-If you want `random_color` faker features:
-```toml
-fake = { version = "2.5", features=['random_color']}
+fake = { version = "2.9", features = ["derive"] }
 ```
 
+Available features:
+
+- `derive`: if you want to use `#[derive(Dummy)]`
+- supported crates feature flags:
+  - `chrono`
+  - `chrono-tz`
+  - `http`
+  - `uuid`
+  - `bigdecimal` (via `bigdecimal-rs`)
+  - `rust_decimal`
+  - `random_color`
+  - `geo`
+  - `semver`
+  - `serde_json`
+  - `time`
+  - `zerocopy`
+  - `glam`
+- `always-true-rng`: expose AlwaysTrueRng
+- `maybe-non-empty-collections`: allow to use AlwaysTrueRng to generate non-empty collections
 
 ## Usage
 
@@ -109,6 +96,7 @@ fn main() {
 ```
 
 # Fakers with locale
+
 ## Lorem
 
 ```rust
@@ -135,7 +123,7 @@ NameWithTitle();
 
 ```rust
 Digit();
-NumberWithFormat(fmt: &'static str);
+NumberWithFormat<'a>(fmt: &'a str);
 ```
 
 ## Boolean
@@ -161,11 +149,11 @@ UserAgent();
 ```
 
 ## HTTP
+
 ```rust
 RfcStatusCode();
 ValidStatusCode();
 ```
-
 
 ## Color
 
@@ -219,11 +207,13 @@ Geohash(precision: u8);
 ```
 
 ### Automotive
+
 ```rust
 LicencePlate();
 ```
 
 ### Barcode
+
 ```rust
 Isbn();
 Isbn13();
@@ -250,6 +240,7 @@ DateTimeBetween(start: DateTime<Utc>, end: DateTime<Utc>);
 ```
 
 ## Filesystem
+
 ```rust
 FilePath();
 FileName();
@@ -258,11 +249,13 @@ DirPath();
 ```
 
 ### Finance
+
 ```rust
 Bic();
 ```
 
 ### UUID
+
 ```rust
 UUIDv1();
 UUIDv3();
@@ -274,9 +267,9 @@ UUIDv5();
 
 This project is licensed under either of
 
- * Apache License, Version 2.0, ([LICENSE-APACHE](LICENSE-APACHE) or
-   http://www.apache.org/licenses/LICENSE-2.0)
- * MIT license ([LICENSE-MIT](LICENSE-MIT) or
-   http://opensource.org/licenses/MIT)
+- Apache License, Version 2.0, ([LICENSE-APACHE](LICENSE-APACHE) or
+  http://www.apache.org/licenses/LICENSE-2.0)
+- MIT license ([LICENSE-MIT](LICENSE-MIT) or
+  http://opensource.org/licenses/MIT)
 
 at your option.

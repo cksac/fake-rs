@@ -22,7 +22,7 @@ impl Dummy<HealthInsuranceCode<FR_FR>> for String {
         let sex: u8 = (1..3).fake_with_rng::<u8, _>(rng);
         let birth_year: u8 = (0..99).fake_with_rng::<u8, _>(rng);
         let birth_month: u8 = (1..13).fake_with_rng::<u8, _>(rng);
-        let department: &str = *FR_FR_DEPARTMENTS.choose(rng).unwrap();
+        let department: &str = FR_FR_DEPARTMENTS.choose(rng).unwrap();
         let town_code: u16 = (0..999).fake_with_rng::<u16, _>(rng);
         let order_code: u16 = (0..999).fake_with_rng::<u16, _>(rng);
         let department_code: u16 = match department {

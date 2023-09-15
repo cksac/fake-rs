@@ -1,6 +1,6 @@
 //! This module contains implementations of `Dummy` trait
 
-#[cfg(feature = "bigdecimal")]
+#[cfg(feature = "bigdecimal-rs")]
 pub mod bigdecimal;
 #[cfg(feature = "chrono")]
 pub mod chrono;
@@ -10,12 +10,20 @@ pub mod chrono_tz;
 pub mod color;
 #[cfg(feature = "rust_decimal")]
 pub mod decimal;
+#[cfg(feature = "geo-types")]
+pub mod geo;
+#[cfg(feature = "glam")]
+pub mod glam;
 #[cfg(feature = "http")]
 pub mod http;
+#[cfg(feature = "prost")]
+pub mod prost;
 #[cfg(feature = "sea-orm")]
 pub mod sea_orm;
 #[cfg(feature = "semver")]
 pub mod semver;
+#[cfg(feature = "serde_json")]
+pub mod serde_json;
 pub mod std;
 #[cfg(feature = "time")]
 pub mod time;
@@ -23,5 +31,3 @@ pub mod time;
 pub mod uuid;
 #[cfg(feature = "zerocopy")]
 pub mod zerocopy_byteorder;
-#[cfg(feature = "prost")]
-pub mod prost;

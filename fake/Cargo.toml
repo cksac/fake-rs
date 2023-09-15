@@ -1,6 +1,6 @@
 [package]
 name = "fake"
-version = "2.5.0"
+version = "2.9.0"
 authors = ["cksac <cs.cksac@gmail.com>"]
 description = "An easy to use library for generating fake data like name, number, address, lorem, dates, etc."
 keywords = ["faker", "data", "generator", "random"]
@@ -9,26 +9,36 @@ readme = "README.md"
 repository = "https://github.com/cksac/fake-rs"
 homepage = "https://github.com/cksac/fake-rs"
 edition = "2021"
+rust-version = "1.56"
 
 [package.metadata.docs.rs]
 all-features = true
 
 [dependencies]
-dummy = { version = "0.4", path = "../dummy_derive", optional = true }
+dummy = { version = "0.6", path = "../dummy_derive", optional = true }
 rand = "0.8"
-random_color = { version="0.6", optional = true }
-chrono = { version = "0.4", features = ["std"], optional = true, default-features = false }
-chrono-tz = { version = "0.6", optional = true }
+random_color = { version = "0.6", optional = true }
+unidecode = "0.3"
+chrono = { version = "0.4", features = [
+    "std",
+], default-features = false, optional = true }
+chrono-tz = { version = "0.8", optional = true }
+geo-types = { version = "0.7", default-features = false, optional = true }
 http = { version = "0.2", optional = true }
 semver = { version = "1", optional = true }
-uuid = { version = "1.2", features = ["v1", "v3", "v4", "v5"], optional = true }
+serde_json = { version = "1.0", optional = true }
+uuid = { version = "1.4", features = ["v1", "v3", "v4", "v5"], optional = true }
 time = { version = "0.3", features = ["formatting"], optional = true }
-rust_decimal = { version = "1.25", optional = true }
-bigdecimal_rs = { version = "0.3", package = "bigdecimal", optional = true }
-sea-orm = { version = "0.8", optional = true }
+num-traits = { version = "0.2", optional = true }
+rust_decimal = { version = "1.31", default-features = false, optional = true }
+bigdecimal-rs = { version = "0.4", package = "bigdecimal", default-features = false, optional = true }
 zerocopy = { version = "0.6", optional = true }
-prost-types = { version = "0.11", optional = true }
-prost= { version = "0.11", optional = true }
+rand_core = { version = "0.6", optional = true }
+glam = { version = "0.24", optional = true }
+url-escape = { version = "0.1", optional = true }
+prost-types = { version = "0.12", optional = true }
+prost = { version = "0.12", optional = true }
+sea-orm = { version = "0.12", optional = true }
 
 [dev-dependencies]
 chrono = { version = "0.4", features = ["clock"], default-features = false }
@@ -39,8 +49,16 @@ rand_chacha = "0.3"
 [features]
 # Provide derive(Dummy) macros.
 derive = ["dummy"]
-bigdecimal = ["bigdecimal_rs", "rust_decimal"]
+# Support "always true" RNGs; see https://github.com/cksac/fake-rs/issues/128
+# and always-true tests
+always-true-rng = ["rand_core"]
+# allow to use AlwaysTrueRng to generate non-empty collections
+maybe-non-empty-collections = ['always-true-rng']
+bigdecimal = ["bigdecimal-rs", "rust_decimal"]
+geo = ["geo-types", "num-traits"]
+http = ["dep:http", "url-escape"]
 prost = ["dep:prost-types", "dep:prost"]
+sea_orm = ["dep:sea-orm"]
 
 [[example]]
 name = "basic"
@@ -50,7 +68,14 @@ required-features = ["derive"]
 [[example]]
 name = "derive"
 path = "examples/derive.rs"
-required-features = ["derive", "http", "chrono", "uuid", "random_color", "rust_decimal", "sea-orm"]
+required-features = [
+    "derive",
+    "http",
+    "chrono",
+    "uuid",
+    "random_color",
+    "rust_decimal",
+]
 
 [[example]]
 name = "usage"

@@ -47,7 +47,7 @@ mod field_options {
                 Two(
                     #[dummy(faker = "1..100")] i32,
                     #[dummy(default)] i32,
-                    #[dummy(fixed = "1")] i32,
+                    #[dummy(expr = "1")] i32,
                 ),
             }
 
@@ -66,7 +66,7 @@ mod field_options {
                     x: i32,
                     #[dummy(default)]
                     y: i32,
-                    #[dummy(fixed = "1")]
+                    #[dummy(expr = "1")]
                     z: i32,
                 },
             }
@@ -150,9 +150,9 @@ mod field_options {
         }
 
         #[test]
-        fn with_override_fixed_i32() {
+        fn with_override_expr_i32() {
             #[derive(Dummy)]
-            struct Obj(#[dummy(fixed = "42")] i32);
+            struct Obj(#[dummy(expr = "42")] i32);
 
             let o: Obj = Faker.fake_with_rng(&mut rng());
 
@@ -232,10 +232,10 @@ mod field_options {
         }
 
         #[test]
-        fn with_override_fixed_i32() {
+        fn with_override_expr_i32() {
             #[derive(Dummy)]
             struct Obj {
-                #[dummy(fixed = "42")]
+                #[dummy(expr = "42")]
                 pub value: i32,
             }
 
@@ -245,10 +245,10 @@ mod field_options {
         }
 
         #[test]
-        fn with_override_fixed_string() {
+        fn with_override_expr_string() {
             #[derive(Dummy)]
             struct Obj {
-                #[dummy(fixed = "\"My string\".into()")]
+                #[dummy(expr = "\"My string\".into()")]
                 pub value: String,
             }
 
@@ -258,13 +258,13 @@ mod field_options {
         }
 
         #[test]
-        fn with_override_fixed_from_fn() {
+        fn with_override_expr_from_fn() {
             fn my_default() -> String {
                 "My String".into()
             }
             #[derive(Dummy)]
             struct Obj {
-                #[dummy(fixed = "my_default()")]
+                #[dummy(expr = "my_default()")]
                 pub value: String,
             }
 
@@ -274,10 +274,10 @@ mod field_options {
         }
 
         #[test]
-        fn with_override_fixed_str() {
+        fn with_override_expr_str() {
             #[derive(Dummy)]
             struct Obj {
-                #[dummy(fixed = "\"My string\"")]
+                #[dummy(expr = "\"My string\"")]
                 pub value: &'static str,
             }
 
@@ -288,7 +288,7 @@ mod field_options {
 
         #[test]
         #[allow(dead_code)]
-        fn with_override_fixed_enum() {
+        fn with_override_expr_enum() {
             #[derive(Eq, PartialEq, Debug)]
             enum MyEnum {
                 One,
@@ -296,7 +296,7 @@ mod field_options {
             }
             #[derive(Dummy)]
             struct Obj {
-                #[dummy(fixed = "MyEnum::One")]
+                #[dummy(expr = "MyEnum::One")]
                 pub value: MyEnum,
             }
 

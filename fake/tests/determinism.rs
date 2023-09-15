@@ -78,9 +78,9 @@ check_determinism! { one fake_license_plate_fr, String, LicencePlate(FR_FR) }
 // Barcode
 use fake::faker::barcode::raw::*;
 
-check_determinism! { l10d Isbn; String, fake_isbn_en, fake_isbn_fr, fake_isbn_cn, fake_isbn_tw, fake_isbn_jp }
-check_determinism! { l10d Isbn10; String, fake_isbn10_en, fake_isbn10_fr, fake_isbn10_cn, fake_isbn10_tw, fake_isbn10_jp }
-check_determinism! { l10d Isbn13; String, fake_isbn13_en, fake_isbn13_fr, fake_isbn13_cn, fake_isbn13_tw, fake_isbn13_jp }
+check_determinism! { one fake_isbn_en, String, Isbn(EN) }
+check_determinism! { one fake_isbn10_en, String, Isbn10(EN) }
+check_determinism! { one fake_isbn13_en, String, Isbn13(EN) }
 
 // Color
 #[cfg(feature = "random_color")]
@@ -88,12 +88,12 @@ mod color {
     use fake::{faker::color::raw::*, locales::*, Fake};
     use rand::SeedableRng as _;
 
-    check_determinism! { l10d HexColor; String, fake_hexcolor_en, fake_hexcolor_fr, fake_hexcolor_cn, fake_hexcolor_tw, fake_hexcolor_jp }
-    check_determinism! { l10d RgbColor; String, fake_rgbcolor_en, fake_rgbcolor_fr, fake_rgbcolor_cn, fake_rgbcolor_tw, fake_rgbcolor_jp }
-    check_determinism! { l10d RgbaColor; String, fake_rgbacolor_en, fake_rgbacolor_fr, fake_rgbacolor_cn, fake_rgbacolor_tw, fake_rgbacolor_jp }
-    check_determinism! { l10d HslColor; String, fake_hslcolor_en, fake_hslcolor_fr, fake_hslcolor_cn, fake_hslcolor_tw, fake_hslcolor_jp }
-    check_determinism! { l10d HslaColor; String, fake_hslacolor_en, fake_hslacolor_fr, fake_hslacolor_cn, fake_hslacolor_tw, fake_hslacolor_jp }
-    check_determinism! { l10d Color; String, fake_color_en, fake_color_fr, fake_color_cn, fake_color_tw, fake_color_jp }
+    check_determinism! { one fake_hexcolor_en, String, HexColor(EN) }
+    check_determinism! { one fake_rgbcolor_en, String, RgbColor(EN) }
+    check_determinism! { one fake_rgbacolor_en, String, RgbaColor(EN) }
+    check_determinism! { one fake_hslcolor_en, String, HslColor(EN) }
+    check_determinism! { one fake_hslacolor_en, String, HslaColor(EN) }
+    check_determinism! { one fake_color_en, String, Color(EN) }
 }
 
 // Chrono
@@ -104,7 +104,7 @@ mod chrono {
 
     fn lo() -> chrono::DateTime<chrono::Utc> {
         chrono::DateTime::from_utc(
-            chrono::NaiveDateTime::from_timestamp(53469346924, 124241),
+            chrono::NaiveDateTime::from_timestamp_opt(53469346924, 124241).expect("datetime"),
             chrono::Utc,
         )
     }
@@ -177,12 +177,12 @@ check_determinism! { l10d CurrencySymbol; String, fake_currency_symbol_en, fake_
 // Filesystem
 use fake::faker::filesystem::raw::*;
 
-check_determinism! { l10d DirPath; String, fake_dir_path_en, fake_dir_path_fr, fake_dir_path_cn, fake_dir_path_tw, fake_dir_path_jp }
-check_determinism! { l10d FileExtension; String, fake_file_extension_en, fake_file_extension_fr, fake_file_extension_cn, fake_file_extension_tw, fake_file_extension_jp }
-check_determinism! { l10d FileName; String, fake_file_name_en, fake_file_name_fr, fake_file_name_cn, fake_file_name_tw, fake_file_name_jp }
-check_determinism! { l10d FilePath; String, fake_file_path_en, fake_file_path_fr, fake_file_path_cn, fake_file_path_tw, fake_file_path_jp }
-check_determinism! { l10d MimeType; String, fake_mime_type_en, fake_mime_type_fr, fake_mime_type_cn, fake_mime_type_tw, fake_mime_type_jp }
-check_determinism! { l10d Semver; String, fake_semver_en, fake_semver_fr, fake_semver_cn, fake_semver_tw, fake_semver_jp }
+check_determinism! { one fake_dir_path_en, String, DirPath(EN) }
+check_determinism! { one fake_file_extension_en, String, FileExtension(EN) }
+check_determinism! { one fake_file_name_en, String, FileName(EN) }
+check_determinism! { one fake_file_path_en, String, FilePath(EN) }
+check_determinism! { one fake_mime_type_en, String, MimeType(EN) }
+check_determinism! { one fake_semver_en, String, Semver(EN) }
 
 // Finance
 use fake::faker::finance::raw::*;
@@ -195,8 +195,8 @@ mod http {
     use fake::{faker::http::raw::*, locales::*, Fake};
     use rand::SeedableRng as _;
 
-    check_determinism! { l10d RfcStatusCode; String, fake_rfc_status_code_en, fake_rfc_status_code_fr, fake_rfc_status_code_cn, fake_rfc_status_code_tw, fake_rfc_status_code_jp }
-    check_determinism! { l10d ValidStatusCode; String, fake_valid_status_code_en, fake_valid_status_code_fr, fake_valid_status_code_cn, fake_valid_status_code_tw, fake_valid_status_code_jp }
+    check_determinism! { one fake_rfc_status_code_en, String, RfcStatusCode(EN) }
+    check_determinism! { one fake_valid_status_code_en, String, ValidStatusCode(EN) }
 }
 
 // Internet
@@ -213,6 +213,7 @@ check_determinism! { l10d Password; String, fake_password_en, fake_password_fr, 
 check_determinism! { l10d SafeEmail; String, fake_safeemail_en, fake_safeemail_fr, fake_safeemail_cn, fake_safeemail_tw, fake_safeemail_jp }
 check_determinism! { l10d UserAgent; String, fake_useragent_en, fake_useragent_fr, fake_useragent_cn, fake_useragent_tw, fake_useragent_jp }
 check_determinism! { l10d Username; String, fake_username_en, fake_username_fr, fake_username_cn, fake_username_tw, fake_username_jp }
+
 // it's sufficient to check one language, because it doesn't change anything
 #[cfg(feature = "uuid")]
 mod uuid {
@@ -271,6 +272,48 @@ use fake::faker::phone_number::raw::*;
 check_determinism! { l10d CellNumber; String, fake_cell_number_en, fake_cell_number_fr, fake_cell_number_cn, fake_cell_number_tw, fake_cell_number_jp }
 check_determinism! { l10d PhoneNumber; String, fake_phone_number_en, fake_phone_number_fr, fake_phone_number_cn, fake_phone_number_tw, fake_phone_number_jp }
 
+#[cfg(feature = "geo-types")]
+mod geo {
+    use fake::{Fake, Faker};
+    use rand::SeedableRng as _;
+
+    check_determinism! { one fake_geo_coord_f64, geo_types::Coord<f64>, Faker }
+    check_determinism! { one fake_geo_coord_u64, geo_types::Coord<u64>, Faker }
+
+    check_determinism! { one fake_geo_line_f64, geo_types::Line<f64>, Faker }
+    check_determinism! { one fake_geo_line_u64, geo_types::Line<u64>, Faker }
+
+    check_determinism! { one fake_geo_linestring_f64, geo_types::LineString<f64>, Faker }
+    check_determinism! { one fake_geo_linestring_u64, geo_types::LineString<u64>, Faker }
+
+    check_determinism! { one fake_geo_multilinestring_f64, geo_types::MultiLineString<f64>, Faker }
+    check_determinism! { one fake_geo_multilinestring_u64, geo_types::MultiLineString<u64>, Faker }
+
+    check_determinism! { one fake_geo_point_f64, geo_types::Point<f64>, Faker }
+    check_determinism! { one fake_geo_point_u64, geo_types::Point<u64>, Faker }
+
+    check_determinism! { one fake_geo_multipoint_f64, geo_types::MultiPoint<f64>, Faker }
+    check_determinism! { one fake_geo_multipoint_u64, geo_types::MultiPoint<u64>, Faker }
+
+    check_determinism! { one fake_geo_multipolygon_f64, geo_types::MultiPolygon<f64>, Faker }
+    check_determinism! { one fake_geo_multipolygon_u64, geo_types::MultiPolygon<u64>, Faker }
+
+    check_determinism! { one fake_geo_polygon_f64, geo_types::Polygon<f64>, Faker }
+    check_determinism! { one fake_geo_polygon_u64, geo_types::Polygon<u64>, Faker }
+
+    check_determinism! { one fake_geo_rect_f64, geo_types::Rect<f64>, Faker }
+    check_determinism! { one fake_geo_rect_u64, geo_types::Rect<u64>, Faker }
+
+    check_determinism! { one fake_geo_triangle_f64, geo_types::Triangle<f64>, Faker }
+    check_determinism! { one fake_geo_triangle_u64, geo_types::Triangle<u64>, Faker }
+
+    check_determinism! { one fake_geo_geometry_f64, geo_types::Geometry<f64>, Faker }
+    check_determinism! { one fake_geo_geometry_u64, geo_types::Geometry<u64>, Faker }
+
+    check_determinism! { one fake_geo_geometry_collection_f64, geo_types::GeometryCollection<f64>, Faker }
+    check_determinism! { one fake_geo_geometry_collection_u64, geo_types::GeometryCollection<u64>, Faker }
+}
+
 // Decimal
 #[cfg(feature = "rust_decimal")]
 mod decimal {
@@ -297,4 +340,11 @@ mod bigdecimal {
     check_determinism! { NegativeBigDecimal; negative_decimal, bd::BigDecimal }
     check_determinism! { PositiveBigDecimal; positive_decimal, bd::BigDecimal }
     check_determinism! { NoBigDecimalPoints; no_decimal_points, bd::BigDecimal }
+}
+
+#[cfg(feature = "serde_json")]
+mod serde_json {
+    use fake::{Fake, Faker};
+    use rand::SeedableRng as _;
+    check_determinism! { one fake_serde_json, serde_json::Value, Faker }
 }

@@ -33,9 +33,11 @@ struct DummyField {
     #[darling(default)]
     faker: Option<String>,
     #[darling(default)]
-    fixed: Option<String>,
+    expr: Option<String>,
     #[darling(default)]
     default: bool,
+    #[darling(default)]
+    from: Option<String>,
 }
 
 #[derive(Debug, FromDeriveInput)]
@@ -46,7 +48,7 @@ struct Dummy {
 }
 
 #[proc_macro_derive(Dummy, attributes(dummy))]
-pub fn hello_world(input: TokenStream) -> TokenStream {
+pub fn derive_dummy(input: TokenStream) -> TokenStream {
     let parsed = syn::parse(input).expect("syn::parse ok");
     let receiver = Dummy::from_derive_input(&parsed).expect("Dummy::from_derive_input ok");
 
@@ -59,8 +61,8 @@ pub fn hello_world(input: TokenStream) -> TokenStream {
         }) => match style {
             ast::Style::Unit => {
                 let impl_dummy = quote! {
-                    impl fake::Dummy<fake::Faker> for #receiver_name {
-                        fn dummy_with_rng<R: rand::Rng + ?Sized>(_: &fake::Faker, rng: &mut R) -> Self {
+                    impl ::fake::Dummy<::fake::Faker> for #receiver_name {
+                        fn dummy_with_rng<R: ::fake::Rng + ?Sized>(_: &::fake::Faker, rng: &mut R) -> Self {
                             #receiver_name
                         }
                     }
@@ -71,8 +73,8 @@ pub fn hello_world(input: TokenStream) -> TokenStream {
                 let tuple_fields: Vec<_> = fields.iter().map(expose_field).collect();
 
                 let impl_dummy = quote! {
-                    impl fake::Dummy<fake::Faker> for #receiver_name {
-                        fn dummy_with_rng<R: rand::Rng + ?Sized>(_: &fake::Faker, rng: &mut R) -> Self {
+                    impl ::fake::Dummy<::fake::Faker> for #receiver_name {
+                        fn dummy_with_rng<R: ::fake::Rng + ?Sized>(_: &::fake::Faker, rng: &mut R) -> Self {
                             #receiver_name(#(#tuple_fields),*)
                         }
                     }
@@ -96,8 +98,8 @@ pub fn hello_world(input: TokenStream) -> TokenStream {
                     .collect();
 
                 let impl_dummy = quote! {
-                    impl fake::Dummy<fake::Faker> for #receiver_name {
-                        fn dummy_with_rng<R: rand::Rng + ?Sized>(_: &fake::Faker, rng: &mut R) -> Self {
+                    impl ::fake::Dummy<::fake::Faker> for #receiver_name {
+                        fn dummy_with_rng<R: ::fake::Rng + ?Sized>(_: &::fake::Faker, rng: &mut R) -> Self {
                             #(#let_statements)*
                             #receiver_name {
                                 #(#struct_fields),*
@@ -168,8 +170,8 @@ pub fn hello_world(input: TokenStream) -> TokenStream {
                     .collect();
 
                 let impl_dummy = quote! {
-                    impl fake::Dummy<fake::Faker> for #receiver_name {
-                        fn dummy_with_rng<R: rand::Rng + ?Sized>(_: &fake::Faker, rng: &mut R) -> Self {
+                    impl ::fake::Dummy<::fake::Faker> for #receiver_name {
+                        fn dummy_with_rng<R: ::fake::Rng + ?Sized>(_: &::fake::Faker, rng: &mut R) -> Self {
                             match rng.gen_range(0..#variant_count) {
                                 #(#match_statements)*
                                 _ => {
@@ -183,8 +185,8 @@ pub fn hello_world(input: TokenStream) -> TokenStream {
                 impl_dummy
             } else {
                 let impl_dummy = quote! {
-                    impl fake::Dummy<fake::Faker> for #receiver_name {
-                        fn dummy_with_rng<R: rand::Rng + ?Sized>(_: &fake::Faker, rng: &mut R) -> Self {
+                    impl ::fake::Dummy<::fake::Faker> for #receiver_name {
+                        fn dummy_with_rng<R: ::fake::Rng + ?Sized>(_: &::fake::Faker, rng: &mut R) -> Self {
                             panic!("can not create an empty enum")
                         }
                     }
@@ -202,26 +204,29 @@ fn expose_field(f: &DummyField) -> proc_macro2::TokenStream {
         quote! {
             Default::default()
         }
-    } else if let Some(ref expr) = f.fixed {
-        let fixed = syn::parse_str::<syn::Expr>(expr).unwrap();
+    } else if let Some(ref expr_str) = f.expr {
+        let expr = syn::parse_str::<syn::Expr>(expr_str).unwrap();
         quote! {
-            #fixed
+            #expr
         }
     } else {
         let field_ty = &f.ty;
-        let fake = syn::parse_str::<syn::Expr>("fake::Fake").unwrap();
-
         if let Some(ref expr) = f.faker {
             let faker = syn::parse_str::<syn::Expr>(expr).unwrap();
 
-            quote! {
-                #fake::fake_with_rng::<#field_ty, _>(&(#faker), rng)
+            if let Some(ref from) = f.from {
+                let from_ty = syn::parse_str::<syn::Type>(from).unwrap();
+                quote! {
+                    std::convert::Into::<#field_ty>::into(::fake::Fake::fake_with_rng::<#from_ty, _>(&(#faker), rng))
+                }
+            } else {
+                quote! {
+                    ::fake::Fake::fake_with_rng::<#field_ty, _>(&(#faker), rng)
+                }
             }
         } else {
-            let faker = syn::parse_str::<syn::Expr>("fake::Faker").unwrap();
-
             quote! {
-                <#faker as #fake>::fake_with_rng::<#field_ty, _>(&#faker, rng)
+                ::fake::Fake::fake_with_rng::<#field_ty, _>(&::fake::Faker, rng)
             }
         }
     }

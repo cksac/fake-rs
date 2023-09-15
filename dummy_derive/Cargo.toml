@@ -1,6 +1,6 @@
 [package]
 name = "dummy"
-version = "0.4.1"
+version = "0.6.0"
 authors = ["cksac <cs.cksac@gmail.com>"]
 description = "Macros implementation of #[derive(Dummy)]"
 keywords = ["faker", "data", "random"]
@@ -14,7 +14,7 @@ edition = "2018"
 proc-macro = true
 
 [dependencies]
-syn = "1.0"
-proc-macro2 = { version = "1.0.36", default-features = false }
+syn = "2.0"
+proc-macro2 = { version = "1", default-features = false }
 quote = "1.0"
-darling = "0.14"
+darling = "0.20"

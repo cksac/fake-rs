@@ -1,51 +1,53 @@
-use crate::decimal::*;
 use crate::{Dummy, Fake, Faker};
-use bigdecimal_rs as bd;
+use bigdecimal_rs::num_bigint::{BigInt, Sign};
 use rand::Rng;
-use rust_decimal;
-use std::str::FromStr;
 
 pub struct BigDecimal;
 pub struct NegativeBigDecimal;
 pub struct PositiveBigDecimal;
 pub struct NoBigDecimalPoints;
 
-impl Dummy<Faker> for bd::BigDecimal {
+fn create_big_decimal<R: Rng + ?Sized>(rng: &mut R, sign: Sign) -> bigdecimal_rs::BigDecimal {
+    let parts: [u32; 4] = Faker.fake_with_rng(rng);
+    let int = BigInt::from_slice(sign, &parts);
+    let scale = (0..64).fake_with_rng(rng);
+
+    bigdecimal_rs::BigDecimal::new(int, scale)
+}
+
+impl Dummy<Faker> for bigdecimal_rs::BigDecimal {
     fn dummy_with_rng<R: Rng + ?Sized>(_: &Faker, rng: &mut R) -> Self {
-        let decimal: rust_decimal::Decimal = Faker.fake_with_rng(rng);
+        let sign = if Faker.fake_with_rng(rng) {
+            Sign::Plus
+        } else {
+            Sign::Minus
+        };
 
-        bd::BigDecimal::from_str(&decimal.to_string()).unwrap()
+        create_big_decimal(rng, sign)
     }
 }
 
-impl Dummy<BigDecimal> for bd::BigDecimal {
+impl Dummy<BigDecimal> for bigdecimal_rs::BigDecimal {
     fn dummy_with_rng<R: Rng + ?Sized>(_: &BigDecimal, rng: &mut R) -> Self {
-        let decimal: rust_decimal::Decimal = Decimal.fake_with_rng(rng);
-
-        bd::BigDecimal::from_str(&decimal.to_string()).unwrap()
+        Faker.fake_with_rng(rng)
     }
 }
 
-impl Dummy<NegativeBigDecimal> for bd::BigDecimal {
+impl Dummy<NegativeBigDecimal> for bigdecimal_rs::BigDecimal {
     fn dummy_with_rng<R: Rng + ?Sized>(_: &NegativeBigDecimal, rng: &mut R) -> Self {
-        let decimal: rust_decimal::Decimal = NegativeDecimal.fake_with_rng(rng);
-
-        bd::BigDecimal::from_str(&decimal.to_string()).unwrap()
+        create_big_decimal(rng, Sign::Minus)
     }
 }
 
-impl Dummy<PositiveBigDecimal> for bd::BigDecimal {
+impl Dummy<PositiveBigDecimal> for bigdecimal_rs::BigDecimal {
     fn dummy_with_rng<R: Rng + ?Sized>(_: &PositiveBigDecimal, rng: &mut R) -> Self {
-        let decimal: rust_decimal::Decimal = PositiveDecimal.fake_with_rng(rng);
-
-        bd::BigDecimal::from_str(&decimal.to_string()).unwrap()
+        create_big_decimal(rng, Sign::Plus)
     }
 }
 
-impl Dummy<NoBigDecimalPoints> for bd::BigDecimal {
+impl Dummy<NoBigDecimalPoints> for bigdecimal_rs::BigDecimal {
     fn dummy_with_rng<R: Rng + ?Sized>(_: &NoBigDecimalPoints, rng: &mut R) -> Self {
-        let decimal: rust_decimal::Decimal = NoDecimalPoints.fake_with_rng(rng);
-
-        bd::BigDecimal::from_str(&decimal.to_string()).unwrap()
+        let decimal: bigdecimal_rs::BigDecimal = Faker.fake_with_rng(rng);
+        decimal.with_scale(0)
     }
 }

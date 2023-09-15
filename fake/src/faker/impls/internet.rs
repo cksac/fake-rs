@@ -1,12 +1,13 @@
 use crate::faker::internet::raw::*;
 use crate::faker::lorem::raw::Word;
 use crate::faker::name::raw::FirstName;
-use crate::locales::{Data, EN};
+use crate::locales::Data;
 use crate::{Dummy, Fake, Faker};
 use rand::distributions::{Distribution, Uniform};
 use rand::seq::SliceRandom;
 use rand::Rng;
 use std::net::{IpAddr, Ipv4Addr, Ipv6Addr};
+use unidecode::unidecode;
 
 impl<L: Data> Dummy<FreeEmailProvider<L>> for String {
     fn dummy_with_rng<R: Rng + ?Sized>(_: &FreeEmailProvider<L>, rng: &mut R) -> Self {
@@ -17,7 +18,7 @@ impl<L: Data> Dummy<FreeEmailProvider<L>> for String {
 
 impl<L: Data> Dummy<FreeEmailProvider<L>> for &str {
     fn dummy_with_rng<R: Rng + ?Sized>(_: &FreeEmailProvider<L>, rng: &mut R) -> Self {
-        *L::INTERNET_FREE_EMAIL_PROVIDER.choose(rng).unwrap()
+        L::INTERNET_FREE_EMAIL_PROVIDER.choose(rng).unwrap()
     }
 }
 
@@ -30,7 +31,7 @@ impl<L: Data> Dummy<DomainSuffix<L>> for String {
 
 impl<L: Data> Dummy<DomainSuffix<L>> for &str {
     fn dummy_with_rng<R: Rng + ?Sized>(_: &DomainSuffix<L>, rng: &mut R) -> Self {
-        *L::INTERNET_DOMAIN_SUFFIX.choose(rng).unwrap()
+        L::INTERNET_DOMAIN_SUFFIX.choose(rng).unwrap()
     }
 }
 
@@ -38,7 +39,7 @@ impl<L: Data + Copy> Dummy<FreeEmail<L>> for String {
     fn dummy_with_rng<R: Rng + ?Sized>(c: &FreeEmail<L>, rng: &mut R) -> Self {
         let username: String = Username(c.0).fake_with_rng(rng);
         let provider: String = FreeEmailProvider(c.0).fake_with_rng(rng);
-        format!("{}@{}", username, provider)
+        format!("{}@{}", unidecode(&username), provider)
     }
 }
 
@@ -164,6 +165,6 @@ impl<L: Data> Dummy<UserAgent<L>> for String {
 
 impl<L: Data> Dummy<UserAgent<L>> for &str {
     fn dummy_with_rng<R: Rng + ?Sized>(_: &UserAgent<L>, rng: &mut R) -> Self {
-        *L::INTERNET_USER_AGENT.choose(rng).unwrap()
+        L::INTERNET_USER_AGENT.choose(rng).unwrap()
     }
 }

@@ -1,3 +1,5 @@
+#![allow(deprecated)]
+
 use crate::{Dummy, Fake, Faker};
 use chrono::{Date, DateTime, Duration, NaiveDate, NaiveDateTime, NaiveTime, TimeZone, Utc};
 use rand::Rng;
@@ -20,9 +22,20 @@ impl Dummy<Faker> for Duration {
     }
 }
 
-impl Dummy<Faker> for DateTime<Utc> {
+impl Dummy<Faker> for Utc {
+    fn dummy_with_rng<R: Rng + ?Sized>(_: &Faker, _: &mut R) -> Self {
+        Utc
+    }
+}
+
+impl<Tz> Dummy<Faker> for DateTime<Tz>
+where
+    Tz: TimeZone + Dummy<Faker>,
+{
     fn dummy_with_rng<R: Rng + ?Sized>(_: &Faker, rng: &mut R) -> Self {
-        Utc.timestamp_nanos(Faker.fake_with_rng(rng))
+        let utc: DateTime<Utc> = Utc.timestamp_nanos(Faker.fake_with_rng(rng));
+        let tz: Tz = Faker.fake_with_rng(rng);
+        utc.with_timezone(&tz)
     }
 }
 
@@ -58,5 +71,54 @@ impl Dummy<Faker> for NaiveDateTime {
         let date = Faker.fake_with_rng(rng);
         let time = Faker.fake_with_rng(rng);
         NaiveDateTime::new(date, time)
+    }
+}
+
+pub struct Precision<const N: usize>;
+
+trait AllowedPrecision {
+    const SCALE: i64;
+
+    fn to_scale(nanos: i64) -> i64 {
+        if nanos != 0 {
+            nanos / Self::SCALE * Self::SCALE
+        } else {
+            nanos
+        }
+    }
+}
+macro_rules! allow_precision {
+    ($($precision:expr),*) => {
+        $(impl AllowedPrecision for Precision<$precision> {
+            const SCALE: i64 = 10i64.pow(9 - $precision);
+        })*
+    };
+}
+allow_precision!(0, 1, 2, 3, 4, 5, 6, 7, 8, 9);
+
+impl<const N: usize> Dummy<Precision<N>> for NaiveTime
+where
+    Precision<N>: AllowedPrecision,
+{
+    fn dummy_with_rng<R: Rng + ?Sized>(_: &Precision<N>, rng: &mut R) -> Self {
+        let hour = (0..24).fake_with_rng(rng);
+        let min = (0..60).fake_with_rng(rng);
+        let sec = (0..60).fake_with_rng(rng);
+        let nanos: i64 = (0..1_000_000_000).fake_with_rng(rng);
+        let nanos = Precision::<N>::to_scale(nanos) as u32;
+        NaiveTime::from_hms_nano_opt(hour, min, sec, nanos).expect("failed to create time")
+    }
+}
+
+impl<Tz, const N: usize> Dummy<Precision<N>> for DateTime<Tz>
+where
+    Tz: TimeZone + Dummy<Faker>,
+    Precision<N>: AllowedPrecision,
+{
+    fn dummy_with_rng<R: Rng + ?Sized>(_: &Precision<N>, rng: &mut R) -> Self {
+        let nanos: i64 = Faker.fake_with_rng(rng);
+        let utc: DateTime<Utc> = Utc.timestamp_nanos(Precision::<N>::to_scale(nanos));
+        let tz: Tz = Faker.fake_with_rng(rng);
+        utc.with_timezone(&tz)
     }
 }

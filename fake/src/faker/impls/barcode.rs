@@ -79,10 +79,10 @@ fn get_properties<L: Data, R: Rng + ?Sized>(_c: L, rng: &mut R) -> IsbnPropertie
     let reg_pub = numerify_sym(&"#".repeat(reg_pub_len), rng);
 
     let mut reg_len = 0;
-    let sufix_reg_pub = &reg_pub[..reg_pub_len as usize - 1];
+    let suffix_reg_pub = &reg_pub[..reg_pub_len - 1];
 
     for r in &rules[group] {
-        if r.min <= sufix_reg_pub && sufix_reg_pub <= r.max {
+        if r.min <= suffix_reg_pub && suffix_reg_pub <= r.max {
             reg_len = r.registrant_len;
             break;
         }
@@ -91,7 +91,7 @@ fn get_properties<L: Data, R: Rng + ?Sized>(_c: L, rng: &mut R) -> IsbnPropertie
         ean,
         group,
         registrant: reg_pub[..reg_len as usize].to_string(),
-        publication: reg_pub[reg_len as usize..reg_pub_len as usize].to_string(),
+        publication: reg_pub[reg_len as usize..reg_pub_len].to_string(),
     }
 }
 

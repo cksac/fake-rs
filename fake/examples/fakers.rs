@@ -267,6 +267,11 @@ fn number_faker() {
 
     let val: String = NumberWithFormat(EN, "FLAT 0# ^#/F").fake();
     println!("{:?}", val);
+
+    // non-'static string
+    let fmt = String::from("FLAT 0# ^#/F");
+    let val: String = NumberWithFormat(EN, &fmt).fake();
+    println!("{:?}", val);
 }
 
 fn phone_number_faker() {
@@ -360,8 +365,10 @@ fn chrono_faker() {
     println!("{}", between);
 }
 
+#[cfg(feature = "semver")]
 fn filesystem_faker() {
     use fake::faker::filesystem::raw::*;
+    use fake::Faker;
     use std::path::PathBuf;
 
     let val: String = FilePath(EN).fake();
@@ -380,6 +387,21 @@ fn filesystem_faker() {
     println!("{:?}", val);
 
     let val: PathBuf = DirPath(EN).fake();
+    println!("{:?}", val);
+
+    // return X.Y.Z or X-Y-Z-V.W (V equals "rc", "beta" or "alpha")
+    let val: String = Semver(EN).fake();
+    println!("{:?}", val);
+
+    // return X.Y.Z
+    let val: String = SemverStable(EN).fake();
+    println!("{:?}", val);
+
+    // return X-Y-Z-V.W
+    let val: String = SemverUnstable(EN).fake();
+    println!("{:?}", val);
+
+    let val: semver::Version = Faker.fake();
     println!("{:?}", val);
 }
 
@@ -512,13 +534,15 @@ fn main() {
     internet_faker();
     number_faker();
     phone_number_faker();
-    filesystem_faker();
     currency_faker();
     creditcard_faker();
     barcode_faker();
 
     #[cfg(feature = "random_color")]
     color_faker();
+
+    #[cfg(feature = "semver")]
+    filesystem_faker();
 
     #[cfg(feature = "http")]
     http_faker();

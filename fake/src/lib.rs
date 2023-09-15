@@ -50,6 +50,12 @@
 //! let words: Vec<String> = Words(3..5).fake();
 //! println!("words {:?}", words);
 //!
+//! // Using a tuple config list to generate a vector with a length range and a specific faker for the element
+//! let name_vec: Vec<String> = (Name(EN), 3..5).fake();
+//!
+//! // Using a macro as an alternative method for the tuple config list
+//! let name_vec = fake::vec![String as Name(EN); 3..5];
+//!
 //! // using macro to generate nested collection
 //! let name_vec = fake::vec![String as Name(EN); 4, 3..5, 2];
 //! println!("random nested vec {:?}", name_vec);
@@ -64,8 +70,16 @@
 //!     let v: usize = Faker.fake_with_rng(r);
 //!     println!("value from fixed seed {}", v);
 //! }
+//!
+//! // Use an always true RNG so that optional types are always `Some` values. (Requires
+//! // always-true-rng feature).
+//! use fake::utils::AlwaysTrueRng;
+//! let mut rng = AlwaysTrueRng::default();
+//! let result: Option<i64> = Faker.fake_with_rng(&mut rng);
+//! println!("Always Some: {}", result.unwrap());
 //! ```
-use rand::Rng;
+#[doc(hidden)]
+pub use rand::Rng;
 
 /// Generate default fake value for given type using [`Fake`].
 ///
@@ -198,11 +212,42 @@ pub trait Fake: Sized {
 }
 impl<T> Fake for T {}
 
+#[cfg(feature = "geo")]
+fn unique<U: Dummy<Faker> + PartialEq, R: Rng + ?Sized>(rng: &mut R, len: usize) -> Vec<U> {
+    let mut set = Vec::<U>::new();
+    unique_append(&mut set, rng, len);
+    set
+}
+
+#[cfg(feature = "geo")]
+fn unique_append<U: Dummy<Faker> + PartialEq, R: Rng + ?Sized>(
+    set: &mut Vec<U>,
+    rng: &mut R,
+    len: usize,
+) {
+    while set.len() != len {
+        let new_item: U = Faker.fake_with_rng(rng);
+        let mut found = false;
+        for item in &mut *set {
+            if *item == new_item {
+                found = true;
+                break;
+            }
+        }
+        if !found {
+            set.push(new_item);
+        }
+    }
+}
 #[macro_use]
 mod impls;
+pub use impls::std::option::{Opt, Optional};
 pub use impls::std::path::PathFaker;
 pub use impls::std::result::ResultFaker;
 pub use impls::std::string::StringFaker;
+
+#[cfg(feature = "geo")]
+pub use impls::geo;
 
 #[cfg(feature = "uuid")]
 pub use impls::uuid;
@@ -213,10 +258,13 @@ pub use impls::decimal;
 #[cfg(feature = "bigdecimal")]
 pub use impls::bigdecimal;
 
+#[cfg(feature = "serde_json")]
+pub use impls::serde_json;
+
 /// Fake value generation for specific formats.
 ///
 /// It is structured in a way such that the modules here describes the custom
-/// group for structs implemting [`Dummy`] to generate custom fake formats.
+/// group for structs implementing [`Dummy`] to generate custom fake formats.
 ///
 /// Within the module, there is multiple modules. With `raw` module providing
 /// a generic faker requiring a locale ([`faker::lorem::raw::Paragraph<L>`])
@@ -237,9 +285,20 @@ pub mod faker;
 /// Locales used for custom [`Dummy`] implementations within [`faker`] module.
 pub mod locales;
 
-/// Derive macro generating an impl of the trait [`Dummy`].
+/// Derive macro generating an impl of the trait [`Dummy`]. This works for both structs and enums.
+///
+/// # Attributes
+///
+/// For any fields in the type there are a number of keys that can be used to control the code generation.
+/// All of these go within the dummy attribute.
+///
+/// 1. `faker` key can be used to provide a specific faker for a field provided it implements [`Fake`].
+/// 2. `expr` key can be used to provide a rust expression as a fixed value.
+/// 3. `default` key sets the value to the types [`Default`] implementation.
 ///
 /// # Examples
+///
+/// A simple example for deriving [`Dummy`] on a struct:
 ///
 /// ```
 /// use fake::{Dummy, Fake, Faker};
@@ -252,12 +311,106 @@ pub mod locales;
 ///     #[dummy(faker = "Name()")]
 ///     customer: String,
 ///     paid: bool,
+///     #[dummy(expr = "\"Fixed\".into()")]
+///     fixed_value: String,
+///     #[dummy(default)]
+///     other: String,
 /// }
 ///
 /// let f: Foo = Faker.fake();
 /// ```
 ///
-/// `faker` key in `dummy` attribute could be used on any type that implements
-/// [`Fake`].
+/// This would generate code roughly equivalent to:
+///
+/// ```
+/// use fake::{Dummy, Fake, Faker};
+/// use fake::faker::name::en::Name;
+/// use rand::Rng;
+///
+/// pub struct Foo {
+///     order_id: usize,
+///     customer: String,
+///     paid: bool,
+///     fixed_value: String,
+///     other: String,
+/// }
+///
+/// impl Dummy<Faker> for Foo {
+///     fn dummy_with_rng<R: Rng + ?Sized>(_: &Faker, rng: &mut R) -> Self {
+///         let order_id = Fake::fake_with_rng::<usize, _>(&(1000..2000), rng);
+///         let customer = Fake::fake_with_rng::<String, _>(&(Name()), rng);
+///         let paid = Fake::fake_with_rng::<bool, _>(&Faker, rng);
+///         let fixed_value = "Fixed".into();
+///         let other = Default::default();
+///         Self {
+///             order_id,
+///             customer,
+///             paid,
+///             fixed_value,
+///             other,
+///         }
+///     }
+/// }
+///
+/// let f: Foo = Faker.fake();
+/// ```
+///
+/// A simple example for deriving [`Dummy`] on an enum. For enum tuple variants the faker attribute
+/// is applied directly to the types in the tuple, for struct variants it is applied on each struct
+/// field.
+///
+/// ```
+/// use fake::{Dummy, Fake, Faker};
+/// use fake::faker::name::en::Name;
+///
+/// #[derive(Dummy)]
+/// pub enum Bar {
+///     Simple,
+///     Tuple(#[dummy(faker="0..5")] i32),
+///     Structure {
+///         #[dummy(faker = "1000..2000")]
+///         i: usize,
+///         j: String,
+///     }
+/// }
+///
+/// let b: Bar = Faker.fake();
+/// ```
+///
+/// This will generate code roughly equivalent to:
+///
+/// ```
+/// use fake::{Dummy, Fake, Faker};
+/// use fake::faker::name::en::Name;
+/// use rand::Rng;
+///
+/// pub enum Bar {
+///     Simple,
+///     Tuple(i32),
+///     Structure {
+///         i: usize,
+///         j: String,
+///     }
+/// }
+///
+/// impl Dummy<Faker> for Bar {
+///     fn dummy_with_rng<R: Rng + ?Sized>(_: &Faker, rng: &mut R) -> Self {
+///         match rng.gen_range(0..3usize) {
+///             0 => Self::Simple,
+///             1 => Self::Tuple(Fake::fake_with_rng::<i32, _>(&(0..5), rng)),
+///             2 => {
+///                 let i = Fake::fake_with_rng::<usize, _>(&(1000..2000), rng);
+///                 let j = Fake::fake_with_rng::<String, _>(&Faker, rng);
+///                 Self::Structure { i, j }
+///             },
+///             _ => unreachable!(),
+///         }
+///     }
+/// }
+///
+/// let b: Bar = Faker.fake();
+/// ```
 #[cfg(feature = "derive")]
 pub use dummy::Dummy;
+
+pub mod utils;
