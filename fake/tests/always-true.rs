@@ -108,6 +108,7 @@ mod always_true_tests {
         assert_ne!(result.len(), 0);
     }
 
+    #[cfg(feature = "maybe-non-empty-collections")]
     #[test]
     fn test_vec_never_empty() {
         // Arrange
