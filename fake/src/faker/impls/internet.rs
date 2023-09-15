@@ -7,7 +7,7 @@ use rand::distributions::{Distribution, Uniform};
 use rand::seq::SliceRandom;
 use rand::Rng;
 use std::net::{IpAddr, Ipv4Addr, Ipv6Addr};
-use unidecode::unidecode;
+use deunicode::AsciiChars;
 
 impl<L: Data> Dummy<FreeEmailProvider<L>> for String {
     fn dummy_with_rng<R: Rng + ?Sized>(_: &FreeEmailProvider<L>, rng: &mut R) -> Self {
@@ -39,7 +39,7 @@ impl<L: Data + Copy> Dummy<FreeEmail<L>> for String {
     fn dummy_with_rng<R: Rng + ?Sized>(c: &FreeEmail<L>, rng: &mut R) -> Self {
         let username: String = Username(c.0).fake_with_rng(rng);
         let provider: String = FreeEmailProvider(c.0).fake_with_rng(rng);
-        format!("{}@{}", unidecode(&username), provider)
+        format!("{}@{}", username.ascii_chars(), provider)
     }
 }
 
