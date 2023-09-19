@@ -71,12 +71,14 @@
 //!     println!("value from fixed seed {}", v);
 //! }
 //!
+//! # #[cfg(feture = "always-true-rng")] {
 //! // Use an always true RNG so that optional types are always `Some` values. (Requires
 //! // always-true-rng feature).
 //! use fake::utils::AlwaysTrueRng;
 //! let mut rng = AlwaysTrueRng::default();
 //! let result: Option<i64> = Faker.fake_with_rng(&mut rng);
 //! println!("Always Some: {}", result.unwrap());
+//! # }
 //! ```
 #[doc(hidden)]
 pub use rand::Rng;
