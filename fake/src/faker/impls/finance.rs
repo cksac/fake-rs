@@ -11,7 +11,7 @@ const ALPHABET: &[char; 26] = &[
 
 const ALPHANUMERIC: &[char; 36] = &[
     'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S',
-    'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'
+    'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
 ];
 
 const ISO3166: &[&str] = &[
@@ -78,13 +78,18 @@ impl<L: Data> Dummy<Bic<L>> for String {
 }
 
 fn split_number_to_digits(x: u32) -> Vec<u32> {
-    x.to_string().chars().map(|x| x.to_digit(10).unwrap()).collect::<Vec<u32>>()
+    x.to_string()
+        .chars()
+        .map(|x| x.to_digit(10).unwrap())
+        .collect::<Vec<u32>>()
 }
 
 impl<L: Data> Dummy<Isin<L>> for String {
     fn dummy_with_rng<R: Rng + ?Sized>(_: &Isin<L>, rng: &mut R) -> Self {
         let country_code = *ISO3166.choose(rng).unwrap();
-        let nsin = (1..10).map(|_x| *ALPHANUMERIC.choose(rng).unwrap()).collect::<String>();
+        let nsin = (1..10)
+            .map(|_x| *ALPHANUMERIC.choose(rng).unwrap())
+            .collect::<String>();
         // Checksum calculation according to Luhn algorithm
         let char_to_num: Vec<u32> = country_code
             .chars()
@@ -98,18 +103,15 @@ impl<L: Data> Dummy<Isin<L>> for String {
             })
             .flat_map(split_number_to_digits)
             .collect();
-        let checksum_even = char_to_num.iter()
-            .rev()
-            .skip(1)
-            .step_by(2)
-            .sum::<u32>();
-        let checksum_odd = char_to_num.iter()
+        let checksum_even = char_to_num.iter().rev().skip(1).step_by(2).sum::<u32>();
+        let checksum_odd = char_to_num
+            .iter()
             .rev()
             .step_by(2)
             .map(|&x| x * 2)
             .flat_map(split_number_to_digits)
             .sum::<u32>();
         let checksum_digit = (10 - ((checksum_even + checksum_odd) % 10)) % 10;
-        return format!("{}{}{}", country_code, nsin, checksum_digit)
+        return format!("{}{}{}", country_code, nsin, checksum_digit);
     }
 }
