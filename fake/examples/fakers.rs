@@ -289,6 +289,16 @@ fn phone_number_faker() {
     println!("{:?}", val);
 }
 
+fn finance_faker() {
+    use fake::faker::finance::raw::*;
+
+    let val: String = Bic(EN).fake();
+    println!("{:?}", val);
+
+    let val: String = Isin(EN).fake();
+    println!("{:?}", val);
+}
+
 #[cfg(feature = "http")]
 fn http_faker() {
     use fake::faker::http::raw::*;
@@ -534,6 +544,7 @@ fn main() {
     internet_faker();
     number_faker();
     phone_number_faker();
+    finance_faker();
     currency_faker();
     creditcard_faker();
     barcode_faker();

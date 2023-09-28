@@ -188,6 +188,7 @@ check_determinism! { one fake_semver_en, String, Semver(EN) }
 use fake::faker::finance::raw::*;
 
 check_determinism! { l10d Bic; String, fake_bic_en, fake_bic_fr, fake_bic_cn, fake_bic_tw, fake_bic_jp }
+check_determinism! { l10d Isin; String, fake_isin_en, fake_isin_fr, fake_isin_cn, fake_isin_tw, fake_isin_jp}
 
 // HTTP
 #[cfg(feature = "http")]
