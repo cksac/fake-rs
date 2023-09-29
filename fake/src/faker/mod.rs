@@ -235,6 +235,7 @@ pub mod currency {
 pub mod finance {
     def_fakers! {
         Bic();
+        Isin();
     }
 }
 

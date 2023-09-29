@@ -273,6 +273,7 @@ DirPath();
 
 ```rust
 Bic();
+Isin();
 ```
 
 ### UUID

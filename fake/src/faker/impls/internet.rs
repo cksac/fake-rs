@@ -3,11 +3,11 @@ use crate::faker::lorem::raw::Word;
 use crate::faker::name::raw::FirstName;
 use crate::locales::Data;
 use crate::{Dummy, Fake, Faker};
+use deunicode::AsciiChars;
 use rand::distributions::{Distribution, Uniform};
 use rand::seq::SliceRandom;
 use rand::Rng;
 use std::net::{IpAddr, Ipv4Addr, Ipv6Addr};
-use deunicode::AsciiChars;
 
 impl<L: Data> Dummy<FreeEmailProvider<L>> for String {
     fn dummy_with_rng<R: Rng + ?Sized>(_: &FreeEmailProvider<L>, rng: &mut R) -> Self {
