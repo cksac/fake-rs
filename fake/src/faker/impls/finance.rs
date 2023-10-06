@@ -112,6 +112,6 @@ impl<L: Data> Dummy<Isin<L>> for String {
             .flat_map(split_number_to_digits)
             .sum::<u32>();
         let checksum_digit = (10 - ((checksum_even + checksum_odd) % 10)) % 10;
-        return format!("{}{}{}", country_code, nsin, checksum_digit);
+        format!("{}{}{}", country_code, nsin, checksum_digit)
     }
 }
