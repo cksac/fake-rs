@@ -330,6 +330,36 @@ fn http_faker() {
 
     let val: http::Version = Faker.fake();
     println!("{:?}", val);
+
+    let val: http::Method = Faker.fake();
+    println!("{:?}", val);
+
+    let val: http::HeaderName = Faker.fake();
+    println!("{:?}", val);
+
+    let val: http::HeaderValue = Faker.fake();
+    println!("{:?}", val);
+
+    let val: http::HeaderMap = Faker.fake();
+    println!("{:?}", val);
+
+    let val: http::uri::Scheme = Faker.fake();
+    println!("{:?}", val);
+
+    let val: http::uri::Authority = Faker.fake();
+    println!("{:?}", val);
+
+    let val: http::uri::PathAndQuery = Faker.fake();
+    println!("{:?}", val);
+
+    let val: http::Uri = Faker.fake();
+    println!("{:?}", val);
+
+    let val: http::Request<String> = Faker.fake();
+    println!("{:?}", val);
+
+    let val: http::Response<String> = Faker.fake();
+    println!("{:?}", val);
 }
 
 #[cfg(feature = "chrono")]
