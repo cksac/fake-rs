@@ -2,6 +2,7 @@ use crate::{Dummy, Fake, Faker};
 use http::uri;
 use rand::seq::SliceRandom;
 use rand::Rng;
+use std::mem;
 use std::net::Ipv4Addr;
 use std::str::FromStr;
 
@@ -18,6 +19,55 @@ const VALID_SCHEME_CHARACTERS: &[char] = &[
     'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '0', '1', '2', '3', '4',
     '5', '6', '7', '8', '9', '.', '-', '+',
 ];
+
+impl Dummy<Faker> for http::Method {
+    fn dummy_with_rng<R: Rng + ?Sized>(_: &Faker, rng: &mut R) -> Self {
+        let i: u8 = (0..9).fake_with_rng(rng);
+        match i {
+            0 => http::Method::GET,
+            1 => http::Method::POST,
+            2 => http::Method::PUT,
+            3 => http::Method::DELETE,
+            4 => http::Method::HEAD,
+            5 => http::Method::OPTIONS,
+            6 => http::Method::CONNECT,
+            7 => http::Method::PATCH,
+            _ => http::Method::TRACE,
+        }
+    }
+}
+
+impl Dummy<Faker> for http::HeaderValue {
+    fn dummy_with_rng<R: Rng + ?Sized>(config: &Faker, rng: &mut R) -> Self {
+        let val = config.fake_with_rng::<String, _>(rng);
+        http::HeaderValue::try_from(val).unwrap()
+    }
+}
+
+impl Dummy<Faker> for http::HeaderName {
+    fn dummy_with_rng<R: Rng + ?Sized>(config: &Faker, rng: &mut R) -> Self {
+        let val = config.fake_with_rng::<String, _>(rng);
+        http::HeaderName::try_from(val).unwrap()
+    }
+}
+
+impl<T: Dummy<Faker>> Dummy<Faker> for http::HeaderMap<T> {
+    fn dummy_with_rng<R: Rng + ?Sized>(config: &Faker, rng: &mut R) -> Self {
+        let len = rng.gen_range(1..10);
+        let mut map = http::HeaderMap::with_capacity(len);
+        for _ in 0..len {
+            let name: http::HeaderName = config.fake_with_rng(rng);
+            if rng.gen_bool(0.7) {
+                map.insert(name, config.fake_with_rng(rng));
+            } else {
+                for _ in 0..rng.gen_range(1..5) {
+                    map.append(&name, config.fake_with_rng(rng));
+                }
+            }
+        }
+        map
+    }
+}
 
 impl Dummy<Faker> for http::StatusCode {
     fn dummy_with_rng<R: Rng + ?Sized>(_: &Faker, rng: &mut R) -> Self {
@@ -52,33 +102,8 @@ impl Dummy<Faker> for http::Version {
     }
 }
 
-impl Dummy<Faker> for http::Uri {
+impl Dummy<Faker> for http::uri::Authority {
     fn dummy_with_rng<R: Rng + ?Sized>(config: &Faker, rng: &mut R) -> Self {
-        // Some common schemes or a random valid scheme
-        let scheme = match (0..7).fake_with_rng(rng) {
-            0 => "http".to_string(),
-            1 => "https".to_string(),
-            2 => "ws".to_string(),
-            3 => "wss".to_string(),
-            4 => "ftp".to_string(),
-            5 => "git".to_string(),
-            _ => {
-                // A valid scheme is any letter followed by any combination of letters, digits, '+',
-                // '.', '-'. Looking at a list of know schemes 28 seems to be the longest so I'll
-                // generate one a max of that long.
-
-                let len = rng.gen_range(1..29);
-                let mut scheme = String::with_capacity(len);
-                scheme.push(rng.gen_range(b'a'..=b'z') as char);
-                if rng.gen_bool(0.5) {
-                    scheme.make_ascii_uppercase();
-                }
-                scheme.extend((1..len).map(|_| *VALID_SCHEME_CHARACTERS.choose(rng).unwrap()));
-
-                scheme
-            }
-        };
-
         let mut authority = String::new();
 
         if rng.gen_bool(0.5) {
@@ -127,7 +152,42 @@ impl Dummy<Faker> for http::Uri {
                 }
             }
         }
+        uri::Authority::try_from(authority).unwrap()
+    }
+}
 
+impl Dummy<Faker> for http::uri::Scheme {
+    fn dummy_with_rng<R: Rng + ?Sized>(_: &Faker, rng: &mut R) -> Self {
+        // Some common schemes or a random valid scheme
+        let scheme = match (0..7).fake_with_rng(rng) {
+            0 => "http".to_string(),
+            1 => "https".to_string(),
+            2 => "ws".to_string(),
+            3 => "wss".to_string(),
+            4 => "ftp".to_string(),
+            5 => "git".to_string(),
+            _ => {
+                // A valid scheme is any letter followed by any combination of letters, digits, '+',
+                // '.', '-'. Looking at a list of know schemes 28 seems to be the longest so I'll
+                // generate one a max of that long.
+
+                let len = rng.gen_range(1..29);
+                let mut scheme = String::with_capacity(len);
+                scheme.push(rng.gen_range(b'a'..=b'z') as char);
+                if rng.gen_bool(0.5) {
+                    scheme.make_ascii_uppercase();
+                }
+                scheme.extend((1..len).map(|_| *VALID_SCHEME_CHARACTERS.choose(rng).unwrap()));
+
+                scheme
+            }
+        };
+        uri::Scheme::from_str(&scheme).unwrap()
+    }
+}
+
+impl Dummy<Faker> for http::uri::PathAndQuery {
+    fn dummy_with_rng<R: Rng + ?Sized>(config: &Faker, rng: &mut R) -> Self {
         let mut path = format!(
             "/{}",
             url_escape::encode_path(&config.fake_with_rng::<String, _>(rng))
@@ -146,13 +206,48 @@ impl Dummy<Faker> for http::Uri {
             }
             path.push_str(&query_parts.join("&"));
         }
+        uri::PathAndQuery::try_from(path).unwrap()
+    }
+}
+
+impl Dummy<Faker> for http::Uri {
+    fn dummy_with_rng<R: Rng + ?Sized>(config: &Faker, rng: &mut R) -> Self {
+        let scheme = config.fake_with_rng::<uri::Scheme, _>(rng);
+        let authority = config.fake_with_rng::<uri::Authority, _>(rng);
+        let path = config.fake_with_rng::<uri::PathAndQuery, _>(rng);
 
         uri::Builder::new()
-            .scheme(uri::Scheme::from_str(&scheme).unwrap())
+            .scheme(scheme)
             .authority(authority)
             .path_and_query(path)
             .build()
             .unwrap()
+    }
+}
+
+impl<T: Dummy<Faker>> Dummy<Faker> for http::Request<T> {
+    fn dummy_with_rng<R: Rng + ?Sized>(config: &Faker, rng: &mut R) -> Self {
+        let method: http::Method = config.fake_with_rng(rng);
+        let uri: http::Uri = config.fake_with_rng(rng);
+        let mut req = http::Request::builder()
+            .method(method)
+            .uri(uri)
+            .version(config.fake_with_rng(rng));
+        let mut headers: http::HeaderMap = config.fake_with_rng(rng);
+        mem::swap(req.headers_mut().unwrap(), &mut headers);
+        req.body(config.fake_with_rng(rng)).unwrap()
+    }
+}
+
+impl<T: Dummy<Faker>> Dummy<Faker> for http::Response<T> {
+    fn dummy_with_rng<R: Rng + ?Sized>(config: &Faker, rng: &mut R) -> Self {
+        let status: http::StatusCode = config.fake_with_rng(rng);
+        let mut res = http::Response::builder()
+            .status(status)
+            .version(config.fake_with_rng(rng));
+        let mut headers: http::HeaderMap = config.fake_with_rng(rng);
+        mem::swap(res.headers_mut().unwrap(), &mut headers);
+        res.body(config.fake_with_rng(rng)).unwrap()
     }
 }
 
