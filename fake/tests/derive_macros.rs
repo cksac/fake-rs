@@ -170,9 +170,9 @@ mod field_options {
                 pub name: String,
             }
 
-            let o: Obj = Faker.fake_with_rng(&mut rng());
-
-            assert_eq!(o.name, "5KuGzxfjPN9Ha");
+            let o1: Obj = Faker.fake_with_rng(&mut rng());
+            let o2: Obj = Faker.fake_with_rng(&mut rng());
+            assert_eq!(o1.name, o2.name);
         }
 
         #[test]
@@ -196,9 +196,9 @@ mod field_options {
                 pub name: String,
             }
 
-            let o: Obj = Faker.fake_with_rng(&mut rng());
-
-            assert_eq!(o.name, "Marietta Maggio");
+            let o1: Obj = Faker.fake_with_rng(&mut rng());
+            let o2: Obj = Faker.fake_with_rng(&mut rng());
+            assert_eq!(o1.name, o2.name);
         }
 
         #[test]

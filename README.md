@@ -12,7 +12,7 @@ Default:
 
 ```toml
 [dependencies]
-fake = { version = "2.10", features = ["derive"] }
+fake = { version = "2.9", features = ["derive"] }
 ```
 
 Available features:
@@ -50,10 +50,18 @@ pub struct Foo {
     paid: bool,
 }
 
+#[derive(Debug, Dummy)]
+struct Bar<T> {
+    field: Vec<T>,
+}
+
 fn main() {
     // type derived Dummy
     let f: Foo = Faker.fake();
     println!("{:?}", f);
+    
+    let b: Bar<Foo> = Faker.fake();
+    println!("{:?}", b);
 
     // using `Faker` to generate default fake value of given type
     let tuple = Faker.fake::<(u8, u32, f32)>();
