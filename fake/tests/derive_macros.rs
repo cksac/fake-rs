@@ -325,3 +325,47 @@ mod test_trait_scope {
         }
     }
 }
+
+mod test_generic {
+    use super::*;
+
+    #[test]
+    #[allow(dead_code)]
+    fn generic_struct() {
+        #[derive(Eq, PartialEq, Debug, Dummy)]
+        struct MyStruct<T, U> {
+            f1: T,
+            f2: U,
+        }
+
+        let o: MyStruct<u8, f32> = Faker.fake_with_rng(&mut rng());
+
+        assert_eq!(o.f1, 118);
+        assert_eq!(o.f2, 0.56344515);
+    }
+
+    #[test]
+    #[allow(dead_code)]
+    fn generic_enum() {
+        #[derive(Eq, PartialEq, Debug, Dummy)]
+        enum MyEnum<T, U> {
+            F1(T),
+            F2(U),
+        }
+
+        let o: MyEnum<u8, f32> = Faker.fake_with_rng(&mut rng());
+
+        assert_eq!(o, MyEnum::F2(0.8961542));
+    }
+
+    #[test]
+    #[allow(dead_code)]
+    fn generic_tuple() {
+        #[derive(Eq, PartialEq, Debug, Dummy)]
+        struct MyTuple<T, U>(T, U);
+
+        let o: MyTuple<u8, f32> = Faker.fake_with_rng(&mut rng());
+        assert_eq!(o.0, 118);
+        assert_eq!(o.1, 0.56344515);
+    }
+}

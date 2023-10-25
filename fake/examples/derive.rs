@@ -98,6 +98,11 @@ struct EmptyStruct {}
 #[derive(Debug, Dummy)]
 struct NewType(#[dummy(faker = "1..100")] usize, String);
 
+#[derive(Debug, Dummy)]
+struct MyStruct<T> {
+    field: Vec<T>,
+}
+
 fn main() {
     let order: Order = Faker.fake();
     println!("{:#?}", order);
@@ -124,5 +129,8 @@ fn main() {
     println!("{:#?}", v);
 
     let v: DefaultStruct = Faker.fake();
+    println!("{:#?}", v);
+
+    let v: MyStruct<u32> = Faker.fake();
     println!("{:#?}", v);
 }
