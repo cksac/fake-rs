@@ -99,6 +99,7 @@ struct EmptyStruct {}
 struct NewType(#[dummy(faker = "1..100")] usize, String);
 
 #[derive(Debug, Dummy)]
+#[allow(dead_code)]
 struct MyStruct<T> {
     field: Vec<T>,
 }
