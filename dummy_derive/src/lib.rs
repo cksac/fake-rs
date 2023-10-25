@@ -4,7 +4,7 @@ extern crate quote;
 #[macro_use]
 extern crate darling;
 
-use syn::{Ident, Type};
+use syn::{parse_quote, GenericParam, Generics, Ident, Type};
 
 use darling::{ast, FromDeriveInput};
 use proc_macro::TokenStream;
@@ -44,6 +44,7 @@ struct DummyField {
 #[darling(attributes(dummy), supports(struct_any, enum_any))]
 struct Dummy {
     ident: Ident,
+    generics: Generics,
     data: ast::Data<DummyVariant, DummyField>,
 }
 
@@ -52,6 +53,8 @@ pub fn derive_dummy(input: TokenStream) -> TokenStream {
     let parsed = syn::parse(input).expect("syn::parse ok");
     let receiver = Dummy::from_derive_input(&parsed).expect("Dummy::from_derive_input ok");
 
+    let generics = add_trait_bounds(receiver.generics);
+    let (impl_generics, ty_generics, where_clause) = generics.split_for_impl();
     let receiver_name = &receiver.ident;
     let expanded = match receiver.data {
         darling::ast::Data::Struct(darling::ast::Fields {
@@ -61,7 +64,7 @@ pub fn derive_dummy(input: TokenStream) -> TokenStream {
         }) => match style {
             ast::Style::Unit => {
                 let impl_dummy = quote! {
-                    impl ::fake::Dummy<::fake::Faker> for #receiver_name {
+                    impl #impl_generics ::fake::Dummy<::fake::Faker> for #receiver_name #ty_generics #where_clause {
                         fn dummy_with_rng<R: ::fake::Rng + ?Sized>(_: &::fake::Faker, rng: &mut R) -> Self {
                             #receiver_name
                         }
@@ -73,7 +76,7 @@ pub fn derive_dummy(input: TokenStream) -> TokenStream {
                 let tuple_fields: Vec<_> = fields.iter().map(expose_field).collect();
 
                 let impl_dummy = quote! {
-                    impl ::fake::Dummy<::fake::Faker> for #receiver_name {
+                    impl #impl_generics ::fake::Dummy<::fake::Faker> for #receiver_name #ty_generics #where_clause {
                         fn dummy_with_rng<R: ::fake::Rng + ?Sized>(_: &::fake::Faker, rng: &mut R) -> Self {
                             #receiver_name(#(#tuple_fields),*)
                         }
@@ -98,7 +101,7 @@ pub fn derive_dummy(input: TokenStream) -> TokenStream {
                     .collect();
 
                 let impl_dummy = quote! {
-                    impl ::fake::Dummy<::fake::Faker> for #receiver_name {
+                    impl #impl_generics ::fake::Dummy<::fake::Faker> for #receiver_name #ty_generics #where_clause  {
                         fn dummy_with_rng<R: ::fake::Rng + ?Sized>(_: &::fake::Faker, rng: &mut R) -> Self {
                             #(#let_statements)*
                             #receiver_name {
@@ -170,7 +173,7 @@ pub fn derive_dummy(input: TokenStream) -> TokenStream {
                     .collect();
 
                 let impl_dummy = quote! {
-                    impl ::fake::Dummy<::fake::Faker> for #receiver_name {
+                    impl #impl_generics ::fake::Dummy<::fake::Faker> for #receiver_name #ty_generics #where_clause {
                         fn dummy_with_rng<R: ::fake::Rng + ?Sized>(_: &::fake::Faker, rng: &mut R) -> Self {
                             match rng.gen_range(0..#variant_count) {
                                 #(#match_statements)*
@@ -185,7 +188,7 @@ pub fn derive_dummy(input: TokenStream) -> TokenStream {
                 impl_dummy
             } else {
                 let impl_dummy = quote! {
-                    impl ::fake::Dummy<::fake::Faker> for #receiver_name {
+                    impl #impl_generics ::fake::Dummy<::fake::Faker> for #receiver_name #ty_generics #where_clause {
                         fn dummy_with_rng<R: ::fake::Rng + ?Sized>(_: &::fake::Faker, rng: &mut R) -> Self {
                             panic!("can not create an empty enum")
                         }
@@ -230,4 +233,15 @@ fn expose_field(f: &DummyField) -> proc_macro2::TokenStream {
             }
         }
     }
+}
+
+fn add_trait_bounds(mut generics: Generics) -> Generics {
+    for param in &mut generics.params {
+        if let GenericParam::Type(ref mut type_param) = *param {
+            type_param
+                .bounds
+                .push(parse_quote!(::fake::Dummy<::fake::Faker>));
+        }
+    }
+    generics
 }
