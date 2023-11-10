@@ -1,7 +1,7 @@
 use crate::faker::chrono::raw::*;
 use crate::locales::Data;
 use crate::{Dummy, Fake, Faker};
-use chrono::Utc;
+use chrono::{TimeZone, Utc};
 use rand::Rng;
 
 const MINUTES_MAX_BOUND: i64 = 1_000_000;
@@ -43,7 +43,7 @@ impl<L: Data> Dummy<DateTime<L>> for chrono::NaiveDateTime {
     }
 }
 
-impl<L: Data> Dummy<DateTime<L>> for chrono::DateTime<Utc> {
+impl<L: Data, Tz: TimeZone + Dummy<Faker>> Dummy<DateTime<L>> for chrono::DateTime<Tz> {
     #[inline]
     fn dummy_with_rng<R: Rng + ?Sized>(_: &DateTime<L>, rng: &mut R) -> Self {
         Faker.fake_with_rng(rng)

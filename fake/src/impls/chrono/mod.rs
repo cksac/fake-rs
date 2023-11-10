@@ -1,7 +1,9 @@
 #![allow(deprecated)]
 
 use crate::{Dummy, Fake, Faker};
-use chrono::{Date, DateTime, Duration, NaiveDate, NaiveDateTime, NaiveTime, TimeZone, Utc};
+use chrono::{
+    Date, DateTime, Duration, FixedOffset, NaiveDate, NaiveDateTime, NaiveTime, TimeZone, Utc,
+};
 use rand::Rng;
 
 const YEAR_MAG: i32 = 3_000i32;
@@ -25,6 +27,18 @@ impl Dummy<Faker> for Duration {
 impl Dummy<Faker> for Utc {
     fn dummy_with_rng<R: Rng + ?Sized>(_: &Faker, _: &mut R) -> Self {
         Utc
+    }
+}
+
+impl Dummy<Faker> for FixedOffset {
+    fn dummy_with_rng<R: Rng + ?Sized>(_: &Faker, rng: &mut R) -> Self {
+        if rng.gen_bool(0.5) {
+            let halfs: i32 = (0..=28).fake_with_rng(rng);
+            FixedOffset::east_opt(halfs * 30 * 60).expect("failed to create FixedOffset")
+        } else {
+            let halfs: i32 = (0..=24).fake_with_rng(rng);
+            FixedOffset::west_opt(halfs * 30 * 60).expect("failed to create FixedOffset")
+        }
     }
 }
 
