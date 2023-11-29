@@ -116,7 +116,7 @@ mod chrono {
 
     check_determinism! { l10d Date; String, fake_date_en, fake_date_fr, fake_date_cn, fake_date_tw, fake_date_jp, fake_date_br }
     check_determinism! { l10d DateTime; String, fake_date_time_en, fake_date_time_fr, fake_date_time_cn, fake_date_time_tw, fake_date_time_jp, fake_date_time_br }
-    check_determinism! { l10d DateTimeAfter; String, fake_date_time_after_en, fake_date_time_after_fr, fake_date_time_after_cn, fake_date_time_after_tw, fake_date_time_after_jp,, fake_date_time_after_br, lo() }
+    check_determinism! { l10d DateTimeAfter; String, fake_date_time_after_en, fake_date_time_after_fr, fake_date_time_after_cn, fake_date_time_after_tw, fake_date_time_after_jp, fake_date_time_after_br, lo() }
     check_determinism! { l10d DateTimeBefore; String, fake_date_time_before_en, fake_date_time_before_fr, fake_date_time_before_cn, fake_date_time_before_tw, fake_date_time_before_jp, fake_date_time_before_br, hi() }
     check_determinism! { l10d DateTimeBetween; String, fake_date_time_between_en, fake_date_time_between_fr, fake_date_time_between_cn, fake_date_time_between_tw, fake_date_time_between_jp, fake_date_time_between_br, lo(), hi() }
     check_determinism! { l10d Duration; ::chrono::Duration, fake_duration_en, fake_duration_fr, fake_duration_cn, fake_duration_tw, fake_duration_jp, fake_duration_br }

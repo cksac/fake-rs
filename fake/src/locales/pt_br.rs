@@ -667,26 +667,16 @@ impl Data for PT_BR {
         "yahoo.com.br",
     ];
 
-    const PHONE_NUMBER_FORMATS: &'static [&'static str] = &[
-        "(^#) 2###-####",
-        "(^#) 3###-####",
-        "(^#) 4###-####",
-    ];
-    const PHONE_CELL_NUMBER_FORMATS: &'static [&'static str] = &[
-        "(^#) 9####-####",
-    ];
+    const PHONE_NUMBER_FORMATS: &'static [&'static str] =
+        &["(^#) 2###-####", "(^#) 3###-####", "(^#) 4###-####"];
+    const PHONE_CELL_NUMBER_FORMATS: &'static [&'static str] = &["(^#) 9####-####"];
 
     const TIME_DEFAULT_DATE_FORMAT: &'static str = "[day]/[month]/[year]";
-    const TIME_DEFAULT_DATETIME_FORMAT: &'static str = "[day]/[month]/[year]T[hour]:[minute]:[second][offset_hour sign:mandatory][offset_minute]";
+    const TIME_DEFAULT_DATETIME_FORMAT: &'static str =
+        "[day]/[month]/[year]T[hour]:[minute]:[second][offset_hour sign:mandatory][offset_minute]";
 
-    const INTERNET_DOMAIN_SUFFIX: &'static [&'static str] = &[
-        "app.br",
-        "art.br",
-        "com.br",
-        "dev.br",
-        "net.br",
-        "org.br",
-    ];
+    const INTERNET_DOMAIN_SUFFIX: &'static [&'static str] =
+        &["app.br", "art.br", "com.br", "dev.br", "net.br", "org.br"];
 
     const ADDRESS_STATE: &'static [&'static str] = &[
         "Acre",
@@ -718,50 +708,14 @@ impl Data for PT_BR {
         "Tocantins",
     ];
     const ADDRESS_STATE_ABBR: &'static [&'static str] = &[
-        "AC",
-        "AL",
-        "AP",
-        "AM",
-        "BA",
-        "CE",
-        "DF",
-        "ES",
-        "GO",
-        "MA",
-        "MT",
-        "MS",
-        "MG",
-        "PA",
-        "PB",
-        "PR",
-        "PE",
-        "PI",
-        "RJ",
-        "RN",
-        "RS",
-        "RO",
-        "RR",
-        "SC",
-        "SP",
-        "SE",
-        "TO",
+        "AC", "AL", "AP", "AM", "BA", "CE", "DF", "ES", "GO", "MA", "MT", "MS", "MG", "PA", "PB",
+        "PR", "PE", "PI", "RJ", "RN", "RS", "RO", "RR", "SC", "SP", "SE", "TO",
     ];
 
-    const ADDRESS_STREET_SUFFIX: &'static [&'static str] = &[
-        "Av.",
-        "Avenida",
-        "R.",
-        "Rua",
-        "Travessa",
-        "Largo",
-    ];
+    const ADDRESS_STREET_SUFFIX: &'static [&'static str] =
+        &["Av.", "Avenida", "R.", "Rua", "Travessa", "Largo"];
     const ADDRESS_STREET_TPL: &'static str = "{StreetSuffix} {StreetName}";
 
     const ADDRESS_POSTCODE_FORMATS: &'static [&'static str] = &["#####-###"];
-    const COMPANY_SUFFIX: &'static [&'static str] = &[
-        "e Filhos",
-        "e Associados",
-        "Ltda.",
-        "S.A.",
-    ];
+    const COMPANY_SUFFIX: &'static [&'static str] = &["e Filhos", "e Associados", "Ltda.", "S.A."];
 }
