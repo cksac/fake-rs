@@ -257,11 +257,17 @@ pub use impls::uuid;
 #[cfg(feature = "rust_decimal")]
 pub use impls::decimal;
 
-#[cfg(feature = "bigdecimal")]
+#[cfg(any(feature = "bigdecimal", feature = "bigdecimal-rs"))]
 pub use impls::bigdecimal;
 
 #[cfg(feature = "serde_json")]
 pub use impls::serde_json;
+
+#[cfg(feature = "time")]
+pub use impls::time;
+
+#[cfg(feature = "chrono")]
+pub use impls::chrono;
 
 /// Fake value generation for specific formats.
 ///

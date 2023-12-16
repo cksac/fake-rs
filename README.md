@@ -12,7 +12,7 @@ Default:
 
 ```toml
 [dependencies]
-fake = { version = "2.9", features = ["derive"] }
+fake = { version = "2.9.2", features = ["derive"] }
 ```
 
 Available features:
@@ -59,7 +59,7 @@ fn main() {
     // type derived Dummy
     let f: Foo = Faker.fake();
     println!("{:?}", f);
-    
+
     let b: Bar<Foo> = Faker.fake();
     println!("{:?}", b);
 
