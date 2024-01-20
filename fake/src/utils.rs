@@ -1,5 +1,5 @@
 #[cfg(feature = "always-true-rng")]
-mod alway_true_rng {
+mod always_true_rng {
     use rand::{rngs::mock::StepRng, Error, RngCore};
     use rand_core::impls;
 
@@ -58,4 +58,4 @@ mod alway_true_rng {
 }
 
 #[cfg(feature = "always-true-rng")]
-pub use alway_true_rng::AlwaysTrueRng;
+pub use always_true_rng::AlwaysTrueRng;
