@@ -5,6 +5,7 @@
 //! - `derive` provides `#[derive(Dummy)]`
 //! - `chrono` [chrono](https://docs.rs/chrono) integration
 //! - `http` [http](https://docs.rs/http) integration
+//! - `ulid` [ulid](https://docs.rs/ulid) integration
 //! - `uuid` [uuid](https://docs.rs/uuid) integration
 //!
 //! # Usage
@@ -250,6 +251,9 @@ pub use impls::std::string::StringFaker;
 
 #[cfg(feature = "geo")]
 pub use impls::geo;
+
+#[cfg(feature = "ulid")]
+pub use impls::ulid;
 
 #[cfg(feature = "uuid")]
 pub use impls::uuid;
