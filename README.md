@@ -22,6 +22,7 @@ Available features:
   - `chrono`
   - `chrono-tz`
   - `http`
+  - `ulid`
   - `uuid`
   - `bigdecimal` (via `bigdecimal-rs`)
   - `rust_decimal`

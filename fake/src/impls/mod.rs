@@ -23,6 +23,8 @@ pub mod serde_json;
 pub mod std;
 #[cfg(feature = "time")]
 pub mod time;
+#[cfg(feature = "ulid")]
+pub mod ulid;
 #[cfg(feature = "uuid")]
 pub mod uuid;
 #[cfg(feature = "zerocopy")]

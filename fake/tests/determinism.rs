@@ -217,6 +217,14 @@ check_determinism! { l10d UserAgent; String, fake_useragent_en, fake_useragent_f
 check_determinism! { l10d Username; String, fake_username_en, fake_username_fr, fake_username_cn, fake_username_tw, fake_username_jp, fake_username_br }
 
 // it's sufficient to check one language, because it doesn't change anything
+#[cfg(feature = "ulid")]
+mod ulid {
+    use fake::{Fake, Faker};
+    use rand::SeedableRng as _;
+    check_determinism! { one fake_ulid, ulid::Ulid, Faker }
+}
+
+// it's sufficient to check one language, because it doesn't change anything
 #[cfg(feature = "uuid")]
 mod uuid {
     use fake::uuid::*;
