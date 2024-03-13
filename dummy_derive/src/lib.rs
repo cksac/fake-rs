@@ -38,6 +38,8 @@ struct DummyField {
     default: bool,
     #[darling(default)]
     from: Option<String>,
+    #[darling(default)]
+    wrapper: Option<String>,
 }
 
 #[derive(Debug, FromDeriveInput)]
@@ -221,6 +223,11 @@ fn expose_field(f: &DummyField) -> proc_macro2::TokenStream {
                 let from_ty = syn::parse_str::<syn::Type>(from).unwrap();
                 quote! {
                     std::convert::Into::<#field_ty>::into(::fake::Fake::fake_with_rng::<#from_ty, _>(&(#faker), rng))
+                }
+            } else if let Some(ref wrapper) = f.wrapper {
+                let wrapper_ty = syn::parse_str::<syn::Type>(wrapper).unwrap();
+                quote! {
+                    ::fake::utils::IntoInner::into_inner(::fake::Fake::fake_with_rng::<#wrapper_ty<#field_ty>, _>(&(#faker), rng))
                 }
             } else {
                 quote! {

@@ -312,6 +312,19 @@ NegativeBigDecimal();
 NoBigDecimalPoints();
 ```
 
+## Utils
+### Either
+```rust
+use fake::faker::phone_number::en::{CellNumber, PhoneNumber};
+use fake::{utils::{either, WrappedVal}, Dummy, Fake, Faker};
+
+#[derive(Debug, Dummy)]
+struct Foo {
+    #[dummy(faker = "either(PhoneNumber(), CellNumber())", wrapper = "WrappedVal")]
+    phone_number: String,
+}
+```
+
 # LICENSE
 
 This project is licensed under either of

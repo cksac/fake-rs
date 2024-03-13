@@ -2,6 +2,7 @@ use fake::decimal::*;
 use fake::faker::boolean::en::*;
 use fake::faker::company::en::*;
 use fake::faker::name::en::*;
+use fake::utils::{either, WrappedVal};
 use fake::uuid::UUIDv4;
 use fake::Dummy;
 use fake::{Fake, Faker};
@@ -104,6 +105,13 @@ struct MyStruct<T> {
     field: Vec<T>,
 }
 
+#[allow(dead_code)]
+#[derive(Debug, Dummy)]
+struct FakerWrapperStruct {
+    #[dummy(faker = "either(Buzzword(), CompanyName())", wrapper = "WrappedVal")]
+    pub val: String,
+}
+
 fn main() {
     let order: Order = Faker.fake();
     println!("{:#?}", order);
@@ -133,5 +141,8 @@ fn main() {
     println!("{:#?}", v);
 
     let v: MyStruct<u32> = Faker.fake();
+    println!("{:#?}", v);
+
+    let v: FakerWrapperStruct = Faker.fake();
     println!("{:#?}", v);
 }

@@ -1,9 +1,12 @@
 use fake::faker::phone_number::en::{CellNumber, PhoneNumber};
-use fake::{utils::either, Dummy, Fake, Faker};
+use fake::{
+    utils::{either, WrappedVal},
+    Dummy, Fake, Faker,
+};
 
 #[derive(Debug, Dummy)]
 struct Foo {
-    #[dummy(faker = "either(PhoneNumber(), CellNumber())")]
+    #[dummy(faker = "either(PhoneNumber(), CellNumber())", wrapper = "WrappedVal")]
     phone_number: String,
 }
 

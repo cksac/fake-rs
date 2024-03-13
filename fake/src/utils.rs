@@ -1,26 +1,45 @@
 use crate::{Dummy, Fake, Faker};
 use rand::Rng;
 
-pub struct Either<A, B> {
+pub trait IntoInner {
+    type Target;
+    fn into_inner(self) -> Self::Target;
+}
+
+pub struct EitherFaker<A, B> {
     pub a: A,
     pub b: B,
 }
 
-impl<A, B> Dummy<Either<A, B>> for String
+pub struct WrappedVal<T>(pub T);
+impl<T> WrappedVal<T> {
+    pub fn new(val: T) -> Self {
+        Self(val)
+    }
+}
+
+impl<T> IntoInner for WrappedVal<T> {
+    type Target = T;
+    fn into_inner(self) -> Self::Target {
+        self.0
+    }
+}
+
+impl<A, B, T> Dummy<EitherFaker<A, B>> for WrappedVal<T>
 where
-    String: Dummy<A> + Dummy<B>,
+    T: Dummy<A> + Dummy<B>,
 {
-    fn dummy_with_rng<R: Rng + ?Sized>(config: &Either<A, B>, rng: &mut R) -> Self {
+    fn dummy_with_rng<R: Rng + ?Sized>(config: &EitherFaker<A, B>, rng: &mut R) -> Self {
         if Faker.fake_with_rng(rng) {
-            config.a.fake_with_rng(rng)
+            WrappedVal::new(config.a.fake_with_rng(rng))
         } else {
-            config.b.fake_with_rng(rng)
+            WrappedVal::new(config.b.fake_with_rng(rng))
         }
     }
 }
 
-pub fn either<A, B>(a: A, b: B) -> Either<A, B> {
-    Either { a, b }
+pub fn either<A, B>(a: A, b: B) -> EitherFaker<A, B> {
+    EitherFaker { a, b }
 }
 
 #[cfg(feature = "always-true-rng")]
