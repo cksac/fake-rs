@@ -1,6 +1,9 @@
+#![allow(dead_code)]
+
 use fake::decimal::*;
 use fake::faker::boolean::en::*;
 use fake::faker::company::en::*;
+use fake::faker::lorem::en::*;
 use fake::faker::name::en::*;
 use fake::utils::{either, WrappedVal};
 use fake::uuid::UUIDv4;
@@ -93,11 +96,20 @@ struct UnitStruct;
 #[derive(Debug, Dummy)]
 struct EmptyStruct {}
 
-// #[derive(Debug, Dummy)]
-// enum EmptyEnum {}
+#[derive(Debug, Dummy)]
+enum EmptyEnum {}
 
 #[derive(Debug, Dummy)]
-struct NewType(#[dummy(faker = "1..100")] usize, String);
+struct NewTypeTuple(#[dummy(faker = "1..100")] usize, String);
+
+#[derive(Debug, Dummy)]
+struct NewTypeWord(#[dummy(faker = "Word()")] String);
+
+#[derive(Debug, Dummy)]
+struct NewTypeWords(#[dummy(faker = "Words(4..10)")] Vec<String>);
+
+#[derive(Debug, Dummy)]
+struct NewTypeSentence(#[dummy(faker = "Sentence(4..10)")] String);
 
 #[derive(Debug, Dummy)]
 #[allow(dead_code)]
@@ -125,10 +137,20 @@ fn main() {
     let v: EmptyStruct = Faker.fake();
     println!("{:#?}", v);
 
+    // This causes "any code following this expression is unreachable"
     // let v: EmptyEnum = Faker.fake();
     // println!("{:#?}", v);
 
-    let v: NewType = Faker.fake();
+    let v: NewTypeTuple = Faker.fake();
+    println!("{:#?}", v);
+
+    let v: NewTypeWord = Faker.fake();
+    println!("{:#?}", v);
+
+    let v: NewTypeWords = Faker.fake();
+    println!("{:#?}", v);
+
+    let v: NewTypeSentence = Faker.fake();
     println!("{:#?}", v);
 
     let v: uuid::Uuid = Faker.fake();
