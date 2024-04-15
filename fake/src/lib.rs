@@ -273,6 +273,9 @@ pub use impls::time;
 #[cfg(feature = "chrono")]
 pub use impls::chrono;
 
+#[cfg(feature = "bson_oid")]
+pub use impls::bson_oid;
+
 /// Fake value generation for specific formats.
 ///
 /// It is structured in a way such that the modules here describes the custom

@@ -2,6 +2,8 @@
 
 #[cfg(feature = "bigdecimal-rs")]
 pub mod bigdecimal;
+#[cfg(feature = "bson_oid")]
+pub mod bson_oid;
 #[cfg(feature = "chrono")]
 pub mod chrono;
 #[cfg(feature = "chrono-tz")]
