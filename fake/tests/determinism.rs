@@ -358,3 +358,13 @@ mod serde_json {
     use rand::SeedableRng as _;
     check_determinism! { one fake_serde_json, serde_json::Value, Faker }
 }
+
+// BSON ObjectId
+#[cfg(feature = "bson_oid")]
+mod bson_oid {
+    use bson::oid::ObjectId;
+    use fake::{Fake, Faker};
+    use rand::SeedableRng as _;
+
+    check_determinism! { one fake_bson_oid, ObjectId, Faker }
+}
