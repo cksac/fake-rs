@@ -67,8 +67,8 @@ impl<L: Data> Dummy<BuzzwordTail<L>> for &str {
     }
 }
 
-impl<L: Data + Copy> Dummy<CatchPhase<L>> for String {
-    fn dummy_with_rng<R: Rng + ?Sized>(c: &CatchPhase<L>, rng: &mut R) -> Self {
+impl<L: Data + Copy> Dummy<CatchPhrase<L>> for String {
+    fn dummy_with_rng<R: Rng + ?Sized>(c: &CatchPhrase<L>, rng: &mut R) -> Self {
         L::COMPANY_CATCH_PHASE_TPL
             .replace("{Head}", Buzzword(c.0).fake_with_rng::<&str, _>(rng))
             .replace(

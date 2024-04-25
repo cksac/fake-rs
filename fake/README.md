@@ -182,7 +182,7 @@ CompanyName();
 Buzzword();
 BuzzwordMiddle();
 BuzzwordTail();
-CatchPhase();
+CatchPhrase();
 BsVerb();
 BsAdj();
 BsNoun();

@@ -196,7 +196,7 @@ fn company_faker() {
     let val: String = BuzzwordTail(EN).fake();
     println!("{:?}", val);
 
-    let val: String = CatchPhase(EN).fake();
+    let val: String = CatchPhrase(EN).fake();
     println!("{:?}", val);
 
     let val: String = BsVerb(EN).fake();

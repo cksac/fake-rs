@@ -135,7 +135,7 @@ pub mod company {
         Buzzword();
         BuzzwordMiddle();
         BuzzwordTail();
-        CatchPhase();
+        CatchPhrase();
         BsVerb();
         BsAdj();
         BsNoun();
