@@ -14,7 +14,7 @@ edition = "2018"
 proc-macro = true
 
 [dependencies]
-syn = "2.0"
+darling = { version = "0.20", default-features = false }
 proc-macro2 = { version = "1", default-features = false }
-quote = "1.0"
-darling = "0.20"
+quote = { version = "1.0", default-features = false }
+syn = { version = "2.0", default-features = false }
