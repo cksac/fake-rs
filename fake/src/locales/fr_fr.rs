@@ -10,7 +10,7 @@ impl Data for FR_FR {
     // https://www.insee.fr/fr/statistiques/3532172
     // https://www.oise.gouv.fr/contenu/telechargement/68118/413742/file/liste_alphabetique_des_prenoms_masculins_acceptes_pour_une_demande_de_francisation.pdf
     // https://www.herault.gouv.fr/content/download/39729/260550/file/Pr%C3%A9noms%20f%C3%A9minin%20pdf.pdf
-    // 
+    //
     const NAME_FIRST_NAME: &'static [&'static str] = &[
         "Aaron",
         "Abel",
