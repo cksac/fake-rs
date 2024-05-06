@@ -17,12 +17,12 @@ all-features = true
 [dependencies]
 dummy = { version = "0.7", path = "../dummy_derive", optional = true }
 rand = "0.8"
-random_color = { version = "0.6", optional = true }
+random_color = { version = "0.8", optional = true }
 deunicode = "1.4"
 chrono = { version = "0.4", features = [
     "std",
 ], default-features = false, optional = true }
-chrono-tz = { version = "0.8", optional = true }
+chrono-tz = { version = "0.9", optional = true }
 geo-types = { version = "0.7", default-features = false, optional = true }
 http = { version = "1", optional = true }
 semver = { version = "1", optional = true }

@@ -10,6 +10,7 @@ impl Dummy<Faker> for RandomColor {
             luminosity: Some(Luminosity::Random),
             seed: Some((u64::MIN..u64::MAX).fake_with_rng::<u64, _>(rng)),
             alpha: Some((0..10).fake_with_rng::<i8, _>(rng) as f32 / 10.),
+            ..Default::default()
         }
     }
 }
