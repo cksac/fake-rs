@@ -42,7 +42,7 @@ bson = { version = "2.10", optional = true }
 [dev-dependencies]
 chrono = { version = "0.4", features = ["clock"], default-features = false }
 fake = { path = ".", features = ["derive"] }
-proptest = "1.0.0"
+proptest = { version = "1.0.0", features = ["std"], default-features = false }
 rand_chacha = "0.3"
 
 [features]
