@@ -27,6 +27,8 @@ pub mod std;
 pub mod time;
 #[cfg(feature = "ulid")]
 pub mod ulid;
+#[cfg(feature = "url")]
+pub mod url;
 #[cfg(feature = "uuid")]
 pub mod uuid;
 #[cfg(feature = "zerocopy")]

@@ -31,6 +31,7 @@ Available features:
   - `time`
   - `zerocopy`
   - `glam`
+  - `url`
 - `always-true-rng`: expose AlwaysTrueRng
 - `maybe-non-empty-collections`: allow to use AlwaysTrueRng to generate non-empty collections
 
