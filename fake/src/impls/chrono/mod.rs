@@ -55,7 +55,7 @@ where
 
 impl Dummy<Faker> for Date<Utc> {
     fn dummy_with_rng<R: Rng + ?Sized>(_: &Faker, rng: &mut R) -> Self {
-        let year: i32 = (0..YEAR_MAG).fake_with_rng(rng);
+        let year: i32 = (1..YEAR_MAG).fake_with_rng(rng);
         let end = if is_leap(year) { 366 } else { 365 };
         let day_ord: u32 = (1..end).fake_with_rng(rng);
         Utc.yo(year, day_ord)
@@ -73,7 +73,7 @@ impl Dummy<Faker> for NaiveTime {
 
 impl Dummy<Faker> for NaiveDate {
     fn dummy_with_rng<R: Rng + ?Sized>(_: &Faker, rng: &mut R) -> Self {
-        let year: i32 = (0..YEAR_MAG).fake_with_rng(rng);
+        let year: i32 = (1..YEAR_MAG).fake_with_rng(rng);
         let end = if is_leap(year) { 366 } else { 365 };
         let day_ord: u32 = (1..end).fake_with_rng(rng);
         NaiveDate::from_yo(year, day_ord)
