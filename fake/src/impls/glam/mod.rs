@@ -1,5 +1,15 @@
 use crate::{Dummy, Fake, Faker};
-use glam::{Mat4, Vec2, Vec3, Vec4};
+use glam::{Mat3, Mat4, Vec2, Vec3, Vec4};
+
+impl Dummy<Faker> for Mat3 {
+    fn dummy_with_rng<R: rand::Rng + ?Sized>(_f: &Faker, rng: &mut R) -> Self {
+        let col_1: Vec3 = Faker.fake_with_rng(rng);
+        let col_2: Vec3 = Faker.fake_with_rng(rng);
+        let col_3: Vec3 = Faker.fake_with_rng(rng);
+        Mat3::from_cols(col_1, col_2, col_3)
+    }
+}
+
 
 impl Dummy<Faker> for Mat4 {
     fn dummy_with_rng<R: rand::Rng + ?Sized>(_f: &Faker, rng: &mut R) -> Self {
