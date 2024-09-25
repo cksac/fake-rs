@@ -1,6 +1,6 @@
 [package]
 name = "fake"
-version = "2.9.2"
+version = "2.10.0"
 authors = ["cksac <cs.cksac@gmail.com>"]
 description = "An easy to use library for generating fake data like name, number, address, lorem, dates, etc."
 keywords = ["faker", "data", "generator", "random"]
@@ -15,7 +15,7 @@ rust-version = "1.63"
 all-features = true
 
 [dependencies]
-dummy = { version = "0.7", path = "../dummy_derive", optional = true }
+dummy = { version = "0.8", path = "../dummy_derive", optional = true }
 rand = "0.8"
 random_color = { version = "0.8", optional = true }
 deunicode = "1.4"

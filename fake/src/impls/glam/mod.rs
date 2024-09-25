@@ -10,7 +10,6 @@ impl Dummy<Faker> for Mat3 {
     }
 }
 
-
 impl Dummy<Faker> for Mat4 {
     fn dummy_with_rng<R: rand::Rng + ?Sized>(_f: &Faker, rng: &mut R) -> Self {
         let col_1: Vec4 = Faker.fake_with_rng(rng);

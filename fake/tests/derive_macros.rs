@@ -75,6 +75,19 @@ mod field_options {
 
             assert_eq!(o, MyEnum::Two { x: 89, y: 0, z: 1 });
         }
+
+        #[test]
+        #[allow(dead_code)]
+        fn with_skip_variant() {
+            #[derive(Eq, PartialEq, Debug, Dummy)]
+            enum MyEnum {
+                One,
+                #[dummy(skip)]
+                Two,
+            }
+            let o: MyEnum = Faker.fake_with_rng(&mut rng());
+            assert_eq!(o, MyEnum::One);
+        }
     }
 
     mod unit_struct {
@@ -355,7 +368,7 @@ mod test_generic {
 
         let o: MyEnum<u8, f32> = Faker.fake_with_rng(&mut rng());
 
-        assert_eq!(o, MyEnum::F2(0.8961542));
+        assert_eq!(o, MyEnum::F2(0.56344515));
     }
 
     #[test]
