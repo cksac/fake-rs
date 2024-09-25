@@ -13,6 +13,8 @@ use proc_macro::TokenStream;
 #[darling(from_ident, attributes(dummy))]
 struct DummyVariant {
     ident: Ident,
+    #[darling(default)]
+    skip: bool,
     fields: darling::ast::Fields<DummyField>,
 }
 
@@ -20,6 +22,7 @@ impl From<Ident> for DummyVariant {
     fn from(ident: Ident) -> Self {
         DummyVariant {
             ident,
+            skip: false,
             fields: darling::ast::Style::Unit.into(),
         }
     }
@@ -118,11 +121,15 @@ pub fn derive_dummy(input: TokenStream) -> TokenStream {
         darling::ast::Data::Enum(variants) => {
             let variant_count = variants.len();
             if variant_count > 0 {
+                let mut variant_opts = Vec::new();
                 let match_statements: Vec<_> = variants
                     .iter()
                     .enumerate()
                     .map(|(i, f)| {
                         let variant_name = &f.ident;
+                        if !f.skip {
+                            variant_opts.push(i);
+                        }
                         match f.fields.style {
                             ast::Style::Unit => {
                                 quote! {
@@ -174,10 +181,15 @@ pub fn derive_dummy(input: TokenStream) -> TokenStream {
                     })
                     .collect();
 
+                if variant_opts.is_empty() {
+                    panic!("all variants are skipped");
+                }
+
                 let impl_dummy = quote! {
                     impl #impl_generics ::fake::Dummy<::fake::Faker> for #receiver_name #ty_generics #where_clause {
                         fn dummy_with_rng<R: ::fake::Rng + ?Sized>(_: &::fake::Faker, rng: &mut R) -> Self {
-                            match rng.gen_range(0..#variant_count) {
+                            let options = [#(#variant_opts),*];
+                            match rand::seq::SliceRandom::choose(options.as_ref(), rng).unwrap() {
                                 #(#match_statements)*
                                 _ => {
                                     unreachable!()

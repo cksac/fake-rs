@@ -56,6 +56,7 @@ pub struct Item {
 #[allow(dead_code)]
 #[derive(Debug, Dummy)]
 enum Message {
+    #[dummy(skip)]
     Quit,
     Move {
         #[dummy(faker = "1..100")]
