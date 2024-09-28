@@ -18,6 +18,8 @@ pub mod geo;
 pub mod glam;
 #[cfg(feature = "http")]
 pub mod http;
+#[cfg(feature = "indexmap")]
+pub mod indexmap;
 #[cfg(feature = "semver")]
 pub mod semver;
 #[cfg(feature = "serde_json")]
