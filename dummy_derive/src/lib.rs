@@ -189,7 +189,7 @@ pub fn derive_dummy(input: TokenStream) -> TokenStream {
                     impl #impl_generics ::fake::Dummy<::fake::Faker> for #receiver_name #ty_generics #where_clause {
                         fn dummy_with_rng<R: ::fake::Rng + ?Sized>(_: &::fake::Faker, rng: &mut R) -> Self {
                             let options = [#(#variant_opts),*];
-                            match rand::seq::SliceRandom::choose(options.as_ref(), rng).unwrap() {
+                            match ::fake::rand::seq::SliceRandom::choose(options.as_ref(), rng).unwrap() {
                                 #(#match_statements)*
                                 _ => {
                                     unreachable!()

@@ -83,6 +83,8 @@
 //! ```
 #[doc(hidden)]
 pub use rand::Rng;
+#[doc(hidden)]
+pub use rand;
 
 /// Generate default fake value for given type using [`Fake`].
 ///
