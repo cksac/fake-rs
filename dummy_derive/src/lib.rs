@@ -234,7 +234,7 @@ fn expose_field(f: &DummyField) -> proc_macro2::TokenStream {
             if let Some(ref from) = f.from {
                 let from_ty = syn::parse_str::<syn::Type>(from).unwrap();
                 quote! {
-                    std::convert::Into::<#field_ty>::into(::fake::Fake::fake_with_rng::<#from_ty, _>(&(#faker), rng))
+                    ::std::convert::Into::<#field_ty>::into(::fake::Fake::fake_with_rng::<#from_ty, _>(&(#faker), rng))
                 }
             } else if let Some(ref wrapper) = f.wrapper {
                 let wrapper_ty = syn::parse_str::<syn::Type>(wrapper).unwrap();
