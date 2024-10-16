@@ -33,14 +33,14 @@ macro_rules! range_impl {
 
         impl Dummy<ops::RangeFrom<Self>> for $typ {
             fn dummy_with_rng<R: Rng + ?Sized>(range: &ops::RangeFrom<Self>, rng: &mut R) -> Self {
-                let u = Uniform::new_inclusive(range.start, std::$typ::MAX);
+                let u = Uniform::new_inclusive(range.start, $typ::MAX);
                 u.sample(rng)
             }
         }
 
         impl Dummy<ops::RangeFull> for $typ {
             fn dummy_with_rng<R: Rng + ?Sized>(_: &ops::RangeFull, rng: &mut R) -> Self {
-                let u = Uniform::new_inclusive(std::$typ::MIN, std::$typ::MAX);
+                let u = Uniform::new_inclusive($typ::MIN, $typ::MAX);
                 u.sample(rng)
             }
         }
@@ -57,7 +57,7 @@ macro_rules! range_impl {
 
         impl Dummy<ops::RangeTo<Self>> for $typ {
             fn dummy_with_rng<R: Rng + ?Sized>(range: &ops::RangeTo<Self>, rng: &mut R) -> Self {
-                rng.gen_range(std::$typ::MIN..range.end)
+                rng.gen_range($typ::MIN..range.end)
             }
         }
 
@@ -66,7 +66,7 @@ macro_rules! range_impl {
                 range: &ops::RangeToInclusive<Self>,
                 rng: &mut R,
             ) -> Self {
-                let u = Uniform::new_inclusive(std::$typ::MIN, range.end);
+                let u = Uniform::new_inclusive($typ::MIN, range.end);
                 u.sample(rng)
             }
         }
