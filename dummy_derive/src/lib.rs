@@ -189,7 +189,7 @@ pub fn derive_dummy(input: TokenStream) -> TokenStream {
                     impl #impl_generics ::fake::Dummy<::fake::Faker> for #receiver_name #ty_generics #where_clause {
                         fn dummy_with_rng<R: ::fake::Rng + ?Sized>(_: &::fake::Faker, rng: &mut R) -> Self {
                             let options = [#(#variant_opts),*];
-                            match rand::seq::SliceRandom::choose(options.as_ref(), rng).unwrap() {
+                            match ::fake::rand::seq::SliceRandom::choose(options.as_ref(), rng).unwrap() {
                                 #(#match_statements)*
                                 _ => {
                                     unreachable!()
@@ -234,7 +234,7 @@ fn expose_field(f: &DummyField) -> proc_macro2::TokenStream {
             if let Some(ref from) = f.from {
                 let from_ty = syn::parse_str::<syn::Type>(from).unwrap();
                 quote! {
-                    std::convert::Into::<#field_ty>::into(::fake::Fake::fake_with_rng::<#from_ty, _>(&(#faker), rng))
+                    ::std::convert::Into::<#field_ty>::into(::fake::Fake::fake_with_rng::<#from_ty, _>(&(#faker), rng))
                 }
             } else if let Some(ref wrapper) = f.wrapper {
                 let wrapper_ty = syn::parse_str::<syn::Type>(wrapper).unwrap();
