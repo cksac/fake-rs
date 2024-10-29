@@ -69,8 +69,8 @@ pub fn derive_dummy(input: TokenStream) -> TokenStream {
         }) => match style {
             ast::Style::Unit => {
                 let impl_dummy = quote! {
-                    impl #impl_generics ::fake::Dummy<::fake::Faker> for #receiver_name #ty_generics #where_clause {
-                        fn dummy_with_rng<R: ::fake::Rng + ?Sized>(_: &::fake::Faker, rng: &mut R) -> Self {
+                    impl #impl_generics fake::Dummy<fake::Faker> for #receiver_name #ty_generics #where_clause {
+                        fn dummy_with_rng<R: fake::Rng + ?Sized>(_: &fake::Faker, rng: &mut R) -> Self {
                             #receiver_name
                         }
                     }
@@ -81,8 +81,8 @@ pub fn derive_dummy(input: TokenStream) -> TokenStream {
                 let tuple_fields: Vec<_> = fields.iter().map(expose_field).collect();
 
                 let impl_dummy = quote! {
-                    impl #impl_generics ::fake::Dummy<::fake::Faker> for #receiver_name #ty_generics #where_clause {
-                        fn dummy_with_rng<R: ::fake::Rng + ?Sized>(_: &::fake::Faker, rng: &mut R) -> Self {
+                    impl #impl_generics fake::Dummy<fake::Faker> for #receiver_name #ty_generics #where_clause {
+                        fn dummy_with_rng<R: fake::Rng + ?Sized>(_: &fake::Faker, rng: &mut R) -> Self {
                             #receiver_name(#(#tuple_fields),*)
                         }
                     }
@@ -106,8 +106,8 @@ pub fn derive_dummy(input: TokenStream) -> TokenStream {
                     .collect();
 
                 let impl_dummy = quote! {
-                    impl #impl_generics ::fake::Dummy<::fake::Faker> for #receiver_name #ty_generics #where_clause  {
-                        fn dummy_with_rng<R: ::fake::Rng + ?Sized>(_: &::fake::Faker, rng: &mut R) -> Self {
+                    impl #impl_generics fake::Dummy<fake::Faker> for #receiver_name #ty_generics #where_clause  {
+                        fn dummy_with_rng<R: fake::Rng + ?Sized>(_: &fake::Faker, rng: &mut R) -> Self {
                             #(#let_statements)*
                             #receiver_name {
                                 #(#struct_fields),*
@@ -186,10 +186,10 @@ pub fn derive_dummy(input: TokenStream) -> TokenStream {
                 }
 
                 let impl_dummy = quote! {
-                    impl #impl_generics ::fake::Dummy<::fake::Faker> for #receiver_name #ty_generics #where_clause {
-                        fn dummy_with_rng<R: ::fake::Rng + ?Sized>(_: &::fake::Faker, rng: &mut R) -> Self {
+                    impl #impl_generics fake::Dummy<fake::Faker> for #receiver_name #ty_generics #where_clause {
+                        fn dummy_with_rng<R: fake::Rng + ?Sized>(_: &fake::Faker, rng: &mut R) -> Self {
                             let options = [#(#variant_opts),*];
-                            match ::fake::rand::seq::SliceRandom::choose(options.as_ref(), rng).unwrap() {
+                            match fake::rand::seq::SliceRandom::choose(options.as_ref(), rng).unwrap() {
                                 #(#match_statements)*
                                 _ => {
                                     unreachable!()
@@ -202,8 +202,8 @@ pub fn derive_dummy(input: TokenStream) -> TokenStream {
                 impl_dummy
             } else {
                 let impl_dummy = quote! {
-                    impl #impl_generics ::fake::Dummy<::fake::Faker> for #receiver_name #ty_generics #where_clause {
-                        fn dummy_with_rng<R: ::fake::Rng + ?Sized>(_: &::fake::Faker, rng: &mut R) -> Self {
+                    impl #impl_generics fake::Dummy<fake::Faker> for #receiver_name #ty_generics #where_clause {
+                        fn dummy_with_rng<R: fake::Rng + ?Sized>(_: &fake::Faker, rng: &mut R) -> Self {
                             panic!("can not create an empty enum")
                         }
                     }
@@ -234,21 +234,21 @@ fn expose_field(f: &DummyField) -> proc_macro2::TokenStream {
             if let Some(ref from) = f.from {
                 let from_ty = syn::parse_str::<syn::Type>(from).unwrap();
                 quote! {
-                    ::std::convert::Into::<#field_ty>::into(::fake::Fake::fake_with_rng::<#from_ty, _>(&(#faker), rng))
+                    ::std::convert::Into::<#field_ty>::into(fake::Fake::fake_with_rng::<#from_ty, _>(&(#faker), rng))
                 }
             } else if let Some(ref wrapper) = f.wrapper {
                 let wrapper_ty = syn::parse_str::<syn::Type>(wrapper).unwrap();
                 quote! {
-                    ::fake::utils::IntoInner::into_inner(::fake::Fake::fake_with_rng::<#wrapper_ty<#field_ty>, _>(&(#faker), rng))
+                    fake::utils::IntoInner::into_inner(fake::Fake::fake_with_rng::<#wrapper_ty<#field_ty>, _>(&(#faker), rng))
                 }
             } else {
                 quote! {
-                    ::fake::Fake::fake_with_rng::<#field_ty, _>(&(#faker), rng)
+                    fake::Fake::fake_with_rng::<#field_ty, _>(&(#faker), rng)
                 }
             }
         } else {
             quote! {
-                ::fake::Fake::fake_with_rng::<#field_ty, _>(&::fake::Faker, rng)
+                fake::Fake::fake_with_rng::<#field_ty, _>(&fake::Faker, rng)
             }
         }
     }
@@ -259,7 +259,7 @@ fn add_trait_bounds(mut generics: Generics) -> Generics {
         if let GenericParam::Type(ref mut type_param) = *param {
             type_param
                 .bounds
-                .push(parse_quote!(::fake::Dummy<::fake::Faker>));
+                .push(parse_quote!(fake::Dummy<fake::Faker>));
         }
     }
     generics
