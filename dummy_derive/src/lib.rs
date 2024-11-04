@@ -4,7 +4,9 @@ extern crate quote;
 #[macro_use]
 extern crate darling;
 
-use syn::{parse_quote, GenericParam, Generics, Ident, Type};
+use core::panic;
+
+use syn::{parse_quote, parse_str, Expr, GenericParam, Generics, Ident, Meta, Path, Type};
 
 use darling::{ast, FromDeriveInput};
 use proc_macro::TokenStream;
@@ -55,10 +57,29 @@ struct Dummy {
 
 #[proc_macro_derive(Dummy, attributes(dummy))]
 pub fn derive_dummy(input: TokenStream) -> TokenStream {
-    let parsed = syn::parse(input).expect("syn::parse ok");
+    let mut parsed: syn::DeriveInput = syn::parse(input).expect("syn::parse ok");
+
+    // Support custom crate name:
+    let mut crate_name = parse_quote!(::fake);
+    parsed.attrs.retain(|attr| {
+        if attr.path().is_ident("dummy") {
+            if let Ok(Meta::NameValue(meta_name_value)) = attr.parse_args::<Meta>() {
+                if meta_name_value.path.is_ident("crate_name") {
+                    if let Expr::Lit(lit) = meta_name_value.value {
+                        if let syn::Lit::Str(lit_str) = lit.lit {
+                            crate_name = parse_str(&lit_str.value()).expect("parse_str ok");
+                            return false;
+                        }
+                    }
+                }
+            }
+        }
+        true
+    });
+
     let receiver = Dummy::from_derive_input(&parsed).expect("Dummy::from_derive_input ok");
 
-    let generics = add_trait_bounds(receiver.generics);
+    let generics = add_trait_bounds(&crate_name, receiver.generics);
     let (impl_generics, ty_generics, where_clause) = generics.split_for_impl();
     let receiver_name = &receiver.ident;
     let expanded = match receiver.data {
@@ -69,8 +90,8 @@ pub fn derive_dummy(input: TokenStream) -> TokenStream {
         }) => match style {
             ast::Style::Unit => {
                 let impl_dummy = quote! {
-                    impl #impl_generics fake::Dummy<fake::Faker> for #receiver_name #ty_generics #where_clause {
-                        fn dummy_with_rng<R: fake::Rng + ?Sized>(_: &fake::Faker, rng: &mut R) -> Self {
+                    impl #impl_generics #crate_name::Dummy<#crate_name::Faker> for #receiver_name #ty_generics #where_clause {
+                        fn dummy_with_rng<R: #crate_name::Rng + ?Sized>(_: &#crate_name::Faker, rng: &mut R) -> Self {
                             #receiver_name
                         }
                     }
@@ -78,11 +99,14 @@ pub fn derive_dummy(input: TokenStream) -> TokenStream {
                 impl_dummy
             }
             ast::Style::Tuple => {
-                let tuple_fields: Vec<_> = fields.iter().map(expose_field).collect();
+                let tuple_fields: Vec<_> = fields
+                    .iter()
+                    .map(|f| expose_field(&crate_name, f))
+                    .collect();
 
                 let impl_dummy = quote! {
-                    impl #impl_generics fake::Dummy<fake::Faker> for #receiver_name #ty_generics #where_clause {
-                        fn dummy_with_rng<R: fake::Rng + ?Sized>(_: &fake::Faker, rng: &mut R) -> Self {
+                    impl #impl_generics #crate_name::Dummy<#crate_name::Faker> for #receiver_name #ty_generics #where_clause {
+                        fn dummy_with_rng<R: #crate_name::Rng + ?Sized>(_: &#crate_name::Faker, rng: &mut R) -> Self {
                             #receiver_name(#(#tuple_fields),*)
                         }
                     }
@@ -98,7 +122,7 @@ pub fn derive_dummy(input: TokenStream) -> TokenStream {
                     .map(|f| {
                         let field_name = f.ident.as_ref().unwrap();
                         let field_ty = &f.ty;
-                        let stream = expose_field(f);
+                        let stream = expose_field(&crate_name, f);
                         quote! {
                             let #field_name: #field_ty = #stream;
                         }
@@ -106,8 +130,8 @@ pub fn derive_dummy(input: TokenStream) -> TokenStream {
                     .collect();
 
                 let impl_dummy = quote! {
-                    impl #impl_generics fake::Dummy<fake::Faker> for #receiver_name #ty_generics #where_clause  {
-                        fn dummy_with_rng<R: fake::Rng + ?Sized>(_: &fake::Faker, rng: &mut R) -> Self {
+                    impl #impl_generics #crate_name::Dummy<#crate_name::Faker> for #receiver_name #ty_generics #where_clause  {
+                        fn dummy_with_rng<R: #crate_name::Rng + ?Sized>(_: &#crate_name::Faker, rng: &mut R) -> Self {
                             #(#let_statements)*
                             #receiver_name {
                                 #(#struct_fields),*
@@ -137,8 +161,12 @@ pub fn derive_dummy(input: TokenStream) -> TokenStream {
                                 }
                             }
                             ast::Style::Tuple => {
-                                let tuple_fields: Vec<_> =
-                                    f.fields.fields.iter().map(expose_field).collect();
+                                let tuple_fields: Vec<_> = f
+                                    .fields
+                                    .fields
+                                    .iter()
+                                    .map(|f| expose_field(&crate_name, f))
+                                    .collect();
 
                                 quote! {
                                     #i => {
@@ -161,7 +189,7 @@ pub fn derive_dummy(input: TokenStream) -> TokenStream {
                                     .map(|f| {
                                         let field_name = f.ident.as_ref().unwrap();
                                         let field_ty = &f.ty;
-                                        let stream = expose_field(f);
+                                        let stream = expose_field(&crate_name, f);
                                         quote! {
                                             let #field_name: #field_ty = #stream;
                                         }
@@ -186,10 +214,10 @@ pub fn derive_dummy(input: TokenStream) -> TokenStream {
                 }
 
                 let impl_dummy = quote! {
-                    impl #impl_generics fake::Dummy<fake::Faker> for #receiver_name #ty_generics #where_clause {
-                        fn dummy_with_rng<R: fake::Rng + ?Sized>(_: &fake::Faker, rng: &mut R) -> Self {
+                    impl #impl_generics #crate_name::Dummy<#crate_name::Faker> for #receiver_name #ty_generics #where_clause {
+                        fn dummy_with_rng<R: #crate_name::Rng + ?Sized>(_: &#crate_name::Faker, rng: &mut R) -> Self {
                             let options = [#(#variant_opts),*];
-                            match fake::rand::seq::SliceRandom::choose(options.as_ref(), rng).unwrap() {
+                            match #crate_name::rand::seq::SliceRandom::choose(options.as_ref(), rng).unwrap() {
                                 #(#match_statements)*
                                 _ => {
                                     unreachable!()
@@ -202,8 +230,8 @@ pub fn derive_dummy(input: TokenStream) -> TokenStream {
                 impl_dummy
             } else {
                 let impl_dummy = quote! {
-                    impl #impl_generics fake::Dummy<fake::Faker> for #receiver_name #ty_generics #where_clause {
-                        fn dummy_with_rng<R: fake::Rng + ?Sized>(_: &fake::Faker, rng: &mut R) -> Self {
+                    impl #impl_generics #crate_name::Dummy<#crate_name::Faker> for #receiver_name #ty_generics #where_clause {
+                        fn dummy_with_rng<R: #crate_name::Rng + ?Sized>(_: &#crate_name::Faker, rng: &mut R) -> Self {
                             panic!("can not create an empty enum")
                         }
                     }
@@ -216,7 +244,7 @@ pub fn derive_dummy(input: TokenStream) -> TokenStream {
     expanded.into()
 }
 
-fn expose_field(f: &DummyField) -> proc_macro2::TokenStream {
+fn expose_field(crate_name: &Path, f: &DummyField) -> proc_macro2::TokenStream {
     if f.default {
         quote! {
             Default::default()
@@ -234,32 +262,32 @@ fn expose_field(f: &DummyField) -> proc_macro2::TokenStream {
             if let Some(ref from) = f.from {
                 let from_ty = syn::parse_str::<syn::Type>(from).unwrap();
                 quote! {
-                    ::std::convert::Into::<#field_ty>::into(fake::Fake::fake_with_rng::<#from_ty, _>(&(#faker), rng))
+                    ::std::convert::Into::<#field_ty>::into(#crate_name::Fake::fake_with_rng::<#from_ty, _>(&(#faker), rng))
                 }
             } else if let Some(ref wrapper) = f.wrapper {
                 let wrapper_ty = syn::parse_str::<syn::Type>(wrapper).unwrap();
                 quote! {
-                    fake::utils::IntoInner::into_inner(fake::Fake::fake_with_rng::<#wrapper_ty<#field_ty>, _>(&(#faker), rng))
+                    #crate_name::utils::IntoInner::into_inner(#crate_name::Fake::fake_with_rng::<#wrapper_ty<#field_ty>, _>(&(#faker), rng))
                 }
             } else {
                 quote! {
-                    fake::Fake::fake_with_rng::<#field_ty, _>(&(#faker), rng)
+                    #crate_name::Fake::fake_with_rng::<#field_ty, _>(&(#faker), rng)
                 }
             }
         } else {
             quote! {
-                fake::Fake::fake_with_rng::<#field_ty, _>(&fake::Faker, rng)
+                #crate_name::Fake::fake_with_rng::<#field_ty, _>(&#crate_name::Faker, rng)
             }
         }
     }
 }
 
-fn add_trait_bounds(mut generics: Generics) -> Generics {
+fn add_trait_bounds(crate_name: &Path, mut generics: Generics) -> Generics {
     for param in &mut generics.params {
         if let GenericParam::Type(ref mut type_param) = *param {
             type_param
                 .bounds
-                .push(parse_quote!(fake::Dummy<fake::Faker>));
+                .push(parse_quote!(#crate_name::Dummy<#crate_name::Faker>));
         }
     }
     generics
