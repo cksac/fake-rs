@@ -124,6 +124,17 @@ where
     }
 }
 
+impl<const N: usize> Dummy<Precision<N>> for NaiveDateTime
+where
+    Precision<N>: AllowedPrecision,
+{
+    fn dummy_with_rng<R: Rng + ?Sized>(precision: &Precision<N>, rng: &mut R) -> Self {
+        let date = Faker.fake_with_rng(rng);
+        let time = Precision::<N>::fake_with_rng(precision, rng);
+        NaiveDateTime::new(date, time)
+    }
+}
+
 impl<Tz, const N: usize> Dummy<Precision<N>> for DateTime<Tz>
 where
     Tz: TimeZone + Dummy<Faker>,
