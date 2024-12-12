@@ -13,6 +13,7 @@ rust-version = "1.63"
 
 [package.metadata.docs.rs]
 all-features = true
+rustdoc-args = ["--cfg", "docsrs"]
 
 [dependencies]
 dummy = { version = "0.9", path = "../dummy_derive", optional = true }
@@ -28,7 +29,7 @@ http = { version = "1", optional = true }
 semver = { version = "1", optional = true }
 serde_json = { version = "1", optional = true }
 ulid = { version = "1", optional = true }
-uuid = { version = "1", features = ["v1", "v3", "v4", "v5"], optional = true }
+uuid = { version = "1", features = ["v1", "v3", "v4", "v5", "v6", "v7", "v8"], optional = true }
 time = { version = "0.3", features = ["formatting"], optional = true }
 num-traits = { version = "0.2", optional = true }
 rust_decimal = { version = "1", default-features = false, optional = true }

@@ -1,4 +1,4 @@
-//! bson_objectid
+//! Fake _bson OID_ generation.
 
 use bson::oid::ObjectId;
 

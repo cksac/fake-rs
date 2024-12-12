@@ -1,4 +1,4 @@
-//! ulid
+//! Fake _ulid_ generation.
 
 use ulid::Ulid;
 
