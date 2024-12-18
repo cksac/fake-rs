@@ -75,5 +75,5 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: fake
-          path: target/release/cli
+          path: target/release/fake
     
