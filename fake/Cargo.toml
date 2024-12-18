@@ -85,7 +85,8 @@ path = "examples/usage.rs"
 required-features = ["derive"]
 
 [[bin]]
-name = "cli"
+name = "fake"
+path = "src/bin/cli/main.rs"
 required-features = [
     "clap"
 ]
