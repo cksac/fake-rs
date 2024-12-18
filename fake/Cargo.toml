@@ -2,7 +2,7 @@
 name = "fake"
 version = "3.0.1"
 authors = ["cksac <cs.cksac@gmail.com>"]
-description = "An easy to use library for generating fake data like name, number, address, lorem, dates, etc."
+description = "An easy to use library and command line for generating fake data like name, number, address, lorem, dates, etc."
 keywords = ["faker", "data", "generator", "random"]
 license = "MIT OR Apache-2.0"
 readme = "README.md"
@@ -40,6 +40,7 @@ url-escape = { version = "0.1", optional = true }
 bson = { version = "2", optional = true }
 url = { version = "2", optional = true }
 indexmap = { version = "2", optional = true}
+clap = { version = "4.0.32", optional = true, features=["cargo"] }
 
 [dev-dependencies]
 chrono = { version = "0.4", features = ["clock"], default-features = false }
@@ -59,6 +60,7 @@ bigdecimal = ["bigdecimal-rs", "rust_decimal"]
 geo = ["geo-types", "num-traits"]
 http = ["dep:http", "url-escape"]
 bson_oid = ["bson"]
+clap = ["dep:clap"]
 
 [[example]]
 name = "basic"
@@ -81,3 +83,9 @@ required-features = [
 name = "usage"
 path = "examples/usage.rs"
 required-features = ["derive"]
+
+[[bin]]
+name = "cli"
+required-features = [
+    "clap"
+]

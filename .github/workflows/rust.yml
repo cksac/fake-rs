@@ -54,3 +54,18 @@ jobs:
         with:
           command: clippy
           args: --workspace --tests --examples -- -D warnings
+  cli:
+    name: Fake-CLI
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions-rs/cargo@v1
+        with:
+          command: build
+          args: --release --bin cli --features clap
+      - name: Upload Bin Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: fake
+          path: target/release/cli
+    

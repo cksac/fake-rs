@@ -4,7 +4,7 @@
 [![Docs Status](https://docs.rs/fake/badge.svg)](https://docs.rs/fake)
 [![Latest Version](https://img.shields.io/crates/v/fake.svg)](https://crates.io/crates/fake)
 
-A Rust library for generating fake data.
+A Rust library and command line tool for generating fake data.
 
 ## Installation
 
@@ -15,7 +15,7 @@ Default:
 fake = { version = "3.0.1", features = ["derive"] }
 ```
 
-Available features:
+Available library features:
 
 - `derive`: if you want to use `#[derive(Dummy)]`
 - supported crates feature flags:
@@ -40,6 +40,7 @@ Available features:
 
 ## Usage
 
+### In rust code
 ```rust
 use fake::{Dummy, Fake, Faker};
 use rand::rngs::StdRng;
@@ -105,6 +106,24 @@ fn main() {
         println!("value from fixed seed {}", v);
     }
 }
+```
+
+## Command line
+```shell
+Usage: cli [OPTIONS] [COMMAND]
+
+Commands:
+  Name        
+  FirstName   
+  CityPrefix  
+  Password    
+  help
+
+Options:
+  -r, --repeat <repeat>  [default: 1]
+  -l, --locale <locale>  [default: EN]
+  -h, --help             Print help
+  -V, --version          Print version
 ```
 
 # Fakers with locale
