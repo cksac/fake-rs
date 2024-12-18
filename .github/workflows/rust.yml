@@ -6,13 +6,13 @@ on:
     paths:
       - "**.rs"
       - "**/Cargo.toml"
-      - "workflows/**"
+      - ".github/workflows/**"
   pull_request:
     branches: [ master ]
     paths:  
       - "**.rs"
       - "**/Cargo.toml"
-      - "workflows/**"
+      - ".github/workflows/**"
 
 jobs:
   build:
