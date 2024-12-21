@@ -60,7 +60,7 @@ bigdecimal = ["bigdecimal-rs", "rust_decimal"]
 geo = ["geo-types", "num-traits"]
 http = ["dep:http", "url-escape"]
 bson_oid = ["bson"]
-clap = ["dep:clap"]
+cli = ["dep:clap"]
 
 [[example]]
 name = "basic"
@@ -88,5 +88,5 @@ required-features = ["derive"]
 name = "fake"
 path = "src/bin/cli/main.rs"
 required-features = [
-    "clap"
+    "cli"
 ]

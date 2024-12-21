@@ -5,11 +5,10 @@ use std::io::{self, Write};
 mod fake_gen;
 #[allow(non_upper_case_globals)]
 mod names;
-mod subcommands;
 
 const AVAILABLE_LOCALES: [&str; 7] = ["en", "fr_fr", "zh_tw", "zh_cn", "ja_jp", "ar_sa", "pt_br"];
 
-pub use fake_gen::{fake_generator, AVAILABLE_LOCALES};
+pub use fake_gen::{all_fakegen_commands, AVAILABLE_LOCALES};
 pub fn main() {
     let stdout = io::stdout();
     let mut buf_stdout = io::BufWriter::new(stdout);
@@ -46,6 +45,7 @@ impl TryFrom<&str> for AVAILABLE_LOCALES {
 }
 
 fn cli_parser<R: Rng>() -> (Args, impl Fn(&mut R) -> String) {
+    let (subcommands, fake_generator) = all_fakegen_commands::<R>();
     let mut command = command!()
         .arg(
             Arg::new("repeat")
@@ -61,7 +61,7 @@ fn cli_parser<R: Rng>() -> (Args, impl Fn(&mut R) -> String) {
                 .default_value("EN")
                 .value_parser(|value: &str| AVAILABLE_LOCALES::try_from(value)),
         )
-        .subcommands(subcommands::all_fakegen_commands())
+        .subcommands(subcommands)
         .arg_required_else_help(true);
     let help_message = command.render_help();
     let matches = command.get_matches();
@@ -71,7 +71,7 @@ fn cli_parser<R: Rng>() -> (Args, impl Fn(&mut R) -> String) {
         .unwrap()
         .to_owned();
 
-    let fake_gen = fake_generator::<R>(matches, locale, help_message);
+    let fake_gen = fake_generator(matches, locale, help_message);
     (Args { repeats, locale }, fake_gen)
 }
 
