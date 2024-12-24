@@ -8,9 +8,9 @@ A Rust library and command line tool for generating fake data in different langu
 
 | Language              | Code  |
 |-----------------------|-------|
-| English               | EN    |
-| French                | fr_FR |
-| Arabic                | ar_SA |
+| English               | en    |
+| French                | fr_fR |
+| Arabic                | ar_sA |
 | Traditional Chinese   | zh_tw |
 | Simplified Chinese    | zh_cn |
 | Japanese              | ja_jp |
@@ -61,81 +61,92 @@ An easy to use library and command line for generating fake data like name, numb
 Usage: fake [OPTIONS] [COMMAND]
 
 Commands:
-  CityPrefix
-  CitySuffix
-  CityName
-  CountryName
-  CountryCode
-  StreetSuffix
-  StreetName
-  TimeZone
-  StateName
-  StateAbbr
-  SecondaryAddressType
-  SecondaryAddress
-  ZipCode
-  PostCode
-  BuildingNumber
-  Latitude
-  Longitude
-  Geohash
-  Isbn
-  Isbn10
-  Isbn13
-  CreditCardNumber
-  CompanySuffix
-  CompanyName
-  Buzzword
-  BuzzwordMiddle
-  BuzzwordTail
-  CatchPhrase
-  BsVerb
-  BsAdj
-  BsNoun
-  Bs
-  Profession
-  Industry
-  FreeEmailProvider
-  DomainSuffix
-  FreeEmail
-  SafeEmail
-  Username
-  Password
-  IPv4
-  IPv6
-  IP
-  MACAddress
-  UserAgent
-  Seniority
-  Field
-  Position
-  Word
-  Words
-  Sentence
-  Sentences
-  Paragraph
-  Paragraphs
-  FirstName
-  LastName
-  Title
-  Suffix
-  Name
-  NameWithTitle
-  PhoneNumber
-  CellNumber
-  FilePath
-  FileName
-  FileExtension
-  DirPath
-  MimeType
-  Semver
-  SemverStable
-  SemverUnstable
-  CurrencyCode
-  CurrencyName
-  CurrencySymbol
-  Bic
-  Isin
+  CityPrefix            
+  CitySuffix            
+  CityName              
+  CountryName           
+  CountryCode           
+  StreetSuffix          
+  StreetName            
+  TimeZone              
+  StateName             
+  StateAbbr             
+  SecondaryAddressType  
+  SecondaryAddress      
+  ZipCode               
+  PostCode              
+  BuildingNumber        
+  Latitude              
+  Longitude             
+  Geohash               
+  Isbn                  
+  Isbn10                
+  Isbn13                
+  CreditCardNumber      
+  CompanySuffix         
+  CompanyName           
+  Buzzword              
+  BuzzwordMiddle        
+  BuzzwordTail          
+  CatchPhrase           
+  BsVerb                
+  BsAdj                 
+  BsNoun                
+  Bs                    
+  Profession            
+  Industry              
+  FreeEmailProvider     
+  DomainSuffix          
+  FreeEmail             
+  SafeEmail             
+  Username              
+  Password              
+  IPv4                  
+  IPv6                  
+  IP                    
+  MACAddress            
+  UserAgent             
+  Seniority             
+  Field                 
+  Position              
+  Word                  
+  Words                 
+  Sentence              
+  Sentences             
+  Paragraph             
+  Paragraphs            
+  FirstName             
+  LastName              
+  Title                 
+  Suffix                
+  Name                  
+  NameWithTitle         
+  PhoneNumber           
+  CellNumber            
+  FilePath              
+  FileName              
+  FileExtension         
+  DirPath               
+  MimeType              
+  Semver                
+  SemverStable          
+  SemverUnstable        
+  CurrencyCode          
+  CurrencyName          
+  CurrencySymbol        
+  Bic                   
+  Isin                  
+  HexColor              
+  RgbColor              
+  RgbaColor             
+  HslColor              
+  HslaColor             
+  Color                 
+  Time                  
+  Date                  
+  DateTime              
+  RfcStatusCode         
+  ValidStatusCode       
   help                  Print this message or the help of the given subcommand(s)
 
 Options:
@@ -143,6 +154,7 @@ Options:
   -l, --locale <locale>  [default: EN]
   -h, --help             Print help
   -V, --version          Print version
+
 ```
 
 ## Usage
