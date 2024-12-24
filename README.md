@@ -4,11 +4,22 @@
 [![Docs Status](https://docs.rs/fake/badge.svg)](https://docs.rs/fake)
 [![Latest Version](https://img.shields.io/crates/v/fake.svg)](https://crates.io/crates/fake)
 
-A Rust library and command line tool for generating fake data.
+A Rust library and command line tool for generating fake data in different languages. Currently supports:
+
+| Language              | Code  |
+|-----------------------|-------|
+| English               | en    |
+| French                | fr_fR |
+| Arabic                | ar_sA |
+| Traditional Chinese   | zh_tw |
+| Simplified Chinese    | zh_cn |
+| Japanese              | ja_jp |
+| Portugese (Brazilian) | pt_br |
+
 
 ## Installation
 
-Default:
+### Library:
 
 ```toml
 [dependencies]
@@ -37,6 +48,114 @@ Available library features:
   - `indexmap`
 - `always-true-rng`: expose AlwaysTrueRng
 - `maybe-non-empty-collections`: allow to use AlwaysTrueRng to generate non-empty collections
+
+### CLI:
+`cargo install --features=cli --git https://github.com/cksac/fake-rs.git`
+
+Access cli using `fake` command. Below are the currently available fake generators.
+
+```shell
+❯ fake
+An easy to use library and command line for generating fake data like name, number, address, lorem, dates, etc.
+
+Usage: fake [OPTIONS] [COMMAND]
+
+Commands:
+  CityPrefix            
+  CitySuffix            
+  CityName              
+  CountryName           
+  CountryCode           
+  StreetSuffix          
+  StreetName            
+  TimeZone              
+  StateName             
+  StateAbbr             
+  SecondaryAddressType  
+  SecondaryAddress      
+  ZipCode               
+  PostCode              
+  BuildingNumber        
+  Latitude              
+  Longitude             
+  Geohash               
+  Isbn                  
+  Isbn10                
+  Isbn13                
+  CreditCardNumber      
+  CompanySuffix         
+  CompanyName           
+  Buzzword              
+  BuzzwordMiddle        
+  BuzzwordTail          
+  CatchPhrase           
+  BsVerb                
+  BsAdj                 
+  BsNoun                
+  Bs                    
+  Profession            
+  Industry              
+  FreeEmailProvider     
+  DomainSuffix          
+  FreeEmail             
+  SafeEmail             
+  Username              
+  Password              
+  IPv4                  
+  IPv6                  
+  IP                    
+  MACAddress            
+  UserAgent             
+  Seniority             
+  Field                 
+  Position              
+  Word                  
+  Words                 
+  Sentence              
+  Sentences             
+  Paragraph             
+  Paragraphs            
+  FirstName             
+  LastName              
+  Title                 
+  Suffix                
+  Name                  
+  NameWithTitle         
+  PhoneNumber           
+  CellNumber            
+  FilePath              
+  FileName              
+  FileExtension         
+  DirPath               
+  MimeType              
+  Semver                
+  SemverStable          
+  SemverUnstable        
+  CurrencyCode          
+  CurrencyName          
+  CurrencySymbol        
+  Bic                   
+  Isin                  
+  HexColor              
+  RgbColor              
+  RgbaColor             
+  HslColor              
+  HslaColor             
+  Color                 
+  Time                  
+  Date                  
+  DateTime              
+  RfcStatusCode         
+  ValidStatusCode       
+  help                  Print this message or the help of the given subcommand(s)
+
+Options:
+  -r, --repeat <repeat>  [default: 1]
+  -l, --locale <locale>  [default: EN]
+  -h, --help             Print help
+  -V, --version          Print version
+
+```
 
 ## Usage
 
@@ -109,21 +228,42 @@ fn main() {
 ```
 
 ## Command line
-```shell
-Usage: cli [OPTIONS] [COMMAND]
 
-Commands:
-  Name        
-  FirstName   
-  CityPrefix  
-  Password    
-  help
+Generate random name (defaults to EN locale)
+```shell
+❯ ./fake Name
+Generating 1 fakes for EN locale
+Theresa Walker
+```
+Generate 5 chinese random names by mentioning locale to zh_cn
+```shell
+❯ ./fake -r5 -lzh_cn Name
+Generating 5 fakes for ZH_CN locale
+何丹华
+尹雅瑾
+于金福
+郭雨珍
+龙菲霞
+```
+Generate 5 random passwords with minimum 10 characters
+```shell
+❯ ./fake -r5 Password --min 10
+Generating 5 fakes for EN locale
+Q6eeXHfC3uzSRqtZwB
+6fDHAOh3I7Ah77duLL
+R8ygoTLmd4i1z1Z
+5Uxj3RdEK5O4Af3ow
+2XWsGT0lUaDnMZTb7
+```
+Arguments can be sent to fake generators like password that accept different ranges
+```shell
+❯ ./fake Password --help
+Usage: fake Password [OPTIONS]
 
 Options:
-  -r, --repeat <repeat>  [default: 1]
-  -l, --locale <locale>  [default: EN]
-  -h, --help             Print help
-  -V, --version          Print version
+      --max <max>  [default: 20]
+      --min <min>  [default: 10]
+  -h, --help       Print help
 ```
 
 # Fakers with locale

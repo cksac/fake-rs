@@ -1,6 +1,6 @@
 [package]
 name = "fake"
-version = "3.0.1"
+version = "3.1.0"
 authors = ["cksac <cs.cksac@gmail.com>"]
 description = "An easy to use library and command line for generating fake data like name, number, address, lorem, dates, etc."
 keywords = ["faker", "data", "generator", "random"]
@@ -61,7 +61,7 @@ bigdecimal = ["bigdecimal-rs", "rust_decimal"]
 geo = ["geo-types", "num-traits"]
 http = ["dep:http", "url-escape"]
 bson_oid = ["bson"]
-cli = ["dep:clap"]
+cli = ["dep:clap","random_color","chrono","http"]
 
 [[example]]
 name = "basic"

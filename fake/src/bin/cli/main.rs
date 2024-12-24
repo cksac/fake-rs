@@ -3,6 +3,7 @@ use rand::Rng;
 use std::io::{self, Write};
 
 mod fake_gen;
+
 #[allow(non_upper_case_globals)]
 mod names;
 

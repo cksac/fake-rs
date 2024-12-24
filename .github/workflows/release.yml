@@ -1,0 +1,26 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*.*.*"
+
+jobs:
+  build_and_release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions-rs/cargo@v1
+        with:
+          command: build
+          args: --release --bin fake --features cli
+      # TODO: Support generating for multiple targets.
+      # https://stackoverflow.com/questions/73498168/github-actions-merge-artifacts-after-matrix-steps
+      - name: Archive Binary
+        run: |
+            tar cvzf fake-${{ github.ref_name }}-linux-x86_64.tar.gz README.md -C target/release fake
+      - name: Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+              fake-${{ github.ref_name }}-linux-x86_64.tar.gz

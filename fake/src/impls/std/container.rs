@@ -38,7 +38,7 @@ where
     }
 }
 
-impl<'a, T, U> Dummy<U> for Cow<'a, T>
+impl<T, U> Dummy<U> for Cow<'_, T>
 where
     T: Dummy<U> + Clone,
 {
