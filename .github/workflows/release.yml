@@ -18,7 +18,7 @@ jobs:
       # https://stackoverflow.com/questions/73498168/github-actions-merge-artifacts-after-matrix-steps
       - name: Archive Binary
         run: |
-            tar cvzf fake-${{ github.ref_name }}-linux-x86_64.tar.gz target/release/fake README.md
+            tar cvzf fake-${{ github.ref_name }}-linux-x86_64.tar.gz README.md -C target/release fake
       - name: Release
         uses: softprops/action-gh-release@v2
         with:
