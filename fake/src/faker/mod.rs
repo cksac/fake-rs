@@ -22,7 +22,7 @@ macro_rules! def_fakers {
         $(
             #[inline]
             #[allow(non_snake_case)]
-            pub fn $name$(< $($lts),* >)?($($arg:$typ),*) -> raw::$name<$locale_s> {
+            pub fn $name$(< $($lts),* >)?($($arg:$typ),*) -> raw::$name<$($($lts),*,)?$locale_s> {
                 raw::$name($locale_s, $($arg),*)
             }
         )+
