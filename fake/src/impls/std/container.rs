@@ -1,5 +1,6 @@
 use crate::Dummy;
 use rand::Rng;
+use std::borrow::Cow;
 use std::cell::{Cell, RefCell};
 use std::ops::Deref;
 use std::pin::Pin;
@@ -34,5 +35,14 @@ where
 {
     fn dummy_with_rng<R: Rng + ?Sized>(config: &U, rng: &mut R) -> Self {
         Pin::new(T::dummy_with_rng(config, rng))
+    }
+}
+
+impl<T, U> Dummy<U> for Cow<'_, T>
+where
+    T: Dummy<U> + Clone,
+{
+    fn dummy_with_rng<R: Rng + ?Sized>(config: &U, rng: &mut R) -> Self {
+        Cow::Owned(T::dummy_with_rng(config, rng))
     }
 }

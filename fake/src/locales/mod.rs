@@ -7,7 +7,7 @@ pub struct RegistrantRule {
     pub registrant_len: i8,
 }
 
-#[cfg_attr(tool_attributes, rustfmt_skip)]
+#[rustfmt::skip]
 pub trait Data {
     const LOREM_WORD: &'static [&'static str] =  &["alias", "consequatur", "aut", "perferendis", "sit", "voluptatem", "accusantium", "doloremque", "aperiam", "eaque", "ipsa", "quae", "ab", "illo", "inventore", "veritatis", "et", "quasi", "architecto", "beatae", "vitae", "dicta", "sunt", "explicabo", "aspernatur", "aut", "odit", "aut", "fugit", "sed", "quia", "consequuntur", "magni", "dolores", "eos", "qui", "ratione", "voluptatem", "sequi", "nesciunt", "neque", "dolorem", "ipsum", "quia", "dolor", "sit", "amet", "consectetur", "adipisci", "velit", "sed", "quia", "non", "numquam", "eius", "modi", "tempora", "incidunt", "ut", "labore", "et", "dolore", "magnam", "aliquam", "quaerat", "voluptatem", "ut", "enim", "ad", "minima", "veniam", "quis", "nostrum", "exercitationem", "ullam", "corporis", "nemo", "enim", "ipsam", "voluptatem", "quia", "voluptas", "sit", "suscipit", "laboriosam", "nisi", "ut", "aliquid", "ex", "ea", "commodi", "consequatur", "quis", "autem", "vel", "eum", "iure", "reprehenderit", "qui", "in", "ea", "voluptate", "velit", "esse", "quam", "nihil", "molestiae", "et", "iusto", "odio", "dignissimos", "ducimus", "qui", "blanditiis", "praesentium", "laudantium", "totam", "rem", "voluptatum", "deleniti", "atque", "corrupti", "quos", "dolores", "et", "quas", "molestias", "excepturi", "sint", "occaecati", "cupiditate", "non", "provident", "sed", "ut", "perspiciatis", "unde", "omnis", "iste", "natus", "error", "similique", "sunt", "in", "culpa", "qui", "officia", "deserunt", "mollitia", "animi", "id", "est", "laborum", "et", "dolorum", "fuga", "et", "harum", "quidem", "rerum", "facilis", "est", "et", "expedita", "distinctio", "nam", "libero", "tempore", "cum", "soluta", "nobis", "est", "eligendi", "optio", "cumque", "nihil", "impedit", "quo", "porro", "quisquam", "est", "qui", "minus", "id", "quod", "maxime", "placeat", "facere", "possimus", "omnis", "voluptas", "assumenda", "est", "omnis", "dolor", "repellendus", "temporibus", "autem", "quibusdam", "et", "aut", "consequatur", "vel", "illum", "qui", "dolorem", "eum", "fugiat", "quo", "voluptas", "nulla", "pariatur", "at", "vero", "eos", "et", "accusamus", "officiis", "debitis", "aut", "rerum", "necessitatibus", "saepe", "eveniet", "ut", "et", "voluptates", "repudiandae", "sint", "et", "molestiae", "non", "recusandae", "itaque", "earum", "rerum", "hic", "tenetur", "a", "sapiente", "delectus", "ut", "aut", "reiciendis", "voluptatibus", "maiores", "doloribus", "asperiores", "repellat"];
 
@@ -40,7 +40,7 @@ pub trait Data {
     const ADDRESS_ZIP_FORMATS: &'static [&'static str] = &["#####", "####", "###"];
     const ADDRESS_POSTCODE_FORMATS: &'static [&'static str] = &["#####", "#####-####"];
     const ADDRESS_GEOHASH_CHARS: &'static [&'static str] = &["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "b", "c", "d", "e", "f", "g", "h", "j", "k", "m", "n", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
-    
+
     const COMPANY_SUFFIX: &'static [&'static str] = &["Inc", "and Sons", "LLC", "Group"];
     const COMPANY_NAME_TPLS: &'static [&'static str] = &["{Name_1} {Suffix}", "{Name_1} and {Name_2} {Suffix}"];
     const COMPANY_BUZZWORD_HEAD: &'static [&'static str] = &["Adaptive", "Advanced", "Ameliorated", "Assimilated", "Automated", "Balanced", "Business-focused", "Centralized", "Cloned", "Compatible", "Configurable", "Cross-group", "Cross-platform", "Customer-focused", "Customizable", "Decentralized", "De-engineered", "Devolved", "Digitized", "Distributed", "Diverse", "Down-sized", "Enhanced", "Enterprise-wide", "Ergonomic", "Exclusive", "Expanded", "Extended", "Face to face", "Focused", "Front-line", "Fully-configurable", "Function-based", "Fundamental", "Future-proofed", "Grass-roots", "Horizontal", "Implemented", "Innovative", "Integrated", "Intuitive", "Inverse", "Managed", "Mandatory", "Monitored", "Multi-channelled", "Multi-lateral", "Multi-layered", "Multi-tiered", "Networked", "Object-based", "Open-architected", "Open-source", "Operative", "Optimized", "Optional", "Organic", "Organized", "Persevering", "Persistent", "Phased", "Polarised", "Pre-emptive", "Proactive", "Profit-focused", "Profound", "Programmable", "Progressive", "Public-key", "Quality-focused", "Reactive", "Realigned", "Re-contextualized", "Re-engineered", "Reduced", "Reverse-engineered", "Right-sized", "Robust", "Seamless", "Secured", "Self-enabling", "Sharable", "Stand-alone", "Streamlined", "Switchable", "Synchronised", "Synergistic", "Synergized", "Team-oriented", "Total", "Triple-buffered", "Universal", "Up-sized", "Upgradable", "User-centric", "User-friendly", "Versatile", "Virtual", "Visionary", "Vision-oriented"];
@@ -69,6 +69,12 @@ pub trait Data {
     const CHRONO_DEFAULT_DATE_FORMAT: &'static str = "%F";
     const CHRONO_DEFAULT_DATETIME_FORMAT: &'static str = "%+";
 
+    // see https://time-rs.github.io/book/api/format-description.html
+    // for a complete description of each format
+    const TIME_DEFAULT_TIME_FORMAT: &'static str = "[hour]:[minute]:[second][subsecond]";
+    const TIME_DEFAULT_DATE_FORMAT: &'static str = "[year]-[month]-[day]";
+    const TIME_DEFAULT_DATETIME_FORMAT: &'static str = "[year]-[month]-[day]T[hour]:[minute]:[second][offset_hour sign:mandatory][offset_minute]";
+
     const PATH_ROOT_DIRS: &'static [&'static str] = &[ "/", "/etc", "/home", "/bin", "/sbin", "/usr", "/tmp", "/var"];
     const PATH_SEGMENTS:  &'static [&'static str] = &["time", "person", "year", "way", "day", "thing", "man", "world", "life", "hand", "part", "child", "eye", "woman", "place", "work", "week", "case", "point", "government", "company", "number", "group", "problem", "fact", "good", "new", "first", "last", "long", "great", "little", "own", "other", "old", "right", "big", "high", "different", "small", "large", "next", "early", "young", "important", "few", "public", "bad", "same", "able", "olivia", "liam", "emma", "noah", "ava", "elijah", "sophia", "oliver", "isabella", "lucas", "amelia", "mason", "mia", "logan", "charlotte", "ethan", "harper", "james", "aria", "jackson"];
     const PATH_EXTENSIONS: &'static [&'static str] = &["so", "mp3", "mp4", "flv", "jpg", "png", "txt", "csv", "doc", "xls", "ppt", "zip", "rar", "7z", "tar"];
@@ -78,7 +84,7 @@ pub trait Data {
     const CURRENCY_SYMBOL: &'static [&'static str] = &["HK$", "Ft", "₪", "¥", "$", "kr", "PhP", "zł", "CHF", "NT$", "฿", "£", "¢", "Rp", "ƒ", "€","रू"];
 
     const ISBN_EAN: &'static str = "978";
-    
+
     fn isbn_rules() -> Box<BTreeMap<&'static str, Vec<RegistrantRule>>> {
         let mut map = BTreeMap::new();
         map.insert(
@@ -169,7 +175,7 @@ pub trait Data {
                     max: "8697999",
                     registrant_len: 5
                 },
-                
+
                 RegistrantRule {
                     min: "8698000",
                     max: "9729999",
@@ -210,6 +216,12 @@ pub use self::zh_cn::ZH_CN;
 
 mod ja_jp;
 pub use self::ja_jp::JA_JP;
+
+mod ar_sa;
+pub use self::ar_sa::AR_SA;
+
+mod pt_br;
+pub use self::pt_br::PT_BR;
 
 mod de_de;
 pub use self::de_de::DE_DE;

@@ -1,4 +1,4 @@
-use fake::{self, Fake, Faker};
+use fake::{Fake, Faker};
 use rand::distributions;
 use std::collections::{BTreeMap, BTreeSet, HashMap, HashSet};
 

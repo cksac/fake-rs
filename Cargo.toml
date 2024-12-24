@@ -3,3 +3,5 @@ members = [
     "fake",
     "dummy_derive",
 ]
+
+resolver = "2"

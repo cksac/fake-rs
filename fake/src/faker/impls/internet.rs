@@ -1,8 +1,9 @@
 use crate::faker::internet::raw::*;
 use crate::faker::lorem::raw::Word;
 use crate::faker::name::raw::FirstName;
-use crate::locales::{Data, EN};
+use crate::locales::Data;
 use crate::{Dummy, Fake, Faker};
+use deunicode::AsciiChars;
 use rand::distributions::{Distribution, Uniform};
 use rand::seq::SliceRandom;
 use rand::Rng;
@@ -17,7 +18,7 @@ impl<L: Data> Dummy<FreeEmailProvider<L>> for String {
 
 impl<L: Data> Dummy<FreeEmailProvider<L>> for &str {
     fn dummy_with_rng<R: Rng + ?Sized>(_: &FreeEmailProvider<L>, rng: &mut R) -> Self {
-        *L::INTERNET_FREE_EMAIL_PROVIDER.choose(rng).unwrap()
+        L::INTERNET_FREE_EMAIL_PROVIDER.choose(rng).unwrap()
     }
 }
 
@@ -30,7 +31,7 @@ impl<L: Data> Dummy<DomainSuffix<L>> for String {
 
 impl<L: Data> Dummy<DomainSuffix<L>> for &str {
     fn dummy_with_rng<R: Rng + ?Sized>(_: &DomainSuffix<L>, rng: &mut R) -> Self {
-        *L::INTERNET_DOMAIN_SUFFIX.choose(rng).unwrap()
+        L::INTERNET_DOMAIN_SUFFIX.choose(rng).unwrap()
     }
 }
 
@@ -38,13 +39,13 @@ impl<L: Data + Copy> Dummy<FreeEmail<L>> for String {
     fn dummy_with_rng<R: Rng + ?Sized>(c: &FreeEmail<L>, rng: &mut R) -> Self {
         let username: String = Username(c.0).fake_with_rng(rng);
         let provider: String = FreeEmailProvider(c.0).fake_with_rng(rng);
-        format!("{}@{}", username, provider)
+        format!("{}@{}", username.ascii_chars(), provider)
     }
 }
 
 impl<L: Data + Copy> Dummy<SafeEmail<L>> for String {
-    fn dummy_with_rng<R: Rng + ?Sized>(_: &SafeEmail<L>, rng: &mut R) -> Self {
-        let username: String = FirstName(EN).fake_with_rng::<&str, _>(rng).to_lowercase();
+    fn dummy_with_rng<R: Rng + ?Sized>(c: &SafeEmail<L>, rng: &mut R) -> Self {
+        let username: String = FirstName(c.0).fake_with_rng::<&str, _>(rng).to_lowercase();
         let domain = ["com", "net", "org"].choose(rng).unwrap();
         format!("{}@example.{}", username, domain)
     }
@@ -85,7 +86,7 @@ impl<L: Data> Dummy<Password<L>> for String {
 
 impl<L: Data> Dummy<IPv4<L>> for String {
     fn dummy_with_rng<R: Rng + ?Sized>(_: &IPv4<L>, rng: &mut R) -> Self {
-        let u = Uniform::new_inclusive(u8::min_value(), u8::max_value());
+        let u = Uniform::new_inclusive(u8::MIN, u8::MAX);
         format!(
             "{}.{}.{}.{}",
             u.sample(rng),
@@ -105,7 +106,7 @@ impl<L: Data> Dummy<IPv4<L>> for Ipv4Addr {
 
 impl<L: Data> Dummy<IPv6<L>> for String {
     fn dummy_with_rng<R: Rng + ?Sized>(_: &IPv6<L>, rng: &mut R) -> Self {
-        let u = Uniform::new_inclusive(u16::min_value(), u16::max_value());
+        let u = Uniform::new_inclusive(u16::MIN, u16::MAX);
         format!(
             "{:X}:{:X}:{:X}:{:X}:{:X}:{:X}:{:X}:{:X}",
             u.sample(rng),
@@ -142,24 +143,12 @@ impl<L: Data> Dummy<IP<L>> for IpAddr {
 
 impl<L: Data> Dummy<MACAddress<L>> for String {
     fn dummy_with_rng<R: Rng + ?Sized>(_: &MACAddress<L>, rng: &mut R) -> Self {
-        let u = Uniform::new_inclusive(u8::min_value(), u8::max_value());
+        let u = Uniform::new_inclusive(u8::MIN, u8::MAX);
         format!(
             "{:02X}:{:02X}:{:02X}:{:02X}:{:02X}:{:02X}",
             u.sample(rng),
             u.sample(rng),
             u.sample(rng),
-            u.sample(rng),
-            u.sample(rng),
-            u.sample(rng),
-        )
-    }
-}
-
-impl<L: Data> Dummy<Color<L>> for String {
-    fn dummy_with_rng<R: Rng + ?Sized>(_: &Color<L>, rng: &mut R) -> Self {
-        let u = Uniform::new_inclusive(u8::min_value(), u8::max_value());
-        format!(
-            "#{:02X}{:02X}{:02X}",
             u.sample(rng),
             u.sample(rng),
             u.sample(rng),
@@ -176,6 +165,6 @@ impl<L: Data> Dummy<UserAgent<L>> for String {
 
 impl<L: Data> Dummy<UserAgent<L>> for &str {
     fn dummy_with_rng<R: Rng + ?Sized>(_: &UserAgent<L>, rng: &mut R) -> Self {
-        *L::INTERNET_USER_AGENT.choose(rng).unwrap()
+        L::INTERNET_USER_AGENT.choose(rng).unwrap()
     }
 }

@@ -196,7 +196,7 @@ fn company_faker() {
     let val: String = BuzzwordTail(EN).fake();
     println!("{:?}", val);
 
-    let val: String = CatchPhase(EN).fake();
+    let val: String = CatchPhrase(EN).fake();
     println!("{:?}", val);
 
     let val: String = BsVerb(EN).fake();
@@ -251,9 +251,6 @@ fn internet_faker() {
     let val: String = MACAddress(EN).fake();
     println!("{:?}", val);
 
-    let val: String = Color(EN).fake();
-    println!("{:?}", val);
-
     let val: String = UserAgent(EN).fake();
     println!("{:?}", val);
 }
@@ -270,6 +267,11 @@ fn number_faker() {
 
     let val: String = NumberWithFormat(EN, "FLAT 0# ^#/F").fake();
     println!("{:?}", val);
+
+    // non-'static string
+    let fmt = String::from("FLAT 0# ^#/F");
+    let val: String = NumberWithFormat(EN, &fmt).fake();
+    println!("{:?}", val);
 }
 
 fn phone_number_faker() {
@@ -284,6 +286,16 @@ fn phone_number_faker() {
 
     // custom phone number format
     let val: String = NumberWithFormat(EN, "(+852) 6### ####").fake();
+    println!("{:?}", val);
+}
+
+fn finance_faker() {
+    use fake::faker::finance::raw::*;
+
+    let val: String = Bic(EN).fake();
+    println!("{:?}", val);
+
+    let val: String = Isin(EN).fake();
     println!("{:?}", val);
 }
 
@@ -317,6 +329,36 @@ fn http_faker() {
     println!("{:?}", val);
 
     let val: http::Version = Faker.fake();
+    println!("{:?}", val);
+
+    let val: http::Method = Faker.fake();
+    println!("{:?}", val);
+
+    let val: http::HeaderName = Faker.fake();
+    println!("{:?}", val);
+
+    let val: http::HeaderValue = Faker.fake();
+    println!("{:?}", val);
+
+    let val: http::HeaderMap = Faker.fake();
+    println!("{:?}", val);
+
+    let val: http::uri::Scheme = Faker.fake();
+    println!("{:?}", val);
+
+    let val: http::uri::Authority = Faker.fake();
+    println!("{:?}", val);
+
+    let val: http::uri::PathAndQuery = Faker.fake();
+    println!("{:?}", val);
+
+    let val: http::Uri = Faker.fake();
+    println!("{:?}", val);
+
+    let val: http::Request<String> = Faker.fake();
+    println!("{:?}", val);
+
+    let val: http::Response<String> = Faker.fake();
     println!("{:?}", val);
 }
 
@@ -363,8 +405,10 @@ fn chrono_faker() {
     println!("{}", between);
 }
 
+#[cfg(feature = "semver")]
 fn filesystem_faker() {
     use fake::faker::filesystem::raw::*;
+    use fake::Faker;
     use std::path::PathBuf;
 
     let val: String = FilePath(EN).fake();
@@ -384,6 +428,21 @@ fn filesystem_faker() {
 
     let val: PathBuf = DirPath(EN).fake();
     println!("{:?}", val);
+
+    // return X.Y.Z or X-Y-Z-V.W (V equals "rc", "beta" or "alpha")
+    let val: String = Semver(EN).fake();
+    println!("{:?}", val);
+
+    // return X.Y.Z
+    let val: String = SemverStable(EN).fake();
+    println!("{:?}", val);
+
+    // return X-Y-Z-V.W
+    let val: String = SemverUnstable(EN).fake();
+    println!("{:?}", val);
+
+    let val: semver::Version = Faker.fake();
+    println!("{:?}", val);
 }
 
 fn currency_faker() {
@@ -399,6 +458,29 @@ fn currency_faker() {
     println!("{:?}", val);
 }
 
+#[cfg(feature = "random_color")]
+fn color_faker() {
+    use fake::faker::color::raw::*;
+
+    let val: String = HexColor(EN).fake();
+    println!("{:?}", val);
+
+    let val: String = RgbColor(EN).fake();
+    println!("{:?}", val);
+
+    let val: String = RgbaColor(EN).fake();
+    println!("{:?}", val);
+
+    let val: String = HslColor(EN).fake();
+    println!("{:?}", val);
+
+    let val: String = HslaColor(EN).fake();
+    println!("{:?}", val);
+
+    let val: String = Color(EN).fake();
+    println!("{:?}", val);
+}
+
 fn creditcard_faker() {
     use fake::faker::creditcard::raw::*;
 
@@ -406,8 +488,8 @@ fn creditcard_faker() {
     println!("{:?}", val);
 }
 
-fn barecode_faker() {
-    use fake::faker::barecode::raw::*;
+fn barcode_faker() {
+    use fake::faker::barcode::raw::*;
 
     let val: String = Isbn13(EN).fake();
     println!("{}", val);
@@ -426,7 +508,7 @@ fn uuid_faker() {
 
     let val: Uuid = UUIDv1.fake();
     println!("{} (v1)", val);
-    
+
     let val: Uuid = UUIDv3.fake();
     println!("{} (v3)", val);
 
@@ -437,6 +519,49 @@ fn uuid_faker() {
     println!("{} (v5)", val);
 }
 
+#[cfg(feature = "rust_decimal")]
+fn decimal_faker() {
+    use fake::decimal::*;
+    use fake::Faker;
+    use rust_decimal as rd;
+
+    let val: rd::Decimal = Faker.fake();
+    println!("{:?}", val);
+
+    let val: rd::Decimal = Decimal.fake();
+    println!("{:?}", val);
+
+    let val: rd::Decimal = PositiveDecimal.fake();
+    println!("{:?}", val);
+
+    let val: rd::Decimal = NegativeDecimal.fake();
+    println!("{:?}", val);
+
+    let val: rd::Decimal = NoDecimalPoints.fake();
+    println!("{:?}", val);
+}
+
+#[cfg(feature = "bigdecimal")]
+fn bigdecimal_faker() {
+    use bigdecimal_rs as bd;
+    use fake::bigdecimal::*;
+    use fake::Faker;
+
+    let val: bd::BigDecimal = Faker.fake();
+    println!("{:?}", val);
+
+    let val: bd::BigDecimal = BigDecimal.fake();
+    println!("{:?}", val);
+
+    let val: bd::BigDecimal = PositiveBigDecimal.fake();
+    println!("{:?}", val);
+
+    let val: bd::BigDecimal = NegativeBigDecimal.fake();
+    println!("{:?}", val);
+
+    let val: bd::BigDecimal = NoBigDecimalPoints.fake();
+    println!("{:?}", val);
+}
 
 fn main() {
     lorem_faker();
@@ -449,10 +574,16 @@ fn main() {
     internet_faker();
     number_faker();
     phone_number_faker();
-    filesystem_faker();
+    finance_faker();
     currency_faker();
     creditcard_faker();
-    barecode_faker();
+    barcode_faker();
+
+    #[cfg(feature = "random_color")]
+    color_faker();
+
+    #[cfg(feature = "semver")]
+    filesystem_faker();
 
     #[cfg(feature = "http")]
     http_faker();
@@ -462,4 +593,10 @@ fn main() {
 
     #[cfg(feature = "uuid")]
     uuid_faker();
+
+    #[cfg(feature = "rust_decimal")]
+    decimal_faker();
+
+    #[cfg(feature = "bigdecimal")]
+    bigdecimal_faker();
 }

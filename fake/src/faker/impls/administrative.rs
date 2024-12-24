@@ -22,21 +22,14 @@ impl Dummy<HealthInsuranceCode<FR_FR>> for String {
         let sex: u8 = (1..3).fake_with_rng::<u8, _>(rng);
         let birth_year: u8 = (0..99).fake_with_rng::<u8, _>(rng);
         let birth_month: u8 = (1..13).fake_with_rng::<u8, _>(rng);
-        let department: &str = *FR_FR_DEPARTMENTS.choose(rng).unwrap();
+        let department: &str = FR_FR_DEPARTMENTS.choose(rng).unwrap();
         let town_code: u16 = (0..999).fake_with_rng::<u16, _>(rng);
         let order_code: u16 = (0..999).fake_with_rng::<u16, _>(rng);
-        let department_code: u16;
-        match department {
-            "2A" => {
-                department_code = 19;
-            }
-            "2B" => {
-                department_code = 18;
-            }
-            _ => {
-                department_code = department.parse::<u16>().unwrap();
-            }
-        }
+        let department_code: u16 = match department {
+            "2A" => 19,
+            "2B" => 18,
+            _ => department.parse::<u16>().unwrap(),
+        };
         let number = format!(
             "{}{:02}{:02}{}{:03}{:03}",
             sex, birth_year, birth_month, department_code, town_code, order_code
