@@ -222,6 +222,24 @@ pub fn all_fakegen_commands<R: Rng>() -> (
 
         //finance
         (Bic,finance),
-        (Isin,finance)
+        (Isin,finance),
+
+        //color
+        (HexColor,color),
+        (RgbColor,color),
+        (RgbaColor,color),
+        (HslColor,color),
+        (HslaColor,color),
+        (Color,color),
+
+        //chrono
+        (Time,chrono),
+        (Date,chrono),
+        (DateTime,chrono),
+
+        //http
+        (RfcStatusCode,http),
+        (ValidStatusCode,http)
+
     )
 }
