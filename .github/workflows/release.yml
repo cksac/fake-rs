@@ -17,4 +17,6 @@ jobs:
       - name: Release
         uses: softprops/action-gh-release@v2
         with:
-          files: target/release/fake
+          files: |
+            target/release/fake
+            README.md
