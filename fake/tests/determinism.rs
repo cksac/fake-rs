@@ -255,12 +255,12 @@ mod job {
 // Lorem
 use fake::faker::lorem::raw::*;
 
-check_determinism! { l10d Paragraph; String, fake_paragraph_en, fake_paragraph_fr, fake_paragraph_cn, fake_paragraph_tw, fake_paragraph_jp, 1..3 }
-check_determinism! { l10d Paragraphs; Vec<String>, fake_paragraphs_en, fake_paragraphs_fr, fake_paragraphs_cn, fake_paragraphs_tw, fake_paragraphs_jp, 1..3 }
-check_determinism! { l10d Sentence; String, fake_sentence_en, fake_sentence_fr, fake_sentence_cn, fake_sentence_tw, fake_sentence_jp, (1..3) }
-check_determinism! { l10d Sentences; Vec<String>, fake_sentences_en, fake_sentences_fr, fake_sentences_cn, fake_sentences_tw, fake_sentences_jp, (1..3) }
-check_determinism! { l10d Word; String, fake_word_en, fake_word_fr, fake_word_cn, fake_word_tw, fake_word_jp }
-check_determinism! { l10d Words; Vec<String>, fake_words_en, fake_words_fr, fake_words_cn, fake_words_tw, fake_words_jp, (1..3) }
+check_determinism! { l10d Paragraph; String, fake_paragraph_en, fake_paragraph_fr, fake_paragraph_cn, fake_paragraph_tw, fake_paragraph_jp, fake_paragraph_br, fake_paragraph_de, 1..3 }
+check_determinism! { l10d Paragraphs; Vec<String>, fake_paragraphs_en, fake_paragraphs_fr, fake_paragraphs_cn, fake_paragraphs_tw, fake_paragraphs_jp, fake_paragraphs_br, fake_paragraphs_de, 1..3 }
+check_determinism! { l10d Sentence; String, fake_sentence_en, fake_sentence_fr, fake_sentence_cn, fake_sentence_tw, fake_sentence_jp, fake_sentence_br, fake_sentence_de, (1..3) }
+check_determinism! { l10d Sentences; Vec<String>, fake_sentences_en, fake_sentences_fr, fake_sentences_cn, fake_sentences_tw, fake_sentences_jp, fake_sentences_br, fake_sentences_de, (1..3) }
+check_determinism! { l10d Word; String, fake_word_en, fake_word_fr, fake_word_cn, fake_word_tw, fake_word_jp, fake_word_br, fake_word_de }
+check_determinism! { l10d Words; Vec<String>, fake_words_en, fake_words_fr, fake_words_cn, fake_words_tw, fake_words_jp, fake_words_br, fake_words_de, (1..3) }
 
 // Names
 mod name {
