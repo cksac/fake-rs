@@ -34,6 +34,9 @@ impl<L: Data> Dummy<CitySuffix<L>> for &str {
 
 impl<L: Data + Copy> Dummy<CityName<L>> for String {
     fn dummy_with_rng<R: Rng + ?Sized>(c: &CityName<L>, rng: &mut R) -> Self {
+        if let Some(gen_fn) = L::ADDRESS_CITY_GEN_FN {
+            return gen_fn();
+        }
         match (0..5).fake_with_rng::<u8, _>(rng) {
             0 => L::ADDRESS_CITY_WITH_PREFIX_TPL
                 .replace(
