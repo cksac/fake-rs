@@ -1,4 +1,6 @@
-use crate::locales::Data;
+use rand::Rng;
+
+use crate::{faker::{address::de_de::{CityPrefix, CitySuffix}, name::de_de::{LastName, Name}}, locales::Data, Fake};
 #[allow(non_camel_case_types)]
 #[derive(Copy, Clone)]
 pub struct DE_DE;
@@ -274,9 +276,7 @@ impl Data for DE_DE {
     ];
 
     const ADDRESS_CITY_PREFIX: &'static [&'static str] =
-        &["Alt", "Groß", "Hohen", "Klein", "Neu", "Ober", "Unter"];
-    const ADDRESS_CITY_WITH_PREFIX_TPL: &'static str = "{CityPrefix}{CityName}{CitySuffix}";
-    const ADDRESS_CITY_TPL: &'static str = "{CityName}{CitySuffix}";
+        &["Alt", "Bad", "Groß", "Hohen", "Klein", "Neu", "Alt", "Ober", "Unter"];
     const ADDRESS_ZIP_FORMATS: &'static [&'static str] = &["#####"];
     const ADDRESS_STREET_SUFFIX: &'static [&'static str] = &[
         "allee", "gang", "gasse", "pfad", "platz", "steg", "straße", "ufer", "weg",
@@ -299,4 +299,103 @@ impl Data for DE_DE {
         "und Partner",
         "& Partner",
     ];
+
+    const ADDRESS_CITY_GEN_FN: Option<fn()->String> = Some( || -> String {
+
+        // this should come from the main.rs thread_rng
+        // and not be instantiated here on the fly
+        let mut rng = rand::thread_rng();
+
+        // german cities are often suffixed by a river name
+        const RIVERS: [&str; 10] = [
+            "(Rhein)",
+            "(Elbe)",
+            "(Donau)",
+            "(Main)",
+            "(Weser)",
+            "(Oder)",
+            "(Neckar)",
+            "(Havel)",
+            "(Mosel)",
+            "(Ems)",
+        ]; 
+
+        // common formats for city names
+        const ADDRESS_CITY_WITHOUT_PREFIX: &str = "{CityName}{CitySuffix}";
+        const ADDRESS_CITY_WITHOUT_SPACE: &str = "{CityPrefix}{CityName}{CitySuffix}";
+        const ADDRESS_CITY_WITH_SPACE: &str = "{CityPrefix} {CityName}{CitySuffix}";
+        const ADDRESS_CITY_WITH_DASH_TPL: &str = "{CityPrefix}-{CityName}{CitySuffix}";
+        const ADDRESS_CITY_WITH_RIVER_TPL: &str = "{CityPrefix}-{CityName}{CitySuffix} {River}";
+
+        let result = match (0..5).fake_with_rng::<u8, _>(&mut rng) {
+
+            0 => ADDRESS_CITY_WITHOUT_SPACE
+                .replace(
+                "{CityPrefix}",
+                CityPrefix().fake_with_rng::<&str, _>(&mut rng),
+                )
+                .replace(
+                    "{CityName}", 
+                    (LastName().fake_with_rng::<String, _>(&mut rng)).to_lowercase().as_ref()
+                )
+                .replace(
+                    "{CitySuffix}",
+                    CitySuffix().fake_with_rng::<&str, _>(&mut rng),
+                ),
+            1 => ADDRESS_CITY_WITH_SPACE
+            .replace(
+                "{CityPrefix}",
+                CityPrefix().fake_with_rng::<&str, _>(&mut rng),
+                )
+                .replace(
+                    "{CityName}", 
+                    LastName().fake_with_rng::<String, _>(&mut rng).as_ref()
+                )
+                .replace(
+                    "{CitySuffix}",
+                    CitySuffix().fake_with_rng::<&str, _>(&mut rng),
+                ),
+            2 => ADDRESS_CITY_WITH_DASH_TPL
+                .replace(
+                    "{CityPrefix}",
+                    CityPrefix().fake_with_rng::<&str, _>(&mut rng),
+                )
+                .replace(
+                    "{CityName}",
+                    Name().fake_with_rng::<String, _>(&mut rng).as_ref(),
+                )
+                .replace(
+                    "{CitySuffix}",
+                    CitySuffix().fake_with_rng::<&str, _>(&mut rng),
+                ),
+            3 => ADDRESS_CITY_WITH_RIVER_TPL
+                .replace(
+                    "{CityPrefix}",
+                    CityPrefix().fake_with_rng::<&str, _>(&mut rng),
+                )
+                .replace(
+                    "{CityName}",
+                    Name().fake_with_rng::<String, _>(&mut rng).as_ref(),
+                )
+                .replace(
+                    "{CitySuffix}",
+                    CitySuffix().fake_with_rng::<&str, _>(&mut rng),
+                )
+                .replace(
+                    "{River}",
+                    RIVERS[rng.gen_range(0..RIVERS.len())],
+                ),
+            _ => ADDRESS_CITY_WITHOUT_PREFIX
+                .replace(
+                    "{CityName}",
+                    Name().fake_with_rng::<String, _>(&mut rng).as_ref(),
+                )
+                .replace(
+                    "{CitySuffix}",
+                    CitySuffix().fake_with_rng::<&str, _>(&mut rng),
+                ),
+        };
+
+        result
+    });
 }
