@@ -33,3 +33,10 @@ fn de_manual_test() {
         println!("{:#?}", c);
     }
 }
+#[test]
+fn de_manual_city_test() {
+    for _ in 1..10 {
+        let city: String = CityName(DE_DE).fake();
+        println!("{:#?}", city);
+    }
+}
