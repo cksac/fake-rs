@@ -47,7 +47,7 @@ macro_rules! def_fakers {
     };
 }
 
-mod impls;
+pub mod impls;
 
 pub mod address {
     def_fakers! {

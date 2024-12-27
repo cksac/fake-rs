@@ -32,13 +32,10 @@ impl<L: Data> Dummy<CitySuffix<L>> for &str {
     }
 }
 
-impl<L: Data + Copy> Dummy<CityName<L>> for String {
-    fn dummy_with_rng<R: Rng + ?Sized>(c: &CityName<L>, rng: &mut R) -> Self {
-        if let Some(gen_fn) = L::ADDRESS_CITY_GEN_FN {
-            return gen_fn();
-        }
+pub trait CityNameGenFn: Data + Sized + Copy {
+    fn gen<R: Rng + ?Sized>(c: &CityName<Self>, rng: &mut R) -> String {
         match (0..5).fake_with_rng::<u8, _>(rng) {
-            0 => L::ADDRESS_CITY_WITH_PREFIX_TPL
+            0 => Self::ADDRESS_CITY_WITH_PREFIX_TPL
                 .replace(
                     "{CityPrefix}",
                     CityPrefix(c.0).fake_with_rng::<&str, _>(rng),
@@ -51,19 +48,25 @@ impl<L: Data + Copy> Dummy<CityName<L>> for String {
                     "{CitySuffix}",
                     CitySuffix(c.0).fake_with_rng::<&str, _>(rng),
                 ),
-            1 => L::ADDRESS_CITY_TPL
+            1 => Self::ADDRESS_CITY_TPL
                 .replace("{CityName}", FirstName(c.0).fake_with_rng::<&str, _>(rng))
                 .replace(
                     "{CitySuffix}",
                     CitySuffix(c.0).fake_with_rng::<&str, _>(rng),
                 ),
-            _ => L::ADDRESS_CITY_TPL
+            _ => Self::ADDRESS_CITY_TPL
                 .replace("{CityName}", LastName(c.0).fake_with_rng::<&str, _>(rng))
                 .replace(
                     "{CitySuffix}",
                     CitySuffix(c.0).fake_with_rng::<&str, _>(rng),
                 ),
         }
+    }
+}
+
+impl<L: CityNameGenFn> Dummy<CityName<L>> for String {
+    fn dummy_with_rng<R: Rng + ?Sized>(c: &CityName<L>, rng: &mut R) -> Self {
+        L::gen(c, rng)
     }
 }
 

@@ -1,4 +1,4 @@
-use crate::locales::Data;
+use crate::{faker::impls::address::CityNameGenFn, locales::Data};
 
 #[allow(non_camel_case_types)]
 #[derive(Copy, Clone)]
@@ -103,3 +103,5 @@ impl Data for ZH_CN {
     ];
     const JOB_TITLE_TPL: &'static str = "{Seniority} {Field} {Position}";
 }
+
+impl CityNameGenFn for ZH_CN {}

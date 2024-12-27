@@ -1,24 +1,24 @@
-mod address;
-mod administrative;
-mod automotive;
-mod barcode;
-mod boolean;
+pub mod address;
+pub mod administrative;
+pub mod automotive;
+pub mod barcode;
+pub mod boolean;
 #[cfg(feature = "chrono")]
-mod chrono;
+pub mod chrono;
 #[cfg(feature = "random_color")]
-mod color;
-mod company;
-mod creditcard;
-mod currency;
-mod filesystem;
-mod finance;
+pub mod color;
+pub mod company;
+pub mod creditcard;
+pub mod currency;
+pub mod filesystem;
+pub mod finance;
 #[cfg(feature = "http")]
-mod http;
-mod internet;
-mod job;
-mod lorem;
-mod name;
-mod number;
-mod phone_number;
+pub mod http;
+pub mod internet;
+pub mod job;
+pub mod lorem;
+pub mod name;
+pub mod number;
+pub mod phone_number;
 #[cfg(feature = "time")]
-mod time;
+pub mod time;

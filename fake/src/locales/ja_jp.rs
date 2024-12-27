@@ -1,4 +1,4 @@
-use crate::locales::Data;
+use crate::{faker::impls::address::CityNameGenFn, locales::Data};
 
 #[allow(non_camel_case_types)]
 #[derive(Copy, Clone)]
@@ -782,3 +782,5 @@ impl Data for JA_JP {
     const PHONE_CELL_NUMBER_FORMATS: &'static [&'static str] =
         &["090-####-####", "080-####-####", "070-####-####"];
 }
+
+impl CityNameGenFn for JA_JP {}

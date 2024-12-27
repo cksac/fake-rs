@@ -1,4 +1,4 @@
-use crate::locales::Data;
+use crate::{faker::impls::address::CityNameGenFn, locales::Data};
 
 #[allow(non_camel_case_types)]
 #[derive(Copy, Clone)]
@@ -719,3 +719,5 @@ impl Data for PT_BR {
     const ADDRESS_POSTCODE_FORMATS: &'static [&'static str] = &["#####-###"];
     const COMPANY_SUFFIX: &'static [&'static str] = &["e Filhos", "e Associados", "Ltda.", "S.A."];
 }
+
+impl CityNameGenFn for PT_BR {}
