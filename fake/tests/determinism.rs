@@ -49,12 +49,12 @@ check_determinism! { one fake_u64_range, u64, (1u64..54683546546434) }
 // Address
 use fake::faker::address::raw::*;
 
-check_determinism! { l10d BuildingNumber; String, fake_buildingnumber_en, fake_buildingnumber_fr, fake_buildingnumber_cn, fake_buildingnumber_tw, fake_buildingnumber_jp, fake_buildingnumber_br , fake_buildingnumber_de}
-check_determinism! { l10d CityName; String, fake_cityname_en, fake_cityname_fr, fake_cityname_cn, fake_cityname_tw, fake_cityname_jp, fake_cityname_br, fake_cityname_de }
+check_determinism! { l10d BuildingNumber; String, fake_buildingnumber_en, fake_buildingnumber_fr, fake_buildingnumber_cn, fake_buildingnumber_tw, fake_buildingnumber_jp, fake_buildingnumber_br, fake_buildingnumber_de}
+check_determinism! { l10d CityName; String, fake_cityname_en, fake_cityname_fr, fake_cityname_cn, fake_cityname_tw, fake_cityname_jp, fake_cityname_br, fake_cityname_de}
 check_determinism! { l10d CityPrefix; String, fake_cityprefix_en, fake_cityprefix_fr, fake_cityprefix_cn, fake_cityprefix_tw, fake_cityprefix_jp, fake_cityprefix_br, fake_cityprefix_de}
 check_determinism! { l10d CitySuffix; String, fake_citysuffix_en, fake_citysuffix_fr, fake_citysuffix_cn, fake_citysuffix_tw, fake_citysuffix_jp, fake_citysuffix_br, fake_citysuffix_de }
-check_determinism! { l10d CountryCode; String, fake_countrycode_en, fake_countrycode_fr, fake_countrycode_cn, fake_countrycode_tw, fake_countrycode_jp, fake_countrycode_br, fake_countrycode_de }
-check_determinism! { l10d CountryName; String, fake_countryname_en, fake_countryname_fr, fake_countryname_cn, fake_countryname_tw, fake_countryname_jp, fake_countryname_br, fake_countryname_de }
+check_determinism! { l10d CountryCode; String, fake_countrycode_en, fake_countrycode_fr, fake_countrycode_cn, fake_countrycode_tw, fake_countrycode_jp, fake_countrycode_br, fake_countrycode_de}
+check_determinism! { l10d CountryName; String, fake_countryname_en, fake_countryname_fr, fake_countryname_cn, fake_countryname_tw, fake_countryname_jp, fake_countryname_br, fake_countryname_de}
 check_determinism! { l10d Geohash; String, fake_geohash_en, fake_geohash_fr, fake_geohash_cn, fake_geohash_tw, fake_geohash_jp,fake_geohash_br, fake_geohash_de, 11 }
 check_determinism! { l10d Latitude; String, fake_latitude_en, fake_latitude_fr, fake_latitude_cn, fake_latitude_tw, fake_latitude_jp, fake_latitude_br, fake_latitude_de }
 check_determinism! { l10d Longitude; String, fake_longitude_en, fake_longitude_fr, fake_longitude_cn, fake_longitude_tw, fake_longitude_jp, fake_longitude_br, fake_longitude_de }
@@ -116,13 +116,13 @@ mod chrono {
         lo() + chrono::Duration::days(365)
     }
 
-    check_determinism! { l10d Date; String, fake_date_en, fake_date_fr, fake_date_cn, fake_date_tw, fake_date_jp, fake_date_br, fake_date_de }
-    check_determinism! { l10d DateTime; String, fake_date_time_en, fake_date_time_fr, fake_date_time_cn, fake_date_time_tw, fake_date_time_jp, fake_date_time_br, fake_date_time_de }
-    check_determinism! { l10d DateTimeAfter; String, fake_date_time_after_en, fake_date_time_after_fr, fake_date_time_after_cn, fake_date_time_after_tw, fake_date_time_after_jp, fake_date_time_after_br, fake_date_time_after_de, lo() }
-    check_determinism! { l10d DateTimeBefore; String, fake_date_time_before_en, fake_date_time_before_fr, fake_date_time_before_cn, fake_date_time_before_tw, fake_date_time_before_jp, fake_date_time_before_br, fake_date_time_before_de, hi() }
-    check_determinism! { l10d DateTimeBetween; String, fake_date_time_between_en, fake_date_time_between_fr, fake_date_time_between_cn, fake_date_time_between_tw, fake_date_time_between_jp, fake_date_time_between_br, fake_date_time_between_de, lo(), hi() }
-    check_determinism! { l10d Duration; ::chrono::Duration, fake_duration_en, fake_duration_fr, fake_duration_cn, fake_duration_tw, fake_duration_jp, fake_duration_br }
-    check_determinism! { l10d Time; String, fake_time_en, fake_time_fr, fake_time_cn, fake_time_tw, fake_time_jp, fake_time_br, fake_time_de }
+    check_determinism! { l10d Date; String, fake_date_en, fake_date_fr, fake_date_cn, fake_date_tw, fake_date_jp, fake_date_br, fake_date_de}
+    check_determinism! { l10d DateTime; String, fake_date_time_en, fake_date_time_fr, fake_date_time_cn, fake_date_time_tw, fake_date_time_jp, fake_date_time_br, fake_date_time_de}
+    check_determinism! { l10d DateTimeAfter; String, fake_date_time_after_en, fake_date_time_after_fr, fake_date_time_after_cn, fake_date_time_after_tw, fake_date_time_after_jp, fake_date_time_after_br, fake_date_time_after_de, lo()}
+    check_determinism! { l10d DateTimeBefore; String, fake_date_time_before_en, fake_date_time_before_fr, fake_date_time_before_cn, fake_date_time_before_tw, fake_date_time_before_jp, fake_date_time_before_br, fake_date_time_before_de, hi()}
+    check_determinism! { l10d DateTimeBetween; String, fake_date_time_between_en, fake_date_time_between_fr, fake_date_time_between_cn, fake_date_time_between_tw, fake_date_time_between_jp, fake_date_time_between_br, fake_date_time_between_de, lo(), hi()}
+    check_determinism! { l10d Duration; ::chrono::Duration, fake_duration_en, fake_duration_fr, fake_duration_cn, fake_duration_tw, fake_duration_jp, fake_duration_br, fake_duration_de}
+    check_determinism! { l10d Time; String, fake_time_en, fake_time_fr, fake_time_cn, fake_time_tw, fake_time_jp, fake_time_br, fake_time_de}
     check_determinism! { one fake_naive_time_precision, ::chrono::NaiveTime, Precision::<6> }
     check_determinism! { one fake_naive_date_time_precision, ::chrono::NaiveDateTime, Precision::<6> }
     check_determinism! { one fake_date_time_precision, ::chrono::DateTime<::chrono::Utc>, Precision::<6> }
