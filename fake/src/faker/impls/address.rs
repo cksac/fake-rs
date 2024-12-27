@@ -65,6 +65,7 @@ pub trait CityNameGenFn: Data + Sized + Copy {
 }
 
 impl<L: CityNameGenFn> Dummy<CityName<L>> for String {
+    #[inline(always)]
     fn dummy_with_rng<R: Rng + ?Sized>(c: &CityName<L>, rng: &mut R) -> Self {
         L::gen(c, rng)
     }
