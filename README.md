@@ -9,8 +9,8 @@ A Rust library and command line tool for generating fake data in different langu
 | Language              | Code  |
 |-----------------------|-------|
 | English               | en    |
-| French                | fr_fR |
-| Arabic                | ar_sA |
+| French                | fr_fr |
+| Arabic                | ar_sa |
 | Traditional Chinese   | zh_tw |
 | Simplified Chinese    | zh_cn |
 | Japanese              | ja_jp |
