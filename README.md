@@ -15,6 +15,7 @@ A Rust library and command line tool for generating fake data in different langu
 | Simplified Chinese    | zh_cn |
 | Japanese              | ja_jp |
 | Portugese (Brazilian) | pt_br |
+| German                | de_de |
 
 
 ## Installation
