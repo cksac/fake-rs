@@ -1,5 +1,10 @@
 # Changelogs
-## v3.1.0
+## v3.1.1
+- Add more french translation(@odarrouzet [#213](https://github.com/cksac/fake-rs/pull/213))
+- Add de_de locale support in fake cli
+- Enable Link-Time Optimization
+
+## v3.1.0 (2024-12-27)
 - Allow CityName implementation to be overrite by each locale
 - Added DE_DE Locale (@xoryouyou [#75](https://github.com/cksac/fake-rs/pull/75))
 - Added fake cli (@akhildevelops [#209](https://github.com/cksac/fake-rs/pull/209))

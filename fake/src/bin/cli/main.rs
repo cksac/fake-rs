@@ -4,10 +4,9 @@ use std::io::{self, Write};
 
 mod fake_gen;
 
-#[allow(non_upper_case_globals)]
-mod names;
-
-const AVAILABLE_LOCALES: [&str; 7] = ["en", "fr_fr", "zh_tw", "zh_cn", "ja_jp", "ar_sa", "pt_br"];
+const AVAILABLE_LOCALES: [&str; 8] = [
+    "en", "fr_fr", "zh_tw", "zh_cn", "ja_jp", "ar_sa", "pt_br", "de_de",
+];
 
 pub use fake_gen::{all_fakegen_commands, AVAILABLE_LOCALES};
 pub fn main() {
@@ -39,6 +38,7 @@ impl TryFrom<&str> for AVAILABLE_LOCALES {
             "ja_jp" => AVAILABLE_LOCALES::JA_JP,
             "ar_sa" => AVAILABLE_LOCALES::AR_SA,
             "pt_br" => AVAILABLE_LOCALES::PT_BR,
+            "de_de" => AVAILABLE_LOCALES::DE_DE,
             _=> return Err(format!("{} is either an invalid locale or not yet supported.\n The supported locales are: {:?}",str_val,AVAILABLE_LOCALES))
         };
         Ok(variant)

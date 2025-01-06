@@ -11,6 +11,7 @@ pub enum AVAILABLE_LOCALES {
     JA_JP,
     AR_SA,
     PT_BR,
+    DE_DE,
 }
 
 macro_rules! fake_gen_on_return_type {
@@ -29,37 +30,34 @@ macro_rules! some_rules {
             AVAILABLE_LOCALES::EN => {
                 let s = faker::$module::en::$fake($($arg)?);
                 Box::new(move |rng: &mut R| fake_gen_on_return_type!(s,rng$(,$return_type)?))
-
             }
             AVAILABLE_LOCALES::FR_FR => {
                 let s = faker::$module::fr_fr::$fake($($arg)?);
                 Box::new(move |rng: &mut R| fake_gen_on_return_type!(s,rng$(,$return_type)?))
-
             }
             AVAILABLE_LOCALES::ZH_TW => {
                 let s = faker::$module::zh_tw::$fake($($arg)?);
                 Box::new(move |rng: &mut R| fake_gen_on_return_type!(s,rng$(,$return_type)?))
-
             }
             AVAILABLE_LOCALES::ZH_CN => {
                 let s = faker::$module::zh_cn::$fake($($arg)?);
                 Box::new(move |rng: &mut R| fake_gen_on_return_type!(s,rng$(,$return_type)?))
-
             }
             AVAILABLE_LOCALES::AR_SA => {
                 let s = faker::$module::ar_sa::$fake($($arg)?);
                 Box::new(move |rng: &mut R| fake_gen_on_return_type!(s,rng$(,$return_type)?))
-
             }
             AVAILABLE_LOCALES::JA_JP => {
                 let s = faker::$module::ja_jp::$fake($($arg)?);
                 Box::new(move |rng: &mut R| fake_gen_on_return_type!(s,rng$(,$return_type)?))
-
             }
             AVAILABLE_LOCALES::PT_BR => {
                 let s = faker::$module::pt_br::$fake($($arg)?);
                 Box::new(move |rng: &mut R| fake_gen_on_return_type!(s,rng$(,$return_type)?))
-
+            }
+            AVAILABLE_LOCALES::DE_DE => {
+                let s = faker::$module::de_de::$fake($($arg)?);
+                Box::new(move |rng: &mut R| fake_gen_on_return_type!(s,rng$(,$return_type)?))
             }
         }
     };

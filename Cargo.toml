@@ -5,3 +5,6 @@ members = [
 ]
 
 resolver = "2"
+
+[profile.release]
+lto = true
