@@ -13,7 +13,7 @@ jobs:
       - uses: actions-rs/cargo@v1
         with:
           command: build
-          args: --release --profile release-lto --bin fake --features cli
+          args: --profile release-lto --bin fake --features cli
       # TODO: Support generating for multiple targets.
       # https://stackoverflow.com/questions/73498168/github-actions-merge-artifacts-after-matrix-steps
       - name: Archive Binary
