@@ -6,5 +6,7 @@ members = [
 
 resolver = "2"
 
-[profile.release]
+[profile.release-lto]
+inherits = "release"
+codegen-units = 1
 lto = true
