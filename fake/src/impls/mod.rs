@@ -1,5 +1,7 @@
 //! This module contains implementations of `Dummy` trait
 
+#[cfg(feature = "base64")]
+pub mod base64;
 #[cfg(feature = "bigdecimal-rs")]
 pub mod bigdecimal;
 #[cfg(feature = "bson_oid")]

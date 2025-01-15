@@ -373,3 +373,13 @@ mod bson_oid {
 
     check_determinism! { one fake_bson_oid, ObjectId, Faker }
 }
+
+#[cfg(feature = "base64")]
+mod base64 {
+    use fake::base64::*;
+    use fake::{Fake, Faker};
+    use rand::SeedableRng as _;
+
+    check_determinism! { one fake_base64, Base64Value, Faker }
+    check_determinism! { one fake_url_safe_base64, UrlSafeBase64Value, Faker }
+}

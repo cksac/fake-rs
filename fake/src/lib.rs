@@ -303,6 +303,10 @@ pub use impls::chrono;
 #[cfg_attr(docsrs, doc(cfg(feature = "bson_oid")))]
 pub use impls::bson_oid;
 
+#[cfg(feature = "base64")]
+#[cfg_attr(docsrs, doc(cfg(feature = "base64")))]
+pub use impls::base64;
+
 /// Fake value generation for specific formats.
 ///
 /// It is structured in a way such that the modules here describes the custom
