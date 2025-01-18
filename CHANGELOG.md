@@ -4,6 +4,7 @@
 - Add de_de locale support in fake cli
 - Enable Link-Time Optimization
 - Add base64 faker (@xd009642 [#216](https://github.com/cksac/fake-rs/pull/216))
+- Implement Dummy for std::time::Duration (@patrickariel [#217](https://github.com/cksac/fake-rs/pull/217))
 
 ## v3.1.0 (2024-12-27)
 - Allow CityName implementation to be overrite by each locale
