@@ -8,4 +8,5 @@ pub mod path;
 pub mod primitives;
 pub mod result;
 pub mod string;
+pub mod time;
 pub mod tuple;
