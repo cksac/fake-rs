@@ -1,5 +1,5 @@
 use crate::faker::automotive::raw::*;
-use crate::locales::{FR_FR, PT_PT};
+use crate::locales::FR_FR;
 use crate::{Dummy, Fake};
 use rand::prelude::SliceRandom;
 use rand::Rng;
