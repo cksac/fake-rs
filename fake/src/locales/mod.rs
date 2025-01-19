@@ -224,5 +224,8 @@ pub use self::ar_sa::AR_SA;
 mod pt_br;
 pub use self::pt_br::PT_BR;
 
+mod pt_pt;
+pub use self::pt_pt::PT_PT;
+
 mod de_de;
 pub use self::de_de::DE_DE;
