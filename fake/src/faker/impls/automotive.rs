@@ -1,5 +1,5 @@
 use crate::faker::automotive::raw::*;
-use crate::locales::FR_FR;
+use crate::locales::{FR_FR, PT_PT};
 use crate::{Dummy, Fake};
 use rand::prelude::SliceRandom;
 use rand::Rng;
@@ -18,7 +18,7 @@ const LICENSE_CHARS: [char; 23] = [
 ];
 
 #[inline]
-fn numerify_licence_plate<R: Rng + ?Sized>(string: &str, rng: &mut R) -> String {
+pub(crate) fn numerify_licence_plate<R: Rng + ?Sized>(string: &str, rng: &mut R) -> String {
     string
         .chars()
         .map(|x| match x {

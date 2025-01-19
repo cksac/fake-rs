@@ -1,4 +1,10 @@
-use crate::{faker::impls::address::CityNameGenFn, locales::Data};
+use rand::seq::SliceRandom;
+
+use crate::{
+    faker::{automotive::raw::LicencePlate, impls::address::CityNameGenFn},
+    locales::Data,
+    Dummy,
+};
 
 #[allow(non_camel_case_types)]
 #[derive(Copy, Clone)]
@@ -763,3 +769,14 @@ impl Data for PT_PT {
 }
 
 impl CityNameGenFn for PT_PT {}
+
+const LICENSE_PLATE_PT_PT: &[&str] = &[
+    "$$-##-##", "##-##-$$", "##-$$-##", "## ## $$", "## $$ ##", "$$ ## $$",
+];
+
+impl Dummy<LicencePlate<PT_PT>> for String {
+    fn dummy_with_rng<R: rand::Rng + ?Sized>(_: &LicencePlate<PT_PT>, rng: &mut R) -> Self {
+        let fmt = LICENSE_PLATE_PT_PT.choose(rng).unwrap();
+        crate::faker::impls::automotive::numerify_licence_plate(fmt, rng)
+    }
+}
