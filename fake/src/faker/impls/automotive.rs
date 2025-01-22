@@ -18,7 +18,7 @@ const LICENSE_CHARS: [char; 23] = [
 ];
 
 #[inline]
-fn numerify_licence_plate<R: Rng + ?Sized>(string: &str, rng: &mut R) -> String {
+pub(crate) fn numerify_licence_plate<R: Rng + ?Sized>(string: &str, rng: &mut R) -> String {
     string
         .chars()
         .map(|x| match x {
