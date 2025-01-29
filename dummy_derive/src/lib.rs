@@ -217,7 +217,12 @@ pub fn derive_dummy(input: TokenStream) -> TokenStream {
                     impl #impl_generics #crate_name::Dummy<#crate_name::Faker> for #receiver_name #ty_generics #where_clause {
                         fn dummy_with_rng<R: #crate_name::Rng + ?Sized>(_: &#crate_name::Faker, rng: &mut R) -> Self {
                             let options = [#(#variant_opts),*];
-                            match #crate_name::rand::seq::SliceRandom::choose(options.as_ref(), rng).unwrap() {
+                            match #crate_name::rand::seq::SliceRandom::choose(
+                                <_ as ::std::convert::AsRef<[usize]>>::as_ref(&options),
+                                rng,
+                            )
+                            .unwrap()
+                            {
                                 #(#match_statements)*
                                 _ => {
                                     unreachable!()
