@@ -1,5 +1,5 @@
 use fake::{Fake, Faker};
-use rand::distributions;
+use rand::distr;
 use rand::rngs::StdRng;
 use rand::SeedableRng;
 
@@ -16,7 +16,7 @@ fn main() {
     println!("u8 ({}) in [MIN, MAX]", (..).fake::<u8>());
 
     // to reuse sampler `Uniform` for value generation
-    let sampler = distributions::Uniform::new_inclusive(1, 10);
+    let sampler = distr::Uniform::new_inclusive(1, 10).expect("Can");
     for _ in 0..5 {
         let v: usize = sampler.fake();
         println!("sample value {}", v);

@@ -1,7 +1,7 @@
 use crate::faker::boolean::raw::Boolean;
 use crate::locales::EN;
 use crate::{Dummy, Fake, Faker};
-use rand::seq::SliceRandom;
+use rand::seq::IndexedRandom;
 use rand::Rng;
 
 const UNSTABLE_SEMVER: &[&str] = &["alpha", "beta", "rc"];

@@ -1,7 +1,7 @@
 use crate::faker::job::raw::*;
 use crate::locales::Data;
 use crate::{Dummy, Fake};
-use rand::seq::SliceRandom;
+use rand::seq::IndexedRandom;
 use rand::Rng;
 
 impl<L: Data> Dummy<Seniority<L>> for String {

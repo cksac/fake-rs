@@ -1,5 +1,5 @@
 use fake::{Fake, Faker};
-use rand::distributions;
+use rand::distr;
 use std::collections::{BTreeMap, BTreeSet, HashMap, HashSet};
 
 fn main() {
@@ -28,7 +28,7 @@ fn main() {
     println!("BTreeSet {:?}", btree_set);
 
     // generate fixed length nested vec [[[u8;2];3];4] with value using sampler
-    let sampler = distributions::Uniform::new_inclusive(1, 10);
+    let sampler = distr::Uniform::new_inclusive(1, 10).expect("Can sample uniform");
     let v3 = fake::vec![u8 as sampler; 4, 3, 2];
     println!("random nested vec {:?}", v3);
 

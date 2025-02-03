@@ -44,7 +44,7 @@ pub fn either<A, B>(a: A, b: B) -> EitherFaker<A, B> {
 
 #[cfg(feature = "always-true-rng")]
 mod always_true_rng {
-    use rand::{rngs::mock::StepRng, Error, RngCore};
+    use rand::{rngs::mock::StepRng, RngCore};
     use rand_core::impls;
 
     #[derive(Clone, Debug, Eq, PartialEq)]
@@ -91,12 +91,6 @@ mod always_true_rng {
         #[inline]
         fn fill_bytes(&mut self, dest: &mut [u8]) {
             impls::fill_bytes_via_next(self, dest);
-        }
-
-        #[inline]
-        fn try_fill_bytes(&mut self, dest: &mut [u8]) -> Result<(), Error> {
-            self.fill_bytes(dest);
-            Ok(())
         }
     }
 }

@@ -13,7 +13,7 @@ pub fn main() {
     let stdout = io::stdout();
     let mut buf_stdout = io::BufWriter::new(stdout);
 
-    let mut thread_rng = rand::thread_rng();
+    let mut thread_rng = rand::rng();
     let args = cli_parser();
 
     writeln!(

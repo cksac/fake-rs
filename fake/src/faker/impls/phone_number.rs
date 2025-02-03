@@ -2,7 +2,7 @@ use crate::faker::numerify_sym;
 use crate::faker::phone_number::raw::*;
 use crate::locales::Data;
 use crate::Dummy;
-use rand::seq::SliceRandom;
+use rand::seq::IndexedRandom;
 use rand::Rng;
 
 impl<L: Data> Dummy<PhoneNumber<L>> for String {

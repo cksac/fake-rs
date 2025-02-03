@@ -4,8 +4,8 @@ use crate::faker::name::raw::FirstName;
 use crate::locales::Data;
 use crate::{Dummy, Fake, Faker};
 use deunicode::AsciiChars;
-use rand::distributions::{Distribution, Uniform};
-use rand::seq::SliceRandom;
+use rand::distr::{Distribution, Uniform};
+use rand::seq::IndexedRandom;
 use rand::Rng;
 use std::net::{IpAddr, Ipv4Addr, Ipv6Addr};
 
@@ -86,7 +86,7 @@ impl<L: Data> Dummy<Password<L>> for String {
 
 impl<L: Data> Dummy<IPv4<L>> for String {
     fn dummy_with_rng<R: Rng + ?Sized>(_: &IPv4<L>, rng: &mut R) -> Self {
-        let u = Uniform::new_inclusive(u8::MIN, u8::MAX);
+        let u = Uniform::new_inclusive(u8::MIN, u8::MAX).expect("u8::MIN <= u8::MAX");
         format!(
             "{}.{}.{}.{}",
             u.sample(rng),
@@ -106,7 +106,7 @@ impl<L: Data> Dummy<IPv4<L>> for Ipv4Addr {
 
 impl<L: Data> Dummy<IPv6<L>> for String {
     fn dummy_with_rng<R: Rng + ?Sized>(_: &IPv6<L>, rng: &mut R) -> Self {
-        let u = Uniform::new_inclusive(u16::MIN, u16::MAX);
+        let u = Uniform::new_inclusive(u16::MIN, u16::MAX).expect("u16::MIN <= u16::MAX");
         format!(
             "{:X}:{:X}:{:X}:{:X}:{:X}:{:X}:{:X}:{:X}",
             u.sample(rng),
@@ -143,7 +143,7 @@ impl<L: Data> Dummy<IP<L>> for IpAddr {
 
 impl<L: Data> Dummy<MACAddress<L>> for String {
     fn dummy_with_rng<R: Rng + ?Sized>(_: &MACAddress<L>, rng: &mut R) -> Self {
-        let u = Uniform::new_inclusive(u8::MIN, u8::MAX);
+        let u = Uniform::new_inclusive(u8::MIN, u8::MAX).expect("u8::MIN <= u8::MAX");
         format!(
             "{:02X}:{:02X}:{:02X}:{:02X}:{:02X}:{:02X}",
             u.sample(rng),

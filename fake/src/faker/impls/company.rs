@@ -2,7 +2,7 @@ use crate::faker::company::raw::*;
 use crate::faker::name::raw::LastName;
 use crate::locales::Data;
 use crate::{Dummy, Fake};
-use rand::seq::SliceRandom;
+use rand::seq::IndexedRandom;
 use rand::Rng;
 
 impl<L: Data> Dummy<CompanySuffix<L>> for String {

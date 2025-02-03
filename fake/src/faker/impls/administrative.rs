@@ -1,7 +1,7 @@
 use crate::faker::administrative::raw::*;
 use crate::locales::FR_FR;
 use crate::{Dummy, Fake};
-use rand::seq::SliceRandom;
+use rand::seq::IndexedRandom;
 use rand::Rng;
 
 // ref https://fr.wikipedia.org/wiki/Num%C3%A9rotation_des_d%C3%A9partements_fran%C3%A7ais

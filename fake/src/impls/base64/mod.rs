@@ -38,14 +38,14 @@ impl Dummy<UrlSafeBase64> for String {
 }
 
 impl Dummy<Faker> for Base64Value {
-    fn dummy_with_rng<R: rand::Rng + ?Sized>(config: &Faker, rng: &mut R) -> Self {
+    fn dummy_with_rng<R: rand::Rng + ?Sized>(_config: &Faker, rng: &mut R) -> Self {
         let s = String::dummy_with_rng(&Base64, rng);
         Base64Value(s)
     }
 }
 
 impl Dummy<Faker> for UrlSafeBase64Value {
-    fn dummy_with_rng<R: rand::Rng + ?Sized>(config: &Faker, rng: &mut R) -> Self {
+    fn dummy_with_rng<R: rand::Rng + ?Sized>(_config: &Faker, rng: &mut R) -> Self {
         let s = String::dummy_with_rng(&UrlSafeBase64, rng);
         UrlSafeBase64Value(s)
     }

@@ -3,7 +3,7 @@ use crate::faker::boolean::raw::Boolean;
 use crate::faker::numerify_sym;
 use crate::locales::Data;
 use crate::{Dummy, Fake};
-use rand::prelude::SliceRandom;
+use rand::seq::IndexedRandom;
 use rand::Rng;
 
 const ISBN_MAX_LENGTH: usize = 13;

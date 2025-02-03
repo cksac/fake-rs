@@ -1,6 +1,6 @@
 use crate::{Dummy, Fake, Faker};
-use rand::distributions::Alphanumeric;
-use rand::seq::SliceRandom;
+use rand::distr::Alphanumeric;
+use rand::seq::IndexedRandom;
 use rand::Rng;
 use std::ops;
 

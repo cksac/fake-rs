@@ -1,7 +1,8 @@
 use crate::faker::creditcard::raw::CreditCardNumber;
 use crate::locales::Data;
 use crate::Dummy;
-use rand::{prelude::IteratorRandom, seq::SliceRandom, Rng};
+use rand::seq::{IndexedRandom, IteratorRandom};
+use rand::Rng;
 
 type PrefixCreditcard<'a> = (u8, Option<&'a [u8]>, &'a [usize]);
 

@@ -1,7 +1,7 @@
 use crate::faker::finance::raw::*;
 use crate::locales::Data;
 use crate::{Dummy, Fake};
-use rand::seq::SliceRandom;
+use rand::seq::IndexedRandom;
 use rand::Rng;
 
 const ALPHABET: &[char; 26] = &[
@@ -51,9 +51,9 @@ impl<L: Data> Dummy<Bic<L>> for String {
             );
         } else if prob < 90 {
             (
-                rng.gen_range('0'..='9'),
-                rng.gen_range('0'..='9'),
-                rng.gen_range('0'..='9'),
+                rng.random_range('0'..='9'),
+                rng.random_range('0'..='9'),
+                rng.random_range('0'..='9'),
             )
         } else {
             (

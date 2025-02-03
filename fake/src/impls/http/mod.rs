@@ -1,6 +1,6 @@
 use crate::{Dummy, Fake, Faker};
 use http::uri;
-use rand::seq::SliceRandom;
+use rand::seq::IndexedRandom;
 use rand::Rng;
 use std::mem;
 use std::net::Ipv4Addr;
@@ -53,14 +53,14 @@ impl Dummy<Faker> for http::HeaderName {
 
 impl<T: Dummy<Faker>> Dummy<Faker> for http::HeaderMap<T> {
     fn dummy_with_rng<R: Rng + ?Sized>(config: &Faker, rng: &mut R) -> Self {
-        let len = rng.gen_range(1..10);
+        let len = rng.random_range(1..10);
         let mut map = http::HeaderMap::with_capacity(len);
         for _ in 0..len {
             let name: http::HeaderName = config.fake_with_rng(rng);
-            if rng.gen_bool(0.7) {
+            if rng.random_bool(0.7) {
                 map.insert(name, config.fake_with_rng(rng));
             } else {
-                for _ in 0..rng.gen_range(1..5) {
+                for _ in 0..rng.random_range(1..5) {
                     map.append(&name, config.fake_with_rng(rng));
                 }
             }
@@ -106,12 +106,12 @@ impl Dummy<Faker> for http::uri::Authority {
     fn dummy_with_rng<R: Rng + ?Sized>(config: &Faker, rng: &mut R) -> Self {
         let mut authority = String::new();
 
-        if rng.gen_bool(0.5) {
+        if rng.random_bool(0.5) {
             // Include password
             let user = config.fake_with_rng::<String, _>(rng);
             let username = url_escape::encode_userinfo(&user);
             authority.push_str(&username);
-            if rng.gen_bool(0.5) {
+            if rng.random_bool(0.5) {
                 authority.push(':');
                 let pass = config.fake_with_rng::<String, _>(rng);
                 let password = url_escape::encode_userinfo(&pass);
@@ -125,7 +125,7 @@ impl Dummy<Faker> for http::uri::Authority {
             0 => {
                 authority.push_str("localhost");
                 // Include port number
-                if rng.gen_bool(0.5) {
+                if rng.random_bool(0.5) {
                     let port_num = config.fake_with_rng::<u16, _>(rng);
                     authority.push(':');
                     authority.push_str(&port_num.to_string());
@@ -137,7 +137,7 @@ impl Dummy<Faker> for http::uri::Authority {
                 authority.push_str(&ip.to_string());
             }
             _ => {
-                if rng.gen_bool(0.5) {
+                if rng.random_bool(0.5) {
                     authority.push_str("www.");
                 }
                 let host_len = (1..100).fake_with_rng(rng);
@@ -145,7 +145,7 @@ impl Dummy<Faker> for http::uri::Authority {
                     .extend((0..host_len).map(|_| *VALID_SCHEME_CHARACTERS.choose(rng).unwrap()));
 
                 // Include port number
-                if rng.gen_bool(0.5) {
+                if rng.random_bool(0.5) {
                     let port_num = config.fake_with_rng::<u16, _>(rng);
                     authority.push(':');
                     authority.push_str(&port_num.to_string());
@@ -171,10 +171,10 @@ impl Dummy<Faker> for http::uri::Scheme {
                 // '.', '-'. Looking at a list of know schemes 28 seems to be the longest so I'll
                 // generate one a max of that long.
 
-                let len = rng.gen_range(1..29);
+                let len = rng.random_range(1..29);
                 let mut scheme = String::with_capacity(len);
-                scheme.push(rng.gen_range(b'a'..=b'z') as char);
-                if rng.gen_bool(0.5) {
+                scheme.push(rng.random_range(b'a'..=b'z') as char);
+                if rng.random_bool(0.5) {
                     scheme.make_ascii_uppercase();
                 }
                 scheme.extend((1..len).map(|_| *VALID_SCHEME_CHARACTERS.choose(rng).unwrap()));
@@ -193,7 +193,7 @@ impl Dummy<Faker> for http::uri::PathAndQuery {
             url_escape::encode_path(&config.fake_with_rng::<String, _>(rng))
         );
 
-        if rng.gen_bool(0.5) {
+        if rng.random_bool(0.5) {
             path.push('?');
             let mut query_parts = vec![];
             let query_len = (2..5).fake_with_rng(rng);
