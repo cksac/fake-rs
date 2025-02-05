@@ -45,7 +45,7 @@ pub struct UUIDv8;
 
 impl Dummy<UUIDv1> for Uuid {
     fn dummy_with_rng<R: rand::Rng + ?Sized>(_: &UUIDv1, rng: &mut R) -> Self {
-        let ticks = rng.gen_range(uuid::timestamp::UUID_TICKS_BETWEEN_EPOCHS..u64::MAX);
+        let ticks = rng.random_range(uuid::timestamp::UUID_TICKS_BETWEEN_EPOCHS..u64::MAX);
         let counter = Faker.fake_with_rng(rng);
         let ts = uuid::timestamp::Timestamp::from_gregorian(ticks, counter);
         let node_id: [u8; 6] = Faker.fake_with_rng(rng);
@@ -61,7 +61,7 @@ impl Dummy<UUIDv1> for String {
 
 impl Dummy<UUIDv3> for Uuid {
     fn dummy_with_rng<R: rand::Rng + ?Sized>(_: &UUIDv3, rng: &mut R) -> Self {
-        Builder::from_bytes(rng.gen())
+        Builder::from_bytes(rng.random())
             .with_variant(Variant::RFC4122)
             .with_version(Version::Md5)
             .into_uuid()
@@ -76,7 +76,7 @@ impl Dummy<UUIDv3> for String {
 
 impl Dummy<UUIDv4> for Uuid {
     fn dummy_with_rng<R: rand::Rng + ?Sized>(_: &UUIDv4, rng: &mut R) -> Self {
-        Builder::from_bytes(rng.gen())
+        Builder::from_bytes(rng.random())
             .with_variant(Variant::RFC4122)
             .with_version(Version::Random)
             .into_uuid()
@@ -91,7 +91,7 @@ impl Dummy<UUIDv4> for String {
 
 impl Dummy<UUIDv5> for Uuid {
     fn dummy_with_rng<R: rand::Rng + ?Sized>(_: &UUIDv5, rng: &mut R) -> Self {
-        Builder::from_bytes(rng.gen())
+        Builder::from_bytes(rng.random())
             .with_variant(Variant::RFC4122)
             .with_version(Version::Sha1)
             .into_uuid()
@@ -106,7 +106,7 @@ impl Dummy<UUIDv5> for String {
 
 impl Dummy<UUIDv6> for Uuid {
     fn dummy_with_rng<R: rand::Rng + ?Sized>(_: &UUIDv6, rng: &mut R) -> Self {
-        let ticks = rng.gen_range(uuid::timestamp::UUID_TICKS_BETWEEN_EPOCHS..u64::MAX);
+        let ticks = rng.random_range(uuid::timestamp::UUID_TICKS_BETWEEN_EPOCHS..u64::MAX);
         let counter = Faker.fake_with_rng(rng);
         let ts = uuid::timestamp::Timestamp::from_gregorian(ticks, counter);
         let node_id: [u8; 6] = Faker.fake_with_rng(rng);
@@ -122,7 +122,7 @@ impl Dummy<UUIDv6> for String {
 
 impl Dummy<UUIDv7> for Uuid {
     fn dummy_with_rng<R: rand::Rng + ?Sized>(_: &UUIDv7, rng: &mut R) -> Self {
-        let ticks = rng.gen_range(uuid::timestamp::UUID_TICKS_BETWEEN_EPOCHS..u64::MAX);
+        let ticks = rng.random_range(uuid::timestamp::UUID_TICKS_BETWEEN_EPOCHS..u64::MAX);
         let counter = Faker.fake_with_rng(rng);
         let ts = uuid::timestamp::Timestamp::from_gregorian(ticks, counter);
         Uuid::new_v7(ts)
@@ -150,6 +150,6 @@ impl Dummy<UUIDv8> for String {
 
 impl Dummy<Faker> for Uuid {
     fn dummy_with_rng<R: rand::Rng + ?Sized>(_: &Faker, rng: &mut R) -> Self {
-        Uuid::from_u128(rng.gen())
+        Uuid::from_u128(rng.random())
     }
 }

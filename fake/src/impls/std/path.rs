@@ -1,6 +1,6 @@
 use crate::locales::{Data, EN};
 use crate::{Dummy, Fake, Faker};
-use rand::seq::SliceRandom;
+use rand::seq::IndexedRandom;
 use rand::Rng;
 use std::path::PathBuf;
 

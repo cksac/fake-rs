@@ -3,7 +3,7 @@ use crate::faker::filesystem::raw::*;
 use crate::impls::std::path::PathFaker;
 use crate::locales::{Data, EN};
 use crate::{Dummy, Fake};
-use rand::seq::SliceRandom;
+use rand::seq::IndexedRandom;
 use rand::Rng;
 use std::path::PathBuf;
 

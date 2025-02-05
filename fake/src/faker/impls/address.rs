@@ -3,7 +3,7 @@ use crate::faker::name::raw::{FirstName, LastName, Name};
 use crate::faker::numerify_sym;
 use crate::locales::Data;
 use crate::{Dummy, Fake, Faker};
-use rand::seq::SliceRandom;
+use rand::seq::IndexedRandom;
 use rand::Rng;
 
 impl<L: Data> Dummy<CityPrefix<L>> for String {

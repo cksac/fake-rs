@@ -32,7 +32,7 @@ impl Dummy<Faker> for Utc {
 
 impl Dummy<Faker> for FixedOffset {
     fn dummy_with_rng<R: Rng + ?Sized>(_: &Faker, rng: &mut R) -> Self {
-        if rng.gen_bool(0.5) {
+        if rng.random_bool(0.5) {
             let halves: i32 = (0..=28).fake_with_rng(rng);
             FixedOffset::east_opt(halves * 30 * 60).expect("failed to create FixedOffset")
         } else {

@@ -1,5 +1,5 @@
-use crate::{Dummy, Fake, Faker};
-use rand::seq::SliceRandom;
+use crate::{Dummy, Faker};
+use rand::seq::IndexedRandom;
 use rand::Rng;
 use url::Url;
 

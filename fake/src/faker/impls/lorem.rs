@@ -1,7 +1,7 @@
 use crate::faker::lorem::raw::*;
 use crate::locales::Data;
 use crate::{Dummy, Fake};
-use rand::seq::SliceRandom;
+use rand::seq::IndexedRandom;
 use rand::Rng;
 
 impl<L: Data> Dummy<Word<L>> for String {

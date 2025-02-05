@@ -1,10 +1,9 @@
 use crate::faker::automotive::raw::*;
 use crate::locales::FR_FR;
 use crate::{Dummy, Fake};
-use rand::prelude::SliceRandom;
+use rand::seq::IndexedRandom;
 use rand::Rng;
 use std::char;
-
 /* ABC without I, O and U
 As with the SIV system, The letters I and O were never used because they could be confused with other characters, like 1 and 0.
 ref https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_France

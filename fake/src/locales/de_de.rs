@@ -380,7 +380,7 @@ impl CityNameGenFn for DE_DE {
                     "{CitySuffix}",
                     CitySuffix(c.0).fake_with_rng::<&str, _>(rng),
                 )
-                .replace("{River}", RIVERS[rng.gen_range(0..RIVERS.len())]),
+                .replace("{River}", RIVERS[rng.random_range(0..RIVERS.len())]),
             _ => ADDRESS_CITY_WITHOUT_PREFIX
                 .replace(
                     "{CityName}",

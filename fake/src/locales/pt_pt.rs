@@ -1,4 +1,4 @@
-use rand::seq::SliceRandom;
+use rand::seq::IndexedRandom;
 
 use crate::{
     faker::{automotive::raw::LicencePlate, impls::address::CityNameGenFn},

@@ -1,7 +1,7 @@
 use crate::faker::currency::raw::*;
 use crate::locales::Data;
 use crate::Dummy;
-use rand::seq::SliceRandom;
+use rand::seq::IndexedRandom;
 use rand::Rng;
 
 impl<L: Data> Dummy<CurrencyCode<L>> for String {

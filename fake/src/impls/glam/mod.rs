@@ -61,7 +61,7 @@ mod tests {
     #[test]
     fn fake_vec2() {
         let rng = &mut StdRng::from_seed(SEED);
-        let expected = vec2(rng.gen(), rng.gen());
+        let expected = vec2(rng.random(), rng.random());
         let rng = &mut StdRng::from_seed(SEED);
         let fake = Faker.fake_with_rng::<Vec2, _>(rng);
         assert_eq!(expected, fake);
@@ -70,7 +70,7 @@ mod tests {
     #[test]
     fn fake_vec3() {
         let rng = &mut StdRng::from_seed(SEED);
-        let expected = vec3(rng.gen(), rng.gen(), rng.gen());
+        let expected = vec3(rng.random(), rng.random(), rng.random());
         let rng = &mut StdRng::from_seed(SEED);
         let fake = Faker.fake_with_rng::<Vec3, _>(rng);
         assert_eq!(expected, fake);
@@ -79,7 +79,7 @@ mod tests {
     #[test]
     fn fake_vec4() {
         let rng = &mut StdRng::from_seed(SEED);
-        let expected = vec4(rng.gen(), rng.gen(), rng.gen(), rng.gen());
+        let expected = vec4(rng.random(), rng.random(), rng.random(), rng.random());
         let rng = &mut StdRng::from_seed(SEED);
         let fake = Faker.fake_with_rng::<Vec4, _>(rng);
         assert_eq!(expected, fake);
@@ -88,7 +88,7 @@ mod tests {
     #[test]
     fn fake_mat4() {
         let rng = &mut StdRng::from_seed(SEED);
-        let expected: Vec<f32> = (0..16).map(|_| rng.gen()).collect();
+        let expected: Vec<f32> = (0..16).map(|_| rng.random()).collect();
         let rng = &mut StdRng::from_seed(SEED);
         let fake = Faker.fake_with_rng::<Mat4, _>(rng);
         assert_eq!(expected[0..16], fake.to_cols_array());

@@ -5,13 +5,13 @@ mod always_true_tests {
 
     #[test]
     fn test_rng_bool() {
-        use rand::{distributions::Standard, Rng};
-
+        use rand::distr::StandardUniform;
+        use rand::Rng;
         // Arrange
         let rng = AlwaysTrueRng::default();
 
         // Act
-        let result: std::vec::Vec<bool> = rng.sample_iter(Standard).take(6).collect();
+        let result: std::vec::Vec<bool> = rng.sample_iter(StandardUniform).take(6).collect();
 
         // Assert
         assert_eq!(&result, &[true, true, true, true, true, true]);
@@ -19,14 +19,14 @@ mod always_true_tests {
 
     #[test]
     fn test_rng_bool_wrap_large_increment() {
-        use rand::{distributions::Standard, Rng};
+        use rand::{distr::StandardUniform, Rng};
         let increment = 1 << 31;
 
         // Arrange
         let rng = AlwaysTrueRng::new(1, increment + 1);
 
         // Act
-        let iter = rng.sample_iter(Standard).take(10000);
+        let iter = rng.sample_iter(StandardUniform).take(10000);
 
         // Assert
         let mut i: u64 = 0;
@@ -38,13 +38,13 @@ mod always_true_tests {
 
     #[test]
     fn test_rng_int() {
-        use rand::{distributions::Standard, Rng};
+        use rand::{distr::StandardUniform, Rng};
 
         // Arrange
         let rng = AlwaysTrueRng::default();
 
         // Act
-        let result: std::vec::Vec<u64> = rng.sample_iter(Standard).take(6).collect();
+        let result: std::vec::Vec<u64> = rng.sample_iter(StandardUniform).take(6).collect();
 
         // Assert
         assert_eq!(
@@ -62,14 +62,14 @@ mod always_true_tests {
 
     #[test]
     fn test_rng_int_wrap() {
-        use rand::{distributions::Standard, Rng};
+        use rand::{distr::StandardUniform, Rng};
 
         // Arrange
         let increment = 1 << 31;
         let rng = AlwaysTrueRng::new((increment * 2) - 2, 1);
 
         // Act
-        let result: std::vec::Vec<u64> = rng.sample_iter(Standard).take(5).collect();
+        let result: std::vec::Vec<u64> = rng.sample_iter(StandardUniform).take(5).collect();
 
         // Assert
         assert_eq!(

@@ -133,7 +133,7 @@ pub struct Faker;
 /// ```
 /// use fake::{Dummy, Fake, Faker};
 /// use rand::Rng;
-/// use rand::seq::SliceRandom;
+/// use rand::seq::IndexedRandom;
 ///
 /// struct Name; // does not handle locale, see locales module for more
 ///
@@ -158,7 +158,7 @@ pub trait Dummy<T>: Sized {
     /// This can be left as a blanket implemented most of the time since it
     /// uses [`Dummy::dummy_with_rng`] under the hood.
     fn dummy(config: &T) -> Self {
-        let mut r = rand::thread_rng();
+        let mut r = rand::rng();
         Dummy::<T>::dummy_with_rng(config, &mut r)
     }
 
@@ -441,7 +441,7 @@ pub mod locales;
 ///
 /// impl Dummy<Faker> for Bar {
 ///     fn dummy_with_rng<R: Rng + ?Sized>(_: &Faker, rng: &mut R) -> Self {
-///         match rng.gen_range(0..3usize) {
+///         match rng.random_range(0..3usize) {
 ///             0 => Self::Simple,
 ///             1 => Self::Tuple(Fake::fake_with_rng::<i32, _>(&(0..5), rng)),
 ///             2 => {

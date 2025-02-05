@@ -53,7 +53,7 @@ mod field_options {
 
             let o: MyEnum = Faker.fake_with_rng(&mut rng());
 
-            assert_eq!(o, MyEnum::Two(89, 0, 1));
+            assert_eq!(o, MyEnum::Two(56, 0, 1));
         }
 
         #[test]
@@ -73,7 +73,7 @@ mod field_options {
 
             let o: MyEnum = Faker.fake_with_rng(&mut rng());
 
-            assert_eq!(o, MyEnum::Two { x: 89, y: 0, z: 1 });
+            assert_eq!(o, MyEnum::Two { x: 56, y: 0, z: 1 });
         }
 
         #[test]
@@ -124,7 +124,7 @@ mod field_options {
 
             let o: Obj = Faker.fake_with_rng(&mut rng());
 
-            assert_eq!(o.0, 156);
+            assert_eq!(o.0, 167);
         }
 
         #[test]
@@ -198,7 +198,7 @@ mod field_options {
 
             let o: Obj = Faker.fake_with_rng(&mut rng());
 
-            assert_eq!(o.id, 156);
+            assert_eq!(o.id, 167);
         }
 
         #[test]
