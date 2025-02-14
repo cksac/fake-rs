@@ -1,7 +1,7 @@
 # Changelogs
 ## v3.2.0 (2025-02-14)
 - Add more french translation(@odarrouzet [#213](https://github.com/cksac/fake-rs/pull/213))
-- Add de_de locale support in fake cli
+- Add de_de, pt_pt locale support in fake cli
 - Enable Link-Time Optimization
 - Add base64 faker (@xd009642 [#216](https://github.com/cksac/fake-rs/pull/216))
 - Implement Dummy for std::time::Duration (@patrickariel [#217](https://github.com/cksac/fake-rs/pull/217))

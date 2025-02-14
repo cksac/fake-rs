@@ -4,7 +4,7 @@ use std::io::{self, Write};
 
 mod fake_gen;
 
-const AVAILABLE_LOCALES: [&str; 8] = [
+const AVAILABLE_LOCALES: [&str; 9] = [
     "en", "fr_fr", "zh_tw", "zh_cn", "ja_jp", "ar_sa", "pt_br", "pt_pt", "de_de",
 ];
 
