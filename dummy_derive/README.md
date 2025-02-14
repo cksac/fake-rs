@@ -8,7 +8,7 @@ This crate provide derive(Dummy) macros. use it via `fake` crate with derive fea
 
 ```toml
 [dependencies]
-fake = { version = "3.0", features=["derive"] }
+fake = { version = "3", features=["derive"] }
 ```
 
 ## Usage

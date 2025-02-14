@@ -11,6 +11,7 @@ pub enum AVAILABLE_LOCALES {
     JA_JP,
     AR_SA,
     PT_BR,
+    PT_PT,
     DE_DE,
 }
 
@@ -53,6 +54,10 @@ macro_rules! some_rules {
             }
             AVAILABLE_LOCALES::PT_BR => {
                 let s = faker::$module::pt_br::$fake($($arg)?);
+                Box::new(move |rng: &mut R| fake_gen_on_return_type!(s,rng$(,$return_type)?))
+            }
+            AVAILABLE_LOCALES::PT_PT => {
+                let s = faker::$module::pt_pt::$fake($($arg)?);
                 Box::new(move |rng: &mut R| fake_gen_on_return_type!(s,rng$(,$return_type)?))
             }
             AVAILABLE_LOCALES::DE_DE => {

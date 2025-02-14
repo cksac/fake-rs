@@ -15,6 +15,7 @@ A Rust library and command line tool for generating fake data in different langu
 | Simplified Chinese    | zh_cn |
 | Japanese              | ja_jp |
 | Portugese (Brazilian) | pt_br |
+| Portugese (Portugal)  | pt_pt |
 | German                | de_de |
 
 
@@ -24,7 +25,7 @@ A Rust library and command line tool for generating fake data in different langu
 
 ```toml
 [dependencies]
-fake = { version = "3.0.1", features = ["derive"] }
+fake = { version = "3", features = ["derive"] }
 ```
 
 Available library features:

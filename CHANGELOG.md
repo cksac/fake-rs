@@ -1,10 +1,14 @@
 # Changelogs
-## v3.1.1
+## v3.2.0 (2025-02-14)
 - Add more french translation(@odarrouzet [#213](https://github.com/cksac/fake-rs/pull/213))
 - Add de_de locale support in fake cli
 - Enable Link-Time Optimization
 - Add base64 faker (@xd009642 [#216](https://github.com/cksac/fake-rs/pull/216))
 - Implement Dummy for std::time::Duration (@patrickariel [#217](https://github.com/cksac/fake-rs/pull/217))
+- Add Portuguese (Portugal) locale support (@dgsantana [#218](https://github.com/cksac/fake-rs/pull/218))
+- Implement Dummy for EmailAddress newtype (@patrickariel [#219](https://github.com/cksac/fake-rs/pull/219))
+- Use explicit traits for slices in dummy derive (@patrickariel [#220](https://github.com/cksac/fake-rs/pull/220))
+- Update rand to 0.9.0 (@thomas-tribus [#221](https://github.com/cksac/fake-rs/pull/221))
 
 ## v3.1.0 (2024-12-27)
 - Allow CityName implementation to be overrite by each locale
