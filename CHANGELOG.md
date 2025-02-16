@@ -1,5 +1,6 @@
 # Changelogs
-## v3.2.0 (2025-02-14)
+## v4.0.0 (2025-02-16)
+## v3.2.0 (2025-02-14, yanked)
 - Add more french translation(@odarrouzet [#213](https://github.com/cksac/fake-rs/pull/213))
 - Add de_de, pt_pt locale support in fake cli
 - Enable Link-Time Optimization
