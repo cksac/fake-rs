@@ -92,9 +92,7 @@
 // Enable `doc_cfg` feature for `docs.rs`
 #![cfg_attr(docsrs, feature(doc_cfg))]
 
-#[doc(hidden)]
 pub use rand;
-#[doc(hidden)]
 pub use rand::Rng;
 
 /// Generate default fake value for given type using [`Fake`].
