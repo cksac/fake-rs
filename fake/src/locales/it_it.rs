@@ -630,7 +630,7 @@ impl Data for IT_IT {
         "Birr etiope",
         "Euro",
         "Dollaro delle Figi",
-        "Sterlina delle Falkland	",
+        "Sterlina delle Falkland",
         "Sterlina britannica",
         "Lari georgiano",
         "Cedi ghanese",
