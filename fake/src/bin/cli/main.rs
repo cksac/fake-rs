@@ -4,8 +4,8 @@ use std::io::{self, Write};
 
 mod fake_gen;
 
-const AVAILABLE_LOCALES: [&str; 9] = [
-    "en", "fr_fr", "zh_tw", "zh_cn", "ja_jp", "ar_sa", "pt_br", "pt_pt", "de_de",
+const AVAILABLE_LOCALES: [&str; 10] = [
+    "en", "fr_fr", "zh_tw", "zh_cn", "ja_jp", "ar_sa", "pt_br", "pt_pt", "de_de", "it_it",
 ];
 
 pub use fake_gen::{all_fakegen_commands, AVAILABLE_LOCALES};
@@ -40,6 +40,7 @@ impl TryFrom<&str> for AVAILABLE_LOCALES {
             "pt_br" => AVAILABLE_LOCALES::PT_BR,
             "pt_pt" => AVAILABLE_LOCALES::PT_PT,
             "de_de" => AVAILABLE_LOCALES::DE_DE,
+            "it_it" => AVAILABLE_LOCALES::IT_IT,
             _=> return Err(format!("{} is either an invalid locale or not yet supported.\n The supported locales are: {:?}",str_val,AVAILABLE_LOCALES))
         };
         Ok(variant)
