@@ -107,10 +107,7 @@ mod chrono {
     use rand::SeedableRng as _;
 
     fn lo() -> chrono::DateTime<chrono::Utc> {
-        chrono::DateTime::from_utc(
-            chrono::NaiveDateTime::from_timestamp_opt(53469346924, 124241).expect("datetime"),
-            chrono::Utc,
-        )
+        chrono::DateTime::from_timestamp(53469346924, 124241).expect("datetime")
     }
 
     fn hi() -> chrono::DateTime<chrono::Utc> {
