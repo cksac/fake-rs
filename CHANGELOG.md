@@ -1,4 +1,8 @@
 # Changelogs
+## v4.2.0 (2025-03-21)
+## v4.1.0 (2025-03-21, yanked)
+- Add IT_IT (italian) locale (@campeis [#224](https://github.com/cksac/fake-rs/pull/224))
+
 ## v4.0.0 (2025-02-16)
 ## v3.2.0 (2025-02-14, yanked)
 - Add more french translation(@odarrouzet [#213](https://github.com/cksac/fake-rs/pull/213))
