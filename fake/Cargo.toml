@@ -16,7 +16,7 @@ all-features = true
 rustdoc-args = ["--cfg", "docsrs"]
 
 [dependencies]
-dummy = { version = "0.9", path = "../dummy_derive", optional = true }
+dummy = { version = "0.10", path = "../dummy_derive", optional = true }
 rand = "0.9"
 random_color = { version = "1", optional = true }
 deunicode = "1.6"
