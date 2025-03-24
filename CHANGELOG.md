@@ -2,7 +2,8 @@
 
 ## Unreleased
 
-- Fixed address street name template for locales IT_IT, PT_PT and DE_DE
+- Fix address street name template for locales IT_IT, PT_PT and DE_DE
+- Add company constants for PT_PT locale
 
 ## v4.2.0 (2025-03-21)
 - Add IT_IT (italian) locale (@campeis [#224](https://github.com/cksac/fake-rs/pull/224))
