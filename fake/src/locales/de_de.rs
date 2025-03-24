@@ -293,7 +293,7 @@ impl Data for DE_DE {
     const ADDRESS_SECONDARY_ADDR_TYPE: &'static [&'static str] =
         &["Hof", "Gebäude", "Etage", "Eingang", "Aufgang"];
 
-    const ADDRESS_STREET_TPL: &'static str = "{StreetName}{StreetSuffix}";
+    const ADDRESS_STREET_TPL: &'static str = "{StreetName} {StreetSuffix}";
 
     const COMPANY_SUFFIX: &'static [&'static str] = &[
         "OHG",

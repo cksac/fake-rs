@@ -536,7 +536,7 @@ impl Data for PT_PT {
     const ADDRESS_STREET_SUFFIX: &'static [&'static str] = &[
         "Alameda", "Avenida", "Calçada", "Estrada", "Largo", "Praça", "Rua", "Travessa",
     ];
-    const ADDRESS_STREET_TPL: &'static str = "{StreetSuffix} {FirstName} {LastName}";
+    const ADDRESS_STREET_TPL: &'static str = "{StreetSuffix} {StreetName}";
     const ADDRESS_TIME_ZONE: &'static [&'static str] =
         &["Atlantic/Azores", "Atlantic/Madeira", "Europe/Lisbon"];
     const ADDRESS_ZIP_FORMATS: &'static [&'static str] = &["####-###"];
