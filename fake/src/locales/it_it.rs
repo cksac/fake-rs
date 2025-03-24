@@ -580,7 +580,7 @@ impl Data for IT_IT {
         "Strada",
         "Circonvallazione",
     ];
-    const ADDRESS_STREET_TPL: &'static str = "{StreetSuffix} {FirstName} {LastName}";
+    const ADDRESS_STREET_TPL: &'static str = "{StreetSuffix} {StreetName}";
     const ADDRESS_TIME_ZONE: &'static [&'static str] = &["Europe/Rome"];
     const ADDRESS_ZIP_FORMATS: &'static [&'static str] = &["#####"];
     const ADDRESS_POSTCODE_FORMATS: &'static [&'static str] = &["#####"];
