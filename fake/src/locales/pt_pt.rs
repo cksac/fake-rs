@@ -766,6 +766,63 @@ impl Data for PT_PT {
     ];
 
     const COMPANY_BS_TPL: &'static str = "{Verb} {Adj} {Noun}";
+
+    const COMPANY_INDUSTRY: &'static [&'static str] = &[
+        "Material Informático",
+        "Internet",
+        "Semicondutores",
+        "Telecomunicações",
+        "Advocacia",
+        "Consultoria",
+        "Biotecnologia",
+        "Saúde",
+        "Farmacêutica",
+        "Veterinária",
+        "Cosméticos",
+        "Moda",
+        "Desporto",
+        "Tabaco",
+        "Supermercado",
+        "Retalho",
+        "Entretenimento",
+        "Restauração",
+        "Financeira",
+        "Seguradora",
+        "Imobiliária",
+        "Contabilidade",
+        "Construção",
+        "Arquitetura",
+        "Engenharia Civil",
+        "Aviação",
+        "Automóvel",
+        "Química",
+        "Mineira",
+        "Militar",
+    ];
+
+    const COMPANY_PROFESSION: &'static [&'static str] = &[
+        "professor",
+        "actor",
+        "músico",
+        "filósofo",
+        "escritor",
+        "doutor",
+        "contabilista",
+        "agricultor",
+        "arquiteto",
+        "economista",
+        "engenheiro",
+        "advogado",
+        "bibliotecário",
+        "bombeiro",
+        "juíz",
+        "polícia",
+        "astrónomo",
+        "químico",
+        "físico",
+        "programador",
+        "designer",
+    ];
 }
 
 impl CityNameGenFn for PT_PT {}
