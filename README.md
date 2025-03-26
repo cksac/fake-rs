@@ -297,6 +297,11 @@ NameWithTitle();
 
 ```rust
 Digit();
+
+// Format is a &str such that:
+// - `^` will be subsituted by a random number 1-9.
+// - `#` will be subsituted by a random number 0-9.
+// - Any other character will be left as-is.
 NumberWithFormat<'a>(fmt: &'a str);
 ```
 
