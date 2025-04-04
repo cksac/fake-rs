@@ -1,4 +1,10 @@
 # Changelogs
+
+## Unreleased
+
+- Fix address street name template for locales IT_IT, PT_PT and DE_DE
+- Add company constants for PT_PT locale
+
 ## v4.2.0 (2025-03-21)
 - Add IT_IT (italian) locale (@campeis [#224](https://github.com/cksac/fake-rs/pull/224))
 - Fix rust_decimal scale exceeds maximum supported scale in v1.37
@@ -23,5 +29,3 @@
 - Added fake cli (@akhildevelops [#209](https://github.com/cksac/fake-rs/pull/209))
 - Implement dummy for uuid v6, v7 (@LNSD [#207](https://github.com/cksac/fake-rs/pull/207))
 - Add Precision::<N> support for chrono::NaiveDateTime (@m4tx [#204](https://github.com/cksac/fake-rs/pull/204))
-
-

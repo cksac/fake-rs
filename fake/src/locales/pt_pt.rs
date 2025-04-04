@@ -536,7 +536,7 @@ impl Data for PT_PT {
     const ADDRESS_STREET_SUFFIX: &'static [&'static str] = &[
         "Alameda", "Avenida", "Calçada", "Estrada", "Largo", "Praça", "Rua", "Travessa",
     ];
-    const ADDRESS_STREET_TPL: &'static str = "{StreetSuffix} {FirstName} {LastName}";
+    const ADDRESS_STREET_TPL: &'static str = "{StreetSuffix} {StreetName}";
     const ADDRESS_TIME_ZONE: &'static [&'static str] =
         &["Atlantic/Azores", "Atlantic/Madeira", "Europe/Lisbon"];
     const ADDRESS_ZIP_FORMATS: &'static [&'static str] = &["####-###"];
@@ -766,6 +766,63 @@ impl Data for PT_PT {
     ];
 
     const COMPANY_BS_TPL: &'static str = "{Verb} {Adj} {Noun}";
+
+    const COMPANY_INDUSTRY: &'static [&'static str] = &[
+        "Material Informático",
+        "Internet",
+        "Semicondutores",
+        "Telecomunicações",
+        "Advocacia",
+        "Consultoria",
+        "Biotecnologia",
+        "Saúde",
+        "Farmacêutica",
+        "Veterinária",
+        "Cosméticos",
+        "Moda",
+        "Desporto",
+        "Tabaco",
+        "Supermercado",
+        "Retalho",
+        "Entretenimento",
+        "Restauração",
+        "Financeira",
+        "Seguradora",
+        "Imobiliária",
+        "Contabilidade",
+        "Construção",
+        "Arquitetura",
+        "Engenharia Civil",
+        "Aviação",
+        "Automóvel",
+        "Química",
+        "Mineira",
+        "Militar",
+    ];
+
+    const COMPANY_PROFESSION: &'static [&'static str] = &[
+        "professor",
+        "actor",
+        "músico",
+        "filósofo",
+        "escritor",
+        "doutor",
+        "contabilista",
+        "agricultor",
+        "arquiteto",
+        "economista",
+        "engenheiro",
+        "advogado",
+        "bibliotecário",
+        "bombeiro",
+        "juíz",
+        "polícia",
+        "astrónomo",
+        "químico",
+        "físico",
+        "programador",
+        "designer",
+    ];
 }
 
 impl CityNameGenFn for PT_PT {}
