@@ -93,7 +93,8 @@ impl<T: CoordNum + Dummy<Faker>> Dummy<Faker> for geo_types::Triangle<T> {
             let delta_y: f64 = cast(max_y - min_y).unwrap();
             delta_y / delta_x
         }
-        let nums: Vec<T> = crate::unique::<T, _>(rng, 6);
+        let mut nums: Vec<T> = crate::unique::<T, _>(rng, 6);
+        nums.sort_by(|a, b| a.partial_cmp(b).unwrap());
         let coord_1 = geo_types::Coord::<T> {
             x: nums[0],
             y: nums[1],
