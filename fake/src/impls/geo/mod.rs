@@ -1,7 +1,6 @@
 use std::ops::Range;
 
 use geo_types::CoordNum;
-use num_traits::cast;
 use rand::Rng;
 
 use crate::{Dummy, Fake, Faker};
@@ -79,20 +78,6 @@ impl<T: CoordNum + Dummy<Faker>> Dummy<Faker> for geo_types::Rect<T> {
 
 impl<T: CoordNum + Dummy<Faker>> Dummy<Faker> for geo_types::Triangle<T> {
     fn dummy_with_rng<R: Rng + ?Sized>(_: &Faker, rng: &mut R) -> Self {
-        // Triangle cant be a straight line, so avoid two identical slopes.
-        // There is a bug in slope that requires a different implementation
-        // https://github.com/georust/geo/issues/1001
-        // Also this uses f64 to avoid similar slopes when T is an integer.
-        fn abs_slope<T>(a: geo_types::Coord<T>, b: geo_types::Coord<T>) -> f64
-        where
-            T: CoordNum,
-        {
-            let (min_x, max_x) = if a.x > b.x { (b.x, a.x) } else { (a.x, b.x) };
-            let (min_y, max_y) = if a.y > b.y { (b.y, a.y) } else { (a.y, b.y) };
-            let delta_x: f64 = cast(max_x - min_x).unwrap();
-            let delta_y: f64 = cast(max_y - min_y).unwrap();
-            delta_y / delta_x
-        }
         fn step<T, R: Rng + ?Sized>(start: T, steps: usize, rng: &mut R) -> T
         where
             T: CoordNum,
@@ -110,28 +95,19 @@ impl<T: CoordNum + Dummy<Faker>> Dummy<Faker> for geo_types::Triangle<T> {
             x: step(T::zero(), 10, rng),
             y: step(T::zero(), 10, rng),
         };
-        let coord_2 = geo_types::Coord::<T> {
+        let mut coord_2 = geo_types::Coord::<T> {
             x: step(coord_1.x, 10, rng),
             y: step(coord_1.y, 10, rng),
         };
-
-        let slope_1 = abs_slope(coord_1, coord_2);
-
         let mut coord_3 = geo_types::Coord::<T> {
-            x: step(coord_2.x, 5, rng),
+            x: step(coord_1.x, 10, rng),
             y: step(coord_2.y, 5, rng),
         };
-        let slope_2 = abs_slope(coord_2, coord_3);
-
-        if slope_1 == slope_2 {
-            // As the points are unique, swapping them will
-            // always produce a different slope.
-            coord_3 = geo_types::Coord::<T> {
-                x: coord_3.y,
-                y: coord_3.x,
-            };
+        if coord_2.x < coord_3.x {
+            let tmp = coord_2.x;
+            coord_2.x = coord_3.x;
+            coord_3.x = tmp;
         }
-        dbg!(&coord_1, &coord_2, &coord_3);
         geo_types::Triangle::<T>::new(coord_1, coord_2, coord_3)
     }
 }
