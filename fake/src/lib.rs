@@ -19,8 +19,8 @@
 //!
 //! ```
 //! use fake::{Dummy, Fake, Faker};
-//! use rand::rngs::StdRng;
-//! use rand::SeedableRng;
+//! use fake::rand::rngs::StdRng;
+//! use fake::rand::SeedableRng;
 //!
 //! #[derive(Debug, Dummy)]
 //! pub struct Foo {
