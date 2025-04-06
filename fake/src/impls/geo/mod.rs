@@ -107,8 +107,8 @@ impl<T: CoordNum + Dummy<Faker>> Dummy<Faker> for geo_types::Triangle<T> {
             current
         }
         let coord_1 = geo_types::Coord::<T> {
-            x: Faker.fake_with_rng(rng),
-            y: Faker.fake_with_rng(rng),
+            x: step(T::zero(), 10, rng),
+            y: step(T::zero(), 10, rng),
         };
         let coord_2 = geo_types::Coord::<T> {
             x: step(coord_1.x, 10, rng),
@@ -118,8 +118,8 @@ impl<T: CoordNum + Dummy<Faker>> Dummy<Faker> for geo_types::Triangle<T> {
         let slope_1 = abs_slope(coord_1, coord_2);
 
         let mut coord_3 = geo_types::Coord::<T> {
-            x: step(coord_2.x, 10, rng),
-            y: step(coord_2.y, 10, rng),
+            x: step(coord_2.x, 5, rng),
+            y: step(coord_2.y, 5, rng),
         };
         let slope_2 = abs_slope(coord_2, coord_3);
 
@@ -131,6 +131,7 @@ impl<T: CoordNum + Dummy<Faker>> Dummy<Faker> for geo_types::Triangle<T> {
                 y: coord_3.x,
             };
         }
+        dbg!(&coord_1, &coord_2, &coord_3);
         geo_types::Triangle::<T>::new(coord_1, coord_2, coord_3)
     }
 }
