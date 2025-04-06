@@ -1,6 +1,6 @@
 # Changelogs
 
-## v4.3.0 (2025-04-04)
+## v4.3.0 (2025-04-07)
 - update docs to use fake:rng (@yanns #[231](https://github.com/cksac/fake-rs/pull/231))
 - Fix address street name template for locales IT_IT, PT_PT and DE_DE, Add company constants for PT_PT locale (@joao-conde #[232](https://github.com/cksac/fake-rs/pull/232))
 - update docs to explain the format string in NumberWithFormat (@pablobm #[233](https://github.com/cksac/fake-rs/pull/233))
