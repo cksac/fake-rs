@@ -93,22 +93,33 @@ impl<T: CoordNum + Dummy<Faker>> Dummy<Faker> for geo_types::Triangle<T> {
             let delta_y: f64 = cast(max_y - min_y).unwrap();
             delta_y / delta_x
         }
-        let mut nums: Vec<T> = crate::unique::<T, _>(rng, 6);
-        nums.sort_by(|a, b| a.partial_cmp(b).unwrap());
+        fn step<T, R: Rng + ?Sized>(start: T, steps: usize, rng: &mut R) -> T
+        where
+            T: CoordNum,
+        {
+            let mut current = start;
+            for i in 0..steps {
+                current = current + T::one();
+                if i > 1 && Faker.fake_with_rng(rng) {
+                    break;
+                }
+            }
+            current
+        }
         let coord_1 = geo_types::Coord::<T> {
-            x: nums[0],
-            y: nums[1],
+            x: Faker.fake_with_rng(rng),
+            y: Faker.fake_with_rng(rng),
         };
         let coord_2 = geo_types::Coord::<T> {
-            x: nums[2],
-            y: nums[3],
+            x: step(coord_1.x, 10, rng),
+            y: step(coord_1.y, 10, rng),
         };
 
         let slope_1 = abs_slope(coord_1, coord_2);
 
         let mut coord_3 = geo_types::Coord::<T> {
-            x: nums[4],
-            y: nums[5],
+            x: step(coord_1.x, 10, rng),
+            y: step(coord_1.y, 10, rng),
         };
         let slope_2 = abs_slope(coord_2, coord_3);
 
@@ -116,8 +127,8 @@ impl<T: CoordNum + Dummy<Faker>> Dummy<Faker> for geo_types::Triangle<T> {
             // As the points are unique, swapping them will
             // always produce a different slope.
             coord_3 = geo_types::Coord::<T> {
-                x: nums[5],
-                y: nums[4],
+                x: coord_3.y,
+                y: coord_3.x,
             };
         }
         geo_types::Triangle::<T>::new(coord_1, coord_2, coord_3)
