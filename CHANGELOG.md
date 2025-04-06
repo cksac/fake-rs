@@ -1,7 +1,6 @@
 # Changelogs
 
-## Unreleased
-
+## v4.3.0 (2025-04-04)
 - Fix address street name template for locales IT_IT, PT_PT and DE_DE
 - Add company constants for PT_PT locale
 
