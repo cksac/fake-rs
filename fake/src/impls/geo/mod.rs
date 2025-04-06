@@ -118,8 +118,8 @@ impl<T: CoordNum + Dummy<Faker>> Dummy<Faker> for geo_types::Triangle<T> {
         let slope_1 = abs_slope(coord_1, coord_2);
 
         let mut coord_3 = geo_types::Coord::<T> {
-            x: step(coord_1.x, 10, rng),
-            y: step(coord_1.y, 10, rng),
+            x: step(coord_2.x, 10, rng),
+            y: step(coord_2.y, 10, rng),
         };
         let slope_2 = abs_slope(coord_2, coord_3);
 
