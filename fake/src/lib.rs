@@ -19,8 +19,8 @@
 //!
 //! ```
 //! use fake::{Dummy, Fake, Faker};
-//! use rand::rngs::StdRng;
-//! use rand::SeedableRng;
+//! use fake::rand::rngs::StdRng;
+//! use fake::rand::SeedableRng;
 //!
 //! #[derive(Debug, Dummy)]
 //! pub struct Foo {
@@ -129,9 +129,8 @@ pub struct Faker;
 /// # Examples
 ///
 /// ```
-/// use fake::{Dummy, Fake, Faker};
-/// use rand::Rng;
-/// use rand::seq::IndexedRandom;
+/// use fake::rand::prelude::IndexedRandom;
+/// use fake::{Dummy, Fake, Faker, Rng};
 ///
 /// struct Name; // does not handle locale, see locales module for more
 ///
@@ -367,9 +366,8 @@ pub mod locales;
 /// This would generate code roughly equivalent to:
 ///
 /// ```
-/// use fake::{Dummy, Fake, Faker};
+/// use fake::{Dummy, Fake, Faker, Rng};
 /// use fake::faker::name::en::Name;
-/// use rand::Rng;
 ///
 /// pub struct Foo {
 ///     order_id: usize,
@@ -424,9 +422,8 @@ pub mod locales;
 /// This will generate code roughly equivalent to:
 ///
 /// ```
-/// use fake::{Dummy, Fake, Faker};
+/// use fake::{Dummy, Fake, Faker, Rng};
 /// use fake::faker::name::en::Name;
-/// use rand::Rng;
 ///
 /// pub enum Bar {
 ///     Simple,

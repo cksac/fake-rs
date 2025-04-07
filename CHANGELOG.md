@@ -1,4 +1,17 @@
 # Changelogs
+
+## v4.3.0 (2025-04-07)
+- update docs to use fake:rng (@yanns #[231](https://github.com/cksac/fake-rs/pull/231))
+- Fix address street name template for locales IT_IT, PT_PT and DE_DE, Add company constants for PT_PT locale (@joao-conde #[232](https://github.com/cksac/fake-rs/pull/232))
+- update docs to explain the format string in NumberWithFormat (@pablobm #[233](https://github.com/cksac/fake-rs/pull/233))
+- Fix geo-types's triangle fake generation
+
+## v4.2.0 (2025-03-21)
+- Add IT_IT (italian) locale (@campeis [#224](https://github.com/cksac/fake-rs/pull/224))
+- Fix rust_decimal scale exceeds maximum supported scale in v1.37
+
+## v4.1.0 (2025-03-21, yanked)
+
 ## v4.0.0 (2025-02-16)
 ## v3.2.0 (2025-02-14, yanked)
 - Add more french translation(@odarrouzet [#213](https://github.com/cksac/fake-rs/pull/213))
@@ -17,5 +30,3 @@
 - Added fake cli (@akhildevelops [#209](https://github.com/cksac/fake-rs/pull/209))
 - Implement dummy for uuid v6, v7 (@LNSD [#207](https://github.com/cksac/fake-rs/pull/207))
 - Add Precision::<N> support for chrono::NaiveDateTime (@m4tx [#204](https://github.com/cksac/fake-rs/pull/204))
-
-

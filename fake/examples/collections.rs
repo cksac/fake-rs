@@ -1,5 +1,5 @@
+use fake::rand::distr;
 use fake::{Fake, Faker};
-use rand::distr;
 use std::collections::{BTreeMap, BTreeSet, HashMap, HashSet};
 
 fn main() {

@@ -27,7 +27,9 @@ jobs:
       with:
         profile: minimal
         toolchain: ${{ matrix.rust }}
-        override: true    
+        override: true
+    - name: Check semver
+      uses: obi1kenobi/cargo-semver-checks-action@v2
     - name: Build
       run: cargo build --verbose
     - name: Run tests

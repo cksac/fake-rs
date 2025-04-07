@@ -1,6 +1,6 @@
 [package]
 name = "fake"
-version = "4.0.0"
+version = "4.3.0"
 authors = ["cksac <cs.cksac@gmail.com>"]
 description = "An easy to use library and command line for generating fake data like name, number, address, lorem, dates, etc."
 keywords = ["faker", "data", "generator", "random"]
@@ -16,7 +16,7 @@ all-features = true
 rustdoc-args = ["--cfg", "docsrs"]
 
 [dependencies]
-dummy = { version = "0.9", path = "../dummy_derive", optional = true }
+dummy = { version = "0.11", path = "../dummy_derive", optional = true }
 rand = "0.9"
 random_color = { version = "1", optional = true }
 deunicode = "1.6"
@@ -30,10 +30,18 @@ http = { version = "1", optional = true }
 semver = { version = "1", optional = true }
 serde_json = { version = "1", optional = true }
 ulid = { version = "1", optional = true }
-uuid = { version = "1", features = ["v1", "v3", "v4", "v5", "v6", "v7", "v8"], optional = true }
+uuid = { version = "1", features = [
+    "v1",
+    "v3",
+    "v4",
+    "v5",
+    "v6",
+    "v7",
+    "v8",
+], optional = true }
 time = { version = "0.3", features = ["formatting"], optional = true }
 num-traits = { version = "0.2", optional = true }
-rust_decimal = { version = "1", default-features = false, optional = true }
+rust_decimal = { version = "1.37", default-features = false, optional = true }
 bigdecimal-rs = { version = "0.4", package = "bigdecimal", default-features = false, optional = true }
 zerocopy = { version = "0.8", optional = true }
 rand_core = { version = "0.9", optional = true }
@@ -91,6 +99,4 @@ required-features = ["derive"]
 [[bin]]
 name = "fake"
 path = "src/bin/cli/main.rs"
-required-features = [
-    "cli"
-]
+required-features = ["cli"]

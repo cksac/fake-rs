@@ -13,7 +13,7 @@ impl Dummy<Faker> for rust_decimal::Decimal {
             Faker.fake_with_rng(rng),
             Faker.fake_with_rng(rng),
             Faker.fake_with_rng(rng),
-            Faker.fake_with_rng(rng),
+            (0..=rust_decimal::Decimal::MAX_SCALE).fake_with_rng(rng),
         )
     }
 }
@@ -31,7 +31,7 @@ impl Dummy<NegativeDecimal> for rust_decimal::Decimal {
             Faker.fake_with_rng(rng),
             Faker.fake_with_rng(rng),
             true,
-            Faker.fake_with_rng(rng),
+            (0..=rust_decimal::Decimal::MAX_SCALE).fake_with_rng(rng),
         )
     }
 }
@@ -43,7 +43,7 @@ impl Dummy<PositiveDecimal> for rust_decimal::Decimal {
             Faker.fake_with_rng(rng),
             Faker.fake_with_rng(rng),
             false,
-            Faker.fake_with_rng(rng),
+            (0..=rust_decimal::Decimal::MAX_SCALE).fake_with_rng(rng),
         )
     }
 }

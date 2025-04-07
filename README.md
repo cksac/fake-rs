@@ -17,6 +17,7 @@ A Rust library and command line tool for generating fake data in different langu
 | Portugese (Brazilian) | pt_br |
 | Portugese (Portugal)  | pt_pt |
 | German                | de_de |
+| Italian               | it_it |
 
 
 ## Installation
@@ -164,8 +165,8 @@ Options:
 ### In rust code
 ```rust
 use fake::{Dummy, Fake, Faker};
-use rand::rngs::StdRng;
-use rand::SeedableRng;
+use fake::rand::rngs::StdRng;
+use fake::rand::SeedableRng;
 
 #[derive(Debug, Dummy)]
 pub struct Foo {
@@ -296,6 +297,11 @@ NameWithTitle();
 
 ```rust
 Digit();
+
+// Format is a &str such that:
+// - `^` will be subsituted by a random number 1-9.
+// - `#` will be subsituted by a random number 0-9.
+// - Any other character will be left as-is.
 NumberWithFormat<'a>(fmt: &'a str);
 ```
 
