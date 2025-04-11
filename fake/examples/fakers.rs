@@ -587,7 +587,7 @@ fn markdown_faker() {
     let val: Vec<String> = BlockQuoteMultiLine(EN, 2..4).fake();
     println!("{:?}", val);
 
-    let val: String = Code(EN,1..5).fake();
+    let val: String = Code(EN, 1..5).fake();
     println!("{:?}", val);
 }
 
