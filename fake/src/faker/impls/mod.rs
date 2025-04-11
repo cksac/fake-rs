@@ -17,6 +17,7 @@ pub mod http;
 pub mod internet;
 pub mod job;
 pub mod lorem;
+pub mod markdown;
 pub mod name;
 pub mod number;
 pub mod phone_number;

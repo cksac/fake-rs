@@ -201,6 +201,16 @@ pub fn all_fakegen_commands<R: Rng>() -> (
         (Paragraph(min:usize=5, max:usize=10),lorem),
         (Paragraphs(min:usize=5, max:usize=10)->Vec,lorem),
 
+        //markdown
+        (ItalicWord,markdown),
+        (BoldWord,markdown),
+        (Link,markdown),
+        (BulletPoints(min:usize=5, max:usize=10)->Vec,markdown),
+        (ListItems(min:usize=5, max:usize=10)->Vec,markdown),
+        (BlockQuoteSingleLine(min:usize=5, max:usize=10),markdown),
+        (BlockQuoteMultiLine(min:usize=5, max:usize=10)->Vec,markdown),
+        (Code(min:usize=5, max:usize=10),markdown),
+
         //name
         (FirstName,name),
         (LastName,name),

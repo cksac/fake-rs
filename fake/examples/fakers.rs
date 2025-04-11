@@ -563,6 +563,34 @@ fn bigdecimal_faker() {
     println!("{:?}", val);
 }
 
+fn markdown_faker() {
+    use fake::faker::markdown::raw::*;
+
+    let val: String = ItalicWord(EN).fake();
+    println!("{:?}", val);
+
+    let val: String = BoldWord(EN).fake();
+    println!("{:?}", val);
+
+    let val: Vec<String> = BulletPoints(EN, 3..6).fake();
+    println!("{:?}", val);
+
+    let val: Vec<String> = ListItems(EN, 3..6).fake();
+    println!("{:?}", val);
+
+    let val: String = Link(EN).fake();
+    println!("{:?}", val);
+
+    let val: String = BlockQuoteSingleLine(EN, 3..5).fake();
+    println!("{:?}", val);
+
+    let val: Vec<String> = BlockQuoteMultiLine(EN, 2..4).fake();
+    println!("{:?}", val);
+
+    let val: String = Code(EN, 1..5).fake();
+    println!("{:?}", val);
+}
+
 fn main() {
     lorem_faker();
     name_faker();
@@ -578,6 +606,7 @@ fn main() {
     currency_faker();
     creditcard_faker();
     barcode_faker();
+    markdown_faker();
 
     #[cfg(feature = "random_color")]
     color_faker();
