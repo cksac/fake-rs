@@ -22,3 +22,4 @@ pub mod number;
 pub mod phone_number;
 #[cfg(feature = "time")]
 pub mod time;
+pub mod markdown;

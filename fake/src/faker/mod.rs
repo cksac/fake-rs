@@ -193,6 +193,19 @@ pub mod lorem {
     }
 }
 
+pub mod markdown {
+    def_fakers! {
+        ItalicWord();
+        BoldWord();
+        Link();
+        BulletPoints(count: std::ops::Range<usize>);
+        ListItems(count: std::ops::Range<usize>);
+        BlockQuoteSingleLine(count: std::ops::Range<usize>);
+        BlockQuoteMultiLine(count: std::ops::Range<usize>);
+        Code(count: std::ops::Range<usize>);
+    }
+}
+
 pub mod name {
     def_fakers! {
         FirstName();
