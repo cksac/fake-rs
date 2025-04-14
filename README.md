@@ -117,7 +117,15 @@ Commands:
   Sentence              
   Sentences             
   Paragraph             
-  Paragraphs            
+  Paragraphs 
+  ItalicWord            
+  BoldWord              
+  Link                  
+  BulletPoints          
+  ListItems             
+  BlockQuoteSingleLine  
+  BlockQuoteMultiLine   
+  Code             
   FirstName             
   LastName              
   Title                 
@@ -479,6 +487,19 @@ BigDecimal();
 PositiveBigDecimal();
 NegativeBigDecimal();
 NoBigDecimalPoints();
+```
+
+### Markdown
+
+```rust
+ItalicWord();
+BoldWord();
+Link();
+BulletPoints();
+ListItems();
+BlockQuoteSingleLine();
+BlockQuoteMultiLine();
+Code();
 ```
 
 ## Utils
