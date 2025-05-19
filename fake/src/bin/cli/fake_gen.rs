@@ -69,6 +69,10 @@ macro_rules! some_rules {
                 let s = faker::$module::it_it::$fake($($arg)?);
                 Box::new(move |rng: &mut R| fake_gen_on_return_type!(s,rng$(,$return_type)?))
             }
+            AVAILABLE_LOCALES::CY_GB => {
+                let s = faker::$module::cy_gb::$fake($($arg)?);
+                Box::new(move |rng: &mut R| fake_gen_on_return_type!(s,rng$(,$return_type)?))
+            }
         }
     };
 }

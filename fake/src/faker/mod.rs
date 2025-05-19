@@ -45,6 +45,7 @@ macro_rules! def_fakers {
         def_fakers!(@m pt_pt=>PT_PT {$($name$(< $($lts),* >)?($($arg:$typ),*);)+});
         def_fakers!(@m de_de=>DE_DE {$($name$(< $($lts),* >)?($($arg:$typ),*);)+});
         def_fakers!(@m it_it=>IT_IT {$($name$(< $($lts),* >)?($($arg:$typ),*);)+});
+        def_fakers!(@m cy_gb=>CY_GB {$($name$(< $($lts),* >)?($($arg:$typ),*);)+});
 
     };
 }
