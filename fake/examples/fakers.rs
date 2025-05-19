@@ -1,4 +1,4 @@
-use fake::locales::{EN, FR_FR, ZH_CN, ZH_TW};
+use fake::locales::{EN, CY_GB, FR_FR, ZH_CN, ZH_TW};
 use fake::Fake;
 
 fn lorem_faker() {
