@@ -1918,6 +1918,8 @@ impl Data for FR_FR {
 
     const ADDRESS_STREET_TPL: &'static str = "{StreetSuffix} {StreetName}";
 
+    const ADDRESS_TIME_ZONE: &'static [&'static str] = &["Europe/Paris"];
+
     // Source https://en.wikipedia.org/wiki/Postal_codes_in_France
     const ADDRESS_ZIP_FORMATS: &'static [&'static str] = &["#####"];
     const ADDRESS_POSTCODE_FORMATS: &'static [&'static str] = &["#####"];
