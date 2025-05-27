@@ -965,8 +965,6 @@ impl Data for CY_GB {
         "technolegau",
         "methodolegau",
     ];
-
 }
 
 impl CityNameGenFn for CY_GB {}
-
