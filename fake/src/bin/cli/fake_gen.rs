@@ -14,6 +14,7 @@ pub enum AVAILABLE_LOCALES {
     PT_PT,
     DE_DE,
     IT_IT,
+    CY_GB,
 }
 
 macro_rules! fake_gen_on_return_type {
