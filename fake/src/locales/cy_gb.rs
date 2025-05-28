@@ -518,13 +518,8 @@ impl Data for CY_GB {
         "ynys.example.cymru",
     ];
 
-    const INTERNET_DOMAIN_SUFFIX: &'static [&'static str] = &[
-        "cymru",
-        "wales",
-        "com",
-        "net",
-        "org",
-    ];
+    const INTERNET_DOMAIN_SUFFIX: &'static [&'static str] =
+        &["cymru", "wales", "com", "net", "org"];
 
     // Source:
     // https://en.wikipedia.org/wiki/List_of_UK_dialling_codes_covering_Wales
@@ -802,11 +797,7 @@ impl Data for CY_GB {
         "Doler Simbabwe",
     ];
 
-    const JOB_SENIORITY: &'static [&'static str] = &[
-        "Uwch",
-        "Iau",
-        "Bos",
-    ];
+    const JOB_SENIORITY: &'static [&'static str] = &["Uwch", "Iau", "Bos"];
 
     const JOB_FIELD: &'static [&'static str] = &[
         "Marchnata",
