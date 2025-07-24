@@ -225,7 +225,7 @@ check_determinism! { l10d Username; String, fake_username_en, fake_username_fr, 
 mod ulid {
     use fake::{Fake, Faker};
     use rand::SeedableRng as _;
-    check_determinism! { one fake_ulid, ulid::Ulid, Faker }
+    check_determinism! { one fake_ulid, ulid::ULID, Faker }
 }
 
 // it's sufficient to check one language, because it doesn't change anything
