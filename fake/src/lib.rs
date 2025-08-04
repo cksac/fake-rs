@@ -13,6 +13,7 @@
 //! - `rust-decimal`: [rust_decimal](https://docs.rs/rust_decimal) integration
 //! - `time`: [time](https://docs.rs/time) integration
 //! - `ulid`: [ulid](https://docs.rs/ulid) integration
+//! - `ferroid`: [ferroid](https://docs.rs/ferroid) integration
 //! - `uuid`: [uuid](https://docs.rs/uuid) integration
 //!
 //! # Usage
@@ -268,6 +269,10 @@ pub use impls::geo;
 #[cfg(feature = "ulid")]
 #[cfg_attr(docsrs, doc(cfg(feature = "ulid")))]
 pub use impls::ulid;
+
+#[cfg(feature = "ferroid")]
+#[cfg_attr(docsrs, doc(cfg(feature = "ferroid")))]
+pub use impls::ferroid;
 
 #[cfg(feature = "uuid")]
 #[cfg_attr(docsrs, doc(cfg(feature = "uuid")))]

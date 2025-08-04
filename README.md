@@ -38,6 +38,7 @@ Available library features:
   - `chrono-tz`
   - `http`
   - `ulid`
+  - `ferroid`
   - `uuid`
   - `bigdecimal` (via `bigdecimal-rs`)
   - `rust_decimal`
@@ -461,6 +462,16 @@ DirPath();
 ```rust
 Bic();
 Isin();
+```
+
+### Ferroid
+
+```rust
+FerroidULID();
+FerroidTwitterId();
+FerroidInstagramId();
+FerroidMastodonId();
+FerroidDiscordId();
 ```
 
 ### UUID

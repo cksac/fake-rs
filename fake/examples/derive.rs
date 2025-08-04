@@ -5,6 +5,7 @@ use fake::faker::boolean::en::*;
 use fake::faker::company::en::*;
 use fake::faker::lorem::en::*;
 use fake::faker::name::en::*;
+use fake::ferroid::*;
 use fake::utils::{either, WrappedVal};
 use fake::uuid::UUIDv4;
 use fake::Dummy;
@@ -125,6 +126,42 @@ struct FakerWrapperStruct {
     pub val: String,
 }
 
+#[derive(Debug, Dummy)]
+struct LogEntry {
+    #[dummy(faker = "FerroidULID")]
+    pub ulid: ferroid::ULID,
+
+    #[dummy(faker = "FerroidTwitterId")]
+    pub twitter_id: ferroid::SnowflakeTwitterId,
+
+    #[dummy(faker = "FerroidInstagramId")]
+    pub instagram_id: ferroid::SnowflakeInstagramId,
+
+    #[dummy(faker = "FerroidMastodonId")]
+    pub mastodon_id: ferroid::SnowflakeMastodonId,
+
+    #[dummy(faker = "FerroidDiscordId")]
+    pub discord_id: ferroid::SnowflakeDiscordId,
+}
+
+#[derive(Debug, Dummy)]
+struct LogEntryBase32 {
+    #[dummy(faker = "FerroidULID")]
+    pub ulid: String,
+
+    #[dummy(faker = "FerroidTwitterId")]
+    pub twitter_id: String,
+
+    #[dummy(faker = "FerroidInstagramId")]
+    pub instagram_id: String,
+
+    #[dummy(faker = "FerroidMastodonId")]
+    pub mastodon_id: String,
+
+    #[dummy(faker = "FerroidDiscordId")]
+    pub discord_id: String,
+}
+
 fn main() {
     let order: Order = Faker.fake();
     println!("{:#?}", order);
@@ -167,5 +204,11 @@ fn main() {
     println!("{:#?}", v);
 
     let v: FakerWrapperStruct = Faker.fake();
+    println!("{:#?}", v);
+
+    let v: LogEntry = Faker.fake();
+    println!("{:#?}", v);
+
+    let v: LogEntryBase32 = Faker.fake();
     println!("{:#?}", v);
 }
