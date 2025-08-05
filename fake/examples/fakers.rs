@@ -507,6 +507,44 @@ fn barcode_faker() {
     println!("{}", val);
 }
 
+#[cfg(feature = "ferroid")]
+fn ferroid_faker() {
+    use fake::ferroid::*;
+    use ferroid::{
+        SnowflakeDiscordId, SnowflakeInstagramId, SnowflakeMastodonId, SnowflakeTwitterId, ULID,
+    };
+
+    let val: ULID = FerroidULID.fake();
+    println!("{:?}", val);
+
+    let val: String = FerroidULID.fake();
+    println!("{} (ULID)", val);
+
+    let val: SnowflakeTwitterId = FerroidTwitterId.fake();
+    println!("{:?}", val);
+
+    let val: String = FerroidTwitterId.fake();
+    println!("{} (SnowflakeTwitterId)", val);
+
+    let val: SnowflakeInstagramId = FerroidInstagramId.fake();
+    println!("{:?}", val);
+
+    let val: String = FerroidInstagramId.fake();
+    println!("{} (SnowflakeInstagramId)", val);
+
+    let val: SnowflakeDiscordId = FerroidDiscordId.fake();
+    println!("{:?}", val);
+
+    let val: String = FerroidDiscordId.fake();
+    println!("{} (SnowflakeDiscordId)", val);
+
+    let val: SnowflakeMastodonId = FerroidMastodonId.fake();
+    println!("{:?}", val);
+
+    let val: String = FerroidMastodonId.fake();
+    println!("{} (SnowflakeMastodonId)", val);
+}
+
 #[cfg(feature = "uuid")]
 fn uuid_faker() {
     use fake::uuid::*;
@@ -625,6 +663,9 @@ fn main() {
 
     #[cfg(feature = "chrono")]
     chrono_faker();
+
+    #[cfg(feature = "ferroid")]
+    ferroid_faker();
 
     #[cfg(feature = "uuid")]
     uuid_faker();

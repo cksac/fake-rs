@@ -16,6 +16,8 @@ pub mod color;
 pub mod decimal;
 #[cfg(feature = "email_address")]
 pub mod email_address;
+#[cfg(feature = "ferroid")]
+pub mod ferroid;
 #[cfg(feature = "geo-types")]
 pub mod geo;
 #[cfg(feature = "glam")]

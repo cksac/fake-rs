@@ -229,6 +229,24 @@ mod ulid {
 }
 
 // it's sufficient to check one language, because it doesn't change anything
+#[cfg(feature = "ferroid")]
+mod ferroid {
+    use fake::ferroid::*;
+    use fake::{Fake, Faker};
+    use rand::SeedableRng as _;
+    check_determinism! { one fake_ferroid_ulid_f, ferroid::ULID, Faker }
+    check_determinism! { one fake_ferroid_ulid, ferroid::ULID, FerroidULID }
+    check_determinism! { one fake_ferroid_snowflake_twitter_f, ferroid::SnowflakeTwitterId, Faker }
+    check_determinism! { one fake_ferroid_snowflake_twitter, ferroid::SnowflakeTwitterId, FerroidTwitterId }
+    check_determinism! { one fake_ferroid_snowflake_mastodon_f, ferroid::SnowflakeMastodonId, Faker }
+    check_determinism! { one fake_ferroid_snowflake_mastodon, ferroid::SnowflakeMastodonId, FerroidMastodonId }
+    check_determinism! { one fake_ferroid_snowflake_discord_f, ferroid::SnowflakeDiscordId, Faker }
+    check_determinism! { one fake_ferroid_snowflake_discord, ferroid::SnowflakeDiscordId, FerroidDiscordId }
+    check_determinism! { one fake_ferroid_snowflake_instagram_f, ferroid::SnowflakeInstagramId, Faker }
+    check_determinism! { one fake_ferroid_snowflake_instagram, ferroid::SnowflakeInstagramId, FerroidInstagramId }
+}
+
+// it's sufficient to check one language, because it doesn't change anything
 #[cfg(feature = "uuid")]
 mod uuid {
     use fake::uuid::*;
