@@ -8,14 +8,14 @@ use rand::Rng;
 impl<L: Data + Copy> Dummy<ItalicWord<L>> for String {
     fn dummy_with_rng<R: Rng + ?Sized>(_: &ItalicWord<L>, rng: &mut R) -> Self {
         let s = *L::LOREM_WORD.choose(rng).unwrap();
-        format!("*{}*", s)
+        format!("*{s}*")
     }
 }
 
 impl<L: Data + Copy> Dummy<BoldWord<L>> for String {
     fn dummy_with_rng<R: Rng + ?Sized>(_: &BoldWord<L>, rng: &mut R) -> Self {
         let s = *L::LOREM_WORD.choose(rng).unwrap();
-        format!("**{}**", s)
+        format!("**{s}**")
     }
 }
 
@@ -23,7 +23,7 @@ impl<L: Data + Copy> Dummy<Link<L>> for String {
     fn dummy_with_rng<R: Rng + ?Sized>(c: &Link<L>, rng: &mut R) -> Self {
         let text: String = Word(c.0).fake_with_rng::<&str, _>(rng).to_string();
         let url: String = Word(c.0).fake_with_rng(rng);
-        format!("[{}](https://{})", text, url)
+        format!("[{text}](https://{url})")
     }
 }
 
@@ -54,7 +54,7 @@ impl<L: Data + Copy> Dummy<ListItems<L>> for Vec<String> {
 impl<L: Data + Copy> Dummy<BlockQuoteSingleLine<L>> for String {
     fn dummy_with_rng<R: Rng + ?Sized>(c: &BlockQuoteSingleLine<L>, rng: &mut R) -> Self {
         let sentence: String = Sentence(c.0, 4..10).fake_with_rng(rng);
-        format!("> {}", sentence)
+        format!("> {sentence}")
     }
 }
 
@@ -75,6 +75,6 @@ impl<L: Data + Copy> Dummy<Code<L>> for String {
         let code: String = Sentence(c.0, 4..10)
             .fake_with_rng::<String, _>(rng)
             .to_string();
-        format!("```\n{}\n```", code)
+        format!("```\n{code}\n```")
     }
 }

@@ -31,15 +31,13 @@ impl Dummy<HealthInsuranceCode<FR_FR>> for String {
             _ => department.parse::<u16>().unwrap(),
         };
         let number = format!(
-            "{}{:02}{:02}{}{:03}{:03}",
-            sex, birth_year, birth_month, department_code, town_code, order_code
+            "{sex}{birth_year:02}{birth_month:02}{department_code}{town_code:03}{order_code:03}"
         )
         .parse::<u64>()
         .unwrap();
         let key = 97 - (number % 97);
         format!(
-            "{} {:02} {:02} {} {:03} {:03} {}",
-            sex, birth_year, birth_month, department, town_code, order_code, key
+            "{sex} {birth_year:02} {birth_month:02} {department} {town_code:03} {order_code:03} {key}"
         )
     }
 }
