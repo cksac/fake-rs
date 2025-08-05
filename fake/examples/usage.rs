@@ -13,11 +13,11 @@ pub struct Foo {
 fn main() {
     // type derived Dummy
     let f: Foo = Faker.fake();
-    println!("{:?}", f);
+    println!("{f:?}");
 
     // using `Faker` to generate default fake value of given type
     let tuple = Faker.fake::<(u8, u32, f32)>();
-    println!("tuple {:?}", tuple);
+    println!("tuple {tuple:?}");
     println!("String {:?}", Faker.fake::<String>());
 
     // types U can used to generate fake value T, if `T: Dummy<U>`
@@ -29,22 +29,22 @@ fn main() {
     use fake::locales::*;
 
     let name: String = Name(EN).fake();
-    println!("name {:?}", name);
+    println!("name {name:?}");
 
     let name: String = Name(ZH_TW).fake();
-    println!("name {:?}", name);
+    println!("name {name:?}");
 
     let name: String = Name(ZH_CN).fake();
-    println!("name {:?}", name);
+    println!("name {name:?}");
 
     // using convenient function without providing locale
     use fake::faker::lorem::en::*;
     let words: Vec<String> = Words(3..5).fake();
-    println!("words {:?}", words);
+    println!("words {words:?}");
 
     // using macro to generate nested collection
     let name_vec = fake::vec![String as Name(EN); 4, 3..5, 2];
-    println!("random nested vec {:?}", name_vec);
+    println!("random nested vec {name_vec:?}");
 
     // fixed seed rng
     let seed = [
@@ -54,6 +54,6 @@ fn main() {
     let r = &mut StdRng::from_seed(seed);
     for _ in 0..5 {
         let v: usize = Faker.fake_with_rng(r);
-        println!("value from fixed seed {}", v);
+        println!("value from fixed seed {v}");
     }
 }
