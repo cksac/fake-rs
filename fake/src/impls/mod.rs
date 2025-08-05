@@ -14,6 +14,8 @@ pub mod chrono_tz;
 pub mod color;
 #[cfg(feature = "rust_decimal")]
 pub mod decimal;
+#[cfg(feature = "either")]
+pub mod either;
 #[cfg(feature = "email_address")]
 pub mod email_address;
 #[cfg(feature = "ferroid")]

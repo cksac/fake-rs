@@ -51,6 +51,7 @@ Available library features:
   - `glam`
   - `url`
   - `indexmap`
+  - `either`
 - `always-true-rng`: expose AlwaysTrueRng
 - `maybe-non-empty-collections`: allow to use AlwaysTrueRng to generate non-empty collections
 
