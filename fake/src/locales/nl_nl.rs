@@ -1,4 +1,3 @@
-use chrono_tz::Tz::Indian__Antananarivo;
 use rand::Rng;
 
 use crate::{
@@ -227,15 +226,17 @@ impl Data for NL_NL {
 
     const ADDRESS_COUNTRY: &'static [&'static str] = &["Nederland", "The Netherlands"];
     const ADDRESS_CITY_SUFFIX: &'static [&'static str] = &[
-        "berg", "burg", "feld", "furt", "heim", "ing", "kirchen", "stadt",
+        "aarde", "akker", "daal", "donk", "drecht", "geest", "gem", "gestel", "heem",
+        "holt", "horst", "iacum", "lare", "loo", "rode", "schot", "schote", "sel",
+        "speet", "voorde", "werd", "ward", "werf", "wierd", "wijk", "wolde",
     ];
 
     const ADDRESS_CITY_PREFIX: &'static [&'static str] = &[
-        "Alt", "Bad", "Groß", "Hohen", "Klein", "Neu", "Alt", "Ober", "Unter",
+        "Oud", "Groot", "Klein", "Lage", "Hoge", "Nieuw", "Boven", "Beneden",
     ];
     const ADDRESS_ZIP_FORMATS: &'static [&'static str] = &["#####"];
     const ADDRESS_STREET_SUFFIX: &'static [&'static str] = &[
-        "allee", "gang", "gasse", "pfad", "platz", "steg", "straße", "ufer", "weg",
+        "laan", "pad", "straat", "plaats", "steeg", "weg",
     ];
     const ADDRESS_SECONDARY_ADDR_TYPE: &'static [&'static str] =
         &["Gebouw", "Verdieping", "Ingang", "Oprit"];
@@ -243,28 +244,21 @@ impl Data for NL_NL {
     const ADDRESS_STREET_TPL: &'static str = "{StreetName} {StreetSuffix}";
 
     const COMPANY_SUFFIX: &'static [&'static str] = &[
-        "OHG",
-        "KG",
-        "GbR",
-        "AG",
-        "GmbH",
-        "UG",
+        "vof",
+        "cv",
+        "bv",
+        "nv",
+        "ez",
+        "mts",
         "eG",
-        "Stiftung",
-        "e.V.",
-        "und Partner",
-        "& Partner",
+        "stichting",
+        "vereniging",
+        "coöperatie",
     ];
 }
 
 impl CityNameGenFn for NL_NL {
     fn gen<R: Rng + ?Sized>(c: &CityName<Self>, rng: &mut R) -> String {
-        // german cities are often suffixed by a river name
-        const RIVERS: [&str; 10] = [
-            "(Rhein)", "(Elbe)", "(Donau)", "(Main)", "(Weser)", "(Oder)", "(Neckar)", "(Havel)",
-            "(Mosel)", "(Ems)",
-        ];
-
         // common formats for city names
         const ADDRESS_CITY_WITHOUT_PREFIX: &str = "{CityName}{CitySuffix}";
         const ADDRESS_CITY_WITHOUT_SPACE: &str = "{CityPrefix}{CityName}{CitySuffix}";
@@ -326,8 +320,7 @@ impl CityNameGenFn for NL_NL {
                 .replace(
                     "{CitySuffix}",
                     CitySuffix(c.0).fake_with_rng::<&str, _>(rng),
-                )
-                .replace("{River}", RIVERS[rng.random_range(0..RIVERS.len())]),
+                ),
             _ => ADDRESS_CITY_WITHOUT_PREFIX
                 .replace(
                     "{CityName}",
