@@ -505,6 +505,10 @@ impl Data for NL_NL {
         "live.com",
         "outlook.com",
     ];
+
+    const INTERNET_DOMAIN_SUFFIX: &'static [&'static str] = &[
+        "nl", "com", "net", "org"
+    ];
 }
 
 impl CityNameGenFn for NL_NL {
