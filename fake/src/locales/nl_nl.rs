@@ -125,7 +125,7 @@ impl Data for NL_NL {
         "de Wit",
         "Dijkstra",
         "Smits",
-        "de Graaaf",
+        "de Graaf",
         "van der Meer",
         "van der Linden",
         "Kok",
