@@ -252,7 +252,7 @@ impl Data for NL_NL {
         "Voigt",
         "Götz",
     ];
-    const NAME_TITLE: &'static [&'static str] = &["Frau", "Herr"];
+    const NAME_TITLE: &'static [&'static str] = &["Mevrouw", "Meneer"];
 
     const ADDRESS_STATE: &'static [&'static str] = &[
         "Baden-Württemberg",
