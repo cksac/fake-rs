@@ -255,30 +255,25 @@ impl Data for NL_NL {
     const NAME_TITLE: &'static [&'static str] = &["Mevrouw", "Meneer"];
 
     const ADDRESS_STATE: &'static [&'static str] = &[
-        "Baden-Württemberg",
-        "Bayern",
-        "Berlin",
-        "Brandenburg",
-        "Bremen",
-        "Hamburg",
-        "Hessen",
-        "Mecklenburg-Vorpommern",
-        "Niedersachsen",
-        "Nordrhein-Westfalen",
-        "Rheinland-Pfalz",
-        "Saarland",
-        "Sachsen",
-        "Sachsen-Anhalt",
-        "Schleswig-Holstein",
-        "Thüringen",
+        "Groningen",
+        "Fryslân",
+        "Drenthe",
+        "Overijssel",
+        "Flevoland",
+        "Gelderland",
+        "Utrecht",
+        "Noord-Holland",
+        "Zuid-Holland",
+        "Zeeland",
+        "Noord-Brabant",
+        "Limburg",
     ];
 
     const ADDRESS_STATE_ABBR: &'static [&'static str] = &[
-        "BW", "BY", "BE", "BB", "HB", "HH", "HE", "MV", "NI", "NW", "RP", "SL", "SN", "ST", "SH",
-        "TH",
+        "DR", "FL", "FR", "GD", "GR", "LB", "NB", "NH", "OV", "UT", "ZH", "ZL",
     ];
 
-    const ADDRESS_COUNTRY: &'static [&'static str] = &["Deutschland", "Germany"];
+    const ADDRESS_COUNTRY: &'static [&'static str] = &["Nederland", "The Neterlands"];
     const ADDRESS_CITY_SUFFIX: &'static [&'static str] = &[
         "berg", "burg", "feld", "furt", "heim", "ing", "kirchen", "stadt",
     ];
