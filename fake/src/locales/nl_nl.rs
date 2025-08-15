@@ -203,7 +203,7 @@ impl Data for NL_NL {
         "de Leeuw",
         "Verbeek",
     ];
-    const NAME_TITLE: &'static [&'static str] = &["Mevrouw", "Meneer"];
+    const NAME_TITLE: &'static [&'static str] = &["Mevrouw", "Meneer", "Prof.", "Ing."];
 
     const ADDRESS_STATE: &'static [&'static str] = &[
         "Groningen",
@@ -522,6 +522,35 @@ impl Data for NL_NL {
 
     const TIME_DEFAULT_DATETIME_FORMAT: &'static str =
     "[day]-[month]-[year] [hour]:[minute]:[second]";
+
+    const JOB_SENIORITY: &'static [&'static str] = &["Senior", "Junior", "Medior"];
+
+    const JOB_FIELD: &'static [&'static str] = &[
+        "Marketing",
+        "IT",
+        "ICT",
+        "Administratie",
+        "Horeca",
+        "Industrie",
+        "Vastgoed",
+        "Technologie",
+        "Logistiek"
+    ];
+
+    const JOB_POSITION: &'static [&'static str] = &[
+        "Bedrijfsleider",
+        "Stagiair",
+        "Stagiaire",
+        "Architect",
+        "Beheerder",
+        "Toezichthouder",
+        "Assistent",
+        "Assistente",
+        "Directeur",
+        "Afdelingshoofd"
+    ];
+
+    const JOB_TITLE_TPL: &'static str = "{Position} {Seniority} {Field}";
 }
 
 impl CityNameGenFn for NL_NL {
