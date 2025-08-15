@@ -509,6 +509,14 @@ impl Data for NL_NL {
     const INTERNET_DOMAIN_SUFFIX: &'static [&'static str] = &[
         "nl", "com", "net", "org"
     ];
+
+    const PHONE_NUMBER_FORMATS: &'static [&'static str] = &[
+        "+31 ## ######",
+    ];
+
+    const PHONE_CELL_NUMBER_FORMATS: &'static [&'static str] = &[
+        "+31 06 ######",
+    ];
 }
 
 impl CityNameGenFn for NL_NL {
