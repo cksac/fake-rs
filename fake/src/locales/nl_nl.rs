@@ -224,6 +224,8 @@ impl Data for NL_NL {
         "DR", "FL", "FR", "GD", "GR", "LB", "NB", "NH", "OV", "UT", "ZH", "ZL",
     ];
 
+    const ADDRESS_TIME_ZONE: &'static [&'static str] = &["Europe/Amsterdam"];
+
     const ADDRESS_COUNTRY: &'static [&'static str] = &[
         "Afghanistan",
         "Albanië",
