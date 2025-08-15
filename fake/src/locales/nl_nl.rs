@@ -517,6 +517,11 @@ impl Data for NL_NL {
     const PHONE_CELL_NUMBER_FORMATS: &'static [&'static str] = &[
         "+31 06 ######",
     ];
+
+    const TIME_DEFAULT_DATE_FORMAT: &'static str = "[day]-[month]-[year]";
+
+    const TIME_DEFAULT_DATETIME_FORMAT: &'static str =
+    "[day]-[month]-[year] [hour]:[minute]:[second]";
 }
 
 impl CityNameGenFn for NL_NL {
