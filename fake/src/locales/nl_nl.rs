@@ -490,6 +490,21 @@ impl Data for NL_NL {
         "vereniging",
         "coöperatie",
     ];
+
+    const INTERNET_FREE_EMAIL_PROVIDER: &'static [&'static str] = &[
+        "live.nl",
+        "ziggo.nl",
+        "chello.nl",
+        "freedom.nl",
+        "upcmail.nl",
+        "home.nl",
+        "quicknet.nl",
+        "casema.nl",
+        "gmail.com",
+        "hotmail.com",
+        "live.com",
+        "outlook.com",
+    ];
 }
 
 impl CityNameGenFn for NL_NL {
