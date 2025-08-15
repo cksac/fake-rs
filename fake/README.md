@@ -18,6 +18,7 @@ A Rust library and command line tool for generating fake data in different langu
 | Portugese (Portugal)  | pt_pt |
 | German                | de_de |
 | Italian               | it_it |
+| Dutch                 | nl_nl |
 
 
 ## Installation
