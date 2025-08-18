@@ -217,7 +217,7 @@ impl<L: Data + Copy> Dummy<ZipCode<L>> for String {
 impl<L: Data + Copy> Dummy<PostCode<L>> for String {
     fn dummy_with_rng<R: Rng + ?Sized>(_: &PostCode<L>, rng: &mut R) -> Self {
         let fmt = L::ADDRESS_POSTCODE_FORMATS.choose(rng).unwrap();
-        numerify_sym(fmt, rng)
+        numerify_zip_code(fmt, rng)
     }
 }
 

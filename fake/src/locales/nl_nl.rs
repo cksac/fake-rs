@@ -9,6 +9,7 @@ use crate::{
     locales::Data,
     Fake,
 };
+
 #[allow(non_camel_case_types)]
 #[derive(Copy, Clone)]
 pub struct NL_NL;
@@ -471,7 +472,9 @@ impl Data for NL_NL {
     const ADDRESS_CITY_PREFIX: &'static [&'static str] = &[
         "Oud", "Groot", "Klein", "Lage", "Hoge", "Nieuw", "Boven", "Beneden",
     ];
-    const ADDRESS_ZIP_FORMATS: &'static [&'static str] = &["#####"];
+    const ADDRESS_ZIP_FORMATS: &'static [&'static str] = &["#### $$"];
+    const ADDRESS_POSTCODE_FORMATS: &'static [&'static str] = &["#### $$"];
+
     const ADDRESS_STREET_SUFFIX: &'static [&'static str] = &[
         "laan", "pad", "straat", "plaats", "steeg", "weg",
     ];
