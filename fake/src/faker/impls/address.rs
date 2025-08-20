@@ -1,7 +1,7 @@
 use crate::faker::address::raw::*;
 use crate::faker::name::raw::{FirstName, LastName, Name};
 use crate::faker::numerify_sym;
-use crate::locales::{Data};
+use crate::locales::Data;
 use crate::{Dummy, Fake, Faker};
 use rand::seq::IndexedRandom;
 use rand::Rng;

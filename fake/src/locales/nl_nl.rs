@@ -58,7 +58,6 @@ impl Data for NL_NL {
         "Fem",
         "Daniek",
         "Patty",
-
         "Jeroen",
         "Martijn",
         "Maarten",
@@ -464,9 +463,9 @@ impl Data for NL_NL {
     ];
 
     const ADDRESS_CITY_SUFFIX: &'static [&'static str] = &[
-        "aarde", "akker", "daal", "donk", "drecht", "geest", "gem", "gestel", "heem",
-        "holt", "horst", "iacum", "lare", "loo", "rode", "schot", "schote", "sel",
-        "speet", "voorde", "werd", "ward", "werf", "wierd", "wijk", "wolde",
+        "aarde", "akker", "daal", "donk", "drecht", "geest", "gem", "gestel", "heem", "holt",
+        "horst", "iacum", "lare", "loo", "rode", "schot", "schote", "sel", "speet", "voorde",
+        "werd", "ward", "werf", "wierd", "wijk", "wolde",
     ];
 
     const ADDRESS_CITY_PREFIX: &'static [&'static str] = &[
@@ -475,9 +474,9 @@ impl Data for NL_NL {
     const ADDRESS_ZIP_FORMATS: &'static [&'static str] = &["#### $$"];
     const ADDRESS_POSTCODE_FORMATS: &'static [&'static str] = &["#### $$"];
 
-    const ADDRESS_STREET_SUFFIX: &'static [&'static str] = &[
-        "laan", "pad", "straat", "plaats", "steeg", "weg",
-    ];
+    const ADDRESS_STREET_SUFFIX: &'static [&'static str] =
+        &["laan", "pad", "straat", "plaats", "steeg", "weg"];
+
     const ADDRESS_SECONDARY_ADDR_TYPE: &'static [&'static str] =
         &["Gebouw", "Verdieping", "Ingang", "Oprit"];
 
@@ -511,22 +510,16 @@ impl Data for NL_NL {
         "outlook.com",
     ];
 
-    const INTERNET_DOMAIN_SUFFIX: &'static [&'static str] = &[
-        "nl", "com", "net", "org"
-    ];
+    const INTERNET_DOMAIN_SUFFIX: &'static [&'static str] = &["nl", "com", "net", "org"];
 
-    const PHONE_NUMBER_FORMATS: &'static [&'static str] = &[
-        "+31 ## ########",
-    ];
+    const PHONE_NUMBER_FORMATS: &'static [&'static str] = &["+31 ## ########"];
 
-    const PHONE_CELL_NUMBER_FORMATS: &'static [&'static str] = &[
-        "+31 06 ########",
-    ];
+    const PHONE_CELL_NUMBER_FORMATS: &'static [&'static str] = &["+31 06 ########"];
 
     const TIME_DEFAULT_DATE_FORMAT: &'static str = "[day]-[month]-[year]";
 
     const TIME_DEFAULT_DATETIME_FORMAT: &'static str =
-    "[day]-[month]-[year] [hour]:[minute]:[second]";
+        "[day]-[month]-[year] [hour]:[minute]:[second]";
 
     const JOB_SENIORITY: &'static [&'static str] = &["Senior", "Junior", "Medior"];
 
@@ -539,7 +532,7 @@ impl Data for NL_NL {
         "Industrie",
         "Vastgoed",
         "Technologie",
-        "Logistiek"
+        "Logistiek",
     ];
 
     const JOB_POSITION: &'static [&'static str] = &[
@@ -552,7 +545,7 @@ impl Data for NL_NL {
         "Assistent",
         "Assistente",
         "Directeur",
-        "Afdelingshoofd"
+        "Afdelingshoofd",
     ];
 
     const JOB_TITLE_TPL: &'static str = "{Position} {Seniority} {Field}";
