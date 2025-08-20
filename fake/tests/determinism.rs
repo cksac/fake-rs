@@ -116,13 +116,13 @@ mod chrono {
         lo() + chrono::Duration::days(365)
     }
 
-    check_determinism! { l10d Date; String, fake_date_en, fake_date_fr, fake_date_cn, fake_date_tw, fake_date_jp, fake_date_br, fake_date_de, fake_date_it, fake_date_cy}
-    check_determinism! { l10d DateTime; String, fake_date_time_en, fake_date_time_fr, fake_date_time_cn, fake_date_time_tw, fake_date_time_jp, fake_date_time_br, fake_date_time_de, fake_date_time_it, fake_date_time_cy}
-    check_determinism! { l10d DateTimeAfter; String, fake_date_time_after_en, fake_date_time_after_fr, fake_date_time_after_cn, fake_date_time_after_tw, fake_date_time_after_jp, fake_date_time_after_br, fake_date_time_after_de, fake_date_time_after_it, fake_date_time_after_cy, lo()}
-    check_determinism! { l10d DateTimeBefore; String, fake_date_time_before_en, fake_date_time_before_fr, fake_date_time_before_cn, fake_date_time_before_tw, fake_date_time_before_jp, fake_date_time_before_br, fake_date_time_before_de, fake_date_time_before_it, fake_date_time_before_cy, hi()}
-    check_determinism! { l10d DateTimeBetween; String, fake_date_time_between_en, fake_date_time_between_fr, fake_date_time_between_cn, fake_date_time_between_tw, fake_date_time_between_jp, fake_date_time_between_br, fake_date_time_between_de, fake_date_time_between_it, fake_date_time_between_cy, lo(), hi()}
-    check_determinism! { l10d Duration; ::chrono::Duration, fake_duration_en, fake_duration_fr, fake_duration_cn, fake_duration_tw, fake_duration_jp, fake_duration_br, fake_duration_de, fake_duration_it, fake_duration_cy}
-    check_determinism! { l10d Time; String, fake_time_en, fake_time_fr, fake_time_cn, fake_time_tw, fake_time_jp, fake_time_br, fake_time_de, fake_time_it, fake_time_cy}
+    check_determinism! { l10d Date; String, fake_date_en, fake_date_fr, fake_date_cn, fake_date_tw, fake_date_jp, fake_date_br, fake_date_de, fake_date_it, fake_date_cy,fake_date_nl}
+    check_determinism! { l10d DateTime; String, fake_date_time_en, fake_date_time_fr, fake_date_time_cn, fake_date_time_tw, fake_date_time_jp, fake_date_time_br, fake_date_time_de, fake_date_time_it, fake_date_time_cy, fake_date_time_nl}
+    check_determinism! { l10d DateTimeAfter; String, fake_date_time_after_en, fake_date_time_after_fr, fake_date_time_after_cn, fake_date_time_after_tw, fake_date_time_after_jp, fake_date_time_after_br, fake_date_time_after_de, fake_date_time_after_it, fake_date_time_after_cy, fake_date_time_after_nl, lo()}
+    check_determinism! { l10d DateTimeBefore; String, fake_date_time_before_en, fake_date_time_before_fr, fake_date_time_before_cn, fake_date_time_before_tw, fake_date_time_before_jp, fake_date_time_before_br, fake_date_time_before_de, fake_date_time_before_it, fake_date_time_before_cy, fake_date_time_before_nl, hi()}
+    check_determinism! { l10d DateTimeBetween; String, fake_date_time_between_en, fake_date_time_between_fr, fake_date_time_between_cn, fake_date_time_between_tw, fake_date_time_between_jp, fake_date_time_between_br, fake_date_time_between_de, fake_date_time_between_it, fake_date_time_between_cy, fake_date_time_between_nl, lo(), hi()}
+    check_determinism! { l10d Duration; ::chrono::Duration, fake_duration_en, fake_duration_fr, fake_duration_cn, fake_duration_tw, fake_duration_jp, fake_duration_br, fake_duration_de, fake_duration_it, fake_duration_cy, fake_duration_nl}
+    check_determinism! { l10d Time; String, fake_time_en, fake_time_fr, fake_time_cn, fake_time_tw, fake_time_jp, fake_time_br, fake_time_de, fake_time_it, fake_time_cy, fake_time_nl}
     check_determinism! { one fake_naive_time_precision, ::chrono::NaiveTime, Precision::<6> }
     check_determinism! { one fake_naive_date_time_precision, ::chrono::NaiveDateTime, Precision::<6> }
     check_determinism! { one fake_date_time_precision, ::chrono::DateTime<::chrono::Utc>, Precision::<6> }
@@ -142,13 +142,13 @@ mod time {
         lo() + time::Duration::days(365)
     }
 
-    check_determinism! { l10d Date; String, fake_date_en, fake_date_fr, fake_date_cn, fake_date_tw, fake_date_jp, fake_date_br, fake_date_de, fake_date_it, fake_date_cy }
-    check_determinism! { l10d DateTime; String, fake_date_time_en, fake_date_time_fr, fake_date_time_cn, fake_date_time_tw, fake_date_time_jp, fake_date_time_br, fake_date_time_de, fake_date_time_it, fake_date_time_cy}
-    check_determinism! { l10d DateTimeAfter; String, fake_date_time_after_en, fake_date_time_after_fr, fake_date_time_after_cn, fake_date_time_after_tw, fake_date_time_after_jp, fake_date_time_after_br, fake_date_time_after_de, fake_date_time_after_it, fake_date_time_after_cy, lo() }
-    check_determinism! { l10d DateTimeBefore; String, fake_date_time_before_en, fake_date_time_before_fr, fake_date_time_before_cn, fake_date_time_before_tw, fake_date_time_before_jp, fake_date_time_before_br, fake_date_time_before_de, fake_date_time_before_it, fake_date_time_before_cy, hi() }
-    check_determinism! { l10d DateTimeBetween; String, fake_date_time_between_en, fake_date_time_between_fr, fake_date_time_between_cn, fake_date_time_between_tw, fake_date_time_between_jp, fake_date_time_between_br, fake_date_time_between_de, fake_date_time_between_it, fake_date_time_between_cy, lo(), hi() }
-    check_determinism! { l10d Duration; ::time::Duration, fake_duration_en, fake_duration_fr, fake_duration_cn, fake_duration_tw, fake_duration_jp, fake_duration_br, fake_duration_de, fake_duration_it, fake_duration_cy }
-    check_determinism! { l10d Time; String, fake_time_en, fake_time_fr, fake_time_cn, fake_time_tw, fake_time_jp, fake_time_br, fake_time_de, fake_time_it, fake_time_cy }
+    check_determinism! { l10d Date; String, fake_date_en, fake_date_fr, fake_date_cn, fake_date_tw, fake_date_jp, fake_date_br, fake_date_de, fake_date_it, fake_date_cy, fake_date_nl }
+    check_determinism! { l10d DateTime; String, fake_date_time_en, fake_date_time_fr, fake_date_time_cn, fake_date_time_tw, fake_date_time_jp, fake_date_time_br, fake_date_time_de, fake_date_time_it, fake_date_time_cy, fake_date_time_nl}
+    check_determinism! { l10d DateTimeAfter; String, fake_date_time_after_en, fake_date_time_after_fr, fake_date_time_after_cn, fake_date_time_after_tw, fake_date_time_after_jp, fake_date_time_after_br, fake_date_time_after_de, fake_date_time_after_it, fake_date_time_after_cy, fake_date_time_after_nl, lo() }
+    check_determinism! { l10d DateTimeBefore; String, fake_date_time_before_en, fake_date_time_before_fr, fake_date_time_before_cn, fake_date_time_before_tw, fake_date_time_before_jp, fake_date_time_before_br, fake_date_time_before_de, fake_date_time_before_it, fake_date_time_before_cy, fake_date_time_before_nl, hi() }
+    check_determinism! { l10d DateTimeBetween; String, fake_date_time_between_en, fake_date_time_between_fr, fake_date_time_between_cn, fake_date_time_between_tw, fake_date_time_between_jp, fake_date_time_between_br, fake_date_time_between_de, fake_date_time_between_it, fake_date_time_between_cy, fake_date_time_between_nl, lo(), hi() }
+    check_determinism! { l10d Duration; ::time::Duration, fake_duration_en, fake_duration_fr, fake_duration_cn, fake_duration_tw, fake_duration_jp, fake_duration_br, fake_duration_de, fake_duration_it, fake_duration_cy, fake_duration_nl }
+    check_determinism! { l10d Time; String, fake_time_en, fake_time_fr, fake_time_cn, fake_time_tw, fake_time_jp, fake_time_br, fake_time_de, fake_time_it, fake_time_cy, fake_time_nl }
 }
 
 // Company
