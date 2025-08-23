@@ -1,5 +1,5 @@
 use crate::faker::automotive::raw::*;
-use crate::locales::{FR_FR, IT_IT};
+use crate::locales::{FR_FR, IT_IT, NL_NL};
 use crate::{Dummy, Fake};
 use rand::seq::IndexedRandom;
 use rand::Rng;
@@ -41,5 +41,14 @@ impl Dummy<LicencePlate<IT_IT>> for String {
     fn dummy_with_rng<R: rand::Rng + ?Sized>(_: &LicencePlate<IT_IT>, rng: &mut R) -> Self {
         let fmt = LICENSE_PLATE.choose(rng).unwrap();
         crate::faker::impls::automotive::numerify_licence_plate(fmt, rng)
+    }
+}
+
+const NL_NL_LICENSE_PLATE: &[&str] = &["$$-###-$", "$-###-$$", "$$$-##-$"];
+
+impl Dummy<LicencePlate<NL_NL>> for String {
+    fn dummy_with_rng<R: rand::Rng + ?Sized>(_: &LicencePlate<NL_NL>, rng: &mut R) -> Self {
+        let fmt = NL_NL_LICENSE_PLATE.choose(rng).unwrap();
+        numerify_licence_plate(fmt, rng)
     }
 }

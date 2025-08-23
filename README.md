@@ -19,6 +19,7 @@ A Rust library and command line tool for generating fake data in different langu
 | German                | de_de |
 | Italian               | it_it |
 | Cymraeg (Welsh)       | cy_gb |
+| Dutch                 | nl_nl |
 
 
 ## Installation

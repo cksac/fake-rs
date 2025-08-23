@@ -15,6 +15,7 @@ pub enum AVAILABLE_LOCALES {
     DE_DE,
     IT_IT,
     CY_GB,
+    NL_NL,
 }
 
 macro_rules! fake_gen_on_return_type {
@@ -72,6 +73,10 @@ macro_rules! some_rules {
             }
             AVAILABLE_LOCALES::CY_GB => {
                 let s = faker::$module::cy_gb::$fake($($arg)?);
+                Box::new(move |rng: &mut R| fake_gen_on_return_type!(s,rng$(,$return_type)?))
+            }
+            AVAILABLE_LOCALES::NL_NL => {
+                let s = faker::$module::nl_nl::$fake($($arg)?);
                 Box::new(move |rng: &mut R| fake_gen_on_return_type!(s,rng$(,$return_type)?))
             }
         }
