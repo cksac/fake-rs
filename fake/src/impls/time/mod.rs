@@ -3,8 +3,6 @@ use rand::Rng;
 use time::{Date, Duration, OffsetDateTime, PrimitiveDateTime, Time};
 
 const YEAR_MAG: i32 = 3_000i32;
-const MIN_NANOS: i128 = -377_705_116_800_000_000_000;
-const MAX_NANOS: i128 = 253_402_300_799_000_000_000;
 
 fn is_leap(year: i32) -> bool {
     if year % 400 == 0 {
@@ -22,10 +20,20 @@ impl Dummy<Faker> for Duration {
     }
 }
 
+impl Dummy<Faker> for UtcOffset {
+    fn dummy_with_rng<R: Rng + ?Sized>(_: &Faker, rng: &mut R) -> Self {
+        // UtcOffset ±25:59:59
+        let seconds: i32 = (-93599..93599).fake_with_rng(rng);
+        UtcOffset::from_whole_seconds(seconds).unwrap()
+    }
+}
+
 impl Dummy<Faker> for OffsetDateTime {
     fn dummy_with_rng<R: Rng + ?Sized>(_: &Faker, rng: &mut R) -> Self {
-        let nanos = (MIN_NANOS..MAX_NANOS).fake_with_rng(rng);
-        OffsetDateTime::from_unix_timestamp_nanos(nanos).unwrap()
+        let date = Faker.fake_with_rng(rng);
+        let time = Faker.fake_with_rng(rng);
+        let offset = Faker.fake_with_rng(rng);
+        OffsetDateTime::new_in_offset(date, time, offset)
     }
 }
 
