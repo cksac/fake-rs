@@ -1,6 +1,6 @@
 use crate::{Dummy, Fake, Faker};
 use rand::Rng;
-use time::{Date, Duration, OffsetDateTime, PrimitiveDateTime, Time};
+use time::{Date, Duration, OffsetDateTime, PrimitiveDateTime, Time, UtcOffset};
 
 const YEAR_MAG: i32 = 3_000i32;
 
