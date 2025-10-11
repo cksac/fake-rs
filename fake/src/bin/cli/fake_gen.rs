@@ -289,6 +289,6 @@ pub fn all_fakegen_commands<R: Rng>() -> (
         (CommerceProductType,commerce),
         (CommerceProduct,commerce),
         (CommerceProductPrice(min:f64=0.0, max:f64=1000.0),commerce),
-        (CommercePromotionCode(len:usize=8),commerce)
+        (CommercePromotionCode,commerce)
     )
 }

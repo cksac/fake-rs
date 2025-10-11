@@ -408,7 +408,7 @@ CommerceProductMaterial();
 CommerceProductType();
 CommerceProduct();
 CommerceProductPrice(range: Range<f64>);
-CommercePromotionCode(len: usize);
+CommercePromotionCode();
 ```
 
 ## Creditcard

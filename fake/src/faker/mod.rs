@@ -282,6 +282,6 @@ pub mod commerce {
         CommerceProductType();
         CommerceProduct();
         CommerceProductPrice(range: std::ops::Range<f64>);
-        CommercePromotionCode(len: usize);
+        CommercePromotionCode();
     }
 }

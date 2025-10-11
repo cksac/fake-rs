@@ -88,7 +88,11 @@ pub trait Data {
     const COMMERCE_PRODUCT_MATERIAL: &'static [&'static str] = &["Steel", "Wooden", "Concrete", "Plastic", "Cotton", "Granite", "Rubber", "Leather", "Silk", "Wool", "Linen", "Marble"];
     const COMMERCE_PRODUCT_TYPE: &'static [&'static str] = &["Chair", "Car", "Computer", "Keyboard", "Mouse", "Bike", "Ball", "Gloves", "Pants", "Shoes", "Hat", "Table", "Bench", "Clock", "Watch", "Wallet", "Bag", "Lamp", "Phone", "Book"];
     const COMMERCE_PRODUCT: &'static str = "{Adjective} {Material} {Product}";
-    const COMMERCE_PROMOTION_CODE: &'static str = "?????-#####";
+    const COMMERCE_PRODUCT_PRICE: &'static str = "####.##";
+    const COMMERCE_PROMOTION_CODE_PREFIX: &'static [&'static str] = &["####", "SAVE", "OFFER", "PROMO", "CODE", "SALE", "GIFT", "DEAL", "DISCOUNT", "FREE"];
+    const COMMERCE_PROMOTION_CODE_SUFFIX: &'static [&'static str] = &["####", "##"];
+    const COMMERCE_PROMOTION_CODE: &'static [&'static str] = &["{Prefix}-{Suffix}", "{Prefix}{Suffix}", "{Prefix}_{Suffix}", "{Prefix}.{Suffix}", "{Prefix}-{Prefix}{Suffix}"];
+
 
 
     const ISBN_EAN: &'static str = "978";

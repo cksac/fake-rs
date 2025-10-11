@@ -52,13 +52,6 @@ impl<L: Data> Dummy<CommerceProduct<L>> for String {
     }
 }
 
-impl<L: Data + Copy> Dummy<CommercePromotionCode<L>> for String {
-    fn dummy_with_rng<R: Rng + ?Sized>(_: &CommercePromotionCode<L>, rng: &mut R) -> Self {
-        let fmt = L::COMMERCE_PROMOTION_CODE;
-        numerify_sym(fmt, rng)
-    }
-}
-
 impl<L: Data> Dummy<CommerceProductPrice<L>> for f64 {
     fn dummy_with_rng<R: Rng + ?Sized>(c: &CommerceProductPrice<L>, rng: &mut R) -> Self {
         let range = c.1.clone();
@@ -72,5 +65,17 @@ impl<L: Data> Dummy<CommerceProductPrice<L>> for String {
         let range = c.1.clone();
         let price = rng.random_range(range);
         format!("{:.2}", (price * 100.0).round() / 100.0)
+    }
+}
+
+impl<L: Data> Dummy<CommercePromotionCode<L>> for String {
+    fn dummy_with_rng<R: Rng + ?Sized>(_: &CommercePromotionCode<L>, rng: &mut R) -> Self {
+        let fmt = *L::COMMERCE_PROMOTION_CODE.choose(rng).unwrap();
+        let prefix = *L::COMMERCE_PROMOTION_CODE_PREFIX.choose(rng).unwrap();
+        let suffix = *L::COMMERCE_PROMOTION_CODE_SUFFIX.choose(rng).unwrap();
+        let prefix = numerify_sym(prefix, rng);
+        let suffix = numerify_sym(suffix, rng);
+        fmt.replace("{Prefix}", &prefix)
+            .replace("{Suffix}", &suffix)
     }
 }
