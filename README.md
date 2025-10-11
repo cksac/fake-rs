@@ -7,7 +7,7 @@
 A Rust library and command line tool for generating fake data in different languages. Currently supports:
 
 | Language              | Code  |
-|-----------------------|-------|
+| --------------------- | ----- |
 | English               | en    |
 | French                | fr_fr |
 | Arabic                | ar_sa |
@@ -20,7 +20,6 @@ A Rust library and command line tool for generating fake data in different langu
 | Italian               | it_it |
 | Cymraeg (Welsh)       | cy_gb |
 | Dutch                 | nl_nl |
-
 
 ## Installation
 
@@ -57,6 +56,7 @@ Available library features:
 - `maybe-non-empty-collections`: allow to use AlwaysTrueRng to generate non-empty collections
 
 ### CLI:
+
 `cargo install --features=cli --git https://github.com/cksac/fake-rs.git`
 
 Access cli using `fake` command. Below are the currently available fake generators.
@@ -68,100 +68,108 @@ An easy to use library and command line for generating fake data like name, numb
 Usage: fake [OPTIONS] [COMMAND]
 
 Commands:
-  CityPrefix            
-  CitySuffix            
-  CityName              
-  CountryName           
-  CountryCode           
-  StreetSuffix          
-  StreetName            
-  TimeZone              
-  StateName             
-  StateAbbr             
-  SecondaryAddressType  
-  SecondaryAddress      
-  ZipCode               
-  PostCode              
-  BuildingNumber        
-  Latitude              
-  Longitude             
-  Geohash               
-  Isbn                  
-  Isbn10                
-  Isbn13                
-  CreditCardNumber      
-  CompanySuffix         
-  CompanyName           
-  Buzzword              
-  BuzzwordMiddle        
-  BuzzwordTail          
-  CatchPhrase           
-  BsVerb                
-  BsAdj                 
-  BsNoun                
-  Bs                    
-  Profession            
-  Industry              
-  FreeEmailProvider     
-  DomainSuffix          
-  FreeEmail             
-  SafeEmail             
-  Username              
-  Password              
-  IPv4                  
-  IPv6                  
-  IP                    
-  MACAddress            
-  UserAgent             
-  Seniority             
-  Field                 
-  Position              
-  Word                  
-  Words                 
-  Sentence              
-  Sentences             
-  Paragraph             
-  Paragraphs 
-  ItalicWord            
-  BoldWord              
-  Link                  
-  BulletPoints          
-  ListItems             
-  BlockQuoteSingleLine  
-  BlockQuoteMultiLine   
-  Code             
-  FirstName             
-  LastName              
-  Title                 
-  Suffix                
-  Name                  
-  NameWithTitle         
-  PhoneNumber           
-  CellNumber            
-  FilePath              
-  FileName              
-  FileExtension         
-  DirPath               
-  MimeType              
-  Semver                
-  SemverStable          
-  SemverUnstable        
-  CurrencyCode          
-  CurrencyName          
-  CurrencySymbol        
-  Bic                   
-  Isin                  
-  HexColor              
-  RgbColor              
-  RgbaColor             
-  HslColor              
-  HslaColor             
-  Color                 
-  Time                  
-  Date                  
-  DateTime              
-  RfcStatusCode         
-  ValidStatusCode       
+  CityPrefix
+  CitySuffix
+  CityName
+  CountryName
+  CountryCode
+  StreetSuffix
+  StreetName
+  TimeZone
+  StateName
+  StateAbbr
+  SecondaryAddressType
+  SecondaryAddress
+  ZipCode
+  PostCode
+  BuildingNumber
+  Latitude
+  Longitude
+  Geohash
+  Isbn
+  Isbn10
+  Isbn13
+  CreditCardNumber
+  CompanySuffix
+  CompanyName
+  Buzzword
+  BuzzwordMiddle
+  BuzzwordTail
+  CatchPhrase
+  BsVerb
+  BsAdj
+  BsNoun
+  Bs
+  Profession
+  Industry
+  CommerceColor
+  CommerceDepartment
+  CommerceProductAdjective
+  CommerceProductMaterial
+  CommerceProductType
+  CommerceProduct
+  CommerceProductPrice
+  CommercePromotionCode
+  FreeEmailProvider
+  DomainSuffix
+  FreeEmail
+  SafeEmail
+  Username
+  Password
+  IPv4
+  IPv6
+  IP
+  MACAddress
+  UserAgent
+  Seniority
+  Field
+  Position
+  Word
+  Words
+  Sentence
+  Sentences
+  Paragraph
+  Paragraphs
+  ItalicWord
+  BoldWord
+  Link
+  BulletPoints
+  ListItems
+  BlockQuoteSingleLine
+  BlockQuoteMultiLine
+  Code
+  FirstName
+  LastName
+  Title
+  Suffix
+  Name
+  NameWithTitle
+  PhoneNumber
+  CellNumber
+  FilePath
+  FileName
+  FileExtension
+  DirPath
+  MimeType
+  Semver
+  SemverStable
+  SemverUnstable
+  CurrencyCode
+  CurrencyName
+  CurrencySymbol
+  Bic
+  Isin
+  HexColor
+  RgbColor
+  RgbaColor
+  HslColor
+  HslaColor
+  Color
+  Time
+  Date
+  DateTime
+  RfcStatusCode
+  ValidStatusCode
   help                  Print this message or the help of the given subcommand(s)
 
 Options:
@@ -175,6 +183,7 @@ Options:
 ## Usage
 
 ### In rust code
+
 ```rust
 use fake::{Dummy, Fake, Faker};
 use fake::rand::rngs::StdRng;
@@ -245,12 +254,15 @@ fn main() {
 ## Command line
 
 Generate random name (defaults to EN locale)
+
 ```shell
 ❯ ./fake Name
 Generating 1 fakes for EN locale
 Theresa Walker
 ```
+
 Generate 5 chinese random names by mentioning locale to zh_cn
+
 ```shell
 ❯ ./fake -r5 -lzh_cn Name
 Generating 5 fakes for ZH_CN locale
@@ -260,7 +272,9 @@ Generating 5 fakes for ZH_CN locale
 郭雨珍
 龙菲霞
 ```
+
 Generate 5 random passwords with minimum 10 characters
+
 ```shell
 ❯ ./fake -r5 Password --min 10
 Generating 5 fakes for EN locale
@@ -270,7 +284,9 @@ R8ygoTLmd4i1z1Z
 5Uxj3RdEK5O4Af3ow
 2XWsGT0lUaDnMZTb7
 ```
+
 Arguments can be sent to fake generators like password that accept different ranges
+
 ```shell
 ❯ ./fake Password --help
 Usage: fake Password [OPTIONS]
@@ -380,6 +396,19 @@ Industry();
 CurrencyCode();
 CurrencyName();
 CurrencySymbol();
+```
+
+## Commerce
+
+```rust
+CommerceColor();
+CommerceDepartment();
+CommerceProductAdjective();
+CommerceProductMaterial();
+CommerceProductType();
+CommerceProduct();
+CommerceProductPrice(range: Range<f64>);
+CommercePromotionCode(len: usize);
 ```
 
 ## Creditcard
@@ -517,7 +546,9 @@ Code();
 ```
 
 ## Utils
+
 ### Either
+
 ```rust
 use fake::faker::phone_number::en::{CellNumber, PhoneNumber};
 use fake::{utils::{either, WrappedVal}, Dummy, Fake, Faker};

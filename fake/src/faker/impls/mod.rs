@@ -7,6 +7,7 @@ pub mod boolean;
 pub mod chrono;
 #[cfg(feature = "random_color")]
 pub mod color;
+pub mod commerce;
 pub mod company;
 pub mod creditcard;
 pub mod currency;
