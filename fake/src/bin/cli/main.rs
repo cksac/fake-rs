@@ -1,4 +1,4 @@
-use clap::{command, value_parser, Arg};
+use clap::{command, value_parser, Arg, ArgAction};
 use rand::Rng;
 use std::io::{self, Write};
 
@@ -27,13 +27,14 @@ pub fn main() {
     let mut thread_rng = rand::rng();
     let args = cli_parser();
 
-    writeln!(
-        buf_stdout,
-        "Generating {} fakes for {:?} locale",
-        args.0.repeats, args.0.locale
-    )
-    .unwrap();
-
+    if !args.0.quiet {
+        writeln!(
+            buf_stdout,
+            "Generating {} fakes for {:?} locale",
+            args.0.repeats, args.0.locale
+        )
+        .unwrap();
+    }
     (0..args.0.repeats).for_each(|_| writeln!(buf_stdout, "{}", args.1(&mut thread_rng)).unwrap());
 }
 
@@ -77,6 +78,13 @@ fn cli_parser<R: Rng>() -> (Args, impl Fn(&mut R) -> String) {
                 .default_value("EN")
                 .value_parser(|value: &str| AVAILABLE_LOCALES::try_from(value)),
         )
+        .arg(
+            Arg::new("quiet")
+                .short('q')
+                .long("quiet")
+                .value_parser(value_parser!(bool))
+                .action(ArgAction::SetTrue),
+        )
         .subcommands(subcommands)
         .arg_required_else_help(true);
     let help_message = command.render_help();
@@ -86,12 +94,20 @@ fn cli_parser<R: Rng>() -> (Args, impl Fn(&mut R) -> String) {
         .get_one::<AVAILABLE_LOCALES>("locale")
         .unwrap()
         .to_owned();
-
+    let quiet = matches.get_flag("quiet");
     let fake_gen = fake_generator(matches, locale, help_message);
-    (Args { repeats, locale }, fake_gen)
+    (
+        Args {
+            repeats,
+            locale,
+            quiet,
+        },
+        fake_gen,
+    )
 }
 
 struct Args {
     repeats: u32,
     locale: AVAILABLE_LOCALES,
+    quiet: bool,
 }
