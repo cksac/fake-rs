@@ -1,8 +1,8 @@
 //! Fake _ferroid_ generation.
 
 use ferroid::{
-    Base32SnowExt, Base32UlidExt, SnowflakeDiscordId, SnowflakeInstagramId, SnowflakeMastodonId,
-    SnowflakeTwitterId, ULID,
+    base32::{Base32SnowExt, Base32UlidExt},
+    id::{SnowflakeDiscordId, SnowflakeInstagramId, SnowflakeMastodonId, SnowflakeTwitterId, ULID},
 };
 
 use crate::{Dummy, Faker};
