@@ -510,7 +510,7 @@ fn barcode_faker() {
 #[cfg(feature = "ferroid")]
 fn ferroid_faker() {
     use fake::ferroid::*;
-    use ferroid::{
+    use ferroid::id::{
         SnowflakeDiscordId, SnowflakeInstagramId, SnowflakeMastodonId, SnowflakeTwitterId, ULID,
     };
 

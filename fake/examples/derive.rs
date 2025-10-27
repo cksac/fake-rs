@@ -129,19 +129,19 @@ struct FakerWrapperStruct {
 #[derive(Debug, Dummy)]
 struct LogEntry {
     #[dummy(faker = "FerroidULID")]
-    pub ulid: ferroid::ULID,
+    pub ulid: ferroid::id::ULID,
 
     #[dummy(faker = "FerroidTwitterId")]
-    pub twitter_id: ferroid::SnowflakeTwitterId,
+    pub twitter_id: ferroid::id::SnowflakeTwitterId,
 
     #[dummy(faker = "FerroidInstagramId")]
-    pub instagram_id: ferroid::SnowflakeInstagramId,
+    pub instagram_id: ferroid::id::SnowflakeInstagramId,
 
     #[dummy(faker = "FerroidMastodonId")]
-    pub mastodon_id: ferroid::SnowflakeMastodonId,
+    pub mastodon_id: ferroid::id::SnowflakeMastodonId,
 
     #[dummy(faker = "FerroidDiscordId")]
-    pub discord_id: ferroid::SnowflakeDiscordId,
+    pub discord_id: ferroid::id::SnowflakeDiscordId,
 }
 
 #[derive(Debug, Dummy)]
