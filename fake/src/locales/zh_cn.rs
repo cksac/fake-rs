@@ -488,6 +488,8 @@ impl Data for ZH_CN {
 
     const ADDRESS_CITY_PREFIX: &'static [&'static str] = &["东", "西", "南", "北", "中", "新"];
     const ADDRESS_CITY_SUFFIX: &'static [&'static str] = &["城", "镇", "乡", "市"];
+    const ADDRESS_CITY_TPL: &'static str = "{CityName}{CitySuffix}";
+    const ADDRESS_CITY_WITH_PREFIX_TPL: &'static str = "{CityPrefix}{CityName}{CitySuffix}";
     const ADDRESS_COUNTRY: &'static [&'static str] = &[
         "阿尔巴尼亚",
         "阿尔及利亚",
@@ -688,6 +690,7 @@ impl Data for ZH_CN {
         "中国",
     ];
     const ADDRESS_STREET_SUFFIX: &'static [&'static str] = &["路", "街", "道", "巷", "桥", "角"];
+    const ADDRESS_STREET_TPL: &'static str = "{StreetName}{StreetSuffix}";
     const ADDRESS_ZIP_FORMATS: &'static [&'static str] = &["######"];
     const ADDRESS_POSTCODE_FORMATS: &'static [&'static str] = &["######"];
 
