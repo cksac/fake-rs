@@ -55,6 +55,7 @@ impl TryFrom<&str> for AVAILABLE_LOCALES {
             "it_it" => AVAILABLE_LOCALES::IT_IT,
             "cy_gb" => AVAILABLE_LOCALES::CY_GB,
             "nl_nl" => AVAILABLE_LOCALES::NL_NL,
+            "tr_tr" => AVAILABLE_LOCALES::TR_TR,
             _=> return Err(format!("{} is either an invalid locale or not yet supported.\n The supported locales are: {:?}",str_val,AVAILABLE_LOCALES))
         };
         Ok(variant)
