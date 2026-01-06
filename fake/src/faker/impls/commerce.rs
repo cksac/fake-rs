@@ -1,0 +1,81 @@
+use crate::faker::commerce::raw::*;
+use crate::faker::numerify_sym;
+use crate::locales::Data;
+use crate::Dummy;
+use rand::seq::IndexedRandom;
+use rand::Rng;
+
+impl<L: Data> Dummy<CommerceColor<L>> for String {
+    fn dummy_with_rng<R: Rng + ?Sized>(_: &CommerceColor<L>, rng: &mut R) -> Self {
+        let s = *L::COMMERCE_COLOR.choose(rng).unwrap();
+        s.into()
+    }
+}
+
+impl<L: Data> Dummy<CommerceDepartment<L>> for String {
+    fn dummy_with_rng<R: Rng + ?Sized>(_: &CommerceDepartment<L>, rng: &mut R) -> Self {
+        let s = *L::COMMERCE_DEPARTMENT.choose(rng).unwrap();
+        s.into()
+    }
+}
+
+impl<L: Data> Dummy<CommerceProductAdjective<L>> for String {
+    fn dummy_with_rng<R: Rng + ?Sized>(_: &CommerceProductAdjective<L>, rng: &mut R) -> Self {
+        let s = *L::COMMERCE_PRODUCT_ADJECTIVE.choose(rng).unwrap();
+        s.into()
+    }
+}
+
+impl<L: Data> Dummy<CommerceProductMaterial<L>> for String {
+    fn dummy_with_rng<R: Rng + ?Sized>(_: &CommerceProductMaterial<L>, rng: &mut R) -> Self {
+        let s = *L::COMMERCE_PRODUCT_MATERIAL.choose(rng).unwrap();
+        s.into()
+    }
+}
+
+impl<L: Data> Dummy<CommerceProductType<L>> for String {
+    fn dummy_with_rng<R: Rng + ?Sized>(_: &CommerceProductType<L>, rng: &mut R) -> Self {
+        let s = *L::COMMERCE_PRODUCT_TYPE.choose(rng).unwrap();
+        s.into()
+    }
+}
+
+impl<L: Data> Dummy<CommerceProduct<L>> for String {
+    fn dummy_with_rng<R: Rng + ?Sized>(_: &CommerceProduct<L>, rng: &mut R) -> Self {
+        let fmt = L::COMMERCE_PRODUCT;
+        let adjective = *L::COMMERCE_PRODUCT_ADJECTIVE.choose(rng).unwrap();
+        let material = *L::COMMERCE_PRODUCT_MATERIAL.choose(rng).unwrap();
+        let product = *L::COMMERCE_PRODUCT_TYPE.choose(rng).unwrap();
+        fmt.replace("{Adjective}", adjective)
+            .replace("{Material}", material)
+            .replace("{Product}", product)
+    }
+}
+
+impl<L: Data> Dummy<CommerceProductPrice<L>> for f64 {
+    fn dummy_with_rng<R: Rng + ?Sized>(c: &CommerceProductPrice<L>, rng: &mut R) -> Self {
+        let range = c.1.clone();
+        let price = rng.random_range(range);
+        (price * 100.0).round() / 100.0
+    }
+}
+
+impl<L: Data> Dummy<CommerceProductPrice<L>> for String {
+    fn dummy_with_rng<R: Rng + ?Sized>(c: &CommerceProductPrice<L>, rng: &mut R) -> Self {
+        let range = c.1.clone();
+        let price = rng.random_range(range);
+        format!("{:.2}", (price * 100.0).round() / 100.0)
+    }
+}
+
+impl<L: Data> Dummy<CommercePromotionCode<L>> for String {
+    fn dummy_with_rng<R: Rng + ?Sized>(_: &CommercePromotionCode<L>, rng: &mut R) -> Self {
+        let fmt = *L::COMMERCE_PROMOTION_CODE.choose(rng).unwrap();
+        let prefix = *L::COMMERCE_PROMOTION_CODE_PREFIX.choose(rng).unwrap();
+        let suffix = *L::COMMERCE_PROMOTION_CODE_SUFFIX.choose(rng).unwrap();
+        let prefix = numerify_sym(prefix, rng);
+        let suffix = numerify_sym(suffix, rng);
+        fmt.replace("{Prefix}", &prefix)
+            .replace("{Suffix}", &suffix)
+    }
+}

@@ -116,6 +116,18 @@ macro_rules! right_arm {
         let range = min..max;
         some_rules!($locale, $module, $fake(range)$(,$return_type)?)
     }};
+
+    ($locale:ident, $module:ident, $fake:ident(len: usize),$sub_matches:ident) => {{
+        let len = *$sub_matches.get_one::<usize>("len").unwrap();
+        some_rules!($locale, $module, $fake(len))
+    }};
+
+    ($locale:ident, $module:ident, $fake:ident(min: f64, max: f64),$sub_matches:ident$(,$return_type:ident)?) => {{
+        let min = *$sub_matches.get_one::<f64>("min").unwrap();
+        let max = *$sub_matches.get_one::<f64>("max").unwrap();
+        let range = min..max;
+        some_rules!($locale, $module, $fake(range)$(,$return_type)?)
+    }};
 }
 
 macro_rules! fakegen_commands {
@@ -267,7 +279,16 @@ pub fn all_fakegen_commands<R: Rng>() -> (
 
         //http
         (RfcStatusCode,http),
-        (ValidStatusCode,http)
+        (ValidStatusCode,http),
 
+        //commerce
+        (CommerceColor,commerce),
+        (CommerceDepartment,commerce),
+        (CommerceProductAdjective,commerce),
+        (CommerceProductMaterial,commerce),
+        (CommerceProductType,commerce),
+        (CommerceProduct,commerce),
+        (CommerceProductPrice(min:f64=0.0, max:f64=1000.0),commerce),
+        (CommercePromotionCode,commerce)
     )
 }
