@@ -18,14 +18,14 @@ impl Dummy<Faker> for ULID {
     fn dummy_with_rng<R: rand::Rng + ?Sized>(_: &Faker, rng: &mut R) -> Self {
         let time_part: u128 = rng.random_range(0..(1 << ULID::TIMESTAMP_BITS));
         let rand_part: u128 = rng.random_range(0..(1 << ULID::RANDOM_BITS));
-        ULID::from(time_part, rand_part)
+        ULID::from_components(time_part, rand_part)
     }
 }
 impl Dummy<FerroidULID> for ULID {
     fn dummy_with_rng<R: rand::Rng + ?Sized>(_: &FerroidULID, rng: &mut R) -> Self {
         let time_part: u128 = rng.random_range(0..(1 << ULID::TIMESTAMP_BITS));
         let rand_part: u128 = rng.random_range(0..(1 << ULID::RANDOM_BITS));
-        ULID::from(time_part, rand_part)
+        ULID::from_components(time_part, rand_part)
     }
 }
 impl Dummy<FerroidULID> for String {
@@ -40,7 +40,7 @@ impl Dummy<Faker> for SnowflakeTwitterId {
         let timestamp: u64 = rng.random_range(0..(1 << SnowflakeTwitterId::TIMESTAMP_BITS));
         let machine_id: u64 = rng.random_range(0..(1 << SnowflakeTwitterId::MACHINE_ID_BITS));
         let sequence: u64 = rng.random_range(0..(1 << SnowflakeTwitterId::SEQUENCE_BITS));
-        SnowflakeTwitterId::from(timestamp, machine_id, sequence)
+        SnowflakeTwitterId::from_components(timestamp, machine_id, sequence)
     }
 }
 impl Dummy<FerroidTwitterId> for SnowflakeTwitterId {
@@ -48,7 +48,7 @@ impl Dummy<FerroidTwitterId> for SnowflakeTwitterId {
         let timestamp: u64 = rng.random_range(0..(1 << SnowflakeTwitterId::TIMESTAMP_BITS));
         let machine_id: u64 = rng.random_range(0..(1 << SnowflakeTwitterId::MACHINE_ID_BITS));
         let sequence: u64 = rng.random_range(0..(1 << SnowflakeTwitterId::SEQUENCE_BITS));
-        SnowflakeTwitterId::from(timestamp, machine_id, sequence)
+        SnowflakeTwitterId::from_components(timestamp, machine_id, sequence)
     }
 }
 impl Dummy<FerroidTwitterId> for String {
@@ -65,7 +65,7 @@ impl Dummy<Faker> for SnowflakeDiscordId {
         let timestamp: u64 = rng.random_range(0..(1 << SnowflakeDiscordId::TIMESTAMP_BITS));
         let machine_id: u64 = rng.random_range(0..(1 << SnowflakeDiscordId::MACHINE_ID_BITS));
         let sequence: u64 = rng.random_range(0..(1 << SnowflakeDiscordId::SEQUENCE_BITS));
-        SnowflakeDiscordId::from(timestamp, machine_id, sequence)
+        SnowflakeDiscordId::from_components(timestamp, machine_id, sequence)
     }
 }
 impl Dummy<FerroidDiscordId> for SnowflakeDiscordId {
@@ -73,7 +73,7 @@ impl Dummy<FerroidDiscordId> for SnowflakeDiscordId {
         let timestamp: u64 = rng.random_range(0..(1 << SnowflakeDiscordId::TIMESTAMP_BITS));
         let machine_id: u64 = rng.random_range(0..(1 << SnowflakeDiscordId::MACHINE_ID_BITS));
         let sequence: u64 = rng.random_range(0..(1 << SnowflakeDiscordId::SEQUENCE_BITS));
-        SnowflakeDiscordId::from(timestamp, machine_id, sequence)
+        SnowflakeDiscordId::from_components(timestamp, machine_id, sequence)
     }
 }
 impl Dummy<FerroidDiscordId> for String {
@@ -90,7 +90,7 @@ impl Dummy<Faker> for SnowflakeMastodonId {
         let timestamp: u64 = rng.random_range(0..(1 << SnowflakeMastodonId::TIMESTAMP_BITS));
         let machine_id: u64 = rng.random_range(0..(1 << SnowflakeMastodonId::MACHINE_ID_BITS));
         let sequence: u64 = rng.random_range(0..(1 << SnowflakeMastodonId::SEQUENCE_BITS));
-        SnowflakeMastodonId::from(timestamp, machine_id, sequence)
+        SnowflakeMastodonId::from_components(timestamp, machine_id, sequence)
     }
 }
 impl Dummy<FerroidMastodonId> for SnowflakeMastodonId {
@@ -98,7 +98,7 @@ impl Dummy<FerroidMastodonId> for SnowflakeMastodonId {
         let timestamp: u64 = rng.random_range(0..(1 << SnowflakeMastodonId::TIMESTAMP_BITS));
         let machine_id: u64 = rng.random_range(0..(1 << SnowflakeMastodonId::MACHINE_ID_BITS));
         let sequence: u64 = rng.random_range(0..(1 << SnowflakeMastodonId::SEQUENCE_BITS));
-        SnowflakeMastodonId::from(timestamp, machine_id, sequence)
+        SnowflakeMastodonId::from_components(timestamp, machine_id, sequence)
     }
 }
 impl Dummy<FerroidMastodonId> for String {
@@ -115,7 +115,7 @@ impl Dummy<Faker> for SnowflakeInstagramId {
         let timestamp: u64 = rng.random_range(0..(1 << SnowflakeInstagramId::TIMESTAMP_BITS));
         let machine_id: u64 = rng.random_range(0..(1 << SnowflakeInstagramId::MACHINE_ID_BITS));
         let sequence: u64 = rng.random_range(0..(1 << SnowflakeInstagramId::SEQUENCE_BITS));
-        SnowflakeInstagramId::from(timestamp, machine_id, sequence)
+        SnowflakeInstagramId::from_components(timestamp, machine_id, sequence)
     }
 }
 impl Dummy<FerroidInstagramId> for SnowflakeInstagramId {
@@ -123,7 +123,7 @@ impl Dummy<FerroidInstagramId> for SnowflakeInstagramId {
         let timestamp: u64 = rng.random_range(0..(1 << SnowflakeInstagramId::TIMESTAMP_BITS));
         let machine_id: u64 = rng.random_range(0..(1 << SnowflakeInstagramId::MACHINE_ID_BITS));
         let sequence: u64 = rng.random_range(0..(1 << SnowflakeInstagramId::SEQUENCE_BITS));
-        SnowflakeInstagramId::from(timestamp, machine_id, sequence)
+        SnowflakeInstagramId::from_components(timestamp, machine_id, sequence)
     }
 }
 impl Dummy<FerroidInstagramId> for String {
