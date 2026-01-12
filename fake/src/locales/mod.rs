@@ -237,3 +237,6 @@ pub use self::cy_gb::CY_GB;
 
 mod nl_nl;
 pub use self::nl_nl::NL_NL;
+
+mod tr_tr;
+pub use self::tr_tr::TR_TR;
