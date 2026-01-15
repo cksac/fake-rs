@@ -4,7 +4,11 @@
 [![Docs Status](https://docs.rs/fake/badge.svg)](https://docs.rs/fake)
 [![Latest Version](https://img.shields.io/crates/v/fake.svg)](https://crates.io/crates/fake)
 
-A Rust library and command line tool for generating fake data in different languages. Currently supports:
+A Rust library and command line tool for generating fake data in different languages.
+
+📚 **[View Full Documentation Site](https://cksac.github.io/fake-rs/)** - Interactive guide with all fakers, examples, and features!
+
+Currently supports:
 
 | Language              | Code  |
 |-----------------------|-------|
