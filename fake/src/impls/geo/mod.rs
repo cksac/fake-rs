@@ -184,7 +184,7 @@ impl<T: CoordNum + Dummy<Faker>> Dummy<Faker> for geo_types::GeometryCollection<
             Faker
                 .fake_with_rng::<Vec<NonRecursiveGeometry<T>>, _>(rng)
                 .iter()
-                .map(|x| (x.0.to_owned()))
+                .map(|x| x.0.to_owned())
                 .collect::<Vec<geo_types::Geometry<T>>>(),
         )
     }

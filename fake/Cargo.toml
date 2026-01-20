@@ -58,6 +58,7 @@ either = { version = "1", optional = true }
 [dev-dependencies]
 chrono = { version = "0.4", features = ["clock"], default-features = false }
 fake = { path = ".", features = ["derive"] }
+paste = "1"
 proptest = { version = "1", features = ["std"], default-features = false }
 rand_chacha = "0.9.0"
 
