@@ -390,6 +390,7 @@ dependencies = [
  "http",
  "indexmap",
  "num-traits",
+ "paste",
  "proptest",
  "rand",
  "rand_chacha",
@@ -408,11 +409,12 @@ dependencies = [
 
 [[package]]
 name = "ferroid"
-version = "0.8.5"
+version = "1.0.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "e6b5e1043005e7ce8f3fbb712f71aa0aaba7895a77baf4407f307de3b1e131d8"
+checksum = "27611dad2270bd709b0c7c796282bd9901df436591b6fe9c84b0f0a43bdd9c42"
 dependencies = [
  "portable-atomic",
+ "web-time",
 ]
 
 [[package]]
@@ -780,6 +782,12 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "384b8ab6d37215f3c5301a95a4accb5d64aa607f1fcb26a11b5303878451b4fe"
 
 [[package]]
+name = "paste"
+version = "1.0.15"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "57c0d7b74b563b49d38dae00a0c37d4d6de9b432382b2892f0574ddcae73fd0a"
+
+[[package]]
 name = "percent-encoding"
 version = "2.3.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -805,9 +813,9 @@ dependencies = [
 
 [[package]]
 name = "portable-atomic"
-version = "1.11.1"
+version = "1.13.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "f84267b20a16ea918e43c6a88433c2d54fa145c92a811b5b047ccbe153674483"
+checksum = "f89776e4d69bb58bc6993e99ffa1d11f228b839984854c7daeb5d37f87cbe950"
 
 [[package]]
 name = "potential_utf"

@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>fake - Rust Fake Data Generator</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <span class="brand-name">fake-rs</span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#installation">Installation</a></li>
+                <li><a href="#features">Features</a></li>
+                <li><a href="#fakers">Fakers</a></li>
+                <li><a href="#examples">Examples</a></li>
+                <li><a href="https://github.com/cksac/fake-rs" target="_blank">GitHub</a></li>
+                <li><a href="https://docs.rs/fake" target="_blank">Docs.rs</a></li>
+            </ul>
+            <button id="themeToggle" class="theme-toggle" aria-label="Toggle theme">
+                <span id="themeIcon">🌙</span>
+            </button>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <header id="home" class="hero">
+        <div class="hero-content">
+            <h1 class="hero-title">fake</h1>
+            <p class="hero-subtitle">An easy-to-use library and CLI for generating fake data in Rust</p>
+            <div class="hero-badges">
+                <img src="https://img.shields.io/crates/v/fake.svg" alt="Crates.io">
+                <img src="https://docs.rs/fake/badge.svg" alt="Docs.rs">
+                <img src="https://github.com/cksac/fake-rs/workflows/Rust/badge.svg" alt="Build Status">
+            </div>
+            <div class="hero-buttons">
+                <a href="#installation" class="btn btn-primary">Get Started</a>
+                <a href="https://github.com/cksac/fake-rs" class="btn btn-secondary" target="_blank">View on GitHub</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <section id="installation" class="section">
+            <h2>Installation</h2>
+            
+            <div class="card">
+                <h3>Library</h3>
+                <p>Add this to your <code>Cargo.toml</code>:</p>
+                <pre><code class="language-toml">[dependencies]
+fake = { version = "4", features = ["derive"] }</code></pre>
+            </div>
+
+            <div class="card">
+                <h3>CLI Tool</h3>
+                <p>Install the command-line interface:</p>
+                <pre><code class="language-bash">cargo install --features=cli --git https://github.com/cksac/fake-rs.git</code></pre>
+            </div>
+        </section>
+
+        <section id="features" class="section">
+            <h2>Features</h2>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🌍</div>
+                    <h3>Multi-Language Support</h3>
+                    <p>Generate fake data in 12 different languages including English, Chinese, Japanese, French, Arabic, and more.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🎯</div>
+                    <h3>Type-Safe</h3>
+                    <p>Leverage Rust's type system with the <code>#[derive(Dummy)]</code> macro for automatic fake data generation.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🔧</div>
+                    <h3>Extensive Integrations</h3>
+                    <p>Built-in support for popular crates like chrono, uuid, serde_json, http, url, and many more.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🎲</div>
+                    <h3>Deterministic Generation</h3>
+                    <p>Use seeded RNGs for reproducible test data generation.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">📦</div>
+                    <h3>Rich Faker Collection</h3>
+                    <p>Over 100+ faker types covering names, addresses, internet, lorem, dates, colors, and more.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <h3>Easy to Use</h3>
+                    <p>Simple API with both library and CLI interfaces for quick fake data generation.</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>Supported Locales</h3>
+                <div class="locales-grid" id="locales-container">
+                    <!-- Locales will be dynamically loaded here -->
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>Available Feature Flags</h3>
+                <ul class="feature-list" id="features-container">
+                    <!-- Feature flags will be dynamically loaded here -->
+                </ul>
+            </div>
+        </section>
+
+        <section id="fakers" class="section">
+            <h2>Available Fakers</h2>
+            <p class="section-description">Comprehensive collection of fake data generators organized by category. All fakers support multiple locales where applicable.</p>
+            
+            <!-- Fakers will be dynamically loaded here -->
+            <div id="fakers-container"></div>
+        </section>
+
+        <section id="examples" class="section">
+            <h2>Usage Examples</h2>
+
+            <!-- Examples will be dynamically loaded here -->
+            <div id="examples-container"></div>
+        </section>
+
+        <section id="quick-reference" class="section">
+            <h2>Quick Reference</h2>
+            
+            <div class="card">
+                <h3>Import Patterns</h3>
+                <pre><code class="language-rust">// Using raw fakers with explicit locale
+use fake::faker::name::raw::*;
+use fake::locales::*;
+let name: String = Name(EN).fake();
+
+// Using convenient English locale functions
+use fake::faker::name::en::*;
+let name: String = Name().fake();
+
+// Using Faker for defaults
+use fake::{Faker, Fake};
+let anything: YourType = Faker.fake();</code></pre>
+            </div>
+
+            <div class="card">
+                <h3>Common Patterns</h3>
+                <table class="reference-table">
+                    <thead>
+                        <tr>
+                            <th>Pattern</th>
+                            <th>Description</th>
+                            <th>Example</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>Faker.fake()</code></td>
+                            <td>Default value for type</td>
+                            <td><code>let s: String = Faker.fake();</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>(min..max).fake()</code></td>
+                            <td>Value within range</td>
+                            <td><code>let n: u32 = (1..100).fake();</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>Faker(locale).fake()</code></td>
+                            <td>Localized faker</td>
+                            <td><code>Name(ZH_CN).fake()</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>(Faker, len).fake()</code></td>
+                            <td>Collection with size</td>
+                            <td><code>let v: Vec&lt;u32&gt; = (Faker, 5..10).fake();</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>fake::vec![...]</code></td>
+                            <td>Collection macro</td>
+                            <td><code>fake::vec![String as Name(EN); 10]</code></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section class="section cta-section">
+            <h2>Get Started Today</h2>
+            <p>Start generating fake data for your Rust projects with fake-rs!</p>
+            <div class="cta-buttons">
+                <a href="https://docs.rs/fake" class="btn btn-primary" target="_blank">Read Full Documentation</a>
+                <a href="https://crates.io/crates/fake" class="btn btn-secondary" target="_blank">View on Crates.io</a>
+                <a href="https://github.com/cksac/fake-rs" class="btn btn-secondary" target="_blank">GitHub Repository</a>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2026 Fake-rs Contributors. Licensed under MIT OR Apache-2.0.</p>
+            <div class="footer-links">
+                <a href="https://github.com/cksac/fake-rs">GitHub</a>
+                <a href="https://docs.rs/fake">Documentation</a>
+                <a href="https://crates.io/crates/fake">Crates.io</a>
+            </div>
+        </div>
+    </footer>
+
+    <button id="scrollToTop" class="scroll-to-top" aria-label="Scroll to top">↑</button>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="data/locales.js"></script>
+    <script src="data/features.js"></script>
+    <script src="data/fakers.js"></script>
+    <script src="data/examples.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/rust.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/bash.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/toml.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
+
