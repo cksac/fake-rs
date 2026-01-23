@@ -48,6 +48,7 @@ macro_rules! for_all_locales {
         $macro_name!($($args)* CY_GB);
         $macro_name!($($args)* NL_NL);
         $macro_name!($($args)* TR_TR);
+        $macro_name!($($args)* FA_IR);
     };
 }
 
