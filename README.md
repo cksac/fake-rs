@@ -22,7 +22,7 @@ Currently supports:
 | Italian               | it_it |
 | Cymraeg (Welsh)       | cy_gb |
 | Dutch                 | nl_nl |
-
+| Persian (iran)        | fa_ir |
 
 ## Installation
 

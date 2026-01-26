@@ -11,5 +11,6 @@ const localesData = [
     { name: "German", code: "DE_DE" },
     { name: "Italian", code: "IT_IT" },
     { name: "Cymraeg - Welsh", code: "CY_GB" },
-    { name: "Dutch", code: "NL_NL" }
+    { name: "Dutch", code: "NL_NL" },
+    { name: "Persian (Iran)", code: "FA_IR" }
 ];
