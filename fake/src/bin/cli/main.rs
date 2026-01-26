@@ -6,7 +6,7 @@ mod fake_gen;
 
 const AVAILABLE_LOCALES: [&str; 14] = [
     "en", "fr_fr", "zh_tw", "zh_cn", "ja_jp", "ar_sa", "pt_br", "pt_pt", "de_de", "it_it", "cy_gb",
-    "nl_nl", "tr_tr", "fa_ir"
+    "nl_nl", "tr_tr", "fa_ir",
 ];
 
 pub use fake_gen::{all_fakegen_commands, AVAILABLE_LOCALES};

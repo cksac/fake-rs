@@ -17,7 +17,7 @@ pub enum AVAILABLE_LOCALES {
     CY_GB,
     NL_NL,
     TR_TR,
-    FA_IR
+    FA_IR,
 }
 
 macro_rules! fake_gen_on_return_type {
