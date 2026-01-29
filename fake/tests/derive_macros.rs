@@ -31,6 +31,7 @@ mod field_options {
         }
 
         #[test]
+        #[allow(unreachable_code)]
         #[should_panic(expected = "can not create an empty enum")]
         fn with_no_variants() {
             #[derive(Dummy, Debug, Eq, PartialEq)]

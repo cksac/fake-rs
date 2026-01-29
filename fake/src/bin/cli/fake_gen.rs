@@ -14,6 +14,10 @@ pub enum AVAILABLE_LOCALES {
     PT_PT,
     DE_DE,
     IT_IT,
+    CY_GB,
+    NL_NL,
+    TR_TR,
+    FA_IR,
 }
 
 macro_rules! fake_gen_on_return_type {
@@ -67,6 +71,22 @@ macro_rules! some_rules {
             }
             AVAILABLE_LOCALES::IT_IT => {
                 let s = faker::$module::it_it::$fake($($arg)?);
+                Box::new(move |rng: &mut R| fake_gen_on_return_type!(s,rng$(,$return_type)?))
+            }
+            AVAILABLE_LOCALES::CY_GB => {
+                let s = faker::$module::cy_gb::$fake($($arg)?);
+                Box::new(move |rng: &mut R| fake_gen_on_return_type!(s,rng$(,$return_type)?))
+            }
+            AVAILABLE_LOCALES::NL_NL => {
+                let s = faker::$module::nl_nl::$fake($($arg)?);
+                Box::new(move |rng: &mut R| fake_gen_on_return_type!(s,rng$(,$return_type)?))
+            }
+            AVAILABLE_LOCALES::TR_TR => {
+                let s = faker::$module::tr_tr::$fake($($arg)?);
+                Box::new(move |rng: &mut R| fake_gen_on_return_type!(s,rng$(,$return_type)?))
+            }
+            AVAILABLE_LOCALES::FA_IR => {
+                let s = faker::$module::fa_ir::$fake($($arg)?);
                 Box::new(move |rng: &mut R| fake_gen_on_return_type!(s,rng$(,$return_type)?))
             }
         }
@@ -200,6 +220,16 @@ pub fn all_fakegen_commands<R: Rng>() -> (
         (Sentences(min:usize=5, max:usize=10)->Vec,lorem),
         (Paragraph(min:usize=5, max:usize=10),lorem),
         (Paragraphs(min:usize=5, max:usize=10)->Vec,lorem),
+
+        //markdown
+        (ItalicWord,markdown),
+        (BoldWord,markdown),
+        (Link,markdown),
+        (BulletPoints(min:usize=5, max:usize=10)->Vec,markdown),
+        (ListItems(min:usize=5, max:usize=10)->Vec,markdown),
+        (BlockQuoteSingleLine(min:usize=5, max:usize=10),markdown),
+        (BlockQuoteMultiLine(min:usize=5, max:usize=10)->Vec,markdown),
+        (Code(min:usize=5, max:usize=10),markdown),
 
         //name
         (FirstName,name),

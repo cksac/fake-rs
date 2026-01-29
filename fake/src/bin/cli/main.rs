@@ -1,11 +1,12 @@
-use clap::{command, value_parser, Arg};
+use clap::{command, value_parser, Arg, ArgAction};
 use rand::Rng;
 use std::io::{self, Write};
 
 mod fake_gen;
 
-const AVAILABLE_LOCALES: [&str; 10] = [
-    "en", "fr_fr", "zh_tw", "zh_cn", "ja_jp", "ar_sa", "pt_br", "pt_pt", "de_de", "it_it",
+const AVAILABLE_LOCALES: [&str; 14] = [
+    "en", "fr_fr", "zh_tw", "zh_cn", "ja_jp", "ar_sa", "pt_br", "pt_pt", "de_de", "it_it", "cy_gb",
+    "nl_nl", "tr_tr", "fa_ir",
 ];
 
 pub use fake_gen::{all_fakegen_commands, AVAILABLE_LOCALES};
@@ -16,13 +17,14 @@ pub fn main() {
     let mut thread_rng = rand::rng();
     let args = cli_parser();
 
-    writeln!(
-        buf_stdout,
-        "Generating {} fakes for {:?} locale",
-        args.0.repeats, args.0.locale
-    )
-    .unwrap();
-
+    if !args.0.quiet {
+        writeln!(
+            buf_stdout,
+            "Generating {} fakes for {:?} locale",
+            args.0.repeats, args.0.locale
+        )
+        .unwrap();
+    }
     (0..args.0.repeats).for_each(|_| writeln!(buf_stdout, "{}", args.1(&mut thread_rng)).unwrap());
 }
 
@@ -41,6 +43,10 @@ impl TryFrom<&str> for AVAILABLE_LOCALES {
             "pt_pt" => AVAILABLE_LOCALES::PT_PT,
             "de_de" => AVAILABLE_LOCALES::DE_DE,
             "it_it" => AVAILABLE_LOCALES::IT_IT,
+            "cy_gb" => AVAILABLE_LOCALES::CY_GB,
+            "nl_nl" => AVAILABLE_LOCALES::NL_NL,
+            "tr_tr" => AVAILABLE_LOCALES::TR_TR,
+            "fa_ir" => AVAILABLE_LOCALES::FA_IR,
             _=> return Err(format!("{} is either an invalid locale or not yet supported.\n The supported locales are: {:?}",str_val,AVAILABLE_LOCALES))
         };
         Ok(variant)
@@ -64,6 +70,13 @@ fn cli_parser<R: Rng>() -> (Args, impl Fn(&mut R) -> String) {
                 .default_value("EN")
                 .value_parser(|value: &str| AVAILABLE_LOCALES::try_from(value)),
         )
+        .arg(
+            Arg::new("quiet")
+                .short('q')
+                .long("quiet")
+                .value_parser(value_parser!(bool))
+                .action(ArgAction::SetTrue),
+        )
         .subcommands(subcommands)
         .arg_required_else_help(true);
     let help_message = command.render_help();
@@ -73,12 +86,20 @@ fn cli_parser<R: Rng>() -> (Args, impl Fn(&mut R) -> String) {
         .get_one::<AVAILABLE_LOCALES>("locale")
         .unwrap()
         .to_owned();
-
+    let quiet = matches.get_flag("quiet");
     let fake_gen = fake_generator(matches, locale, help_message);
-    (Args { repeats, locale }, fake_gen)
+    (
+        Args {
+            repeats,
+            locale,
+            quiet,
+        },
+        fake_gen,
+    )
 }
 
 struct Args {
     repeats: u32,
     locale: AVAILABLE_LOCALES,
+    quiet: bool,
 }

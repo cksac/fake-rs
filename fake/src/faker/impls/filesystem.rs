@@ -1889,7 +1889,7 @@ impl<L: Data> Dummy<FileName<L>> for String {
     fn dummy_with_rng<R: Rng + ?Sized>(_: &FileName<L>, rng: &mut R) -> Self {
         let name = L::PATH_SEGMENTS.choose(rng).unwrap();
         let ext = L::PATH_EXTENSIONS.choose(rng).unwrap();
-        format!("{}.{}", name, ext)
+        format!("{name}.{ext}")
     }
 }
 

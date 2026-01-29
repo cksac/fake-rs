@@ -45,6 +45,10 @@ macro_rules! def_fakers {
         def_fakers!(@m pt_pt=>PT_PT {$($name$(< $($lts),* >)?($($arg:$typ),*);)+});
         def_fakers!(@m de_de=>DE_DE {$($name$(< $($lts),* >)?($($arg:$typ),*);)+});
         def_fakers!(@m it_it=>IT_IT {$($name$(< $($lts),* >)?($($arg:$typ),*);)+});
+        def_fakers!(@m cy_gb=>CY_GB {$($name$(< $($lts),* >)?($($arg:$typ),*);)+});
+        def_fakers!(@m nl_nl=>NL_NL {$($name$(< $($lts),* >)?($($arg:$typ),*);)+});
+        def_fakers!(@m tr_tr=>TR_TR {$($name$(< $($lts),* >)?($($arg:$typ),*);)+});
+        def_fakers!(@m fa_ir=>FA_IR {$($name$(< $($lts),* >)?($($arg:$typ),*);)+});
 
     };
 }
@@ -190,6 +194,19 @@ pub mod lorem {
         Sentences(count: std::ops::Range<usize>);
         Paragraph(count: std::ops::Range<usize>);
         Paragraphs(count: std::ops::Range<usize>);
+    }
+}
+
+pub mod markdown {
+    def_fakers! {
+        ItalicWord();
+        BoldWord();
+        Link();
+        BulletPoints(count: std::ops::Range<usize>);
+        ListItems(count: std::ops::Range<usize>);
+        BlockQuoteSingleLine(count: std::ops::Range<usize>);
+        BlockQuoteMultiLine(count: std::ops::Range<usize>);
+        Code(count: std::ops::Range<usize>);
     }
 }
 

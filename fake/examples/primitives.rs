@@ -19,7 +19,7 @@ fn main() {
     let sampler = distr::Uniform::new_inclusive(1, 10).expect("Can");
     for _ in 0..5 {
         let v: usize = sampler.fake();
-        println!("sample value {}", v);
+        println!("sample value {v}");
     }
 
     // fixed seed rng
@@ -32,6 +32,6 @@ fn main() {
     println!("{:?}", (1..8).fake_with_rng::<u8, _>(rng));
     for _ in 0..5 {
         let v: usize = sampler.fake_with_rng(rng);
-        println!("sample value from fixed seed {}", v);
+        println!("sample value from fixed seed {v}");
     }
 }

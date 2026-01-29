@@ -18,6 +18,9 @@ A Rust library and command line tool for generating fake data in different langu
 | Portugese (Portugal)  | pt_pt |
 | German                | de_de |
 | Italian               | it_it |
+| Dutch                 | nl_nl |
+| Turkish               | tr_tr |
+| Persian (iran)        | fa_ir |
 
 
 ## Installation
@@ -37,6 +40,7 @@ Available library features:
   - `chrono-tz`
   - `http`
   - `ulid`
+  - `ferroid`
   - `uuid`
   - `bigdecimal` (via `bigdecimal-rs`)
   - `rust_decimal`
@@ -49,6 +53,7 @@ Available library features:
   - `glam`
   - `url`
   - `indexmap`
+  - `either`
 - `always-true-rng`: expose AlwaysTrueRng
 - `maybe-non-empty-collections`: allow to use AlwaysTrueRng to generate non-empty collections
 
@@ -452,6 +457,16 @@ DirPath();
 ```rust
 Bic();
 Isin();
+```
+
+### Ferroid
+
+```rust
+FerroidULID();
+FerroidTwitterId();
+FerroidInstagramId();
+FerroidMastodonId();
+FerroidDiscordId();
 ```
 
 ### UUID

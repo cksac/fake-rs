@@ -12,7 +12,7 @@ pub struct Foo {
 
 fn dummy_derive() {
     let f: Foo = Faker.fake();
-    println!("{:?}", f);
+    println!("{f:?}");
 }
 
 fn main() {
@@ -22,7 +22,7 @@ fn main() {
     println!("Option {:?}", Faker.fake::<Option<usize>>());
     println!("Option {:?}", (1..10).fake::<Option<usize>>());
     let opt: Option<Option<usize>> = (1..10).fake();
-    println!("Option {:?}", opt);
+    println!("Option {opt:?}");
 
     // result
     println!("Result {:?}", Faker.fake::<Result<u32, u8>>());
@@ -33,17 +33,17 @@ fn main() {
 
     // tuple
     let tuple = Faker.fake::<(u8, u32, f32)>();
-    println!("tuple {:?}", tuple);
+    println!("tuple {tuple:?}");
     let tuple: (u8, u32, f32) = (1..10, Faker, 2.5..5.5).fake();
-    println!("tuple {:?}", tuple);
+    println!("tuple {tuple:?}");
 
     // array
     let array: [u8; 0] = Faker.fake();
-    println!("array {:?}", array);
+    println!("array {array:?}");
     let array: [u8; 3] = (..10).fake();
-    println!("array {:?}", array);
+    println!("array {array:?}");
     let array: [[u8; 2]; 3] = (1..10).fake();
-    println!("nested array {:?}", array);
+    println!("nested array {array:?}");
 
     // string
     println!("String {:?}", Faker.fake::<String>());
@@ -57,12 +57,12 @@ fn main() {
 
     // containers, Box, Cell, RefCell, Rc, Arc, Mutex, RwLock, Pin
     let c: Pin<String> = Faker.fake();
-    println!("Pin<String> {:?}", c);
+    println!("Pin<String> {c:?}");
 
     let c: Box<Rc<u8>> = (3..6).fake();
-    println!("Box<Rc<u8>> {:?}", c);
+    println!("Box<Rc<u8>> {c:?}");
 
     // path
     let path: std::path::PathBuf = Faker.fake();
-    println!("PathBuf {:?}", path);
+    println!("PathBuf {path:?}");
 }

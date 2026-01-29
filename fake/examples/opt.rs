@@ -26,14 +26,14 @@ pub struct Order {
 
 fn main() {
     let opt: Optional<usize> = Opt(0..100, 100).fake();
-    println!("{:?}", opt);
+    println!("{opt:?}");
 
     let opt: Optional<Optional<usize>> = Opt(Opt(0..200, 50), 20).fake();
     println!("{:?}", opt.0.map(|v| v.0));
 
     let opt: Option<usize> = Opt(0..100, 100).fake::<Optional<usize>>().into();
-    println!("{:?}", opt);
+    println!("{opt:?}");
 
     let o: Order = Faker.fake();
-    println!("{:?}", o);
+    println!("{o:?}");
 }

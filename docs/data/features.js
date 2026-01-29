@@ -1,0 +1,26 @@
+// Available feature flags data for fake-rs documentation
+const featuresData = [
+    { code: "derive", description: "Enable #[derive(Dummy)] macro" },
+    { code: "chrono", description: "Chrono date/time types support" },
+    { code: "chrono-tz", description: "Timezone support with chrono-tz" },
+    { code: "http", description: "HTTP types support" },
+    { code: "ulid", description: "ULID generation" },
+    { code: "ferroid", description: "Ferroid ID generation (Twitter, Instagram, Discord, etc.)" },
+    { code: "uuid", description: "UUID generation (v1, v3, v4, v5, v6, v7, v8)" },
+    { code: "bigdecimal", description: "Big decimal numbers support" },
+    { code: "rust_decimal", description: "Rust decimal support" },
+    { code: "random_color", description: "Random color generation" },
+    { code: "geo", description: "Geographic types support" },
+    { code: "semver", description: "Semantic versioning support" },
+    { code: "serde_json", description: "JSON value generation" },
+    { code: "time", description: "Time crate support" },
+    { code: "zerocopy", description: "Zerocopy byte order support" },
+    { code: "glam", description: "Game linear algebra math support" },
+    { code: "url", description: "URL types support" },
+    { code: "indexmap", description: "IndexMap support" },
+    { code: "either", description: "Either type support" },
+    { code: "base64", description: "Base64 encoding" },
+    { code: "bson_oid", description: "BSON ObjectId support" },
+    { code: "always-true-rng", description: "Expose AlwaysTrueRng for testing" },
+    { code: "maybe-non-empty-collections", description: "Generate non-empty collections" }
+];

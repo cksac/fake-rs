@@ -6,6 +6,23 @@ use crate::{Dummy, Fake, Faker};
 use rand::seq::IndexedRandom;
 use rand::Rng;
 
+const ADDRESS_ZIP_CODE_CHARS: [char; 23] = [
+    'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'J', 'K', 'L', 'M', 'N', 'P', 'Q', 'R', 'S', 'T', 'V',
+    'W', 'X', 'Y', 'Z',
+];
+
+#[inline]
+pub(crate) fn numerify_zip_code<R: Rng + ?Sized>(string: &str, rng: &mut R) -> String {
+    string
+        .chars()
+        .map(|x| match x {
+            '$' => *ADDRESS_ZIP_CODE_CHARS.choose(rng).unwrap(),
+            '#' => char::from_digit((0..10).fake_with_rng::<u32, _>(rng), 10).unwrap(),
+            other => other,
+        })
+        .collect()
+}
+
 impl<L: Data> Dummy<CityPrefix<L>> for String {
     fn dummy_with_rng<R: Rng + ?Sized>(_: &CityPrefix<L>, rng: &mut R) -> Self {
         let s = *L::ADDRESS_CITY_PREFIX.choose(rng).unwrap();
@@ -193,14 +210,14 @@ impl<L: Data + Copy> Dummy<SecondaryAddress<L>> for String {
 impl<L: Data + Copy> Dummy<ZipCode<L>> for String {
     fn dummy_with_rng<R: Rng + ?Sized>(_: &ZipCode<L>, rng: &mut R) -> Self {
         let fmt = L::ADDRESS_ZIP_FORMATS.choose(rng).unwrap();
-        numerify_sym(fmt, rng)
+        numerify_zip_code(fmt, rng)
     }
 }
 
 impl<L: Data + Copy> Dummy<PostCode<L>> for String {
     fn dummy_with_rng<R: Rng + ?Sized>(_: &PostCode<L>, rng: &mut R) -> Self {
         let fmt = L::ADDRESS_POSTCODE_FORMATS.choose(rng).unwrap();
-        numerify_sym(fmt, rng)
+        numerify_zip_code(fmt, rng)
     }
 }
 

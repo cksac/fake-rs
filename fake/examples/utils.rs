@@ -15,6 +15,6 @@ fn main() {
     #[allow(clippy::disallowed_names)]
     for _ in 0..10 {
         let foo: Foo = Faker.fake();
-        println!("{:?}", foo);
+        println!("{foo:?}");
     }
 }

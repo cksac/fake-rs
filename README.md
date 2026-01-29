@@ -4,7 +4,9 @@
 [![Docs Status](https://docs.rs/fake/badge.svg)](https://docs.rs/fake)
 [![Latest Version](https://img.shields.io/crates/v/fake.svg)](https://crates.io/crates/fake)
 
-A Rust library and command line tool for generating fake data in different languages. Currently supports:
+A Rust library and command line tool for generating fake data in different languages.
+
+Currently supports:
 
 | Language              | Code  |
 |-----------------------|-------|
@@ -18,7 +20,9 @@ A Rust library and command line tool for generating fake data in different langu
 | Portugese (Portugal)  | pt_pt |
 | German                | de_de |
 | Italian               | it_it |
-
+| Cymraeg (Welsh)       | cy_gb |
+| Dutch                 | nl_nl |
+| Persian (iran)        | fa_ir |
 
 ## Installation
 
@@ -37,6 +41,7 @@ Available library features:
   - `chrono-tz`
   - `http`
   - `ulid`
+  - `ferroid`
   - `uuid`
   - `bigdecimal` (via `bigdecimal-rs`)
   - `rust_decimal`
@@ -49,6 +54,7 @@ Available library features:
   - `glam`
   - `url`
   - `indexmap`
+  - `either`
 - `always-true-rng`: expose AlwaysTrueRng
 - `maybe-non-empty-collections`: allow to use AlwaysTrueRng to generate non-empty collections
 
@@ -117,7 +123,15 @@ Commands:
   Sentence              
   Sentences             
   Paragraph             
-  Paragraphs            
+  Paragraphs 
+  ItalicWord            
+  BoldWord              
+  Link                  
+  BulletPoints          
+  ListItems             
+  BlockQuoteSingleLine  
+  BlockQuoteMultiLine   
+  Code             
   FirstName             
   LastName              
   Title                 
@@ -454,6 +468,16 @@ Bic();
 Isin();
 ```
 
+### Ferroid
+
+```rust
+FerroidULID();
+FerroidTwitterId();
+FerroidInstagramId();
+FerroidMastodonId();
+FerroidDiscordId();
+```
+
 ### UUID
 
 ```rust
@@ -479,6 +503,19 @@ BigDecimal();
 PositiveBigDecimal();
 NegativeBigDecimal();
 NoBigDecimalPoints();
+```
+
+### Markdown
+
+```rust
+ItalicWord();
+BoldWord();
+Link();
+BulletPoints();
+ListItems();
+BlockQuoteSingleLine();
+BlockQuoteMultiLine();
+Code();
 ```
 
 ## Utils

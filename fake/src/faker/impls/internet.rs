@@ -47,7 +47,7 @@ impl<L: Data + Copy> Dummy<SafeEmail<L>> for String {
     fn dummy_with_rng<R: Rng + ?Sized>(c: &SafeEmail<L>, rng: &mut R) -> Self {
         let username: String = FirstName(c.0).fake_with_rng::<&str, _>(rng).to_lowercase();
         let domain = ["com", "net", "org"].choose(rng).unwrap();
-        format!("{}@example.{}", username, domain)
+        format!("{username}@example.{domain}")
     }
 }
 
