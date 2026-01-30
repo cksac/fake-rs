@@ -261,6 +261,47 @@ fn internet_faker() {
     println!("{val:?}");
 }
 
+fn picsum_faker() {
+    use fake::faker::impls::picsum::ImageOptions;
+    use fake::faker::picsum::raw::*;
+
+    let val: String = Image(EN).fake();
+    println!("{val:?}");
+
+    let val: String = ImageWithSeed(EN).fake();
+    println!("{val:?}");
+
+    let val: String = ImageGrayscale(EN).fake();
+    println!("{val:?}");
+
+    let val: String = ImageBlur(EN).fake();
+    println!("{val:?}");
+
+    // Custom image with specific width and height
+    let opts = ImageOptions::new().width(800).height(600);
+    let val: String = ImageCustom(EN, opts).fake();
+    println!("{val:?}");
+
+    // Custom image with grayscale and blur
+    let opts = ImageOptions::new()
+        .width(400)
+        .height(300)
+        .grayscale()
+        .blur(5);
+    let val: String = ImageCustom(EN, opts).fake();
+    println!("{val:?}");
+
+    // Custom image with seed for consistent image
+    let opts = ImageOptions::new().width(640).height(480).seed("myseed");
+    let val: String = ImageCustom(EN, opts).fake();
+    println!("{val:?}");
+
+    // Using convenient locale-free function
+    use fake::faker::picsum::en;
+    let val: String = en::Image().fake();
+    println!("{val:?}");
+}
+
 fn number_faker() {
     use fake::faker::number::raw::*;
 
@@ -644,6 +685,7 @@ fn main() {
     bool_faker();
     company_faker();
     internet_faker();
+    picsum_faker();
     number_faker();
     phone_number_faker();
     finance_faker();

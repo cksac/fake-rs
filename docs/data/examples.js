@@ -165,6 +165,31 @@ let valid_status: StatusCode = ValidStatusCode().fake();`,
         note: "⚠️ Requires <code>http</code> feature"
     },
     {
+        title: "Picsum Image URLs",
+        language: "rust",
+        code: `use fake::faker::picsum::en::*;
+use fake::faker::impls::picsum::ImageOptions;
+use fake::Fake;
+
+// Simple random image
+let url: String = Image().fake();
+
+// Grayscale image
+let gray_url: String = ImageGrayscale().fake();
+
+// Blurred image
+let blur_url: String = ImageBlur().fake();
+
+// Custom image with options
+let opts = ImageOptions::new()
+    .width(800)
+    .height(600)
+    .grayscale()
+    .blur(5)
+    .seed("myseed");
+let custom_url: String = ImageCustom(opts).fake();`
+    },
+    {
         title: "Either Type Support",
         language: "rust",
         code: `use fake::faker::phone_number::en::{CellNumber, PhoneNumber};

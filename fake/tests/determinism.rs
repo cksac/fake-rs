@@ -341,6 +341,26 @@ mod phone_number {
 }
 
 // ============================================================================
+// Picsum (locale-independent)
+// ============================================================================
+
+mod picsum {
+    use super::*;
+    use fake::faker::impls::picsum::ImageOptions;
+    use fake::faker::picsum::raw::*;
+
+    determinism_test!(fake_image_en, String, Image(EN));
+    determinism_test!(fake_image_with_seed_en, String, ImageWithSeed(EN));
+    determinism_test!(fake_image_grayscale_en, String, ImageGrayscale(EN));
+    determinism_test!(fake_image_blur_en, String, ImageBlur(EN));
+    determinism_test!(
+        fake_image_custom_en,
+        String,
+        ImageCustom(EN, ImageOptions::new())
+    );
+}
+
+// ============================================================================
 // Feature-gated tests
 // ============================================================================
 

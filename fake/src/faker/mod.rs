@@ -235,6 +235,16 @@ pub mod phone_number {
     }
 }
 
+pub mod picsum {
+    def_fakers! {
+        Image();
+        ImageWithSeed();
+        ImageGrayscale();
+        ImageBlur();
+        ImageCustom(opts: crate::faker::impls::picsum::ImageOptions);
+    }
+}
+
 pub mod filesystem {
     def_fakers! {
         FilePath();

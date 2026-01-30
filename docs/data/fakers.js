@@ -58,6 +58,18 @@ const fakersData = [
         ]
     },
     {
+        id: "faker-picsum",
+        icon: "🖼️",
+        title: "Picsum Images",
+        fakers: [
+            { code: "Image()", desc: "Random image URL from Picsum" },
+            { code: "ImageWithSeed()", desc: "Seeded image URL for consistent images" },
+            { code: "ImageGrayscale()", desc: "Grayscale image URL" },
+            { code: "ImageBlur()", desc: "Blurred image URL" },
+            { code: "ImageCustom(opts)", desc: "Custom image with ImageOptions" }
+        ]
+    },
+    {
         id: "faker-lorem",
         icon: "📝",
         title: "Lorem Ipsum",
