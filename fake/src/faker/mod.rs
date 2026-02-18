@@ -1,9 +1,9 @@
 use crate::Fake;
-use rand::Rng;
+use rand::RngExt;
 use std::char;
 
 #[inline]
-fn numerify_sym<R: Rng + ?Sized>(string: &str, rng: &mut R) -> String {
+fn numerify_sym<R: RngExt + ?Sized>(string: &str, rng: &mut R) -> String {
     string
         .chars()
         .map(|x| match x {

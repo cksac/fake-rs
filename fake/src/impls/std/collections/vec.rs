@@ -1,11 +1,11 @@
 use crate::{Dummy, Fake, Faker};
-use rand::Rng;
+use rand::RngExt;
 
 impl<T> Dummy<Faker> for Vec<T>
 where
     T: Dummy<Faker>,
 {
-    fn dummy_with_rng<R: Rng + ?Sized>(config: &Faker, rng: &mut R) -> Self {
+    fn dummy_with_rng<R: RngExt + ?Sized>(config: &Faker, rng: &mut R) -> Self {
         let len = super::get_len(config, rng);
         let mut v = Vec::with_capacity(len);
         for _ in 0..len {
@@ -20,7 +20,7 @@ where
     T: Dummy<E>,
     usize: Dummy<L>,
 {
-    fn dummy_with_rng<R: Rng + ?Sized>(config: &(E, L), rng: &mut R) -> Self {
+    fn dummy_with_rng<R: RngExt + ?Sized>(config: &(E, L), rng: &mut R) -> Self {
         let len: usize = config.1.fake_with_rng(rng);
         let mut v = Vec::with_capacity(len);
         for _ in 0..len {

@@ -1,6 +1,6 @@
 use crate::{Dummy, Faker};
 use rand::distr::{Distribution, Uniform};
-use rand::Rng;
+use rand::RngExt;
 use std::num::{
     NonZeroI128, NonZeroI16, NonZeroI32, NonZeroI64, NonZeroI8, NonZeroU128, NonZeroU16,
     NonZeroU32, NonZeroU64, NonZeroU8, NonZeroUsize,
@@ -9,7 +9,7 @@ use std::num::{
 macro_rules! signed_faker_impl {
     ($nz_typ: ty, $typ:ty) => {
         impl Dummy<Faker> for $nz_typ {
-            fn dummy_with_rng<R: Rng + ?Sized>(_: &Faker, rng: &mut R) -> Self {
+            fn dummy_with_rng<R: RngExt + ?Sized>(_: &Faker, rng: &mut R) -> Self {
                 if rng.random_bool(0.5) {
                     let u = Uniform::new_inclusive(<$typ>::MIN, -1).expect("Can sample uniform");
                     <$nz_typ>::new(u.sample(rng)).unwrap()
@@ -25,7 +25,7 @@ macro_rules! signed_faker_impl {
 macro_rules! unsigned_faker_impl {
     ($nz_typ: ty, $typ:ty) => {
         impl Dummy<Faker> for $nz_typ {
-            fn dummy_with_rng<R: Rng + ?Sized>(_: &Faker, rng: &mut R) -> Self {
+            fn dummy_with_rng<R: RngExt + ?Sized>(_: &Faker, rng: &mut R) -> Self {
                 let u = Uniform::new_inclusive(1, <$typ>::MAX).expect("Can sample uniform");
                 <$nz_typ>::new(u.sample(rng)).unwrap()
             }

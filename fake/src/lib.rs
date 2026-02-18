@@ -94,7 +94,7 @@
 #![cfg_attr(docsrs, feature(doc_cfg))]
 
 pub use rand;
-pub use rand::Rng;
+pub use rand::RngExt;
 
 /// Generate default fake value for given type using [`Fake`].
 ///
@@ -131,12 +131,12 @@ pub struct Faker;
 ///
 /// ```
 /// use fake::rand::prelude::IndexedRandom;
-/// use fake::{Dummy, Fake, Faker, Rng};
+/// use fake::{Dummy, Fake, Faker, RngExt};
 ///
 /// struct Name; // does not handle locale, see locales module for more
 ///
 /// impl Dummy<Name> for &'static str {
-///     fn dummy_with_rng<R: Rng + ?Sized>(_: &Name, rng: &mut R) -> &'static str {
+///     fn dummy_with_rng<R: RngExt + ?Sized>(_: &Name, rng: &mut R) -> &'static str {
 ///         const NAMES: &[&str] = &["John Doe", "Jane Doe"];
 ///         NAMES.choose(rng).unwrap()
 ///     }
@@ -162,13 +162,13 @@ pub trait Dummy<T>: Sized {
 
     /// Generate a dummy value for a given type using a random number
     /// generator.
-    fn dummy_with_rng<R: Rng + ?Sized>(config: &T, rng: &mut R) -> Self;
+    fn dummy_with_rng<R: RngExt + ?Sized>(config: &T, rng: &mut R) -> Self;
 }
 
 mod private {
     pub trait FakeBase<T>: Sized {
         fn _fake(&self) -> T;
-        fn _fake_with_rng<R: rand::Rng + ?Sized>(&self, rng: &mut R) -> T;
+        fn _fake_with_rng<R: rand::RngExt + ?Sized>(&self, rng: &mut R) -> T;
     }
 
     impl<T, U> FakeBase<U> for T
@@ -179,7 +179,7 @@ mod private {
             U::dummy(self)
         }
 
-        fn _fake_with_rng<R: rand::Rng + ?Sized>(&self, rng: &mut R) -> U {
+        fn _fake_with_rng<R: rand::RngExt + ?Sized>(&self, rng: &mut R) -> U {
             U::dummy_with_rng(self, rng)
         }
     }
@@ -217,7 +217,7 @@ pub trait Fake: Sized {
     }
 
     #[inline]
-    fn fake_with_rng<U, R: Rng + ?Sized>(&self, rng: &mut R) -> U
+    fn fake_with_rng<U, R: RngExt + ?Sized>(&self, rng: &mut R) -> U
     where
         Self: private::FakeBase<U>,
     {
@@ -228,7 +228,7 @@ impl<T> Fake for T {}
 
 #[cfg(feature = "geo")]
 #[cfg_attr(docsrs, doc(cfg(feature = "geo")))]
-fn unique<U: Dummy<Faker> + PartialEq, R: Rng + ?Sized>(rng: &mut R, len: usize) -> Vec<U> {
+fn unique<U: Dummy<Faker> + PartialEq, R: RngExt + ?Sized>(rng: &mut R, len: usize) -> Vec<U> {
     let mut set = Vec::<U>::new();
     unique_append(&mut set, rng, len);
     set
@@ -236,7 +236,7 @@ fn unique<U: Dummy<Faker> + PartialEq, R: Rng + ?Sized>(rng: &mut R, len: usize)
 
 #[cfg(feature = "geo")]
 #[cfg_attr(docsrs, doc(cfg(feature = "geo")))]
-fn unique_append<U: Dummy<Faker> + PartialEq, R: Rng + ?Sized>(
+fn unique_append<U: Dummy<Faker> + PartialEq, R: RngExt + ?Sized>(
     set: &mut Vec<U>,
     rng: &mut R,
     len: usize,
@@ -371,7 +371,7 @@ pub mod locales;
 /// This would generate code roughly equivalent to:
 ///
 /// ```
-/// use fake::{Dummy, Fake, Faker, Rng};
+/// use fake::{Dummy, Fake, Faker, RngExt};
 /// use fake::faker::name::en::Name;
 ///
 /// pub struct Foo {
@@ -383,7 +383,7 @@ pub mod locales;
 /// }
 ///
 /// impl Dummy<Faker> for Foo {
-///     fn dummy_with_rng<R: Rng + ?Sized>(_: &Faker, rng: &mut R) -> Self {
+///     fn dummy_with_rng<R: RngExt + ?Sized>(_: &Faker, rng: &mut R) -> Self {
 ///         let order_id = Fake::fake_with_rng::<usize, _>(&(1000..2000), rng);
 ///         let customer = Fake::fake_with_rng::<String, _>(&(Name()), rng);
 ///         let paid = Fake::fake_with_rng::<bool, _>(&Faker, rng);
@@ -427,7 +427,7 @@ pub mod locales;
 /// This will generate code roughly equivalent to:
 ///
 /// ```
-/// use fake::{Dummy, Fake, Faker, Rng};
+/// use fake::{Dummy, Fake, Faker, RngExt};
 /// use fake::faker::name::en::Name;
 ///
 /// pub enum Bar {
@@ -440,7 +440,7 @@ pub mod locales;
 /// }
 ///
 /// impl Dummy<Faker> for Bar {
-///     fn dummy_with_rng<R: Rng + ?Sized>(_: &Faker, rng: &mut R) -> Self {
+///     fn dummy_with_rng<R: RngExt + ?Sized>(_: &Faker, rng: &mut R) -> Self {
 ///         match rng.random_range(0..3usize) {
 ///             0 => Self::Simple,
 ///             1 => Self::Tuple(Fake::fake_with_rng::<i32, _>(&(0..5), rng)),

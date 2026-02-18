@@ -1,4 +1,4 @@
-use rand::Rng;
+use rand::RngExt;
 
 use crate::{
     faker::{
@@ -552,7 +552,7 @@ impl Data for NL_NL {
 }
 
 impl CityNameGenFn for NL_NL {
-    fn gen<R: Rng + ?Sized>(c: &CityName<Self>, rng: &mut R) -> String {
+    fn gen<R: RngExt + ?Sized>(c: &CityName<Self>, rng: &mut R) -> String {
         // common formats for city names
         const ADDRESS_CITY_WITHOUT_PREFIX: &str = "{CityName}{CitySuffix}";
         const ADDRESS_CITY_WITHOUT_SPACE: &str = "{CityPrefix}{CityName}{CitySuffix}";

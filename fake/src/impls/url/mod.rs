@@ -1,6 +1,6 @@
 use crate::{Dummy, Faker};
 use rand::seq::IndexedRandom;
-use rand::Rng;
+use rand::RngExt;
 use url::Url;
 
 const FQDN: &str = "https://example.com";
@@ -38,7 +38,7 @@ const PATHS: [&str; 30] = [
 ];
 
 impl Dummy<Faker> for Url {
-    fn dummy_with_rng<R: Rng + ?Sized>(_: &Faker, rng: &mut R) -> Self {
+    fn dummy_with_rng<R: RngExt + ?Sized>(_: &Faker, rng: &mut R) -> Self {
         let path: &str = PATHS.choose(rng).unwrap();
         Url::parse(&format!("{FQDN}{path}")).unwrap()
     }

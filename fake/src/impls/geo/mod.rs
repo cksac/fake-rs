@@ -1,12 +1,12 @@
 use std::ops::Range;
 
 use geo_types::CoordNum;
-use rand::Rng;
+use rand::RngExt;
 
 use crate::{Dummy, Fake, Faker};
 
 impl<T: CoordNum + Dummy<Faker>> Dummy<Faker> for geo_types::Coord<T> {
-    fn dummy_with_rng<R: Rng + ?Sized>(_: &Faker, rng: &mut R) -> Self {
+    fn dummy_with_rng<R: RngExt + ?Sized>(_: &Faker, rng: &mut R) -> Self {
         geo_types::Coord::<T> {
             x: Faker.fake_with_rng(rng),
             y: Faker.fake_with_rng(rng),
@@ -15,7 +15,7 @@ impl<T: CoordNum + Dummy<Faker>> Dummy<Faker> for geo_types::Coord<T> {
 }
 
 impl<T: CoordNum + Dummy<Faker>> Dummy<Faker> for geo_types::Line<T> {
-    fn dummy_with_rng<R: Rng + ?Sized>(_: &Faker, rng: &mut R) -> Self {
+    fn dummy_with_rng<R: RngExt + ?Sized>(_: &Faker, rng: &mut R) -> Self {
         geo_types::Line::<T> {
             start: Faker.fake_with_rng(rng),
             end: Faker.fake_with_rng(rng),
@@ -24,44 +24,44 @@ impl<T: CoordNum + Dummy<Faker>> Dummy<Faker> for geo_types::Line<T> {
 }
 
 impl<T: CoordNum + Dummy<Faker>> Dummy<Faker> for geo_types::LineString<T> {
-    fn dummy_with_rng<R: Rng + ?Sized>(_: &Faker, rng: &mut R) -> Self {
+    fn dummy_with_rng<R: RngExt + ?Sized>(_: &Faker, rng: &mut R) -> Self {
         geo_types::LineString::<T>::new(Faker.fake_with_rng(rng))
     }
 }
 
 impl<T: CoordNum + Dummy<Faker>> Dummy<Faker> for geo_types::MultiLineString<T> {
-    fn dummy_with_rng<R: Rng + ?Sized>(_: &Faker, rng: &mut R) -> Self {
+    fn dummy_with_rng<R: RngExt + ?Sized>(_: &Faker, rng: &mut R) -> Self {
         geo_types::MultiLineString::<T>::new(Faker.fake_with_rng(rng))
     }
 }
 
 impl<T: CoordNum + Dummy<Faker>> Dummy<Faker> for geo_types::Point<T> {
-    fn dummy_with_rng<R: Rng + ?Sized>(_: &Faker, rng: &mut R) -> Self {
+    fn dummy_with_rng<R: RngExt + ?Sized>(_: &Faker, rng: &mut R) -> Self {
         geo_types::Point::<T>::new(Faker.fake_with_rng(rng), Faker.fake_with_rng(rng))
     }
 }
 
 impl<T: CoordNum + Dummy<Faker>> Dummy<Faker> for geo_types::MultiPoint<T> {
-    fn dummy_with_rng<R: Rng + ?Sized>(_: &Faker, rng: &mut R) -> Self {
+    fn dummy_with_rng<R: RngExt + ?Sized>(_: &Faker, rng: &mut R) -> Self {
         geo_types::MultiPoint::<T>::new(Faker.fake_with_rng(rng))
     }
 }
 
 impl<T: CoordNum + Dummy<Faker>> Dummy<Faker> for geo_types::Polygon<T> {
-    fn dummy_with_rng<R: Rng + ?Sized>(_: &Faker, rng: &mut R) -> Self {
+    fn dummy_with_rng<R: RngExt + ?Sized>(_: &Faker, rng: &mut R) -> Self {
         // Polygon will auto-close these LineString.
         geo_types::Polygon::<T>::new(Faker.fake_with_rng(rng), Faker.fake_with_rng(rng))
     }
 }
 
 impl<T: CoordNum + Dummy<Faker>> Dummy<Faker> for geo_types::MultiPolygon<T> {
-    fn dummy_with_rng<R: Rng + ?Sized>(_: &Faker, rng: &mut R) -> Self {
+    fn dummy_with_rng<R: RngExt + ?Sized>(_: &Faker, rng: &mut R) -> Self {
         geo_types::MultiPolygon::<T>::new(Faker.fake_with_rng(rng))
     }
 }
 
 impl<T: CoordNum + Dummy<Faker>> Dummy<Faker> for geo_types::Rect<T> {
-    fn dummy_with_rng<R: Rng + ?Sized>(_: &Faker, rng: &mut R) -> Self {
+    fn dummy_with_rng<R: RngExt + ?Sized>(_: &Faker, rng: &mut R) -> Self {
         // Rect points can not overlap.
         let nums: Vec<T> = crate::unique::<T, _>(rng, 4);
         let coord_1 = geo_types::Coord::<T> {
@@ -77,8 +77,8 @@ impl<T: CoordNum + Dummy<Faker>> Dummy<Faker> for geo_types::Rect<T> {
 }
 
 impl<T: CoordNum + Dummy<Faker>> Dummy<Faker> for geo_types::Triangle<T> {
-    fn dummy_with_rng<R: Rng + ?Sized>(_: &Faker, rng: &mut R) -> Self {
-        fn step<T, R: Rng + ?Sized>(start: T, steps: usize, rng: &mut R) -> T
+    fn dummy_with_rng<R: RngExt + ?Sized>(_: &Faker, rng: &mut R) -> Self {
+        fn step<T, R: RngExt + ?Sized>(start: T, steps: usize, rng: &mut R) -> T
         where
             T: CoordNum,
         {
@@ -120,7 +120,7 @@ const GEOMETRY_UNION_MEMBERS: Range<usize> = 0..9;
 struct NonRecursiveGeometry<T: CoordNum = f64>(geo_types::Geometry<T>);
 
 impl<T: CoordNum + Dummy<Faker>> Dummy<Faker> for NonRecursiveGeometry<T> {
-    fn dummy_with_rng<R: Rng + ?Sized>(_: &Faker, rng: &mut R) -> Self {
+    fn dummy_with_rng<R: RngExt + ?Sized>(_: &Faker, rng: &mut R) -> Self {
         let union_index: usize = GEOMETRY_UNION_MEMBERS.fake_with_rng(rng);
         match union_index {
             0 => NonRecursiveGeometry(geo_types::geometry::Geometry::Point::<T>(
@@ -160,7 +160,7 @@ impl<T: CoordNum + Dummy<Faker>> Dummy<Faker> for NonRecursiveGeometry<T> {
 }
 
 impl<T: CoordNum + Dummy<Faker>> Dummy<Faker> for geo_types::Geometry<T> {
-    fn dummy_with_rng<R: Rng + ?Sized>(_: &Faker, rng: &mut R) -> Self {
+    fn dummy_with_rng<R: RngExt + ?Sized>(_: &Faker, rng: &mut R) -> Self {
         let union_index: usize = GEOMETRY_UNION_MEMBERS.fake_with_rng(rng);
         match union_index {
             0 => geo_types::geometry::Geometry::Point::<T>(Faker.fake_with_rng(rng)),
@@ -179,7 +179,7 @@ impl<T: CoordNum + Dummy<Faker>> Dummy<Faker> for geo_types::Geometry<T> {
 }
 
 impl<T: CoordNum + Dummy<Faker>> Dummy<Faker> for geo_types::GeometryCollection<T> {
-    fn dummy_with_rng<R: Rng + ?Sized>(_: &Faker, rng: &mut R) -> Self {
+    fn dummy_with_rng<R: RngExt + ?Sized>(_: &Faker, rng: &mut R) -> Self {
         geo_types::GeometryCollection::<T>::new_from(
             Faker
                 .fake_with_rng::<Vec<NonRecursiveGeometry<T>>, _>(rng)

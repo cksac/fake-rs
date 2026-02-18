@@ -1,5 +1,5 @@
 use clap::{command, value_parser, Arg, ArgAction};
-use rand::Rng;
+use rand::RngExt;
 use std::io::{self, Write};
 
 mod fake_gen;
@@ -53,7 +53,7 @@ impl TryFrom<&str> for AVAILABLE_LOCALES {
     }
 }
 
-fn cli_parser<R: Rng>() -> (Args, impl Fn(&mut R) -> String) {
+fn cli_parser<R: RngExt + ?Sized>() -> (Args, impl Fn(&mut R) -> String) {
     let (subcommands, fake_generator) = all_fakegen_commands::<R>();
     let mut command = command!()
         .arg(

@@ -4,7 +4,7 @@ use crate::{Dummy, Fake, Faker};
 use chrono::{
     Date, DateTime, Duration, FixedOffset, NaiveDate, NaiveDateTime, NaiveTime, TimeZone, Utc,
 };
-use rand::Rng;
+use rand::RngExt;
 
 const YEAR_MAG: i32 = 3_000i32;
 
@@ -19,19 +19,19 @@ fn is_leap(year: i32) -> bool {
 }
 
 impl Dummy<Faker> for Duration {
-    fn dummy_with_rng<R: Rng + ?Sized>(_: &Faker, rng: &mut R) -> Self {
+    fn dummy_with_rng<R: RngExt + ?Sized>(_: &Faker, rng: &mut R) -> Self {
         Duration::nanoseconds(Faker.fake_with_rng(rng))
     }
 }
 
 impl Dummy<Faker> for Utc {
-    fn dummy_with_rng<R: Rng + ?Sized>(_: &Faker, _: &mut R) -> Self {
+    fn dummy_with_rng<R: RngExt + ?Sized>(_: &Faker, _: &mut R) -> Self {
         Utc
     }
 }
 
 impl Dummy<Faker> for FixedOffset {
-    fn dummy_with_rng<R: Rng + ?Sized>(_: &Faker, rng: &mut R) -> Self {
+    fn dummy_with_rng<R: RngExt + ?Sized>(_: &Faker, rng: &mut R) -> Self {
         if rng.random_bool(0.5) {
             let halves: i32 = (0..=28).fake_with_rng(rng);
             FixedOffset::east_opt(halves * 30 * 60).expect("failed to create FixedOffset")
@@ -46,7 +46,7 @@ impl<Tz> Dummy<Faker> for DateTime<Tz>
 where
     Tz: TimeZone + Dummy<Faker>,
 {
-    fn dummy_with_rng<R: Rng + ?Sized>(_: &Faker, rng: &mut R) -> Self {
+    fn dummy_with_rng<R: RngExt + ?Sized>(_: &Faker, rng: &mut R) -> Self {
         let utc: DateTime<Utc> = Utc.timestamp_nanos(Faker.fake_with_rng(rng));
         let tz: Tz = Faker.fake_with_rng(rng);
         utc.with_timezone(&tz)
@@ -54,7 +54,7 @@ where
 }
 
 impl Dummy<Faker> for Date<Utc> {
-    fn dummy_with_rng<R: Rng + ?Sized>(_: &Faker, rng: &mut R) -> Self {
+    fn dummy_with_rng<R: RngExt + ?Sized>(_: &Faker, rng: &mut R) -> Self {
         let year: i32 = (1..YEAR_MAG).fake_with_rng(rng);
         let end = if is_leap(year) { 366 } else { 365 };
         let day_ord: u32 = (1..end).fake_with_rng(rng);
@@ -63,7 +63,7 @@ impl Dummy<Faker> for Date<Utc> {
 }
 
 impl Dummy<Faker> for NaiveTime {
-    fn dummy_with_rng<R: Rng + ?Sized>(_: &Faker, rng: &mut R) -> Self {
+    fn dummy_with_rng<R: RngExt + ?Sized>(_: &Faker, rng: &mut R) -> Self {
         let hour = (0..24).fake_with_rng(rng);
         let min = (0..60).fake_with_rng(rng);
         let sec = (0..60).fake_with_rng(rng);
@@ -72,7 +72,7 @@ impl Dummy<Faker> for NaiveTime {
 }
 
 impl Dummy<Faker> for NaiveDate {
-    fn dummy_with_rng<R: Rng + ?Sized>(_: &Faker, rng: &mut R) -> Self {
+    fn dummy_with_rng<R: RngExt + ?Sized>(_: &Faker, rng: &mut R) -> Self {
         let year: i32 = (1..YEAR_MAG).fake_with_rng(rng);
         let end = if is_leap(year) { 366 } else { 365 };
         let day_ord: u32 = (1..end).fake_with_rng(rng);
@@ -81,7 +81,7 @@ impl Dummy<Faker> for NaiveDate {
 }
 
 impl Dummy<Faker> for NaiveDateTime {
-    fn dummy_with_rng<R: Rng + ?Sized>(_: &Faker, rng: &mut R) -> Self {
+    fn dummy_with_rng<R: RngExt + ?Sized>(_: &Faker, rng: &mut R) -> Self {
         let date = Faker.fake_with_rng(rng);
         let time = Faker.fake_with_rng(rng);
         NaiveDateTime::new(date, time)
@@ -114,7 +114,7 @@ impl<const N: usize> Dummy<Precision<N>> for NaiveTime
 where
     Precision<N>: AllowedPrecision,
 {
-    fn dummy_with_rng<R: Rng + ?Sized>(_: &Precision<N>, rng: &mut R) -> Self {
+    fn dummy_with_rng<R: RngExt + ?Sized>(_: &Precision<N>, rng: &mut R) -> Self {
         let hour = (0..24).fake_with_rng(rng);
         let min = (0..60).fake_with_rng(rng);
         let sec = (0..60).fake_with_rng(rng);
@@ -128,7 +128,7 @@ impl<const N: usize> Dummy<Precision<N>> for NaiveDateTime
 where
     Precision<N>: AllowedPrecision,
 {
-    fn dummy_with_rng<R: Rng + ?Sized>(precision: &Precision<N>, rng: &mut R) -> Self {
+    fn dummy_with_rng<R: RngExt + ?Sized>(precision: &Precision<N>, rng: &mut R) -> Self {
         let date = Faker.fake_with_rng(rng);
         let time = Precision::<N>::fake_with_rng(precision, rng);
         NaiveDateTime::new(date, time)
@@ -140,7 +140,7 @@ where
     Tz: TimeZone + Dummy<Faker>,
     Precision<N>: AllowedPrecision,
 {
-    fn dummy_with_rng<R: Rng + ?Sized>(_: &Precision<N>, rng: &mut R) -> Self {
+    fn dummy_with_rng<R: RngExt + ?Sized>(_: &Precision<N>, rng: &mut R) -> Self {
         let nanos: i64 = Faker.fake_with_rng(rng);
         let utc: DateTime<Utc> = Utc.timestamp_nanos(Precision::<N>::to_scale(nanos));
         let tz: Tz = Faker.fake_with_rng(rng);

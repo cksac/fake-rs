@@ -1078,7 +1078,7 @@ impl CityNameGenFn for FA_IR {}
 const LICENSE_PLATE_FA_IR: &[&str] = &["## ABC ###", "## AB ####"];
 
 impl Dummy<LicencePlate<FA_IR>> for String {
-    fn dummy_with_rng<R: rand::Rng + ?Sized>(_: &LicencePlate<FA_IR>, rng: &mut R) -> Self {
+    fn dummy_with_rng<R: rand::RngExt + ?Sized>(_: &LicencePlate<FA_IR>, rng: &mut R) -> Self {
         let fmt = LICENSE_PLATE_FA_IR.choose(rng).unwrap();
         crate::faker::impls::automotive::numerify_licence_plate(fmt, rng)
     }
