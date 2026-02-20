@@ -1,14 +1,14 @@
 use fake::{Dummy, Fake, Faker};
 use rand::SeedableRng;
 
-fn rng() -> rand_chacha::ChaCha20Rng {
+fn rng() -> rand::rngs::ChaCha20Rng {
     // Fixing the RNG So we have more deterministic tests
     // as we are only testing the derive macros, not the RNG
     let seed = [
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0,
     ];
-    rand_chacha::ChaCha20Rng::from_seed(seed)
+    rand::rngs::ChaCha20Rng::from_seed(seed)
 }
 
 mod field_options {

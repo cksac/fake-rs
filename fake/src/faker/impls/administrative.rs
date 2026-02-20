@@ -2,7 +2,7 @@ use crate::faker::administrative::raw::*;
 use crate::locales::FR_FR;
 use crate::{Dummy, Fake};
 use rand::seq::IndexedRandom;
-use rand::Rng;
+use rand::RngExt;
 
 // ref https://fr.wikipedia.org/wiki/Num%C3%A9rotation_des_d%C3%A9partements_fran%C3%A7ais
 const FR_FR_DEPARTMENTS: &[&str] = &[
@@ -16,7 +16,7 @@ const FR_FR_DEPARTMENTS: &[&str] = &[
 ];
 
 impl Dummy<HealthInsuranceCode<FR_FR>> for String {
-    fn dummy_with_rng<R: Rng + ?Sized>(_: &HealthInsuranceCode<FR_FR>, rng: &mut R) -> Self {
+    fn dummy_with_rng<R: RngExt + ?Sized>(_: &HealthInsuranceCode<FR_FR>, rng: &mut R) -> Self {
         // ref https://www.previssima.fr/lexique/numero-de-securite-sociale-a-13-chiffres.html
         // and test on http://marlot.org/util/calcul-de-la-cle-nir.php
         let sex: u8 = (1..3).fake_with_rng::<u8, _>(rng);

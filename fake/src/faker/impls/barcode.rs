@@ -4,7 +4,7 @@ use crate::faker::numerify_sym;
 use crate::locales::Data;
 use crate::{Dummy, Fake};
 use rand::seq::IndexedRandom;
-use rand::Rng;
+use rand::RngExt;
 
 const ISBN_MAX_LENGTH: usize = 13;
 
@@ -69,7 +69,7 @@ fn checksum13(properties: &IsbnProperties) -> i32 {
     check_digit
 }
 
-fn get_properties<L: Data, R: Rng + ?Sized>(_c: L, rng: &mut R) -> IsbnProperties {
+fn get_properties<L: Data, R: RngExt + ?Sized>(_c: L, rng: &mut R) -> IsbnProperties {
     let ean = L::ISBN_EAN;
     let rules = *L::isbn_rules();
     let keys: Vec<&'static str> = rules.keys().cloned().collect();
@@ -96,7 +96,7 @@ fn get_properties<L: Data, R: Rng + ?Sized>(_c: L, rng: &mut R) -> IsbnPropertie
 }
 
 impl<L: Data + Copy> Dummy<Isbn10<L>> for String {
-    fn dummy_with_rng<R: Rng + ?Sized>(c: &Isbn10<L>, rng: &mut R) -> Self {
+    fn dummy_with_rng<R: RngExt + ?Sized>(c: &Isbn10<L>, rng: &mut R) -> Self {
         let properties = get_properties(c.0, rng);
         format!(
             "{}-{}-{}-{}",
@@ -109,7 +109,7 @@ impl<L: Data + Copy> Dummy<Isbn10<L>> for String {
 }
 
 impl<L: Data + Copy> Dummy<Isbn13<L>> for String {
-    fn dummy_with_rng<R: Rng + ?Sized>(c: &Isbn13<L>, rng: &mut R) -> Self {
+    fn dummy_with_rng<R: RngExt + ?Sized>(c: &Isbn13<L>, rng: &mut R) -> Self {
         let properties = get_properties(c.0, rng);
         format!(
             "{}-{}-{}-{}-{}",
@@ -123,7 +123,7 @@ impl<L: Data + Copy> Dummy<Isbn13<L>> for String {
 }
 
 impl<L: Data + Copy> Dummy<Isbn<L>> for String {
-    fn dummy_with_rng<R: Rng + ?Sized>(c: &Isbn<L>, rng: &mut R) -> Self {
+    fn dummy_with_rng<R: RngExt + ?Sized>(c: &Isbn<L>, rng: &mut R) -> Self {
         if Boolean(c.0, 50).fake_with_rng(rng) {
             return Isbn13(c.0).fake_with_rng(rng);
         }

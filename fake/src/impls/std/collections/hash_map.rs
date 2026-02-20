@@ -1,5 +1,5 @@
 use crate::{Dummy, Fake, Faker};
-use rand::Rng;
+use rand::RngExt;
 use std::collections::HashMap;
 use std::hash::{BuildHasher, Hash};
 
@@ -9,7 +9,7 @@ where
     V: Dummy<Faker>,
     S: BuildHasher + Default,
 {
-    fn dummy_with_rng<R: Rng + ?Sized>(config: &Faker, rng: &mut R) -> Self {
+    fn dummy_with_rng<R: RngExt + ?Sized>(config: &Faker, rng: &mut R) -> Self {
         let len = super::get_len(config, rng);
         let mut m = HashMap::with_capacity_and_hasher(len, S::default());
         for _ in 0..len {

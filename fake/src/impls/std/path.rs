@@ -1,7 +1,7 @@
 use crate::locales::{Data, EN};
 use crate::{Dummy, Fake, Faker};
 use rand::seq::IndexedRandom;
-use rand::Rng;
+use rand::RngExt;
 use std::path::PathBuf;
 
 static DEFAULT_PATH_FAKER: PathFaker = PathFaker {
@@ -13,7 +13,7 @@ static DEFAULT_PATH_FAKER: PathFaker = PathFaker {
 
 impl Dummy<Faker> for PathBuf {
     #[inline]
-    fn dummy_with_rng<R: Rng + ?Sized>(_: &Faker, rng: &mut R) -> Self {
+    fn dummy_with_rng<R: RngExt + ?Sized>(_: &Faker, rng: &mut R) -> Self {
         DEFAULT_PATH_FAKER.fake_with_rng(rng)
     }
 }
@@ -46,7 +46,7 @@ impl<'a> PathFaker<'a> {
 }
 
 impl<'a> Dummy<PathFaker<'a>> for PathBuf {
-    fn dummy_with_rng<R: Rng + ?Sized>(c: &PathFaker<'a>, rng: &mut R) -> Self {
+    fn dummy_with_rng<R: RngExt + ?Sized>(c: &PathFaker<'a>, rng: &mut R) -> Self {
         let root_dir = c.root_dirs.choose(rng).unwrap();
         let mut path = PathBuf::from(root_dir);
         for _ in 0..c.max_level {

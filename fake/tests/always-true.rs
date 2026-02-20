@@ -6,7 +6,7 @@ mod always_true_tests {
     #[test]
     fn test_rng_bool() {
         use rand::distr::StandardUniform;
-        use rand::Rng;
+        use rand::RngExt;
         // Arrange
         let rng = AlwaysTrueRng::default();
 
@@ -19,7 +19,7 @@ mod always_true_tests {
 
     #[test]
     fn test_rng_bool_wrap_large_increment() {
-        use rand::{distr::StandardUniform, Rng};
+        use rand::{distr::StandardUniform, RngExt};
         let increment = 1 << 31;
 
         // Arrange
@@ -38,7 +38,7 @@ mod always_true_tests {
 
     #[test]
     fn test_rng_int() {
-        use rand::{distr::StandardUniform, Rng};
+        use rand::{distr::StandardUniform, RngExt};
 
         // Arrange
         let rng = AlwaysTrueRng::default();
@@ -62,7 +62,7 @@ mod always_true_tests {
 
     #[test]
     fn test_rng_int_wrap() {
-        use rand::{distr::StandardUniform, Rng};
+        use rand::{distr::StandardUniform, RngExt};
 
         // Arrange
         let increment = 1 << 31;

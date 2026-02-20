@@ -1,5 +1,5 @@
 use crate::Dummy;
-use rand::Rng;
+use rand::RngExt;
 use std::borrow::Cow;
 use std::cell::{Cell, RefCell};
 use std::ops::Deref;
@@ -13,7 +13,7 @@ macro_rules! container_impl {
         where
             T: Dummy<U>,
         {
-            fn dummy_with_rng<R: Rng + ?Sized>(config: &U, rng: &mut R) -> Self {
+            fn dummy_with_rng<R: RngExt + ?Sized>(config: &U, rng: &mut R) -> Self {
                 $ptr::new(T::dummy_with_rng(config, rng))
             }
         }
@@ -33,7 +33,7 @@ where
     T: Dummy<U> + Deref,
     <T as Deref>::Target: Unpin,
 {
-    fn dummy_with_rng<R: Rng + ?Sized>(config: &U, rng: &mut R) -> Self {
+    fn dummy_with_rng<R: RngExt + ?Sized>(config: &U, rng: &mut R) -> Self {
         Pin::new(T::dummy_with_rng(config, rng))
     }
 }
@@ -42,7 +42,7 @@ impl<T, U> Dummy<U> for Cow<'_, T>
 where
     T: Dummy<U> + Clone,
 {
-    fn dummy_with_rng<R: Rng + ?Sized>(config: &U, rng: &mut R) -> Self {
+    fn dummy_with_rng<R: RngExt + ?Sized>(config: &U, rng: &mut R) -> Self {
         Cow::Owned(T::dummy_with_rng(config, rng))
     }
 }

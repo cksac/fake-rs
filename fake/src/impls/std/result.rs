@@ -1,12 +1,12 @@
 use crate::{faker::boolean::en::Boolean, Dummy, Fake, Faker};
-use rand::Rng;
+use rand::RngExt;
 
 impl<T, E> Dummy<Faker> for Result<T, E>
 where
     T: Dummy<Faker>,
     E: Dummy<Faker>,
 {
-    fn dummy_with_rng<R: Rng + ?Sized>(config: &Faker, rng: &mut R) -> Self {
+    fn dummy_with_rng<R: RngExt + ?Sized>(config: &Faker, rng: &mut R) -> Self {
         if Faker.fake_with_rng::<bool, _>(rng) {
             Ok(T::dummy_with_rng(config, rng))
         } else {
@@ -91,7 +91,7 @@ where
     E: Dummy<V>,
     u8: Dummy<X>,
 {
-    fn dummy_with_rng<R: Rng + ?Sized>(config: &ResultFaker<U, V, X>, rng: &mut R) -> Self {
+    fn dummy_with_rng<R: RngExt + ?Sized>(config: &ResultFaker<U, V, X>, rng: &mut R) -> Self {
         if Boolean(config.err_rate.fake_with_rng(rng)).fake_with_rng::<bool, _>(rng) {
             Err(E::dummy_with_rng(&config.err, rng))
         } else {

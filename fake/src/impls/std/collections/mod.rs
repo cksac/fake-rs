@@ -1,6 +1,6 @@
 use std::ops::Range;
 
-use rand::Rng;
+use rand::RngExt;
 
 use crate::{Fake, Faker};
 
@@ -16,7 +16,7 @@ pub mod vec;
 pub mod vec_deque;
 
 #[allow(unused_mut, unused_variables)]
-pub fn get_len<R: Rng + ?Sized>(config: &Faker, rng: &mut R) -> usize {
+pub fn get_len<R: RngExt + ?Sized>(config: &Faker, rng: &mut R) -> usize {
     let mut range = DEFAULT_LEN_RANGE;
     #[cfg(feature = "maybe-non-empty-collections")]
     if config.fake_with_rng(rng) {

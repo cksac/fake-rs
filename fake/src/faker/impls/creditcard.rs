@@ -2,7 +2,7 @@ use crate::faker::creditcard::raw::CreditCardNumber;
 use crate::locales::Data;
 use crate::Dummy;
 use rand::seq::{IndexedRandom, IteratorRandom};
-use rand::Rng;
+use rand::RngExt;
 
 type PrefixCreditcard<'a> = (u8, Option<&'a [u8]>, &'a [usize]);
 
@@ -13,7 +13,7 @@ static PREFIX_LENGTHS: &[PrefixCreditcard] = &[
 ];
 
 impl<L: Data> Dummy<CreditCardNumber<L>> for String {
-    fn dummy_with_rng<R: Rng + ?Sized>(_: &CreditCardNumber<L>, rng: &mut R) -> String {
+    fn dummy_with_rng<R: RngExt + ?Sized>(_: &CreditCardNumber<L>, rng: &mut R) -> String {
         let (prefix, opt_prefix, lens): PrefixCreditcard = *PREFIX_LENGTHS.choose(rng).unwrap();
         let len = *lens.choose(rng).unwrap();
         let mut bytes = vec![prefix];
