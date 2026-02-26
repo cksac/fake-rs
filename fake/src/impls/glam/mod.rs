@@ -2,7 +2,7 @@ use crate::{Dummy, Fake, Faker};
 use glam::{Mat3, Mat4, Vec2, Vec3, Vec4};
 
 impl Dummy<Faker> for Mat3 {
-    fn dummy_with_rng<R: rand::Rng + ?Sized>(_f: &Faker, rng: &mut R) -> Self {
+    fn dummy_with_rng<R: rand::RngExt + ?Sized>(_f: &Faker, rng: &mut R) -> Self {
         let col_1: Vec3 = Faker.fake_with_rng(rng);
         let col_2: Vec3 = Faker.fake_with_rng(rng);
         let col_3: Vec3 = Faker.fake_with_rng(rng);
@@ -11,7 +11,7 @@ impl Dummy<Faker> for Mat3 {
 }
 
 impl Dummy<Faker> for Mat4 {
-    fn dummy_with_rng<R: rand::Rng + ?Sized>(_f: &Faker, rng: &mut R) -> Self {
+    fn dummy_with_rng<R: rand::RngExt + ?Sized>(_f: &Faker, rng: &mut R) -> Self {
         let col_1: Vec4 = Faker.fake_with_rng(rng);
         let col_2: Vec4 = Faker.fake_with_rng(rng);
         let col_3: Vec4 = Faker.fake_with_rng(rng);
@@ -21,7 +21,7 @@ impl Dummy<Faker> for Mat4 {
 }
 
 impl Dummy<Faker> for Vec3 {
-    fn dummy_with_rng<R: rand::Rng + ?Sized>(_f: &Faker, rng: &mut R) -> Self {
+    fn dummy_with_rng<R: rand::RngExt + ?Sized>(_f: &Faker, rng: &mut R) -> Self {
         let x: f32 = Faker.fake_with_rng(rng);
         let y: f32 = Faker.fake_with_rng(rng);
         let z: f32 = Faker.fake_with_rng(rng);
@@ -30,7 +30,7 @@ impl Dummy<Faker> for Vec3 {
 }
 
 impl Dummy<Faker> for Vec2 {
-    fn dummy_with_rng<R: rand::Rng + ?Sized>(_f: &Faker, rng: &mut R) -> Self {
+    fn dummy_with_rng<R: rand::RngExt + ?Sized>(_f: &Faker, rng: &mut R) -> Self {
         let x: f32 = Faker.fake_with_rng(rng);
         let y: f32 = Faker.fake_with_rng(rng);
         Vec2::new(x, y)
@@ -38,7 +38,7 @@ impl Dummy<Faker> for Vec2 {
 }
 
 impl Dummy<Faker> for Vec4 {
-    fn dummy_with_rng<R: rand::Rng + ?Sized>(_f: &Faker, rng: &mut R) -> Self {
+    fn dummy_with_rng<R: rand::RngExt + ?Sized>(_f: &Faker, rng: &mut R) -> Self {
         let x: f32 = Faker.fake_with_rng(rng);
         let y: f32 = Faker.fake_with_rng(rng);
         let z: f32 = Faker.fake_with_rng(rng);
@@ -51,7 +51,7 @@ mod tests {
     use super::*;
     use glam::{vec2, vec3, vec4};
     use rand::rngs::StdRng;
-    use rand::{Rng, SeedableRng};
+    use rand::{RngExt, SeedableRng};
 
     const SEED: [u8; 32] = [
         1, 0, 0, 0, 23, 0, 0, 0, 200, 1, 0, 0, 210, 30, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,

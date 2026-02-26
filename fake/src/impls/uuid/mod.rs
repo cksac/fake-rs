@@ -44,7 +44,7 @@ pub struct UUIDv7;
 pub struct UUIDv8;
 
 impl Dummy<UUIDv1> for Uuid {
-    fn dummy_with_rng<R: rand::Rng + ?Sized>(_: &UUIDv1, rng: &mut R) -> Self {
+    fn dummy_with_rng<R: rand::RngExt + ?Sized>(_: &UUIDv1, rng: &mut R) -> Self {
         let ticks = rng.random_range(uuid::timestamp::UUID_TICKS_BETWEEN_EPOCHS..u64::MAX);
         let counter = Faker.fake_with_rng(rng);
         let ts = uuid::timestamp::Timestamp::from_gregorian(ticks, counter);
@@ -54,13 +54,13 @@ impl Dummy<UUIDv1> for Uuid {
 }
 
 impl Dummy<UUIDv1> for String {
-    fn dummy_with_rng<R: rand::Rng + ?Sized>(config: &UUIDv1, rng: &mut R) -> Self {
+    fn dummy_with_rng<R: rand::RngExt + ?Sized>(config: &UUIDv1, rng: &mut R) -> Self {
         Uuid::dummy_with_rng(config, rng).hyphenated().to_string()
     }
 }
 
 impl Dummy<UUIDv3> for Uuid {
-    fn dummy_with_rng<R: rand::Rng + ?Sized>(_: &UUIDv3, rng: &mut R) -> Self {
+    fn dummy_with_rng<R: rand::RngExt + ?Sized>(_: &UUIDv3, rng: &mut R) -> Self {
         Builder::from_bytes(rng.random())
             .with_variant(Variant::RFC4122)
             .with_version(Version::Md5)
@@ -69,13 +69,13 @@ impl Dummy<UUIDv3> for Uuid {
 }
 
 impl Dummy<UUIDv3> for String {
-    fn dummy_with_rng<R: rand::Rng + ?Sized>(config: &UUIDv3, rng: &mut R) -> Self {
+    fn dummy_with_rng<R: rand::RngExt + ?Sized>(config: &UUIDv3, rng: &mut R) -> Self {
         Uuid::dummy_with_rng(config, rng).hyphenated().to_string()
     }
 }
 
 impl Dummy<UUIDv4> for Uuid {
-    fn dummy_with_rng<R: rand::Rng + ?Sized>(_: &UUIDv4, rng: &mut R) -> Self {
+    fn dummy_with_rng<R: rand::RngExt + ?Sized>(_: &UUIDv4, rng: &mut R) -> Self {
         Builder::from_bytes(rng.random())
             .with_variant(Variant::RFC4122)
             .with_version(Version::Random)
@@ -84,13 +84,13 @@ impl Dummy<UUIDv4> for Uuid {
 }
 
 impl Dummy<UUIDv4> for String {
-    fn dummy_with_rng<R: rand::Rng + ?Sized>(config: &UUIDv4, rng: &mut R) -> Self {
+    fn dummy_with_rng<R: rand::RngExt + ?Sized>(config: &UUIDv4, rng: &mut R) -> Self {
         Uuid::dummy_with_rng(config, rng).hyphenated().to_string()
     }
 }
 
 impl Dummy<UUIDv5> for Uuid {
-    fn dummy_with_rng<R: rand::Rng + ?Sized>(_: &UUIDv5, rng: &mut R) -> Self {
+    fn dummy_with_rng<R: rand::RngExt + ?Sized>(_: &UUIDv5, rng: &mut R) -> Self {
         Builder::from_bytes(rng.random())
             .with_variant(Variant::RFC4122)
             .with_version(Version::Sha1)
@@ -99,13 +99,13 @@ impl Dummy<UUIDv5> for Uuid {
 }
 
 impl Dummy<UUIDv5> for String {
-    fn dummy_with_rng<R: rand::Rng + ?Sized>(config: &UUIDv5, rng: &mut R) -> Self {
+    fn dummy_with_rng<R: rand::RngExt + ?Sized>(config: &UUIDv5, rng: &mut R) -> Self {
         Uuid::dummy_with_rng(config, rng).hyphenated().to_string()
     }
 }
 
 impl Dummy<UUIDv6> for Uuid {
-    fn dummy_with_rng<R: rand::Rng + ?Sized>(_: &UUIDv6, rng: &mut R) -> Self {
+    fn dummy_with_rng<R: rand::RngExt + ?Sized>(_: &UUIDv6, rng: &mut R) -> Self {
         let ticks = rng.random_range(uuid::timestamp::UUID_TICKS_BETWEEN_EPOCHS..u64::MAX);
         let counter = Faker.fake_with_rng(rng);
         let ts = uuid::timestamp::Timestamp::from_gregorian(ticks, counter);
@@ -115,13 +115,13 @@ impl Dummy<UUIDv6> for Uuid {
 }
 
 impl Dummy<UUIDv6> for String {
-    fn dummy_with_rng<R: rand::Rng + ?Sized>(config: &UUIDv6, rng: &mut R) -> Self {
+    fn dummy_with_rng<R: rand::RngExt + ?Sized>(config: &UUIDv6, rng: &mut R) -> Self {
         Uuid::dummy_with_rng(config, rng).hyphenated().to_string()
     }
 }
 
 impl Dummy<UUIDv7> for Uuid {
-    fn dummy_with_rng<R: rand::Rng + ?Sized>(_: &UUIDv7, rng: &mut R) -> Self {
+    fn dummy_with_rng<R: rand::RngExt + ?Sized>(_: &UUIDv7, rng: &mut R) -> Self {
         let ticks = rng.random_range(uuid::timestamp::UUID_TICKS_BETWEEN_EPOCHS..u64::MAX);
         let counter = Faker.fake_with_rng(rng);
         let ts = uuid::timestamp::Timestamp::from_gregorian(ticks, counter);
@@ -130,26 +130,26 @@ impl Dummy<UUIDv7> for Uuid {
 }
 
 impl Dummy<UUIDv7> for String {
-    fn dummy_with_rng<R: rand::Rng + ?Sized>(config: &UUIDv7, rng: &mut R) -> Self {
+    fn dummy_with_rng<R: rand::RngExt + ?Sized>(config: &UUIDv7, rng: &mut R) -> Self {
         Uuid::dummy_with_rng(config, rng).hyphenated().to_string()
     }
 }
 
 impl Dummy<UUIDv8> for Uuid {
-    fn dummy_with_rng<R: rand::Rng + ?Sized>(_: &UUIDv8, rng: &mut R) -> Self {
+    fn dummy_with_rng<R: rand::RngExt + ?Sized>(_: &UUIDv8, rng: &mut R) -> Self {
         let buf: [u8; 16] = Faker.fake_with_rng(rng);
         Uuid::new_v8(buf)
     }
 }
 
 impl Dummy<UUIDv8> for String {
-    fn dummy_with_rng<R: rand::Rng + ?Sized>(config: &UUIDv8, rng: &mut R) -> Self {
+    fn dummy_with_rng<R: rand::RngExt + ?Sized>(config: &UUIDv8, rng: &mut R) -> Self {
         Uuid::dummy_with_rng(config, rng).hyphenated().to_string()
     }
 }
 
 impl Dummy<Faker> for Uuid {
-    fn dummy_with_rng<R: rand::Rng + ?Sized>(_: &Faker, rng: &mut R) -> Self {
+    fn dummy_with_rng<R: rand::RngExt + ?Sized>(_: &Faker, rng: &mut R) -> Self {
         Uuid::from_u128(rng.random())
     }
 }

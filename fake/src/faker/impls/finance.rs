@@ -2,7 +2,7 @@ use crate::faker::finance::raw::*;
 use crate::locales::Data;
 use crate::{Dummy, Fake};
 use rand::seq::IndexedRandom;
-use rand::Rng;
+use rand::RngExt;
 
 const ALPHABET: &[char; 26] = &[
     'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S',
@@ -37,7 +37,7 @@ const ISO3166: &[&str] = &[
 const VOWELS: &[char; 5] = &['A', 'E', 'I', 'O', 'U'];
 
 impl<L: Data> Dummy<Bic<L>> for String {
-    fn dummy_with_rng<R: Rng + ?Sized>(_: &Bic<L>, rng: &mut R) -> Self {
+    fn dummy_with_rng<R: RngExt + ?Sized>(_: &Bic<L>, rng: &mut R) -> Self {
         let prob: i8 = (0..100).fake_with_rng(rng);
         let suffix = if prob < 50 {
             return format!(
@@ -85,7 +85,7 @@ fn split_number_to_digits(x: u32) -> Vec<u32> {
 }
 
 impl<L: Data> Dummy<Isin<L>> for String {
-    fn dummy_with_rng<R: Rng + ?Sized>(_: &Isin<L>, rng: &mut R) -> Self {
+    fn dummy_with_rng<R: RngExt + ?Sized>(_: &Isin<L>, rng: &mut R) -> Self {
         let country_code = *ISO3166.choose(rng).unwrap();
         let nsin = (1..10)
             .map(|_x| *ALPHANUMERIC.choose(rng).unwrap())

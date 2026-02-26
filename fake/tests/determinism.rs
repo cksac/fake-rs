@@ -18,8 +18,8 @@ macro_rules! determinism_test {
             #[allow(unused_parens)]
             #[test]
             fn $name(seed: [u8; 32]) {
-                let mut rng1 = rand_chacha::ChaCha20Rng::from_seed(seed);
-                let mut rng2 = rng1.clone();
+                let mut rng1 = rand::rngs::ChaCha20Rng::from_seed(seed);
+                let mut rng2 = rand::rngs::ChaCha20Rng::from_seed(seed);
 
                 for _ in 0..16 {
                     let val1: $ty = $op.fake_with_rng(&mut rng1);

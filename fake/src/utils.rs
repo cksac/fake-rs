@@ -1,5 +1,5 @@
 use crate::{Dummy, Fake, Faker};
-use rand::Rng;
+use rand::RngExt;
 
 pub trait IntoInner {
     type Target;
@@ -29,7 +29,7 @@ impl<A, B, T> Dummy<EitherFaker<A, B>> for WrappedVal<T>
 where
     T: Dummy<A> + Dummy<B>,
 {
-    fn dummy_with_rng<R: Rng + ?Sized>(config: &EitherFaker<A, B>, rng: &mut R) -> Self {
+    fn dummy_with_rng<R: RngExt + ?Sized>(config: &EitherFaker<A, B>, rng: &mut R) -> Self {
         if Faker.fake_with_rng(rng) {
             WrappedVal::new(config.a.fake_with_rng(rng))
         } else {
@@ -44,8 +44,29 @@ pub fn either<A, B>(a: A, b: B) -> EitherFaker<A, B> {
 
 #[cfg(feature = "always-true-rng")]
 mod always_true_rng {
-    use rand::{rngs::mock::StepRng, RngCore};
-    use rand_core::impls;
+    use core::convert::Infallible;
+    use rand_core::TryRng;
+
+    #[derive(Clone, Debug, Eq, PartialEq)]
+    struct StepRng {
+        v: u64,
+        a: u64,
+    }
+
+    impl StepRng {
+        fn new(initial: u64, increment: u64) -> Self {
+            StepRng {
+                v: initial,
+                a: increment,
+            }
+        }
+
+        fn next_u64(&mut self) -> u64 {
+            let res = self.v;
+            self.v = self.v.wrapping_add(self.a);
+            res
+        }
+    }
 
     #[derive(Clone, Debug, Eq, PartialEq)]
     pub struct AlwaysTrueRng {
@@ -72,25 +93,27 @@ mod always_true_rng {
         }
     }
 
-    impl RngCore for AlwaysTrueRng {
+    impl TryRng for AlwaysTrueRng {
+        type Error = Infallible;
+
         #[inline]
-        fn next_u32(&mut self) -> u32 {
-            self.next_u64() as u32
+        fn try_next_u32(&mut self) -> Result<u32, Infallible> {
+            self.try_next_u64().map(|v| v as u32)
         }
 
         #[inline]
-        fn next_u64(&mut self) -> u64 {
+        fn try_next_u64(&mut self) -> Result<u64, Infallible> {
             let mut rv = self.inner.next_u64();
             if rv & (1 << 31) == 0 {
                 self.inner = StepRng::new(rv | 1 << 31, self.increment);
                 rv = self.inner.next_u64();
             }
-            rv
+            Ok(rv)
         }
 
         #[inline]
-        fn fill_bytes(&mut self, dest: &mut [u8]) {
-            impls::fill_bytes_via_next(self, dest);
+        fn try_fill_bytes(&mut self, dest: &mut [u8]) -> Result<(), Infallible> {
+            rand_core::utils::fill_bytes_via_next_word(dest, || self.try_next_u64())
         }
     }
 }

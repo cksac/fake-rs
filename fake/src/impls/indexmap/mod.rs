@@ -1,6 +1,6 @@
 use crate::{Dummy, Fake, Faker};
 use indexmap::{IndexMap, IndexSet};
-use rand::Rng;
+use rand::RngExt;
 use std::hash::{BuildHasher, Hash};
 
 use super::std::collections::get_len;
@@ -11,7 +11,7 @@ where
     V: Dummy<Faker>,
     S: BuildHasher + Default,
 {
-    fn dummy_with_rng<R: Rng + ?Sized>(config: &Faker, rng: &mut R) -> Self {
+    fn dummy_with_rng<R: RngExt + ?Sized>(config: &Faker, rng: &mut R) -> Self {
         let len = get_len(config, rng);
         let mut m = IndexMap::with_capacity_and_hasher(len, S::default());
         for _ in 0..len {
@@ -26,7 +26,7 @@ where
     T: Dummy<Faker> + Hash + Eq,
     S: BuildHasher + Default,
 {
-    fn dummy_with_rng<R: Rng + ?Sized>(config: &Faker, rng: &mut R) -> Self {
+    fn dummy_with_rng<R: RngExt + ?Sized>(config: &Faker, rng: &mut R) -> Self {
         let len = get_len(config, rng);
         let mut m = IndexSet::with_capacity_and_hasher(len, S::default());
         for _ in 0..len {

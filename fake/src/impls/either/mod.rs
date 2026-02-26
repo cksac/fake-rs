@@ -6,7 +6,7 @@ where
     A: Dummy<Faker>,
     B: Dummy<Faker>,
 {
-    fn dummy_with_rng<R: rand::Rng + ?Sized>(faker: &Faker, rng: &mut R) -> Self {
+    fn dummy_with_rng<R: rand::RngExt + ?Sized>(faker: &Faker, rng: &mut R) -> Self {
         if Faker.fake_with_rng(rng) {
             Either::Left(faker.fake_with_rng(rng))
         } else {

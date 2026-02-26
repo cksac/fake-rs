@@ -1,7 +1,7 @@
 use crate::{Dummy, Fake, Faker};
 use http::uri;
 use rand::seq::IndexedRandom;
-use rand::Rng;
+use rand::RngExt;
 use std::mem;
 use std::net::Ipv4Addr;
 use std::str::FromStr;
@@ -21,7 +21,7 @@ const VALID_SCHEME_CHARACTERS: &[char] = &[
 ];
 
 impl Dummy<Faker> for http::Method {
-    fn dummy_with_rng<R: Rng + ?Sized>(_: &Faker, rng: &mut R) -> Self {
+    fn dummy_with_rng<R: RngExt + ?Sized>(_: &Faker, rng: &mut R) -> Self {
         let i: u8 = (0..9).fake_with_rng(rng);
         match i {
             0 => http::Method::GET,
@@ -38,21 +38,21 @@ impl Dummy<Faker> for http::Method {
 }
 
 impl Dummy<Faker> for http::HeaderValue {
-    fn dummy_with_rng<R: Rng + ?Sized>(config: &Faker, rng: &mut R) -> Self {
+    fn dummy_with_rng<R: RngExt + ?Sized>(config: &Faker, rng: &mut R) -> Self {
         let val = config.fake_with_rng::<String, _>(rng);
         http::HeaderValue::try_from(val).unwrap()
     }
 }
 
 impl Dummy<Faker> for http::HeaderName {
-    fn dummy_with_rng<R: Rng + ?Sized>(config: &Faker, rng: &mut R) -> Self {
+    fn dummy_with_rng<R: RngExt + ?Sized>(config: &Faker, rng: &mut R) -> Self {
         let val = config.fake_with_rng::<String, _>(rng);
         http::HeaderName::try_from(val).unwrap()
     }
 }
 
 impl<T: Dummy<Faker>> Dummy<Faker> for http::HeaderMap<T> {
-    fn dummy_with_rng<R: Rng + ?Sized>(config: &Faker, rng: &mut R) -> Self {
+    fn dummy_with_rng<R: RngExt + ?Sized>(config: &Faker, rng: &mut R) -> Self {
         let len = rng.random_range(1..10);
         let mut map = http::HeaderMap::with_capacity(len);
         for _ in 0..len {
@@ -70,28 +70,28 @@ impl<T: Dummy<Faker>> Dummy<Faker> for http::HeaderMap<T> {
 }
 
 impl Dummy<Faker> for http::StatusCode {
-    fn dummy_with_rng<R: Rng + ?Sized>(_: &Faker, rng: &mut R) -> Self {
+    fn dummy_with_rng<R: RngExt + ?Sized>(_: &Faker, rng: &mut R) -> Self {
         let code = RFC_STATUS_CODES.choose(rng).unwrap();
         http::StatusCode::from_u16(*code).unwrap()
     }
 }
 
 impl Dummy<&[u16]> for Result<http::StatusCode, http::status::InvalidStatusCode> {
-    fn dummy_with_rng<R: Rng + ?Sized>(codes: &&[u16], rng: &mut R) -> Self {
+    fn dummy_with_rng<R: RngExt + ?Sized>(codes: &&[u16], rng: &mut R) -> Self {
         let code = codes.choose(rng).expect("no codes provided");
         http::StatusCode::from_u16(*code)
     }
 }
 
 impl Dummy<&[u16]> for http::StatusCode {
-    fn dummy_with_rng<R: Rng + ?Sized>(codes: &&[u16], rng: &mut R) -> Self {
+    fn dummy_with_rng<R: RngExt + ?Sized>(codes: &&[u16], rng: &mut R) -> Self {
         let code = codes.choose(rng).expect("no codes provided");
         http::StatusCode::from_u16(*code).expect("invalid status code")
     }
 }
 
 impl Dummy<Faker> for http::Version {
-    fn dummy_with_rng<R: Rng + ?Sized>(_: &Faker, rng: &mut R) -> Self {
+    fn dummy_with_rng<R: RngExt + ?Sized>(_: &Faker, rng: &mut R) -> Self {
         let i: u8 = (0..4).fake_with_rng(rng);
         match i {
             0 => http::Version::HTTP_2,
@@ -103,7 +103,7 @@ impl Dummy<Faker> for http::Version {
 }
 
 impl Dummy<Faker> for http::uri::Authority {
-    fn dummy_with_rng<R: Rng + ?Sized>(config: &Faker, rng: &mut R) -> Self {
+    fn dummy_with_rng<R: RngExt + ?Sized>(config: &Faker, rng: &mut R) -> Self {
         let mut authority = String::new();
 
         if rng.random_bool(0.5) {
@@ -157,7 +157,7 @@ impl Dummy<Faker> for http::uri::Authority {
 }
 
 impl Dummy<Faker> for http::uri::Scheme {
-    fn dummy_with_rng<R: Rng + ?Sized>(_: &Faker, rng: &mut R) -> Self {
+    fn dummy_with_rng<R: RngExt + ?Sized>(_: &Faker, rng: &mut R) -> Self {
         // Some common schemes or a random valid scheme
         let scheme = match (0..7).fake_with_rng(rng) {
             0 => "http".to_string(),
@@ -187,7 +187,7 @@ impl Dummy<Faker> for http::uri::Scheme {
 }
 
 impl Dummy<Faker> for http::uri::PathAndQuery {
-    fn dummy_with_rng<R: Rng + ?Sized>(config: &Faker, rng: &mut R) -> Self {
+    fn dummy_with_rng<R: RngExt + ?Sized>(config: &Faker, rng: &mut R) -> Self {
         let mut path = format!(
             "/{}",
             url_escape::encode_path(&config.fake_with_rng::<String, _>(rng))
@@ -211,7 +211,7 @@ impl Dummy<Faker> for http::uri::PathAndQuery {
 }
 
 impl Dummy<Faker> for http::Uri {
-    fn dummy_with_rng<R: Rng + ?Sized>(config: &Faker, rng: &mut R) -> Self {
+    fn dummy_with_rng<R: RngExt + ?Sized>(config: &Faker, rng: &mut R) -> Self {
         let scheme = config.fake_with_rng::<uri::Scheme, _>(rng);
         let authority = config.fake_with_rng::<uri::Authority, _>(rng);
         let path = config.fake_with_rng::<uri::PathAndQuery, _>(rng);
@@ -226,7 +226,7 @@ impl Dummy<Faker> for http::Uri {
 }
 
 impl<T: Dummy<Faker>> Dummy<Faker> for http::Request<T> {
-    fn dummy_with_rng<R: Rng + ?Sized>(config: &Faker, rng: &mut R) -> Self {
+    fn dummy_with_rng<R: RngExt + ?Sized>(config: &Faker, rng: &mut R) -> Self {
         let method: http::Method = config.fake_with_rng(rng);
         let uri: http::Uri = config.fake_with_rng(rng);
         let mut req = http::Request::builder()
@@ -240,7 +240,7 @@ impl<T: Dummy<Faker>> Dummy<Faker> for http::Request<T> {
 }
 
 impl<T: Dummy<Faker>> Dummy<Faker> for http::Response<T> {
-    fn dummy_with_rng<R: Rng + ?Sized>(config: &Faker, rng: &mut R) -> Self {
+    fn dummy_with_rng<R: RngExt + ?Sized>(config: &Faker, rng: &mut R) -> Self {
         let status: http::StatusCode = config.fake_with_rng(rng);
         let mut res = http::Response::builder()
             .status(status)

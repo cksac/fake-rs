@@ -1,4 +1,4 @@
-use rand::Rng;
+use rand::RngExt;
 
 use crate::{
     faker::{
@@ -311,7 +311,7 @@ impl Data for DE_DE {
 }
 
 impl CityNameGenFn for DE_DE {
-    fn gen<R: Rng + ?Sized>(c: &CityName<Self>, rng: &mut R) -> String {
+    fn gen<R: RngExt + ?Sized>(c: &CityName<Self>, rng: &mut R) -> String {
         // german cities are often suffixed by a river name
         const RIVERS: [&str; 10] = [
             "(Rhein)", "(Elbe)", "(Donau)", "(Main)", "(Weser)", "(Oder)", "(Neckar)", "(Havel)",

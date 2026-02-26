@@ -2,7 +2,7 @@ use crate::faker::automotive::raw::*;
 use crate::locales::{FR_FR, IT_IT, NL_NL};
 use crate::{Dummy, Fake};
 use rand::seq::IndexedRandom;
-use rand::Rng;
+use rand::RngExt;
 use std::char;
 /* ABC without I, O and U
 As with the SIV system, The letters I and O were never used because they could be confused with other characters, like 1 and 0.
@@ -17,7 +17,7 @@ const LICENSE_CHARS: [char; 23] = [
 ];
 
 #[inline]
-pub(crate) fn numerify_licence_plate<R: Rng + ?Sized>(string: &str, rng: &mut R) -> String {
+pub(crate) fn numerify_licence_plate<R: RngExt + ?Sized>(string: &str, rng: &mut R) -> String {
     string
         .chars()
         .map(|x| match x {
@@ -31,14 +31,14 @@ pub(crate) fn numerify_licence_plate<R: Rng + ?Sized>(string: &str, rng: &mut R)
 const LICENSE_PLATE: &[&str] = &["$$-###-$$"];
 
 impl Dummy<LicencePlate<FR_FR>> for String {
-    fn dummy_with_rng<R: Rng + ?Sized>(_: &LicencePlate<FR_FR>, rng: &mut R) -> Self {
+    fn dummy_with_rng<R: RngExt + ?Sized>(_: &LicencePlate<FR_FR>, rng: &mut R) -> Self {
         let fmt = LICENSE_PLATE.choose(rng).unwrap();
         numerify_licence_plate(fmt, rng)
     }
 }
 
 impl Dummy<LicencePlate<IT_IT>> for String {
-    fn dummy_with_rng<R: rand::Rng + ?Sized>(_: &LicencePlate<IT_IT>, rng: &mut R) -> Self {
+    fn dummy_with_rng<R: rand::RngExt + ?Sized>(_: &LicencePlate<IT_IT>, rng: &mut R) -> Self {
         let fmt = LICENSE_PLATE.choose(rng).unwrap();
         crate::faker::impls::automotive::numerify_licence_plate(fmt, rng)
     }
@@ -47,7 +47,7 @@ impl Dummy<LicencePlate<IT_IT>> for String {
 const NL_NL_LICENSE_PLATE: &[&str] = &["$$-###-$", "$-###-$$", "$$$-##-$"];
 
 impl Dummy<LicencePlate<NL_NL>> for String {
-    fn dummy_with_rng<R: rand::Rng + ?Sized>(_: &LicencePlate<NL_NL>, rng: &mut R) -> Self {
+    fn dummy_with_rng<R: rand::RngExt + ?Sized>(_: &LicencePlate<NL_NL>, rng: &mut R) -> Self {
         let fmt = NL_NL_LICENSE_PLATE.choose(rng).unwrap();
         numerify_licence_plate(fmt, rng)
     }

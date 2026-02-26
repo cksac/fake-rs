@@ -1,5 +1,5 @@
 use crate::{Dummy, Fake, Faker};
-use rand::Rng;
+use rand::RngExt;
 use time::{Date, Duration, OffsetDateTime, PrimitiveDateTime, Time, UtcOffset};
 
 const YEAR_MAG: i32 = 3_000i32;
@@ -15,13 +15,13 @@ fn is_leap(year: i32) -> bool {
 }
 
 impl Dummy<Faker> for Duration {
-    fn dummy_with_rng<R: Rng + ?Sized>(_: &Faker, rng: &mut R) -> Self {
+    fn dummy_with_rng<R: RngExt + ?Sized>(_: &Faker, rng: &mut R) -> Self {
         Duration::nanoseconds(Faker.fake_with_rng(rng))
     }
 }
 
 impl Dummy<Faker> for UtcOffset {
-    fn dummy_with_rng<R: Rng + ?Sized>(_: &Faker, rng: &mut R) -> Self {
+    fn dummy_with_rng<R: RngExt + ?Sized>(_: &Faker, rng: &mut R) -> Self {
         // UtcOffset ±25:59:59
         let seconds: i32 = (-93599..93599).fake_with_rng(rng);
         UtcOffset::from_whole_seconds(seconds).unwrap()
@@ -29,7 +29,7 @@ impl Dummy<Faker> for UtcOffset {
 }
 
 impl Dummy<Faker> for OffsetDateTime {
-    fn dummy_with_rng<R: Rng + ?Sized>(_: &Faker, rng: &mut R) -> Self {
+    fn dummy_with_rng<R: RngExt + ?Sized>(_: &Faker, rng: &mut R) -> Self {
         let date = Faker.fake_with_rng(rng);
         let time = Faker.fake_with_rng(rng);
         let offset = Faker.fake_with_rng(rng);
@@ -38,7 +38,7 @@ impl Dummy<Faker> for OffsetDateTime {
 }
 
 impl Dummy<Faker> for Date {
-    fn dummy_with_rng<R: Rng + ?Sized>(_: &Faker, rng: &mut R) -> Self {
+    fn dummy_with_rng<R: RngExt + ?Sized>(_: &Faker, rng: &mut R) -> Self {
         let year: i32 = (0..YEAR_MAG).fake_with_rng(rng);
         let end = if is_leap(year) { 366 } else { 365 };
         let day_ord: u16 = (1..end).fake_with_rng(rng);
@@ -47,7 +47,7 @@ impl Dummy<Faker> for Date {
 }
 
 impl Dummy<Faker> for Time {
-    fn dummy_with_rng<R: Rng + ?Sized>(_: &Faker, rng: &mut R) -> Self {
+    fn dummy_with_rng<R: RngExt + ?Sized>(_: &Faker, rng: &mut R) -> Self {
         let hour = (0..24).fake_with_rng(rng);
         let min = (0..60).fake_with_rng(rng);
         let sec = (0..60).fake_with_rng(rng);
@@ -56,7 +56,7 @@ impl Dummy<Faker> for Time {
 }
 
 impl Dummy<Faker> for PrimitiveDateTime {
-    fn dummy_with_rng<R: Rng + ?Sized>(_: &Faker, rng: &mut R) -> Self {
+    fn dummy_with_rng<R: RngExt + ?Sized>(_: &Faker, rng: &mut R) -> Self {
         let date = Faker.fake_with_rng(rng);
         let time = Faker.fake_with_rng(rng);
         PrimitiveDateTime::new(date, time)
@@ -91,7 +91,7 @@ impl<const N: usize> Dummy<Precision<N>> for Time
 where
     Precision<N>: AllowedPrecision,
 {
-    fn dummy_with_rng<R: Rng + ?Sized>(_: &Precision<N>, rng: &mut R) -> Self {
+    fn dummy_with_rng<R: RngExt + ?Sized>(_: &Precision<N>, rng: &mut R) -> Self {
         let time: Time = Faker.fake_with_rng(rng);
         time.replace_nanosecond(Precision::<N>::to_scale(time.nanosecond()))
             .expect("failed to create time")
@@ -102,7 +102,7 @@ impl<const N: usize> Dummy<Precision<N>> for PrimitiveDateTime
 where
     Precision<N>: AllowedPrecision,
 {
-    fn dummy_with_rng<R: Rng + ?Sized>(_: &Precision<N>, rng: &mut R) -> Self {
+    fn dummy_with_rng<R: RngExt + ?Sized>(_: &Precision<N>, rng: &mut R) -> Self {
         let date = Faker.fake_with_rng(rng);
         let time = Precision::<N>.fake_with_rng(rng);
         PrimitiveDateTime::new(date, time)
@@ -113,7 +113,7 @@ impl<const N: usize> Dummy<Precision<N>> for OffsetDateTime
 where
     Precision<N>: AllowedPrecision,
 {
-    fn dummy_with_rng<R: Rng + ?Sized>(_: &Precision<N>, rng: &mut R) -> Self {
+    fn dummy_with_rng<R: RngExt + ?Sized>(_: &Precision<N>, rng: &mut R) -> Self {
         let time: OffsetDateTime = Faker.fake_with_rng(rng);
         time.replace_nanosecond(Precision::<N>::to_scale(time.nanosecond()))
             .expect("failed to create time")

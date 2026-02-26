@@ -13,7 +13,7 @@ const JSON_UNION_MEMBERS: Range<usize> = 0..6;
 struct NonRecursiveValue(Value);
 
 impl Dummy<Faker> for NonRecursiveValue {
-    fn dummy_with_rng<R: rand::Rng + ?Sized>(config: &Faker, rng: &mut R) -> Self {
+    fn dummy_with_rng<R: rand::RngExt + ?Sized>(config: &Faker, rng: &mut R) -> Self {
         let union_index: usize = JSON_UNION_MEMBERS_NON_RECURSIVE.fake_with_rng(rng);
         match union_index {
             0 => NonRecursiveValue(serde_json::Value::Null),
@@ -26,7 +26,7 @@ impl Dummy<Faker> for NonRecursiveValue {
 }
 
 impl Dummy<Faker> for Value {
-    fn dummy_with_rng<R: rand::Rng + ?Sized>(config: &Faker, rng: &mut R) -> Self {
+    fn dummy_with_rng<R: rand::RngExt + ?Sized>(config: &Faker, rng: &mut R) -> Self {
         let union_index: usize = JSON_UNION_MEMBERS.fake_with_rng(rng);
         match union_index {
             0 => serde_json::Value::Null,
@@ -41,7 +41,7 @@ impl Dummy<Faker> for Value {
 }
 
 impl Dummy<Faker> for Number {
-    fn dummy_with_rng<R: rand::Rng + ?Sized>(config: &Faker, rng: &mut R) -> Self {
+    fn dummy_with_rng<R: rand::RngExt + ?Sized>(config: &Faker, rng: &mut R) -> Self {
         // Alternate between generating floats and integers
         if Faker.fake_with_rng::<bool, _>(rng) {
             Number::from_f64(config.fake_with_rng::<f64, _>(rng)).unwrap()
@@ -52,7 +52,7 @@ impl Dummy<Faker> for Number {
 }
 
 impl Dummy<Faker> for Map<String, Value> {
-    fn dummy_with_rng<R: rand::Rng + ?Sized>(config: &Faker, rng: &mut R) -> Self {
+    fn dummy_with_rng<R: rand::RngExt + ?Sized>(config: &Faker, rng: &mut R) -> Self {
         Map::from_iter(
             config
                 .fake_with_rng::<HashMap<String, NonRecursiveValue>, _>(rng)

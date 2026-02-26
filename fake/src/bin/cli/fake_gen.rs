@@ -1,6 +1,6 @@
 use clap::{builder::StyledStr, ArgMatches};
 use fake::{faker, Fake};
-use rand::Rng;
+use rand::RngExt;
 #[derive(Clone, Copy, Debug)]
 #[allow(non_camel_case_types)]
 pub enum AVAILABLE_LOCALES {
@@ -148,7 +148,7 @@ macro_rules! fakegen_commands {
     };
 }
 
-pub fn all_fakegen_commands<R: Rng>() -> (
+pub fn all_fakegen_commands<R: RngExt + ?Sized>() -> (
     Vec<Command>,
     impl Fn(ArgMatches, AVAILABLE_LOCALES, StyledStr) -> Box<dyn Fn(&mut R) -> String>,
 ) {

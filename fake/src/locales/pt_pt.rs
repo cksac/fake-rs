@@ -832,7 +832,7 @@ const LICENSE_PLATE_PT_PT: &[&str] = &[
 ];
 
 impl Dummy<LicencePlate<PT_PT>> for String {
-    fn dummy_with_rng<R: rand::Rng + ?Sized>(_: &LicencePlate<PT_PT>, rng: &mut R) -> Self {
+    fn dummy_with_rng<R: rand::RngExt + ?Sized>(_: &LicencePlate<PT_PT>, rng: &mut R) -> Self {
         let fmt = LICENSE_PLATE_PT_PT.choose(rng).unwrap();
         crate::faker::impls::automotive::numerify_licence_plate(fmt, rng)
     }

@@ -2,12 +2,12 @@ use crate::faker::boolean::raw::Boolean;
 use crate::locales::EN;
 use crate::{Dummy, Fake, Faker};
 use rand::seq::IndexedRandom;
-use rand::Rng;
+use rand::RngExt;
 
 const UNSTABLE_SEMVER: &[&str] = &["alpha", "beta", "rc"];
 
 impl Dummy<Faker> for semver::Version {
-    fn dummy_with_rng<R: Rng + ?Sized>(_: &Faker, rng: &mut R) -> Self {
+    fn dummy_with_rng<R: RngExt + ?Sized>(_: &Faker, rng: &mut R) -> Self {
         let probability = 10;
         let pre = if Boolean(EN, probability).fake_with_rng(rng) {
             semver::Prerelease::new(&format!(

@@ -2,10 +2,10 @@ use crate::faker::picsum::raw::*;
 use crate::locales::Data;
 use crate::Dummy;
 use rand::distr::{Distribution, Uniform};
-use rand::Rng;
+use rand::RngExt;
 
 impl<L: Data> Dummy<Image<L>> for String {
-    fn dummy_with_rng<R: Rng + ?Sized>(_: &Image<L>, rng: &mut R) -> Self {
+    fn dummy_with_rng<R: RngExt + ?Sized>(_: &Image<L>, rng: &mut R) -> Self {
         let width: u16 = Uniform::new_inclusive(100, 800)
             .expect("valid range")
             .sample(rng);
@@ -17,7 +17,7 @@ impl<L: Data> Dummy<Image<L>> for String {
 }
 
 impl<L: Data> Dummy<ImageWithSeed<L>> for String {
-    fn dummy_with_rng<R: Rng + ?Sized>(_c: &ImageWithSeed<L>, rng: &mut R) -> Self {
+    fn dummy_with_rng<R: RngExt + ?Sized>(_c: &ImageWithSeed<L>, rng: &mut R) -> Self {
         let width: u16 = Uniform::new_inclusive(100, 800)
             .expect("valid range")
             .sample(rng);
@@ -30,7 +30,7 @@ impl<L: Data> Dummy<ImageWithSeed<L>> for String {
 }
 
 impl<L: Data> Dummy<ImageGrayscale<L>> for String {
-    fn dummy_with_rng<R: Rng + ?Sized>(_: &ImageGrayscale<L>, rng: &mut R) -> Self {
+    fn dummy_with_rng<R: RngExt + ?Sized>(_: &ImageGrayscale<L>, rng: &mut R) -> Self {
         let width: u16 = Uniform::new_inclusive(100, 800)
             .expect("valid range")
             .sample(rng);
@@ -42,7 +42,7 @@ impl<L: Data> Dummy<ImageGrayscale<L>> for String {
 }
 
 impl<L: Data> Dummy<ImageBlur<L>> for String {
-    fn dummy_with_rng<R: Rng + ?Sized>(_: &ImageBlur<L>, rng: &mut R) -> Self {
+    fn dummy_with_rng<R: RngExt + ?Sized>(_: &ImageBlur<L>, rng: &mut R) -> Self {
         let width: u16 = Uniform::new_inclusive(100, 800)
             .expect("valid range")
             .sample(rng);
@@ -57,7 +57,7 @@ impl<L: Data> Dummy<ImageBlur<L>> for String {
 }
 
 impl<L: Data> Dummy<ImageCustom<L>> for String {
-    fn dummy_with_rng<R: Rng + ?Sized>(c: &ImageCustom<L>, rng: &mut R) -> Self {
+    fn dummy_with_rng<R: RngExt + ?Sized>(c: &ImageCustom<L>, rng: &mut R) -> Self {
         let width: u16 = c.1.width.unwrap_or_else(|| {
             Uniform::new_inclusive(100, 800)
                 .expect("valid range")
