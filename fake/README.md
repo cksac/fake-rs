@@ -29,7 +29,7 @@ A Rust library and command line tool for generating fake data in different langu
 
 ```toml
 [dependencies]
-fake = { version = "4", features = ["derive"] }
+fake = { version = "5", features = ["derive"] }
 ```
 
 Available library features:

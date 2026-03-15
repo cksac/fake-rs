@@ -30,7 +30,7 @@ Currently supports:
 
 ```toml
 [dependencies]
-fake = { version = "4", features = ["derive"] }
+fake = { version = "5", features = ["derive"] }
 ```
 
 Available library features:
