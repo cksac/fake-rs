@@ -425,6 +425,192 @@ impl Data for FA_IR {
     // persian don't have suffix name
     const NAME_SUFFIX: &'static [&'static str] = &[""];
 
+    const NAME_ASCII : &'static [&'static str] = &[
+        // آ
+        "adine",
+        "anahita",
+        "arad",
+        "arezoo",
+        "arsam",
+        "aria",
+        "arvin",
+        "ava",
+        "aida",
+        // الف
+        "afshin",
+        "afsaneh",
+        "afsoon",
+        "afra",
+        "amir",
+        // ب
+        "bahareh",
+        "behnoosh",
+        "bahman",
+        "baran",
+        "bahram",
+        "bardia",
+        "bita",
+        "bijan",
+        // پ
+        "paria",
+        "parinesa",
+        "parva",
+        "parastesh",
+        "pazhman",
+        "parham",
+        "parsa",
+        "paniz",
+        "pouria",
+        "pedram",
+        // ت
+        "toufiq",
+        "taraneh",
+        // ث
+        "soriya",
+        // ج
+        "jamile",
+        "jiran",
+        // چ
+        "chenara",
+        "chakavak",
+        // ح
+        "hamed",
+        "hamid",
+        "hossein",
+        "hafez",
+        "hessam",
+        // خ
+        "khodadad",
+        "khashayar",
+        // د
+        "dara",
+        "diako",
+        "delsa",
+        "delaram",
+        // ذ
+        "zabih",
+        "zolfa",
+        // ر
+        "radin",
+        "radmehr",
+        "roha",
+        "rista",
+        "rastin",
+        "rostam",
+        "rozbe",
+        // ز
+        "zahra",
+        "zohreh",
+        // ژ
+        "jinus",
+        "jaleh",
+        "jina",
+        "jaklin",
+        // س
+        "sanaz",
+        "sahel",
+        "sourena",
+        "samiyar",
+        "setayesh",
+        "simin",
+        "sina",
+        "soheil",
+        "sahand",
+        "sohrab",
+        "sogand",
+        // ش
+        "shadi",
+        "shahrzad",
+        "shabnam",
+        "shida",
+        "shiva",
+        "shila",
+        "shima",
+        "shaghayegh",
+        "shahin",
+        "shahla",
+        // ص
+        "saba",
+        // ض
+        "zia",
+        // ط
+        "taha",
+        "toofan",
+        "tonaz",
+        "tala",
+        // ظ
+        "zarife",
+        "zafar",
+        // ع
+        "araf",
+        "ata",
+        "erfan",
+        // غ
+        "ghazal",
+        "ghadir",
+        "ghazal",
+        // ف
+        "farshad",
+        "farah",
+        "farhad",
+        "faramroz",
+        "fariborz",
+        "farshid",
+        "farbod",
+        "firuze",
+        // ق
+        "qamar",
+        "qobad",
+        // ک
+        "kimiya",
+        "kiyomars",
+        "kamran",
+        // گ
+        "gisu",
+        "golbahar",
+        "gohar",
+        "geshtasb",
+        "giti",
+        // ل
+        "leila",
+        "lia",
+        "ladan",
+        "lida",
+        // م
+        "mahan",
+        "mojgan",
+        "milad",
+        "mino",
+        "mona",
+        "mehrad",
+        "mehran",
+        "mehrsa",
+        "mahsa",
+        "mahyar",
+        "mahdis",
+        "maryam",
+        // ن
+        "nahid",
+        "narges",
+        "nafas",
+        "nika",
+        "nikan",
+        "niko",
+        "nima",
+        "navid",
+        // و
+        "varsa",
+        "vala",
+        "vihane",
+        // ه
+        "hamta",
+        "hamdam",
+        // ی
+        "yas",
+        "yasmin",
+        "yegane",
+        "yalda",
+    ];
 
     const INTERNET_FREE_EMAIL_PROVIDER: &'static [&'static str] = &[
         "mailma.ir",

@@ -104,9 +104,7 @@ impl<T: CoordNum + Dummy<Faker>> Dummy<Faker> for geo_types::Triangle<T> {
             y: step(coord_2.y, 5, rng),
         };
         if coord_2.x < coord_3.x {
-            let tmp = coord_2.x;
-            coord_2.x = coord_3.x;
-            coord_3.x = tmp;
+            std::mem::swap(&mut coord_2.x, &mut coord_3.x);
         }
         geo_types::Triangle::<T>::new(coord_1, coord_2, coord_3)
     }

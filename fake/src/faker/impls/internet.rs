@@ -1,6 +1,8 @@
 use crate::faker::internet::raw::*;
 use crate::faker::lorem::raw::Word;
 use crate::faker::name::raw::FirstName;
+use crate::faker::name::raw::NameAscii;
+use crate::faker::internet::raw::FreeEmailProvider;
 use crate::locales::Data;
 use crate::{Dummy, Fake, Faker};
 use deunicode::AsciiChars;
@@ -45,9 +47,9 @@ impl<L: Data + Copy> Dummy<FreeEmail<L>> for String {
 
 impl<L: Data + Copy> Dummy<SafeEmail<L>> for String {
     fn dummy_with_rng<R: RngExt + ?Sized>(c: &SafeEmail<L>, rng: &mut R) -> Self {
-        let username: String = FirstName(c.0).fake_with_rng::<&str, _>(rng).to_lowercase();
-        let domain = ["com", "net", "org"].choose(rng).unwrap();
-        format!("{username}@example.{domain}")
+        let username: String = NameAscii(c.0).fake_with_rng::<&str, _>(rng).to_lowercase();
+        // let mail = FreeEmailProvider(c.0).fake_with_rng::<&str, _>(rng).to_string();
+        format!("{username}@example.com")
     }
 }
 

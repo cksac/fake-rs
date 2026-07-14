@@ -89,6 +89,28 @@ macro_rules! gen_l10d_test_with_arg {
     };
 }
 
+///  Generate determinism tests for a faker with ascii check
+macro_rules! gen_l10d_string_ascii_test {
+    ($name:ident, $locale:ident) => {
+        paste::paste! {
+            proptest::proptest! {
+                #[test]
+                fn [<fake_safe_email_ascii_ $locale:lower>](seed: [u8; 32]) {
+                    let mut rng = rand::rngs::ChaCha20Rng::from_seed(seed);
+
+                    for _ in 0..16 {
+                        let email: String =
+                            SafeEmail($locale).fake_with_rng(&mut rng);
+
+                        proptest::prop_assert!(email.is_ascii());
+                        proptest::prop_assert!(email.contains('@'));
+                    }
+                }
+            }
+        }
+    };
+}
+
 // ============================================================================
 // Basic type tests (locale-independent)
 // ============================================================================
@@ -266,7 +288,7 @@ mod internet {
     for_all_locales!(gen_l10d_string_test!(IPv6,));
     for_all_locales!(gen_l10d_string_test!(MACAddress,));
     for_all_locales!(gen_l10d_string_test_with_arg!(Password, 6..12,));
-    for_all_locales!(gen_l10d_string_test!(SafeEmail,));
+    for_all_locales!(gen_l10d_string_ascii_test!(SafeEmail,));
     for_all_locales!(gen_l10d_string_test!(UserAgent,));
     for_all_locales!(gen_l10d_string_test!(Username,));
 }

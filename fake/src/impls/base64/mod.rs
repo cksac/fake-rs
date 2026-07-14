@@ -15,12 +15,11 @@ impl Dummy<Base64> for String {
     fn dummy_with_rng<R: rand::RngExt + ?Sized>(_: &Base64, rng: &mut R) -> Self {
         let data: Vec<u8> = Faker.fake_with_rng(rng);
         let padding = Faker.fake_with_rng(rng);
-        let encoded = if padding {
+        if padding {
             BASE64_STANDARD.encode(&data)
         } else {
             BASE64_STANDARD_NO_PAD.encode(&data)
-        };
-        encoded
+        }
     }
 }
 
@@ -28,12 +27,11 @@ impl Dummy<UrlSafeBase64> for String {
     fn dummy_with_rng<R: rand::RngExt + ?Sized>(_: &UrlSafeBase64, rng: &mut R) -> Self {
         let data: Vec<u8> = Faker.fake_with_rng(rng);
         let padding = Faker.fake_with_rng(rng);
-        let encoded = if padding {
+        if padding {
             BASE64_URL_SAFE.encode(&data)
         } else {
             BASE64_URL_SAFE_NO_PAD.encode(&data)
-        };
-        encoded
+        }
     }
 }
 

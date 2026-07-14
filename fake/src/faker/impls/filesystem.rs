@@ -1938,8 +1938,8 @@ impl<L: Data> Dummy<SemverStable<L>> for String {
         let patch = &mut (0..20).fake_with_rng::<u8, _>(rng).to_string();
         format!(
             "{}.{}.{}",
-            &(0..9).fake_with_rng::<u8, _>(rng).to_string(),
-            &(0..20).fake_with_rng::<u8, _>(rng).to_string(),
+            (0..9).fake_with_rng::<u8, _>(rng),
+            (0..20).fake_with_rng::<u8, _>(rng),
             patch
         )
     }
@@ -1951,12 +1951,12 @@ impl<L: Data> Dummy<SemverUnstable<L>> for String {
         patch.push_str(&format!(
             "-{}.{}",
             *UNSTABLE_SEMVER.choose(rng).unwrap(),
-            &(0..9).fake_with_rng::<u8, _>(rng).to_string()
+            (0..9).fake_with_rng::<u8, _>(rng)
         ));
         format!(
             "{}.{}.{}",
-            &(0..9).fake_with_rng::<u8, _>(rng).to_string(),
-            &(0..20).fake_with_rng::<u8, _>(rng).to_string(),
+            (0..9).fake_with_rng::<u8, _>(rng),
+            (0..20).fake_with_rng::<u8, _>(rng),
             patch
         )
     }

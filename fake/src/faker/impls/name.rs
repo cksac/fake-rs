@@ -10,6 +10,12 @@ impl<L: Data> Dummy<FirstName<L>> for String {
         s.into()
     }
 }
+impl<L: Data> Dummy<NameAscii<L>> for &str {
+    fn dummy_with_rng<R: RngExt + ?Sized>(_: &NameAscii<L>, rng: &mut R) -> Self {
+        let s = *L::NAME_ASCII.choose(rng).unwrap();
+        s
+    }
+}
 
 impl<L: Data> Dummy<FirstName<L>> for &str {
     fn dummy_with_rng<R: RngExt + ?Sized>(_: &FirstName<L>, rng: &mut R) -> Self {

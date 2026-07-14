@@ -261,6 +261,7 @@ pub mod name {
         Suffix();
         Name();
         NameWithTitle();
+        NameAscii();
     }
 }
 
