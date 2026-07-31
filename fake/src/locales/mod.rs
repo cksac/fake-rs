@@ -309,4 +309,3 @@ pub use self::bn_bd::BN_BD;
 
 mod vi;
 pub use self::vi::VI;
-

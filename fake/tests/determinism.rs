@@ -50,6 +50,7 @@ macro_rules! for_all_locales {
         $macro_name!($($args)* TR_TR);
         $macro_name!($($args)* FA_IR);
         $macro_name!($($args)* BN_BD);
+        $macro_name!($($args)* VI);
     };
 }
 
