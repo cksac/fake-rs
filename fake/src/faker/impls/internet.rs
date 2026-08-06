@@ -1,8 +1,8 @@
+use crate::faker::internet::raw::FreeEmailProvider;
 use crate::faker::internet::raw::*;
 use crate::faker::lorem::raw::Word;
 use crate::faker::name::raw::FirstName;
 use crate::faker::name::raw::NameAscii;
-use crate::faker::internet::raw::FreeEmailProvider;
 use crate::locales::Data;
 use crate::{Dummy, Fake, Faker};
 use deunicode::AsciiChars;
