@@ -306,3 +306,6 @@ pub use self::fa_ir::FA_IR;
 
 mod bn_bd;
 pub use self::bn_bd::BN_BD;
+
+mod vi;
+pub use self::vi::VI;
