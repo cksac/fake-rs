@@ -24,7 +24,7 @@
 //! let uuid: String = UUIDv7.fake();
 //! ```
 
-use uuid::{Builder, Uuid, Variant, Version};
+use uuid::{Builder, NonNilUuid, Uuid, Variant, Version};
 
 use crate::{Dummy, Fake, Faker};
 
@@ -53,6 +53,13 @@ impl Dummy<UUIDv1> for Uuid {
     }
 }
 
+impl Dummy<UUIDv1> for NonNilUuid {
+    fn dummy_with_rng<R: rand::prelude::RngExt + ?Sized>(config: &UUIDv1, rng: &mut R) -> Self {
+        Self::new(Uuid::dummy_with_rng(config, rng))
+            .expect("always non-nil due to the format of the UUID byte string")
+    }
+}
+
 impl Dummy<UUIDv1> for String {
     fn dummy_with_rng<R: rand::RngExt + ?Sized>(config: &UUIDv1, rng: &mut R) -> Self {
         Uuid::dummy_with_rng(config, rng).hyphenated().to_string()
@@ -65,6 +72,13 @@ impl Dummy<UUIDv3> for Uuid {
             .with_variant(Variant::RFC4122)
             .with_version(Version::Md5)
             .into_uuid()
+    }
+}
+
+impl Dummy<UUIDv3> for NonNilUuid {
+    fn dummy_with_rng<R: rand::prelude::RngExt + ?Sized>(config: &UUIDv3, rng: &mut R) -> Self {
+        Self::new(Uuid::dummy_with_rng(config, rng))
+            .expect("always non-nil due to the format of the UUID byte string")
     }
 }
 
@@ -83,6 +97,13 @@ impl Dummy<UUIDv4> for Uuid {
     }
 }
 
+impl Dummy<UUIDv4> for NonNilUuid {
+    fn dummy_with_rng<R: rand::prelude::RngExt + ?Sized>(config: &UUIDv4, rng: &mut R) -> Self {
+        Self::new(Uuid::dummy_with_rng(config, rng))
+            .expect("always non-nil due to the format of the UUID byte string")
+    }
+}
+
 impl Dummy<UUIDv4> for String {
     fn dummy_with_rng<R: rand::RngExt + ?Sized>(config: &UUIDv4, rng: &mut R) -> Self {
         Uuid::dummy_with_rng(config, rng).hyphenated().to_string()
@@ -95,6 +116,13 @@ impl Dummy<UUIDv5> for Uuid {
             .with_variant(Variant::RFC4122)
             .with_version(Version::Sha1)
             .into_uuid()
+    }
+}
+
+impl Dummy<UUIDv5> for NonNilUuid {
+    fn dummy_with_rng<R: rand::prelude::RngExt + ?Sized>(config: &UUIDv5, rng: &mut R) -> Self {
+        Self::new(Uuid::dummy_with_rng(config, rng))
+            .expect("always non-nil due to the format of the UUID byte string")
     }
 }
 
@@ -114,6 +142,13 @@ impl Dummy<UUIDv6> for Uuid {
     }
 }
 
+impl Dummy<UUIDv6> for NonNilUuid {
+    fn dummy_with_rng<R: rand::prelude::RngExt + ?Sized>(config: &UUIDv6, rng: &mut R) -> Self {
+        Self::new(Uuid::dummy_with_rng(config, rng))
+            .expect("always non-nil due to the format of the UUID byte string")
+    }
+}
+
 impl Dummy<UUIDv6> for String {
     fn dummy_with_rng<R: rand::RngExt + ?Sized>(config: &UUIDv6, rng: &mut R) -> Self {
         Uuid::dummy_with_rng(config, rng).hyphenated().to_string()
@@ -126,6 +161,13 @@ impl Dummy<UUIDv7> for Uuid {
         let counter = Faker.fake_with_rng(rng);
         let ts = uuid::timestamp::Timestamp::from_gregorian(ticks, counter);
         Uuid::new_v7(ts)
+    }
+}
+
+impl Dummy<UUIDv7> for NonNilUuid {
+    fn dummy_with_rng<R: rand::prelude::RngExt + ?Sized>(config: &UUIDv7, rng: &mut R) -> Self {
+        Self::new(Uuid::dummy_with_rng(config, rng))
+            .expect("always non-nil due to the format of the UUID byte string")
     }
 }
 
@@ -142,6 +184,13 @@ impl Dummy<UUIDv8> for Uuid {
     }
 }
 
+impl Dummy<UUIDv8> for NonNilUuid {
+    fn dummy_with_rng<R: rand::prelude::RngExt + ?Sized>(config: &UUIDv8, rng: &mut R) -> Self {
+        Self::new(Uuid::dummy_with_rng(config, rng))
+            .expect("always non-nil due to the format of the UUID byte string")
+    }
+}
+
 impl Dummy<UUIDv8> for String {
     fn dummy_with_rng<R: rand::RngExt + ?Sized>(config: &UUIDv8, rng: &mut R) -> Self {
         Uuid::dummy_with_rng(config, rng).hyphenated().to_string()
@@ -151,5 +200,13 @@ impl Dummy<UUIDv8> for String {
 impl Dummy<Faker> for Uuid {
     fn dummy_with_rng<R: rand::RngExt + ?Sized>(_: &Faker, rng: &mut R) -> Self {
         Uuid::from_u128(rng.random())
+    }
+}
+
+impl Dummy<Faker> for NonNilUuid {
+    fn dummy_with_rng<R: rand::prelude::RngExt + ?Sized>(_: &Faker, rng: &mut R) -> Self {
+        let mut value: u128 = rng.random();
+        value |= 1; // could be 0 (nil UUID), so we unconditionally set the first bit to 1
+        Self::new(Uuid::from_u128(value)).expect("value is never 0")
     }
 }

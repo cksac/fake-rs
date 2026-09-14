@@ -589,7 +589,7 @@ fn ferroid_faker() {
 #[cfg(feature = "uuid")]
 fn uuid_faker() {
     use fake::uuid::*;
-    use uuid::Uuid;
+    use uuid::{NonNilUuid, Uuid};
 
     let val: Uuid = UUIDv1.fake();
     println!("{} (v1)", val);
@@ -599,6 +599,9 @@ fn uuid_faker() {
 
     let val: Uuid = UUIDv4.fake();
     println!("{} (v4)", val);
+
+    let val: NonNilUuid = UUIDv4.fake();
+    println!("{} (v4 non-nil)", val);
 
     let val: Uuid = UUIDv5.fake();
     println!("{} (v5)", val);

@@ -628,6 +628,13 @@ mod uuid_tests {
     determinism_test!(fake_uuid_v3, uuid::Uuid, UUIDv3);
     determinism_test!(fake_uuid_v4, uuid::Uuid, UUIDv4);
     determinism_test!(fake_uuid_v5, uuid::Uuid, UUIDv5);
+    determinism_test!(fake_non_nil_uuid_v1, uuid::NonNilUuid, UUIDv1);
+    determinism_test!(fake_non_nil_uuid_v3, uuid::NonNilUuid, UUIDv3);
+    determinism_test!(fake_non_nil_uuid_v4, uuid::NonNilUuid, UUIDv4);
+    determinism_test!(fake_non_nil_uuid_v5, uuid::NonNilUuid, UUIDv5);
+    determinism_test!(fake_non_nil_uuid_v6, uuid::NonNilUuid, UUIDv6);
+    determinism_test!(fake_non_nil_uuid_v8, uuid::NonNilUuid, UUIDv8);
+    determinism_test!(fake_non_nil_uuid_fake, uuid::NonNilUuid, Faker);
 }
 
 // Geo
