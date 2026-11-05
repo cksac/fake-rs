@@ -237,7 +237,7 @@ impl<L: Data> Dummy<Latitude<L>> for f64 {
 impl<L: Data> Dummy<Latitude<L>> for f32 {
     #[inline]
     fn dummy_with_rng<R: RngExt + ?Sized>(_: &Latitude<L>, rng: &mut R) -> Self {
-        Faker.fake_with_rng::<f32, _>(rng) * 360_f32 - 90_f32
+        Faker.fake_with_rng::<f32, _>(rng) * 180_f32 - 90_f32
     }
 }
 
@@ -251,14 +251,14 @@ impl<L: Data> Dummy<Latitude<L>> for String {
 impl<L: Data> Dummy<Longitude<L>> for f64 {
     #[inline]
     fn dummy_with_rng<R: RngExt + ?Sized>(_: &Longitude<L>, rng: &mut R) -> Self {
-        Faker.fake_with_rng::<f64, _>(rng) * 360_f64 - 90_f64
+        Faker.fake_with_rng::<f64, _>(rng) * 360_f64 - 180_f64
     }
 }
 
 impl<L: Data> Dummy<Longitude<L>> for f32 {
     #[inline]
     fn dummy_with_rng<R: RngExt + ?Sized>(_: &Longitude<L>, rng: &mut R) -> Self {
-        Faker.fake_with_rng::<f32, _>(rng) * 360_f32 - 90_f32
+        Faker.fake_with_rng::<f32, _>(rng) * 360_f32 - 180_f32
     }
 }
 
@@ -276,5 +276,61 @@ impl<L: Data> Dummy<Geohash<L>> for String {
             .sample(rng, g.1 as usize)
             .cloned()
             .collect()
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use crate::locales::EN;
+    use rand::rngs::StdRng;
+    use rand::SeedableRng;
+
+    const SAMPLES: usize = 10_000;
+
+    #[test]
+    fn latitude_f64_is_within_range() {
+        let rng = &mut StdRng::seed_from_u64(42);
+        for _ in 0..SAMPLES {
+            let latitude: f64 = Latitude(EN).fake_with_rng(rng);
+            assert!((-90.0..=90.0).contains(&latitude), "{latitude}");
+        }
+    }
+
+    #[test]
+    fn latitude_f32_is_within_range() {
+        let rng = &mut StdRng::seed_from_u64(42);
+        for _ in 0..SAMPLES {
+            let latitude: f32 = Latitude(EN).fake_with_rng(rng);
+            assert!((-90.0..=90.0).contains(&latitude), "{latitude}");
+        }
+    }
+
+    #[test]
+    fn longitude_f64_is_within_range() {
+        let rng = &mut StdRng::seed_from_u64(42);
+        for _ in 0..SAMPLES {
+            let longitude: f64 = Longitude(EN).fake_with_rng(rng);
+            assert!((-180.0..=180.0).contains(&longitude), "{longitude}");
+        }
+    }
+
+    #[test]
+    fn longitude_f32_is_within_range() {
+        let rng = &mut StdRng::seed_from_u64(42);
+        for _ in 0..SAMPLES {
+            let longitude: f32 = Longitude(EN).fake_with_rng(rng);
+            assert!((-180.0..=180.0).contains(&longitude), "{longitude}");
+        }
+    }
+
+    #[test]
+    fn longitude_string_is_within_range() {
+        let rng = &mut StdRng::seed_from_u64(42);
+        for _ in 0..SAMPLES {
+            let longitude: String = Longitude(EN).fake_with_rng(rng);
+            let longitude: f32 = longitude.parse().unwrap();
+            assert!((-180.0..=180.0).contains(&longitude), "{longitude}");
+        }
     }
 }
