@@ -307,6 +307,16 @@ mod tests {
     }
 
     #[test]
+    fn latitude_string_is_within_range() {
+        let rng = &mut StdRng::seed_from_u64(42);
+        for _ in 0..SAMPLES {
+            let latitude: String = Latitude(EN).fake_with_rng(rng);
+            let latitude: f64 = latitude.parse().unwrap();
+            assert!((-90.0..=90.0).contains(&latitude), "{latitude}");
+        }
+    }
+
+    #[test]
     fn longitude_f64_is_within_range() {
         let rng = &mut StdRng::seed_from_u64(42);
         for _ in 0..SAMPLES {
