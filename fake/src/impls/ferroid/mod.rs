@@ -1,7 +1,7 @@
 //! Fake _ferroid_ generation.
 
 use ferroid::{
-    base32::{Base32SnowExt, Base32UlidExt},
+    base32::Base32Ext,
     id::{SnowflakeDiscordId, SnowflakeInstagramId, SnowflakeMastodonId, SnowflakeTwitterId, ULID},
 };
 
@@ -30,7 +30,7 @@ impl Dummy<FerroidULID> for ULID {
 }
 impl Dummy<FerroidULID> for String {
     fn dummy_with_rng<R: rand::RngExt + ?Sized>(config: &FerroidULID, rng: &mut R) -> Self {
-        ULID::dummy_with_rng(config, rng).encode().to_string()
+        ULID::dummy_with_rng(config, rng).encode().as_string()
     }
 }
 
@@ -55,7 +55,7 @@ impl Dummy<FerroidTwitterId> for String {
     fn dummy_with_rng<R: rand::RngExt + ?Sized>(config: &FerroidTwitterId, rng: &mut R) -> Self {
         SnowflakeTwitterId::dummy_with_rng(config, rng)
             .encode()
-            .to_string()
+            .as_string()
     }
 }
 
@@ -80,7 +80,7 @@ impl Dummy<FerroidDiscordId> for String {
     fn dummy_with_rng<R: rand::RngExt + ?Sized>(config: &FerroidDiscordId, rng: &mut R) -> Self {
         SnowflakeDiscordId::dummy_with_rng(config, rng)
             .encode()
-            .to_string()
+            .as_string()
     }
 }
 
@@ -105,7 +105,7 @@ impl Dummy<FerroidMastodonId> for String {
     fn dummy_with_rng<R: rand::RngExt + ?Sized>(config: &FerroidMastodonId, rng: &mut R) -> Self {
         SnowflakeMastodonId::dummy_with_rng(config, rng)
             .encode()
-            .to_string()
+            .as_string()
     }
 }
 
@@ -130,6 +130,6 @@ impl Dummy<FerroidInstagramId> for String {
     fn dummy_with_rng<R: rand::RngExt + ?Sized>(config: &FerroidInstagramId, rng: &mut R) -> Self {
         SnowflakeInstagramId::dummy_with_rng(config, rng)
             .encode()
-            .to_string()
+            .as_string()
     }
 }
