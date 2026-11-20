@@ -434,9 +434,9 @@ dependencies = [
 
 [[package]]
 name = "ferroid"
-version = "3.1.0"
+version = "3.1.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "8c63948fb5874d42ea7562d7051437eb22260fccbb502e27a3688cfdae3b9b54"
+checksum = "b597ae9512a7f3f2090ee1093de133ae1e4fd3c91911d6d18572a89eb4e8034b"
 dependencies = [
  "serde",
 ]
