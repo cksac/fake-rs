@@ -1,6 +1,6 @@
 use crate::{Dummy, Fake, Faker};
 use rand::RngExt;
-use time::{Date, Duration, OffsetDateTime, PrimitiveDateTime, Time, UtcOffset};
+use time::{Date, Duration, OffsetDateTime, PrimitiveDateTime, Time, UtcDateTime, UtcOffset};
 
 const YEAR_MAG: i32 = 3_000i32;
 
@@ -63,6 +63,14 @@ impl Dummy<Faker> for PrimitiveDateTime {
     }
 }
 
+impl Dummy<Faker> for UtcDateTime {
+    fn dummy_with_rng<R: RngExt + ?Sized>(_: &Faker, rng: &mut R) -> Self {
+        let date = Faker.fake_with_rng(rng);
+        let time = Faker.fake_with_rng(rng);
+        UtcDateTime::new(date, time)
+    }
+}
+
 pub struct Precision<const N: usize>;
 
 trait AllowedPrecision {
@@ -117,5 +125,16 @@ where
         let time: OffsetDateTime = Faker.fake_with_rng(rng);
         time.replace_nanosecond(Precision::<N>::to_scale(time.nanosecond()))
             .expect("failed to create time")
+    }
+}
+
+impl<const N: usize> Dummy<Precision<N>> for UtcDateTime
+where
+    Precision<N>: AllowedPrecision,
+{
+    fn dummy_with_rng<R: RngExt + ?Sized>(_: &Precision<N>, rng: &mut R) -> Self {
+        let date = Faker.fake_with_rng(rng);
+        let time = Precision::<N>.fake_with_rng(rng);
+        UtcDateTime::new(date, time)
     }
 }
