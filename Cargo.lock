@@ -434,12 +434,11 @@ dependencies = [
 
 [[package]]
 name = "ferroid"
-version = "1.0.2"
+version = "3.1.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "2095af3b5796b3a53c094a5921208786bf1be060a933e3356109046d395f0cd0"
+checksum = "b597ae9512a7f3f2090ee1093de133ae1e4fd3c91911d6d18572a89eb4e8034b"
 dependencies = [
- "portable-atomic",
- "web-time",
+ "serde",
 ]
 
 [[package]]
@@ -872,12 +871,6 @@ checksum = "06005508882fb681fd97892ecff4b7fd0fee13ef1aa569f8695dae7ab9099981"
 dependencies = [
  "siphasher",
 ]
-
-[[package]]
-name = "portable-atomic"
-version = "1.13.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "c33a9471896f1c69cecef8d20cbe2f7accd12527ce60845ff44c153bb2a21b49"
 
 [[package]]
 name = "potential_utf"
