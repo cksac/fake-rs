@@ -415,6 +415,35 @@ CurrencySymbol();
 CreditCardNumber();
 ```
 
+## Entity (associated identity)
+
+```rust
+// faker::entity::raw::Entity(locale) -> a Person with cross-referenced fields:
+// name, ascii_name, email (derived from the person's own name), phone,
+// city, province, postal code, age, date of birth, Chinese national ID
+// (valid GB 11643-1999 checksum, birth segment matches the date of birth)
+// and a Luhn-valid bank card number.
+// faker::entity::raw::EntityWithBirthYear(locale, year_range) constrains the
+// birth-year window (default 1955..=2010).
+// Person::from_rng(&mut rng, locale) builds one Person from an existing Rng.
+//
+// use fake::faker::entity::raw::Entity;
+// use fake::faker::impls::entity::Person;
+// let p: Person = Entity::fake_with_rng(&mut rng, fake::locales::EN);
+```
+
+## Chinese Identity (CN identity documents)
+
+```rust
+// faker::cn_identity::raw::IdentityCardNumber() -> 18-char national ID with
+// a valid GB 11643-1999 checksum and a real region prefix + birth date.
+// faker::cn_identity::raw::BankCardNumber(len) -> Luhn-valid bank card number
+// (len = 16..=19).
+//
+// use fake::faker::cn_identity::raw::IdentityCardNumber;
+// let id: String = IdentityCardNumber().fake();
+```
+
 ## Address
 
 ```rust

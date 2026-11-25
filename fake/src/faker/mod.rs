@@ -179,6 +179,21 @@ pub mod creditcard {
     }
 }
 
+
+pub mod cn_identity {
+    def_fakers! {
+        IdentityCardNumber();
+        BankCardNumber(len: usize);
+    }
+}
+
+pub mod entity {
+    def_fakers! {
+        Entity();
+        EntityWithBirthYear(r: std::ops::RangeInclusive<u32>);
+    }
+}
+
 pub mod company {
     def_fakers! {
         CompanySuffix();
